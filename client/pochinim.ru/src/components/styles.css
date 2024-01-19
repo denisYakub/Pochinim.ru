@@ -1,0 +1,29 @@
+.nav{
+    background-color: #333;
+    color: azure;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ul{
+    display: flex;
+    list-style: none;
+}
+
+.b{
+    background-color: bisque;
+    display: flex;
+    gap: 1rem;
+}
+
+.LogIn_form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.NavMain{
+    color: aqua;
+}
