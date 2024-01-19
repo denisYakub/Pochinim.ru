@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 export default class Account extends Component{
 
+    #Login
+
     constructor(login){
         super(login);
+        this.#Login = login;
         this.state = {
             js: []
         }
@@ -12,7 +15,7 @@ export default class Account extends Component{
 
     #getAccount = async () => {
         try {
-            const response = await fetch("http://localhost:4000/getAllAccounts");
+            const response = await fetch(`http://localhost:4000/search/:${this.#Login}`);
             const jsonData = await response.json();
 
             
