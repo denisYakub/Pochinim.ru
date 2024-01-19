@@ -8,6 +8,7 @@ const ListOfTopics = () => {
     const navigate = useNavigate();
     
     return (<form>Search Page
+            <h1><Account    /></h1>
         </form>)
 };
 
