@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import Account from "./Classes/Account";
+import Account from "./Profiles/Account";
 
 const ListOfTopics = () => {
 

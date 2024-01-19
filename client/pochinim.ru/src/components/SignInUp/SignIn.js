@@ -1,24 +1,35 @@
 import { Fragment, useState } from "react";
 import React from "react";
-import Register from "./SignUp";
-import axios from "axios";
+import { stringMd5 } from 'react-native-quick-md5';
+import Tokens from "./tokens";
 
 const SignIn = () => {
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    
+    const [email, setEmail] = useState("");
+
     const onSubmit = async e => {
         e.preventDefault();
         try {
-            const body = {"account_name": login, "account_password": password}
+
+            const hashPassword = await stringMd5(password)
+            const tokens = Tokens.generateToken(login);
+
+            const body = {"account_name": login, "account_password": hashPassword}
             const response = await fetch("http://localhost:4000/createAccount",{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
             })
-            localStorage.setItem('account', login);
-            window.location = "/"
+            const a = await response.json();
+            const b = await tokens.refreshToken;
+            
+            const tok = await Tokens.saveToken(Object.values(a), b);
+
+            //localStorage.setItem('account', login);
+            //window.location = "/"
+
         } catch (error) {
             console.error(error);
         }
@@ -37,6 +48,11 @@ const SignIn = () => {
         <h1> 
             <input type="text" value={password} onChange={e => setPassword(e.target.value)}>
                    
+            </input>
+        </h1>
+        <h1> 
+            <input type="text" value={email} onChange={e => setEmail(e.target.value)}>
+                    
             </input>
         </h1>
         <h1> 
