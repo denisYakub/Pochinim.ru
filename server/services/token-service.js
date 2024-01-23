@@ -71,9 +71,9 @@ class TokenService{
     }
 
     async findToken(token){
-        const tokenData = await pool.query(`SELECT * FROM accounts_tokens WHERE token = '${token}'`);
-
-        return tokenData.rows[0];
+        const tokenData = await pool.query(`SELECT COUNT(*) FROM accounts_tokens WHERE token = '${token}'`);
+        
+        return tokenData.rows[0].count;
     }
 
 }

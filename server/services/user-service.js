@@ -73,19 +73,23 @@ class UserService{
         const userData = TokenService.validateRefreshToken(refreshToken);
         const tokenFromBD = await TokenService.findToken(refreshToken);
 
-        if(!userData || !tokenFromBD){
+        if(!userData){
+            throw ApiError.UnAuthorizedError();
+        }
+
+        if(!tokenFromBD){
             throw ApiError.UnAuthorizedError();
         }
 
         const account_id = await pool.query(`SELECT id_account FROM accounts_tokens WHERE token = '${refreshToken}'`);
-        const login = await pool.query(`SELECT account_name FROM accounts WHERE id_account = '${(account_id.rows[0].id_account)}'`);
+        const login = await pool.query(`SELECT account_name FROM accounts WHERE id_account = '${account_id.rows[0].id_account}'`);
 
         const tokens = await TokenService.generateToken(login.rows[0].account_name);
 
         await TokenService.saveToken(account_id.rows[0].id_account, (await tokens.refreshToken));
 
         const account_id_on_return = account_id.rows[0].id_account;
-        const account_name_on_return = ogin.rows[0].account_name;
+        const account_name_on_return = login.rows[0].account_name;
 
         return {
             "refreshToken": (await tokens.refreshToken), 

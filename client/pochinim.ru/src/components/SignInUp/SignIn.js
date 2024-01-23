@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import React from "react";
+import User from "../../models/USER-model";
 
 const SignIn = () => {
 
@@ -10,7 +11,9 @@ const SignIn = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
+            const user = new User();
             
+            user.logIn(login, password);
         } catch (error) {
             console.error(error);
         }
@@ -29,11 +32,6 @@ const SignIn = () => {
         <h1> 
             <input type="text" value={password} onChange={e => setPassword(e.target.value)}>
                    
-            </input>
-        </h1>
-        <h1> 
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)}>
-                    
             </input>
         </h1>
         <h1> 
