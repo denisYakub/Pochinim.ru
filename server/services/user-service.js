@@ -70,12 +70,15 @@ class UserService{
             throw ApiError.UnAuthorizedError();
         }
 
-        const userData = TokenService.validateRefreshToken(refreshToken);
-        const tokenFromBD = await TokenService.findToken(refreshToken);
+        const secretKeyRefresh = crypto.SHA256(process.env.JWT_REFRESH_SECRET);
+        jose.jwtVerify(refreshToken, Uint8Array.of(secretKeyRefresh.words))
+        .catch((err) => {
 
-        if(!userData){
-            throw ApiError.UnAuthorizedError();
-        }
+            if(err.code == 'ERR_JWT_EXPIRED'){
+                throw ApiError.UnAuthorizedError('jwtVerify');
+            }
+        });
+        const tokenFromBD = await TokenService.findToken(refreshToken);
 
         if(!tokenFromBD){
             throw ApiError.UnAuthorizedError();

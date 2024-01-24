@@ -4,10 +4,7 @@ const {body} = require('express-validator');
 const authMiddleware = require('../middleware/auth-middleware');
 const router = new Router();
 
-router.post('/registration',
-            body('email').isEmail(),
-            body('password').isLength({min: 8, max: 15}),
-            userController.registration);
+router.post('/registration', userController.registration);
 router.post('/logIn', userController.logIn);
 router.post('/logOut', userController.logOut);
 router.get('/activate/', userController.activate);

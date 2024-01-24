@@ -8,8 +8,7 @@ const UserService = require('./services/user-service');
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-app.use(cors({origin: ["http://localhost:3000", "http://127.0.0.1:3000"]
-                        , credentials: true, sameSite: 'none'}));
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 app.use(express.json()); 
 app.use('/api', router);
 app.use(cookieParser());

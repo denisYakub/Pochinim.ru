@@ -1,12 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
 
     const navigate = useNavigate();
     
+
     return (<form>
         <nav className="nav">
-        <a className='NavMain' href='/'>My app</a>
+        <button onClick={() => navigate("/")}>My app</button>
         <h1>
             <input></input>
             <button onClick={()=> navigate("/search")}>search</button>

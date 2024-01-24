@@ -1,6 +1,7 @@
 const pool = require('../database');
 const jose = require('jose')
 const crypto = require('crypto-js')
+const ApiError = require("../exeptions/api-error");
 
 class TokenService{
     async generateToken(payload){
@@ -11,7 +12,7 @@ class TokenService{
         const accessToken = new jose.SignJWT({id: payload})
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
-        .setExpirationTime('30m')
+        .setExpirationTime('30s')
         .sign(Uint8Array.of(secretKeyAccess.words));
 
         const refreshToken = new jose.SignJWT({id: payload})
@@ -48,27 +49,36 @@ class TokenService{
         return tokenData;
     }
 
-    validateAccessToken(token){
+    /*validateAccessToken(token){
+        let data = {data: " "};
+        
         try {
             const secretKeyAccess = crypto.SHA256(process.env.JWT_ACCESS_SECRET);
-            const userData = jose.jwtVerify(token, Uint8Array.of(secretKeyAccess.words));
-
-            return userData;
-        } catch (e) {
+            jose.jwtVerify(token, Uint8Array.of(secretKeyAccess.words))
+            .catch((err) => {
+                console.log(err.code);
+                data = err.code;
+           });
+            return data;
+        } catch (error) {
             return null;
         }
-    }
+    }*/
 
-    validateRefreshToken(token){
+    /*validateRefreshToken(token){
         try {
             const secretKeyRefresh = crypto.SHA256(process.env.JWT_REFRESH_SECRET);
-            const userData = jose.jwtVerify(token, Uint8Array.of(secretKeyRefresh.words));
-
-            return userData;
+            let data = " "
+            jose.jwtVerify(token, Uint8Array.of(secretKeyRefresh.words))
+            .catch((err) => {
+                console.log(err);
+            });
+            
+            return data;
         } catch (e) {
             return null;
         }
-    }
+    }*/
 
     async findToken(token){
         const tokenData = await pool.query(`SELECT COUNT(*) FROM accounts_tokens WHERE token = '${token}'`);
