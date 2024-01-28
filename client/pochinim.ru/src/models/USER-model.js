@@ -1,7 +1,29 @@
+import {makeAutoObservable} from "mobx"
 export default class User{
-    #SERVER_LOCATION="http://localhost:4000/api";
+    SERVER_LOCATION="http://localhost:4000/api";
 
-    async registrate(login, email, photo, password){
+    login;
+    email;
+    photo;
+    isAuth;
+
+    constructor(){
+        makeAutoObservable(this);
+    }
+
+    setAuth(bool){
+        this.isAuth = bool;
+    }
+
+    setEmail(email){
+        this.email = email;
+    }
+
+    setLogin(login){
+        this.login = login;
+    }
+
+    async registrate(login, email, password){
         try {
             const body = {"login": login, "password": password, "email": email};
             const data = await fetch("http://localhost:4000/api/registration",{
@@ -14,6 +36,9 @@ export default class User{
             })
             const bot = await data.json();
             localStorage.setItem('token', bot.accessToken)
+
+            console.log(bot);
+
             return bot;
         } catch (error) {
             console.log("Error in registration:", error);
@@ -59,10 +84,32 @@ export default class User{
                     "Content-Type": "application/json"}, 
             })
             const bot = await data.json();
+
             localStorage.setItem('token', bot.accessToken)
+
             return bot;
         } catch (error) {
             console.log("Error in checkAuth:", error);
+        }
+    }
+
+    async listOfUsers(){
+        try {
+            const data = await fetch("http://localhost:4000/api/users", {
+                credentials: "include",
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            })
+
+            const bot = await data.json();
+            
+            return bot;
+        } catch (error) {
+            console.log("Error in listOfUsers:", error);
         }
     }
 }

@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import SignUp from './components/SignInUp/SignUp';
 import SignIn from './components/SignInUp/SignIn';
 import Navbar from './components/Navigation/NavigationBar';
-import ListOfTopics from './components/SearchPageOfTopics';
+import ListOfTopics from './components/SearchPage/SearchPageOfTopics';
 import MainPage from './components/MainPage/MainpageList';
 
 

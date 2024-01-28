@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
@@ -8,17 +7,14 @@ const Navbar = () => {
 
     return (<form>
         <nav className="nav">
-        <button onClick={() => navigate("/")}>My app</button>
+        <a href='/'>My app</a>
         <h1>
             <input></input>
             <button onClick={()=> navigate("/search")}>search</button>
-            </h1>
+        </h1>
         <ul className="ul">
             <li>
-                <button onClick={()=> navigate("/login")}>login</button>
-            </li>
-            <li>
-                <button onClick={()=> navigate("/regester")}>regester</button>
+                <button onClick={()=> navigate("/login")}>SignIn/SignUp</button>
             </li>
         </ul>
     </nav>

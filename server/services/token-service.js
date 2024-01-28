@@ -12,7 +12,7 @@ class TokenService{
         const accessToken = new jose.SignJWT({id: payload})
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
-        .setExpirationTime('30s')
+        .setExpirationTime('30m')
         .sign(Uint8Array.of(secretKeyAccess.words));
 
         const refreshToken = new jose.SignJWT({id: payload})
@@ -49,36 +49,33 @@ class TokenService{
         return tokenData;
     }
 
-    /*validateAccessToken(token){
-        let data = {data: " "};
-        
-        try {
-            const secretKeyAccess = crypto.SHA256(process.env.JWT_ACCESS_SECRET);
+    async validateAccessToken(token){
+        const secretKeyAccess = crypto.SHA256(process.env.JWT_ACCESS_SECRET);
+        return new Promise((resolve, reject) => {
             jose.jwtVerify(token, Uint8Array.of(secretKeyAccess.words))
-            .catch((err) => {
-                console.log(err.code);
-                data = err.code;
-           });
-            return data;
-        } catch (error) {
-            return null;
-        }
-    }*/
+            .then(claims => {
+                resolve(claims.payload);
+              })
+              .catch(err => {
+                console.log(`could not verify jwt ${err}`);
+                reject('invalid token');
+              })
+        })
+    }
 
-    /*validateRefreshToken(token){
-        try {
-            const secretKeyRefresh = crypto.SHA256(process.env.JWT_REFRESH_SECRET);
-            let data = " "
+    async validateRefreshToken(token){
+        const secretKeyRefresh = crypto.SHA256(process.env.JWT_REFRESH_SECRET);
+        return new Promise((resolve, reject) => {
             jose.jwtVerify(token, Uint8Array.of(secretKeyRefresh.words))
-            .catch((err) => {
-                console.log(err);
-            });
-            
-            return data;
-        } catch (e) {
-            return null;
-        }
-    }*/
+            .then(claims => {
+                resolve(claims.payload);
+              })
+              .catch(err => {
+                console.log(`could not verify jwt ${err}`);
+                reject('invalid token');
+              })
+        })
+    }
 
     async findToken(token){
         const tokenData = await pool.query(`SELECT COUNT(*) FROM accounts_tokens WHERE token = '${token}'`);

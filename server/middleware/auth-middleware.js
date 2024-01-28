@@ -3,7 +3,7 @@ const tokenService = require("../services/token-service");
 const jose = require('jose')
 const crypto = require('crypto-js')
 
-module.exports = function (req, res, next){
+module.exports = async function (req, res, next){
     try {
         const authorizationHeader = req.headers.authorization;
         if(!authorizationHeader){
@@ -14,16 +14,13 @@ module.exports = function (req, res, next){
         if(!accessToken){
             return next(ApiError.UnAuthorizedError("accessToken"));
         }
-        const secretKeyAccess = crypto.SHA256(process.env.JWT_ACCESS_SECRET);
-        jose.jwtVerify(accessToken, Uint8Array.of(secretKeyAccess.words))
-        .catch((err) => {
-
-            if(err.code == 'ERR_JWT_EXPIRED'){
-                return next(ApiError.UnAuthorizedError('jwtVerify'));
-            }
-        });
+        
+        await tokenService.validateAccessToken(accessToken).catch(reas =>{
+            throw next(ApiError.UnAuthorizedError("validateAccessToken"));
+        })
+        
         next();
     } catch (e) {
-        return next(ApiError.UnAuthorizedError());
+        return next(e);
     }
 }

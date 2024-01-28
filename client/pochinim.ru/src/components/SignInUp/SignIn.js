@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import React from "react";
-import User from "../../models/USER-model";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
 
@@ -8,15 +8,18 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
+    const navigate = useNavigate();
+
     const onSubmit = async e => {
-        e.preventDefault();
+        /*e.preventDefault();
         try {
             const user = new User();
             
             user.logIn(login, password);
         } catch (error) {
             console.error(error);
-        }
+        }*/
+        navigate("/", {state:{email: login}})
     }
         
     return (<Fragment>
@@ -37,6 +40,9 @@ const SignIn = () => {
         <h1> 
             <button>
                 submit
+            </button>
+            <button onClick={() => {navigate("/regester")}}>
+                registrate
             </button>
         </h1>
         </form>

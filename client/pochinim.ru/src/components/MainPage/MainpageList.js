@@ -1,24 +1,25 @@
-import { Fragment, useEffect, useState } from "react";
-import User from "../../models/USER-model";
+import { Fragment, useContext, useEffect, useState } from "react";
 import {observer} from "mobx-react-lite"
+import { useLocation } from "react-router-dom";
+import fetchWelcomeWords from "./MainpageFunctions";
 
 const MainPAge = () => {
-    const user = new User();
-    const [isAuth , setAuth] = useState("");
+    const [words , setWords] = useState("");
+    
     useEffect(() => {
-        async function fetchData(){
-            const storeData = localStorage.getItem('token')
-            if(storeData){
-                const data = await user.checkAuth();
-                console.log(data);
-                setAuth(data.login);
-            }
+
+        const fn1 = async () => {
+            const w = await fetchWelcomeWords();
+            setWords(w);
         }
-        fetchData()
+
+        fn1();
+        
     }, [])
     
     return(<Fragment>
-        <h1>Main page {`${isAuth}`}</h1>
+        <h1>Main page</h1>
+        <h2>{`${words}`}</h2>
     </Fragment>);
 }
 
