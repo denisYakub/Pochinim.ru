@@ -17,7 +17,7 @@ const ListOfTopics = () => {
     return (
     <form>Search Page
         <div>
-            {data?.message? "Need to refresh" : data.map(el => 
+            {data?.message || data==null? "Need to refresh" : data.map(el => 
                 <div key={el.id_account}>
                     {el.account_name}
                 </div>

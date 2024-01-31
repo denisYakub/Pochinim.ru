@@ -9,10 +9,10 @@ async function fetchWelcomeWords(){
         const user = new User();
         const ret = await user.checkAuth();
 
-        if(ret.message){
+        if(ret?.message){
             console.log(ret.message);
         }else{
-            return `Welcome, ${ret.login}`;
+            return `Welcome, ${ret?.login}`;
         }
     }
     return "Pls logIn";

@@ -3,6 +3,7 @@ import React from "react";
 import {observer} from "mobx-react-lite"
 import fetchRegistrate from "./SignUpFuncions";
 import { useNavigate } from "react-router-dom";
+import "../SignInUp/Signup.css"
 
 const SignUp = () => {
     const [login, setLogin] = useState("");

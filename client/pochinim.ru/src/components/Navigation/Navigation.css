@@ -10,17 +10,3 @@
     display: flex;
     list-style: none;
 }
-
-.b{
-    background-color: bisque;
-    display: flex;
-    gap: 1rem;
-}
-
-.LogIn_form{
-    display: flex;
-}
-
-.NavMain{
-    color: aqua;
-}

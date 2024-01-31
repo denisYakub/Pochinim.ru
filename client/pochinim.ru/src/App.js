@@ -1,5 +1,4 @@
 import {Fragment} from 'react';
-import "./components/styles.css"
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 import SignUp from './components/SignInUp/SignUp';

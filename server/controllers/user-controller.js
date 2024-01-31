@@ -6,6 +6,8 @@ const UserService = require('../services/user-service');
 const {validationResult, cookie} = require('express-validator')
 const pool = require('../database');
 const TokenService = require('../services/token-service');
+const { sendActivationEmail } = require('../services/email-service');
+const emailService = require('../services/email-service');
 class UserController {
     async registration(req, res, next){
         try {
@@ -84,6 +86,20 @@ class UserController {
             return res.json(users);
         } catch (e) {
             next(e);
+        }
+    }
+
+    async sendActivationMail(req, res, next){
+        try {
+            const {email} = req.body;
+            const code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
+
+            await emailService.sendActivationEmail(email, code)
+
+            return res.json(code);
+
+        } catch (error) {
+            next(error)
         }
     }
 }

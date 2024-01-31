@@ -12,5 +12,6 @@ router.get('/refresh', userController.refresh);
 router.get('/users',
             authMiddleware,
             userController.getUsers);
+router.post('/activateCode', userController.sendActivationMail);
 
 module.exports = router;
