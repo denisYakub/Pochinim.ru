@@ -6,6 +6,7 @@ import SignIn from './components/SignInUp/SignIn';
 import Navbar from './components/Navigation/NavigationBar';
 import ListOfTopics from './components/SearchPage/SearchPageOfTopics';
 import MainPage from './components/MainPage/MainpageList';
+import Footer from './components/Footer/Footer';
 
 
 function App(){
@@ -20,6 +21,7 @@ function App(){
             <Route path='/regester' element={<SignUp  />}/>
             <Route path='/search' element={<ListOfTopics  />}/>
           </Routes>
+          <Footer />
         </BrowserRouter>
       </Fragment>);
 }
