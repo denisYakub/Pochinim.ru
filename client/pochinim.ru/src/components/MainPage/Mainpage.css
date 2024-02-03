@@ -1,0 +1,430 @@
+.mainPage{
+    border-style: solid;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.title{
+    border-style: solid;
+    padding: 40px;
+    width:fit-content;
+    height:fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-text{
+    border-style: solid;
+    color: #212121;
+    font-family: "SF Pro Display";
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.out-search{
+    border-style: solid;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+.inner-search{
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.searchLine{
+    display: flex;
+    flex-direction: row;
+}
+
+.searchInput{
+    width: 650px;
+    height: 30px;
+    border-radius: 77px;
+    background: #E4E3E3;
+    border-color: #E4E3E3;
+}
+
+.searchButton{
+    margin-left: 20px;
+    width: 70px;
+    height: 35px;
+    border-radius: 77px;
+    background: #E4E3E3;
+    border-color: #E4E3E3;
+}
+
+.hints{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+}
+
+.hint{
+    margin-left: 5px;
+    border-radius: 54px;
+    background: #EBEBEB;
+    border-color: #EBEBEB;
+}
+
+.aboutUs{
+    border-style: solid;
+    display: flex;
+    justify-content:space-between;
+}
+
+.left-aboutUs{
+    padding: 40px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    width: 563px;
+    
+}
+
+.buttonMore{
+    margin-left: 40px;
+    margin-top: 40px;
+    width:fit-content;
+    height: 30px;
+    border-radius: 30px;
+}
+
+.mainTextaboutUs{
+    border-style: solid;
+    color: #000;
+    font-family: "SF Pro Display";
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 70.4px */
+}
+
+.states{
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+}
+
+.state-1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.state-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.state-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.aboutService{
+    border-style: solid;
+}
+
+.howTo{
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.steps{
+    margin: 40px;
+    border-style: solid;
+    width: 430px;
+    height: 470px;
+    flex-shrink: 0;
+}
+
+.annotation{
+    border-style: solid;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+}
+
+.wordsOfAnnotation{
+    border-style: solid;
+    width: 307px;
+    margin: 40px;
+    text-align:left;
+    color: #000;
+    font-family: "SF Pro Display";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 52.8px */
+    letter-spacing: -0.48px;
+}
+
+.progressOfAnnotation{
+    margin: 40px;
+    width: 307px;
+
+}
+
+.services{
+    border-style: solid;
+}
+
+.listOfServices{
+    display: flex;
+    flex-direction: column;
+}
+
+.service{
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.mainBranchService{
+    border-style: solid;
+    margin: 40px;
+    display: flex;
+
+}
+
+.subBranchesService{
+    border-style: solid;
+    margin-top: 40px;
+    margin-right: 80px;
+    display: flexbox;
+    width: 500px;
+    padding: 20px;
+}
+
+.listOfBranches{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 42px;
+    margin-right: 5px;
+}
+
+.allservicesHRef{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.reviews{
+    border-style: solid;
+}
+
+.carousel{
+    cursor: grab;
+    overflow: hidden;
+}
+.inner-carousel{
+    display: flex;
+}
+
+.item{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-style: solid;
+    border-radius: 20px;
+    min-width: 432px;
+    min-height: 351px;
+}
+
+.itemsReview{
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between
+}
+
+.itemsReview h1{
+    color: #212121;
+
+    font-family: "SF Pro Display";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%; /* 30.8px */
+}
+
+.itemsReview p{
+    margin-top: -0px;
+    color: rgba(33, 33, 33, 0.50);
+
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 17.6px */
+}
+
+.itemsReview text{
+    color: #212121;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 115%; /* 27.6px */
+}
+
+.itemsMaster{
+    border-style: solid;
+    display: flex;
+}
+
+.photoMaster{
+    width: 77px;
+    height: 77px;
+    border-radius: 38.5px;
+    background-color: #666;
+}
+.aboutMaster{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 5px;
+    gap: 5px;
+    color: rgba(33, 33, 33, 0.50);
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 15.4px */
+}
+
+.forum{
+    display: flex;
+    border-style: solid;
+    justify-content: space-between;
+}
+
+.leftPartOfForum{
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.mainTextOfForum{
+    margin-right: 150px;
+    border-style: solid;
+    color: #212121;
+
+    font-family: "SF Pro Display";
+    font-size: 28px;
+    font-style: normal;
+    max-width: 426px;
+}
+
+.digitalPartOfForum{
+    margin-top: 30px;
+    display: flex;
+}
+
+.wrapper {
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    height: 400px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+}
+
+.card {
+    width: 30px;
+    border-radius: 27px;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2rem;
+    display: flex;
+    align-items: flex-end;
+    transition: .6s cubic-bezier(.28,-0.03,0,.99);
+    box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+}
+
+.card > .row {
+    color: white;
+    margin: 30px;
+}
+.card > .row > .description {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 180px;
+    width: 420px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition-delay: .3s;
+    transition: all .3s ease;
+    margin-bottom: -40px;
+}
+
+.description p {
+    margin-top: -60px;
+    width: 400px;
+    color: rgba(33, 33, 33, 0.50);
+}
+
+.description h4 {
+    color: #212121;
+    font-family: "SF Pro Display";
+    font-size: 44px;
+    text-transform: uppercase;
+}
+
+input[name="slide"] {
+    display: none;
+}
+
+input[name="slide"]:checked + label {
+    width: 400px;
+}
+
+input[name="slide"]:checked + label .description {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.card[for="c1"] {
+    background-image: url('../img/none.png');
+}
+.card[for="c2"] {
+    background-image: url('../img/none.png');
+}
+.card[for="c3"] {
+    background-image: url('../img/none.png');
+}
+.card[for="c4"] {
+    background-image: url('../img/none.png');
+}
+
+.shaker{
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+}
