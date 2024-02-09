@@ -45,6 +45,27 @@ export default class User{
         }
     };
 
+    async checkEmail(email){
+        try {
+            const body = {"email": email};
+
+            const data = await fetch("http://localhost:4000/api/checkEmail",{
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"},
+                credentials: 'include',
+                body: JSON.stringify(body)
+            })
+
+            const bot = await data.json();
+            return bot;
+
+        } catch (error) {
+            console.log("Error in checkEmail:", error);
+        }
+    }
+
     async logIn(login, password){
         try {
             const body = {"login": login, "password": password};

@@ -1,88 +1,54 @@
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
-import {motion, px, useAnimate, useInView} from "framer-motion";
-import none from '../img/none.png'
+import {motion, useAnimate, useInView} from "framer-motion";
+import { getReviews, getHints, getServices } from "../../services/mainPage-services";
 
-const review = {
-  review: {
-    topic: "Чистка ноутбука, замена термопасты",
-    time: "Мастер нашелся за 15 мин",
-    price: "1200 руб, оплата СБР",
-    text: "Первый раз за 8 лет решила почистить ноутбук, в жару он стал сильно греться. Услуга была выполнена быстро и качественно, за 30 минут. Всем очень довольна!:)",
-    date: "5 декабря 2023 г.",
-  },
-   master: {
-      name: "Александр Н.",
-      rate: "Рейтинг мастера: 4.5",
-      stat: "Выполнил: 122 задания ",
-      photo: "defult"
-   }
-  }
-
-  const reviews = [review, review, review, review, review, review, review, review, review, review, review, review];
+const reviews = await getReviews();
   
-  const hints = ["Прорволо трубу", "Сломался кондиционер", "Починить телефон"];
+const hints = await getHints();
 
-  const service = {
-    mainBrunch: {
-        name: "Электроника",
-        numberOfMasters: 1545
-    },
-    subBrunches: ["Ремонт компьютеров", "Ремонт оргтехники", "Ремонт приставок", "Ремонт телефонов", "Ремонт электроники", "+"]
-  }
+const services = await getServices();
 
-  const services = [service, service, service, service, service, service]
+const steps = ["ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ"]
 
 const MainPAge = () => {
 
-    /*const [words , setWords] = useState("");
-    
-    useEffect(() => {
-
-        const fn1 = async () => {
-            const w = await fetchWelcomeWords();
-            setWords(w);
-        }
-
-        fn1();
-        
-    }, [])*/
+    const [widthSteps, setWidthSteps] = useState(0);
+    const carouselSteps = useRef();
 
     const [width, setWidth] = useState(0);
     const carousel = useRef();
 
-    const [expandedIndex, setExpandedIndex] = useState(null);
-
-    const handleCardClick = (index) => {
-        setExpandedIndex(index === expandedIndex ? -1 : index);
-    }
-
-    const cardVariants = {
-        expanded: "400px",
-        collapsed: "200px"
-    }
-
-    const cardImages = [none, none, none, none];
-
-    const cardDescription = ["пользователей находят ответ на свой вопрос на форуме"]
+    const [scope, animate] = useAnimate();
+    const [scope1, animate1] = useAnimate();
+    const [scope2, animate2] = useAnimate();
+    
+    const isInView = useInView(scope);
 
     useEffect(() => {
+        setWidthSteps(carouselSteps.current.scrollWidth-carouselSteps.current.offsetWidth)
         setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    },[])
+        if(isInView){
+            animate(scope.current, { y: 353}, {type: "tween", duration: 3});
+            animate1(scope1.current, { y: 353}, {type: "tween", duration: 4});
+            animate2(scope2.current, { y: 353}, {type: "tween", duration: 5});
+        }
+    },[isInView])
     
     return(<Fragment>
-        <body className="mainPage">
+        <div className="mainPage">
+            <div className="whiteCover">
             <div className="title">
-                <text className="title-text">Повседневная</text>
-                <text className="title-text">практика показывает</text>
-                <text className="title-text">что рамки</text>
-                <text className="title-text">место обучения</text>
+                <a name="title-a1">починим.ру</a>
+                <a className="title-a2">мастера, которым</a>
+                <a className="title-a3">можно доверить</a>
             </div>
             <div className="out-search">
             <div className="inner-search">
                 <div className="searchLine">
-                    <input value={"Услуга или специалист"} className="searchInput">
+                    <input value={"Услуга или специалист"} className="searchInput"
+                    onChange={() => {}}>
 
                     </input>
                     <button className="searchButton">
@@ -105,52 +71,66 @@ const MainPAge = () => {
                     о нас
                 </button>
                 <div className="left-aboutUs">
-                    <text className="mainTextaboutUs">
+                    <a className="mainaaboutUs">
                     “Починим.ру начал свой путь в 2010 году как небольшая стартап-команда, стремящаяся упростить процесс ремонта для людей.” 
-                    </text>
+                    </a>
                     <div className="states">
-                        <div className="state-1">
+                        <div className="state">
                             <h1>
                                 {"<3 часа"}
                             </h1>
-                            <text>
+                            <a>
                             Среднее время нахождения мастера для ремонта
-                            </text>
+                            </a>
                         </div>
-                        <div className="state-2">
+                        <div className="state">
                             <h1>
                             + 7,000
                             </h1>
-                            <text>
+                            <a>
                             успешно завершенных ремонтов
-                            </text>
+                            </a>
                         </div>
-                        <div className="state-3">
+                        <div className="state">
                             <h1>
                             85%
                             </h1>
-                            <text>
+                            <a>
                             клиентов оценили наш сервис на 5 звезд
-                            </text>
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div className="aboutService">
                 <button className="buttonMore">
                 О сервисе
                 </button>
                 <div className="howTo">
-                    <div className="steps">
-
-                    </div>
+                    <motion.div ref={carouselSteps} className="steps" 
+                    whileTap={{cursor: "grabbing"}} >
+                        <motion.div className="inner-steps"
+                        drag='x' 
+                        dragConstraints={{right: 0, left: -widthSteps}}>
+                            {steps.map((item, index)=>{
+                                return(<motion.div 
+                                className="itemStep"
+                                key={index}>
+                                    {index},{item}
+                                </motion.div>);
+                            })}
+                        </motion.div>
+                    </motion.div>
                     <div className="annotation">
-                        <text className="wordsOfAnnotation">
+                        <a className="wordsOfAnnotation">
                         Мастера найти просто, сделай всего несколько кликов!
-                        </text>
-                        <progress className="progressOfAnnotation">
+                        </a>
+                        <div className="containerForProgressOfAnnotation">
+                            <progress className="progressOfAnnotation">
 
-                        </progress>
+                            </progress>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -191,7 +171,7 @@ const MainPAge = () => {
                         dragConstraints={{right: 0, left: -width}} 
                         className="inner-carousel"
                         animate={{x:[0, -width, 0]}}
-                        transition={{type: "tween", duration: 15, repeat: Infinity}}
+                        transition={{type: "tween", duration: 100, repeat: Infinity}}
                         >
                         {reviews.map((item, index) => {
                             return (
@@ -199,16 +179,16 @@ const MainPAge = () => {
                                     <div className="itemsReview">
                                         <h1>{item.review.topic}</h1>
                                         <p>{item.review.time}</p>
-                                        <text>{item.review.price}</text>
-                                        <text>{item.review.text}</text>
+                                        <a>{item.review.price}</a>
+                                        <a>{item.review.a}</a>
                                         <p>{item.review.date}</p>
                                     </div>
                                     <div className="itemsMaster">
                                         <div className="photoMaster"></div>
                                         <div className="aboutMaster">
-                                            <text>{item.master.name}</text>
-                                            <text>{item.master.rate}</text>
-                                            <text>{item.master.stat}</text>
+                                            <a>{item.master.name}</a>
+                                            <a>{item.master.rate}</a>
+                                            <a>{item.master.stat}</a>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -217,63 +197,79 @@ const MainPAge = () => {
                     </motion.div>
                 </motion.div>
             </div>
+            <div className="whiteCoverEnd">
             <div className="forum">
             <button className="buttonMore">
                 Форум
             </button>
-            <div className="leftPartOfForum">
-                <text className="mainTextOfForum">Здесь вы можете общаться с другими пользователями, делиться опытом, задавать вопросы и получать ответы от экспертов.</text>
+            <div className="rightPartOfForum">
+                <a className="mainaOfForum">Здесь вы можете общаться с другими пользователями, делиться опытом, задавать вопросы и получать ответы от экспертов.</a>
             <div className="digitalPartOfForum">
-            <div class="wrapper">
-                    <div class="container">
-                    <input type="radio" name="slide" id="c1"></input>
-                    <label for="c1" class="card">
-                        <div class="row">
-                            <div class="description">
+            <div className="wrapper">
+                    <div className="container">
+                    <input type="radio" name="slide" id="c1" defaultChecked></input>
+                    <label htmlFor="c1" className="card">
+                        <div className="row">
+                            <div className="description">
                                 <h4>68%</h4>
                                 <p>пользователей находят ответ на свой вопрос на форуме</p>
                             </div>
                         </div>
                     </label>
                     <input type="radio" name="slide" id="c2" ></input>
-                    <label for="c2" class="card">
-                        <div class="row">
-                            <div class="description">
+                    <label htmlFor="c2" className="card">
+                        <div className="row">
+                            <div className="description">
                                 <h4>68%</h4>
                                 <p>пользователей находят ответ на свой вопрос на форуме</p>
                             </div>
                         </div>
                     </label>
                     <input type="radio" name="slide" id="c3" ></input>
-                    <label for="c3" class="card">
-                        <div class="row">
-                            <div class="description">
+                    <label htmlFor="c3" className="card">
+                        <div className="row">
+                            <div className="description">
                                 <h4>68%</h4>
                                 <p>пользователей находят ответ на свой вопрос на форуме</p>
                             </div>
                         </div>
                     </label>
                     <input type="radio" name="slide" id="c4" ></input>
-                    <label for="c4" class="card">
-                        <div class="row">
-                            <div class="description">
+                    <label htmlFor="c4" className="card">
+                        <div className="row">
+                            <div className="description">
                                 <h4>68%</h4>
                                 <p>пользователей находят ответ на свой вопрос на форуме</p>
                             </div>
                         </div>
                     </label>
                     </div>
-                </div>     
-                <div className="shaker">
-                            Im shaker
                 </div>
+                <motion.div className="shaker">
+                            <motion.a 
+                                ref={scope}
+                                initial={{x:0, y:0, z:0}}>
+                            Дизайн и оформление
+                            </motion.a>
+                            <motion.a
+                                ref={scope1}
+                                initial={{x:0, y:0, z:0}}>
+                            Бытовая техника
+                            </motion.a>
+                            <motion.a 
+                                ref={scope2}
+                                initial={{x:0, y:0, z:0}}>
+                            Инженерные работы
+                            </motion.a>
+                </motion.div>
             </div>
             </div>
             </div>
             <motion.div className="blog">
 
             </motion.div>
-        </body>
+        </div>
+        </div>
     </Fragment>);
 
 }

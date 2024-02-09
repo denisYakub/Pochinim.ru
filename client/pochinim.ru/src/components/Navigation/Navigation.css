@@ -1,12 +1,72 @@
 .nav{
-    background-color: #333;
-    color: azure;
+    width: 1920px;
+    height: 82px;
+    padding: 0px auto;
+    margin: 0 auto;
+    background-color: #FFF;
+}
+
+.inner-nav{
+    margin-left: 101px;
+    margin-right: 101px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-style: solid;
+    border-color: white white rgba(28, 28, 28, 0.20) white;
 }
 
-.ul{
+.inner-nav select{
+    border-style: none;
+    border-radius: 20px;
+}
+
+.rightPartOfNav{
     display: flex;
-    list-style: none;
+    align-items: center;
+    gap: 50px;
+}
+
+.siteLogo{
+    text-decoration: none;
+    color: #0B4BB0;
+    font-family: Evolventa;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    }
+
+.leftPartOfNav{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    justify-content: space-between;
+}
+
+.leftPartOfNav a{
+    text-decoration: none;
+    color: #212121;
+}
+
+.navInput{
+    display: flex;
+    width: 264px;
+    height: 32px;
+    border-radius: 38px;
+    border-style: solid;
+    border-color: rgba(28, 28, 28, 0.05);
+    background: rgba(28, 28, 28, 0.05);
+    background: url("../img/i.webp") no-repeat left ;
+    background-size: 20px;
+}
+
+.acc{
+    color: #1C1C1C;
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
 }

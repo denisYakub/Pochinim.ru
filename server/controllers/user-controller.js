@@ -28,6 +28,18 @@ class UserController {
         }
     }
 
+    async checkEmail(req, res, next){
+        try {
+            const {email} = req.body;
+            const userData = UserService.checkEmail(email);
+
+            return res.json((await userData));
+
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async logIn(req, res, next){
         try {
             const {login, password} = await req.body;

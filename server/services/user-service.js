@@ -37,6 +37,21 @@ class UserService{
         }
     }
 
+    async checkEmail(email){
+        try {
+            const candidat = await pool.query(`SELECT COUNT(*) FROM accounts WHERE account_email = '${email}'`)
+            
+            if(candidat.rows[0].count == 0){
+                return false;
+            }else{
+                return true;
+            }
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async logIn(login, password){
         try {
             const candidat = await pool.query(`SELECT account_password FROM accounts WHERE account_name = '${login}'`)

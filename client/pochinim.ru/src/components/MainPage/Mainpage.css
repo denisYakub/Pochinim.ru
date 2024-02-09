@@ -1,37 +1,58 @@
 .mainPage{
-    border-style: solid;
-    max-width: 1200px;
+    max-width: 1920px;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 auto;
     margin: 0 auto;
+    background: #2163C9;
+}
+
+.whiteCover{
+    background: #FFF;
+    border-color: #FFF;
+    border-style: solid;
+    border-radius: 0px 0px 40px 40px;
+}
+
+.whiteCoverEnd{
+    background: #FFF;
+    border-color: #FFF;
+    border-style: solid;
+    border-radius: 40px 40px 0px 0px;
 }
 
 .title{
-    border-style: solid;
-    padding: 40px;
-    width:fit-content;
-    height:fit-content;
+    width: 1025px;
+    height: 358px;
     display: flex;
     flex-direction: column;
+
+    margin-top: 74px;
+    margin-left: 100px;
 }
 
-.title-text{
-    border-style: solid;
-    color: #212121;
+.title a[name="title-a1"]{
+    color: #0B4BB0;
     font-family: "SF Pro Display";
-    font-size: 70px;
+    font-size: 110px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.title a{
+    color: #1C1C1C;
+    font-family: "SF Pro Display";
+    font-size: 110px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
 .out-search{
-    border-style: solid;
-    padding: 40px;
+    margin-top: 150px;
     display: flex;
     justify-content: center;
 }
 .inner-search{
-    border-style: solid;
     display: flex;
     flex-direction: column;
 }
@@ -42,198 +63,260 @@
 }
 
 .searchInput{
-    width: 650px;
-    height: 30px;
-    border-radius: 77px;
-    background: #E4E3E3;
-    border-color: #E4E3E3;
+    width: 1502px;
+    padding: 25px;
+    gap: 10px;
+    border-radius: 100px;
+    background: rgba(28, 28, 28, 0.05);
+    border-color: rgba(28, 28, 28, 0.05);
 }
 
 .searchButton{
     margin-left: 20px;
-    width: 70px;
-    height: 35px;
-    border-radius: 77px;
-    background: #E4E3E3;
-    border-color: #E4E3E3;
+    width: 198px;
+    height: 79px;
+    gap: 10px;
+    border-radius: 78px;
+    background: #2163C9;
+    border-color: #2163C9;
 }
 
 .hints{
-    margin-top: 10px;
+    margin-top: 20px;
+    gap: 10px;
     display: flex;
     flex-direction: row;
-    justify-content:flex-start;
 }
 
 .hint{
-    margin-left: 5px;
     border-radius: 54px;
-    background: #EBEBEB;
-    border-color: #EBEBEB;
+    height: 53px;
+    padding: 20px 30px;
+    background: #F3F3F3;
+    border-color: #F3F3F3;
 }
 
 .aboutUs{
-    border-style: solid;
     display: flex;
     justify-content:space-between;
+    margin-top: 150px;
+    padding-bottom: 150px;
 }
 
 .left-aboutUs{
-    padding: 40px;
-    border-style: solid;
     display: flex;
     flex-direction: column;
-    width: 563px;
-    
 }
 
 .buttonMore{
-    margin-left: 40px;
-    margin-top: 40px;
-    width:fit-content;
-    height: 30px;
-    border-radius: 30px;
+    height: 50px;
+    padding: 10px 15px;
+    border-radius: 47px;
+    background: #F3F3F3;
+    border-color: #F3F3F3;
+    margin-left: 100px;
 }
 
-.mainTextaboutUs{
-    border-style: solid;
-    color: #000;
+.mainaaboutUs{
+    width: 1057px;
+
+    color: #1C1C1C;
     font-family: "SF Pro Display";
-    font-size: 35px;
+    font-size: 64px;
     font-style: normal;
     font-weight: 400;
-    line-height: 110%; /* 70.4px */
+    line-height: 105%; /* 67.2px *//* 70.4px */
+    text-indent: 97px;
 }
 
 .states{
-    border-style: solid;
-    display: flex;
-    flex-direction: row;
-    align-items:flex-start;
-}
-
-.state-1{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.state-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.state-3{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.aboutService{
-    border-style: solid;
-}
-
-.howTo{
-    border-style: solid;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
+.states h1{
+    color: #0B4BB0;
+    font-family: "SF Pro Display";
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 105.6px */
+    margin-top: 10px;
+}
+
+.states a{
+    color: rgba(28, 28, 28, 0.50);
+
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 105%; /* 16.8px */
+
+    margin-top: -60px;
+}
+    
+
+.state{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutService{
+    margin-top: 150px;
+}
+
+.howTo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 73px;
+}
+
 .steps{
-    margin: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    cursor: grab;
+    margin-right: 20px;
+}
+
+.inner-steps{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.itemStep{
+    display: flex;
+    flex-direction: column;
+    border-color: #3A76D8;
     border-style: solid;
-    width: 430px;
-    height: 470px;
-    flex-shrink: 0;
+    border-radius: 20px;
+    background: #3A76D8;
+    min-width: 570px;
+    min-height: 679px;
 }
 
 .annotation{
-    border-style: solid;
     display: flex;
     flex-direction:column;
     justify-content: space-around;
 }
 
 .wordsOfAnnotation{
-    border-style: solid;
-    width: 307px;
-    margin: 40px;
-    text-align:left;
-    color: #000;
+    color: #FFF;
     font-family: "SF Pro Display";
-    font-size: 28px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 400;
-    line-height: 110%; /* 52.8px */
+    line-height: 105%; /* 50.4px */
     letter-spacing: -0.48px;
+
+    width: 477px;
+    margin-right: 483px;
+}
+
+.containerForProgressOfAnnotation{
+    display: flex;
+    justify-content: center;
 }
 
 .progressOfAnnotation{
-    margin: 40px;
-    width: 307px;
-
+    width: 614px;
+    height: 10px;
+    border-radius: 40px;
+    background: #F5F5F5;
+    border-left-color: #F5F5F5;
 }
 
 .services{
-    border-style: solid;
+    margin-top: 134px;
 }
 
 .listOfServices{
     display: flex;
     flex-direction: column;
+    margin-top: 40px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.50);
+    border-bottom: #000;
+    border-left: #000;
+    border-right: #000;
+    margin-left: 101px;
+    margin-right: 101px;
 }
 
 .service{
     border-style: solid;
+    border-color: rgba(255, 255, 255, 0.50);
+    border-top: #000;
+    border-left: #000;
+    border-right: #000;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
 }
 
 .mainBranchService{
-    border-style: solid;
-    margin: 40px;
+    margin: 30px;
     display: flex;
-
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 52.8px */
 }
 
 .subBranchesService{
-    border-style: solid;
-    margin-top: 40px;
-    margin-right: 80px;
     display: flexbox;
-    width: 500px;
-    padding: 20px;
+    margin-right: 153px;
+    width: 704px;
 }
 
 .listOfBranches{
-    width: fit-content;
-    height: fit-content;
+    color: #2163C9;
+    border-style: solid;
     border-radius: 42px;
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #DDEAFF;
+    border-color: #DDEAFF;
 }
 
 .allservicesHRef{
     display: flex;
     justify-content: center;
     padding: 20px;
+    color: #FFF;
+
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 26.4px */
+    text-decoration-line: underline;
 }
 
 .reviews{
-    border-style: solid;
+    margin-top: 150px;
+    padding-bottom: 150px;
 }
 
 .carousel{
     cursor: grab;
     overflow: hidden;
+    margin-top: 40px;
 }
 .inner-carousel{
     display: flex;
+    gap: 20px;
 }
 
 .item{
@@ -241,21 +324,23 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-style: solid;
     border-radius: 20px;
+    background: #3973D0;
     min-width: 432px;
     min-height: 351px;
+    border-style: solid;
+    border-color: #3973D0;
 }
 
 .itemsReview{
-    border-style: solid;
     display: flex;
     flex-direction: column;
-    justify-content:space-between
+    justify-content:space-between;
+    gap: 10px;
 }
 
 .itemsReview h1{
-    color: #212121;
+    color: #FFF;
 
     font-family: "SF Pro Display";
     font-size: 28px;
@@ -265,8 +350,8 @@
 }
 
 .itemsReview p{
-    margin-top: -0px;
-    color: rgba(33, 33, 33, 0.50);
+    margin-top: -10px;
+    color: #FFF;
 
     font-family: "SF Pro Display";
     font-size: 16px;
@@ -275,17 +360,17 @@
     line-height: 110%; /* 17.6px */
 }
 
-.itemsReview text{
-    color: #212121;
+.itemsReview a{
+    color: #FFF;
+
     font-family: Inter;
-    font-size: 18px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: 115%; /* 27.6px */
 }
 
 .itemsMaster{
-    border-style: solid;
     display: flex;
 }
 
@@ -301,59 +386,62 @@
     margin-top: 10px;
     margin-left: 5px;
     gap: 5px;
-    color: rgba(33, 33, 33, 0.50);
+    color: #FFF;
+
     font-family: "SF Pro Display";
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 110%; /* 15.4px */
+    line-height: 110%; /* 17.6px */
 }
 
 .forum{
     display: flex;
-    border-style: solid;
     justify-content: space-between;
+    margin-top: 150px;
 }
 
-.leftPartOfForum{
-    border-style: solid;
+.rightPartOfForum{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
-.mainTextOfForum{
-    margin-right: 150px;
-    border-style: solid;
-    color: #212121;
+.mainaOfForum{
+    color: #1C1C1C;
 
     font-family: "SF Pro Display";
-    font-size: 28px;
+    font-size: 48px;
     font-style: normal;
-    max-width: 426px;
+    font-weight: 400;
+    line-height: 105%; /* 50.4px */
+    max-width: 1003px;
+    height: 211px;
+    text-indent: 207px;
+    margin-right: 164px;
 }
 
 .digitalPartOfForum{
-    margin-top: 30px;
+    width: 1003px;
     display: flex;
+    justify-content: space-between;
 }
 
 .wrapper {
-    border-style: solid;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .container {
-    height: 400px;
+    height: 550px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: start;
 }
 
 .card {
-    width: 30px;
+    width: 60px;
     border-radius: 27px;
     background-size: cover;
     cursor: pointer;
@@ -362,11 +450,12 @@
     display: flex;
     align-items: flex-end;
     transition: .6s cubic-bezier(.28,-0.03,0,.99);
-    box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+    box-shadow: 0px 10px 30px -5px white;
+    background-color: #2063CC;
 }
 
 .card > .row {
-    color: white;
+    color: #FFF;
     margin: 30px;
 }
 .card > .row > .description {
@@ -374,7 +463,7 @@
     flex-direction: column;
     overflow: hidden;
     height: 180px;
-    width: 420px;
+    width: 415px;;
     opacity: 0;
     transform: translateY(30px);
     transition-delay: .3s;
@@ -385,11 +474,11 @@
 .description p {
     margin-top: -60px;
     width: 400px;
-    color: rgba(33, 33, 33, 0.50);
+    color: #FFF;
 }
 
 .description h4 {
-    color: #212121;
+    color: #FFF;
     font-family: "SF Pro Display";
     font-size: 44px;
     text-transform: uppercase;
@@ -409,22 +498,30 @@ input[name="slide"]:checked + label .description {
 }
 
 .card[for="c1"] {
-    background-image: url('../img/none.png');
 }
 .card[for="c2"] {
-    background-image: url('../img/none.png');
 }
 .card[for="c3"] {
-    background-image: url('../img/none.png');
 }
 .card[for="c4"] {
-    background-image: url('../img/none.png');
 }
 
 .shaker{
-    border-style: solid;
+    border-style:solid;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
+    width: 414px;
+    height: 549px;
+    border-radius: 27px;
+    background: #2063CC;
+    border-color: #2063CC;
+}
+
+.shaker a{
+    width: max-content;
+    height: max-content;
+    background-color:rgba(33, 33, 33, 0.50);
+    border-style:none;
+    border-color: rgba(33, 33, 33, 0.50);
+    border-radius: 0%;
+
 }
