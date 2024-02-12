@@ -1,22 +1,29 @@
 import { useNavigate } from 'react-router-dom'
 import "../Navigation/Navigation.css"
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import checkForAuth from '../../services/navigation-services';
 
 const Navbar = () => {
 
     const navigate = useNavigate();
+
     const [auth, setAuth] = useState(null)
+    const [search, setSearch] = useState("")
 
     async function name() {
         setAuth( await checkForAuth());
     }
-    
-    useEffect(() => {
-        name();
-    }, [])
 
-    return (<form>
+    useEffect( () => {
+        name();
+    })
+
+    const submitSearch = e => {
+        e.preventDefault()
+        navigate('/Search', {replace: true, state:{search}})
+    }
+
+    return (<Fragment>
         <nav className="nav">
         <div className="inner-nav">
             <div className="rightPartOfNav">
@@ -33,14 +40,17 @@ const Navbar = () => {
                     <option>Специалистам</option>
                     <option>чз</option>
                 </select>
-                <input className='navInput' onClick={()=> navigate("/search")}></input>
+                <form onSubmit={submitSearch}>
+                    <input className='navInput' onChange={e => setSearch(e.target.value)}></input>
+                </form>
                 <div className='acc'>
-                    {auth? <a href='/'>{auth}</a> : <button onClick={()=> navigate("/login")}>Войти</button>}
+                    
+                    {auth? <a href='/UserProfile'>{auth}</a> : <button onClick={()=> navigate("/SignInUp")}>Войти</button>}
                 </div>
             </div>
         </div>
         </nav>
-    </form>);
+    </Fragment>);
 };
 
 export default Navbar

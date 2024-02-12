@@ -1,9 +1,9 @@
 .nav{
-    width: 1920px;
-    height: 82px;
-    padding: 0px auto;
+    max-width: 1920px;
+    width: 100%;
+    padding: 0 auto;
     margin: 0 auto;
-    background-color: #FFF;
+    background: white;
 }
 
 .inner-nav{
@@ -59,6 +59,7 @@
     background: rgba(28, 28, 28, 0.05);
     background: url("../img/i.webp") no-repeat left ;
     background-size: 20px;
+    padding-left: 40px;
 }
 
 .acc{

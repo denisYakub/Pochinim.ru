@@ -42,8 +42,8 @@ class UserController {
 
     async logIn(req, res, next){
         try {
-            const {login, password} = await req.body;
-            const userData = await UserService.logIn(login, password);
+            const {email, password} = await req.body;
+            const userData = await UserService.logIn(email, password);
 
             res.cookie('refreshToken', userData.refreshToken, 
                         {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false});
@@ -106,12 +106,12 @@ class UserController {
             const {email} = req.body;
             const code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
 
-            await emailService.sendActivationEmail(email, code)
+            await emailService.sendActivationEmail(email, code);
 
             return res.json(code);
 
-        } catch (error) {
-            next(error)
+        } catch (e) {
+            next(e)
         }
     }
 }

@@ -1,0 +1,9 @@
+.prof{
+    background-color: white;
+    width: 1920px;
+    height: fit-content;
+    padding:0 auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}

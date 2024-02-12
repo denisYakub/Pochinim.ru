@@ -35,6 +35,8 @@ class TokenService{
                 await pool.query(`UPDATE accounts_tokens SET token = '${refreshToken}' 
                                     WHERE id_account = ${account_id}`)
             }else{
+                console.log(refreshToken);
+                console.log(account_id);
                 await pool.query(`INSERT INTO accounts_tokens (id_account, token) 
                                 VALUES (${account_id}, '${refreshToken}')`);
             }

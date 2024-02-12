@@ -66,9 +66,28 @@ export default class User{
         }
     }
 
-    async logIn(login, password){
+    async sendCode(email){
         try {
-            const body = {"login": login, "password": password};
+            const body = {"email": email};
+
+            const data = await fetch("http://localhost:4000/api/sendActivateCode", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"},
+                    body: JSON.stringify(body)
+            })
+
+            const bot = await data.json();
+            return bot;
+        } catch (error) {
+            console.log("Error in sendCode:", error);
+        }
+    }
+
+    async logIn(email, password){
+        try {
+            const body = {"email": email, "password": password};
             
             const data = await fetch("http://localhost:4000/api/logIn",{
                 method: "POST",
@@ -89,7 +108,15 @@ export default class User{
 
     async logOut(){
         try {
-            
+            const data = await fetch("http://localhost:4000/api/logOut",{
+                credentials: "include",
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"}, 
+            })
+            const bot = await data.json();
+            return bot;
         } catch (error) {
             console.log("Error in logOut:", error);
         }

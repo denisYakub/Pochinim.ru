@@ -23,4 +23,33 @@ async function fetchRegistrate(login, email, password){
     return true;
 }
 
-export {fetchRegistrate, checkEmail};
+async function getSendCode(email){
+    const user = new User();
+    var code = await user.sendCode(email);
+    if(code?.message){
+        return false;
+    }
+    console.log(code);
+    return code;
+}
+
+async function registrate(email, name, password){
+    const user = new User();
+    var ret = await user.registrate(name, email, password);
+    if(ret?.message){
+        return false;
+    }
+    return true;
+}
+
+async function logIn(email, password){
+    const user = new User();
+    var ret = await user.logIn(email, password);
+    console.log(ret);
+    if(ret?.message){
+        return false;
+    }
+    return true;
+}
+
+export {fetchRegistrate, checkEmail, getSendCode, registrate, logIn};

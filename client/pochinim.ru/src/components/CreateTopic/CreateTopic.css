@@ -1,0 +1,33 @@
+.creatTopic{
+    max-width: 1920px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 auto;
+    background: white;
+}
+
+.content{
+    display: flex;
+    gap: 200px;
+}
+
+.left-content{
+    margin-top: 100px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right-content{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.control-buttons{
+    margin-top: 100px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+}

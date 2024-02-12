@@ -1,5 +1,9 @@
 const WelcomePhase = ({phase, setPhase}) =>{
-    return(<div className="inner-signInUp">
+    const click = () =>{
+        setPhase(phase + 1)
+    };
+
+    return(<div className="inner-box">
         <div className="annotation">
             <h1>
             Вы успешно зарегистировались!
@@ -7,7 +11,7 @@ const WelcomePhase = ({phase, setPhase}) =>{
             <a>
             </a>
         </div>
-        <button className="buttonNext" onClick={() => setPhase(phase + 1)}>
+        <button className="buttonNext" onClick={click}>
         Продолжить
         </button>
     </div>);

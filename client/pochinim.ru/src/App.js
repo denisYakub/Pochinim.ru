@@ -1,12 +1,13 @@
 import {Fragment} from 'react';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
-import SignUp from './components/SignInUp/SignUp';
-import SignIn from './components/SignInUp/SignIn';
+import SignInUp from './components/SignInUp/SignInUp';
 import Navbar from './components/Navigation/NavigationBar';
 import ListOfTopics from './components/SearchPage/SearchPageOfTopics';
 import MainPage from './components/MainPage/MainpageList';
 import Footer from './components/Footer/Footer';
+import UserProfile from './components/UserProfile/UserProfile';
+import CreateTopic from './components/CreateTopic/CreateTopic';
 
 
 function App(){
@@ -17,9 +18,10 @@ function App(){
           <Navbar />
           <Routes>
             <Route path="/" element={<MainPage  />}/>
-            <Route path='/login' element={<SignIn />}/>
-            <Route path='/regester' element={<SignUp  />}/>
-            <Route path='/search' element={<ListOfTopics  />}/>
+            <Route path='/SignInUp' element={<SignInUp />}/>
+            <Route path='/Search' element={<ListOfTopics  />}/>
+            <Route path='/UserProfile' element={<UserProfile  />}/>
+            <Route path='/CreateTopic' element={<CreateTopic  />}/>
           </Routes>
           <Footer />
         </BrowserRouter>

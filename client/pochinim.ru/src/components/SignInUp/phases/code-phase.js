@@ -1,7 +1,20 @@
-import { values } from "mobx";
+import {motion, useAnimate} from 'framer-motion'
+const CodePhase = ({phase, setPhase, code, setCode, emailCode}) =>{
 
-const CodePhase = ({phase, setPhase, code, setCode}) =>{
-    return(<div className="inner-signInUp">
+    const [scope, animate] = useAnimate();
+
+    const click = () =>{
+        if(emailCode == code){
+            setPhase(phase + 1)
+        }else{
+            animate(scope.current, 
+                {rotate: [0, 5, -5, 0], 
+                    background: ["#DDDCDC", "#ff008c", "#DDDCDC"]}, 
+                {repeat: 1, duration: 0.5})
+        }
+    };
+    
+    return(<div className="inner-box" ref={scope}>
         <div className="annotation">
             <h1>
             Введите код из сообщения
@@ -10,10 +23,10 @@ const CodePhase = ({phase, setPhase, code, setCode}) =>{
             Код отправили на почту " + "email"
             </a>
         </div>
-        <div className="emailField">
+        <div className="inputField">
             <input type="text" placeholder={code} onChange={e => setCode(e.target.value)}></input>
         </div>
-        <button className="buttonNext" onClick={() => setPhase(phase + 1)}>
+        <button className="buttonNext" onClick={click}>
         Продолжить
         </button>
     </div>);
