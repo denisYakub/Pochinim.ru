@@ -1,21 +1,22 @@
+@import'../../index.css';
 .mainPage{
     max-width: 1920px;
     width: 100%;
     padding: 0 auto;
     margin: 0 auto;
-    background: #2163C9;
+    background: var(--color-main-violet);
 }
 
 .whiteCover{
-    background: #FFF;
-    border-color: #FFF;
+    background: var(--color-main-wihite);
+    border-color: var(--color-main-wihite);
     border-style: solid;
     border-radius: 0px 0px 40px 40px;
 }
 
 .whiteCoverEnd{
-    background: #FFF;
-    border-color: #FFF;
+    background: var(--color-main-wihite);
+    border-color: var(--color-main-wihite);
     border-style: solid;
     border-radius: 40px 40px 0px 0px;
 }
@@ -31,21 +32,26 @@
 }
 
 .title a[name="title-a1"]{
-    color: #0B4BB0;
+    color: var(--color-main-blue);
+    
+    /* Headline/H1 */
     font-family: "SF Pro Display";
     font-size: 110px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    line-height: 110%; /* 121px */
 }
 
 .title a{
     color: #1C1C1C;
+    color: var(--color-main-black);
+
+    /* Headline/H1 */
     font-family: "SF Pro Display";
     font-size: 110px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    line-height: 110%; /* 121px */
 }
 .out-search{
     margin-top: 150px;
@@ -64,21 +70,44 @@
 
 .searchInput{
     width: 1502px;
-    padding: 25px;
-    gap: 10px;
     border-radius: 100px;
-    background: rgba(28, 28, 28, 0.05);
-    border-color: rgba(28, 28, 28, 0.05);
+    background: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    border-color: var(--color-secondary-grey-searchline);
+    box-sizing: border-box;
+    padding-left: 25px;
+    color: var( --color-secondary-grey30);
+    /* Text/наборный текст 3 */
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 115%; /* 27.6px */
 }
+
 
 .searchButton{
     margin-left: 20px;
     width: 198px;
     height: 79px;
-    gap: 10px;
     border-radius: 78px;
-    background: #2163C9;
-    border-color: #2163C9;
+    color: var(--color-main-wihite);
+    background: var(--color-main-blue);
+    border-color: var(--color-main-blue);
+}
+
+.inner-Button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-main-wihite);
+
+    /* Text/кнопка */
+    font-family: "SF Pro Display";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 17.6px */
 }
 
 .hints{
@@ -89,11 +118,20 @@
 }
 
 .hint{
+    padding: 15px;
     border-radius: 54px;
-    height: 53px;
-    padding: 20px 30px;
-    background: #F3F3F3;
-    border-color: #F3F3F3;
+    background: var(--color-secondary-grey-dies);
+    border-style: solid;
+    border-color: var(--color-secondary-grey-dies);
+
+    color: var(--color-main-black);
+
+    /* Text/наборный текст 3 */
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 115%; /* 27.6px */
 }
 
 .aboutUs{
@@ -108,19 +146,43 @@
     flex-direction: column;
 }
 
-.buttonMore{
-    height: 50px;
-    padding: 10px 15px;
-    border-radius: 47px;
-    background: #F3F3F3;
-    border-color: #F3F3F3;
-    margin-left: 100px;
+.icon-aboutUs{
+    background: url("../../img/Arrow_34__1.png") no-repeat center;
+    margin-top: 93px;
+    margin-left: 263px;
+    width: 132px;
+    height: 204px;
 }
 
-.mainaaboutUs{
+.right-aboutUs{
+    display: flex;
+    flex-direction: column;
     width: 1057px;
+}
 
-    color: #1C1C1C;
+.buttonMore{
+    width:fit-content;
+    height: fit-content;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 47px;
+    background: var(--color-secondary-grey-dies);
+    border-style: solid;
+    border-color: var(--color-secondary-grey-dies);
+    margin-left: 100px;
+    color: var(--color-main-black);
+
+    /* Headline/H2 */
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 26.4px */
+}
+
+.a1{
+    max-width: 1057px;
+    color: var(--color-main-black);
     font-family: "SF Pro Display";
     font-size: 64px;
     font-style: normal;
@@ -132,11 +194,11 @@
 .states{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 100px;
 }
 
 .states h1{
-    color: #0B4BB0;
+    color: var(--color-main-blue);
     font-family: "SF Pro Display";
     font-size: 96px;
     font-style: normal;
@@ -146,8 +208,8 @@
 }
 
 .states a{
-    color: rgba(28, 28, 28, 0.50);
-
+    color: var(--color-secondary-grey50);
+    max-width: 160px;
     text-align: center;
     font-family: "SF Pro Display";
     font-size: 16px;
@@ -183,6 +245,7 @@
     overflow: hidden;
     cursor: grab;
     margin-right: 20px;
+    width: 960px;
 }
 
 .inner-steps{
@@ -194,21 +257,29 @@
 .itemStep{
     display: flex;
     flex-direction: column;
-    border-color: #3A76D8;
+    border-color: var(--color-secondary-violet-cards);
     border-style: solid;
     border-radius: 20px;
-    background: #3A76D8;
+    background: var(--color-secondary-violet-cards);
     min-width: 570px;
     min-height: 679px;
 }
 
 .annotation{
+    width: 960px;
     display: flex;
     flex-direction:column;
     justify-content: space-around;
 }
 
-.wordsOfAnnotation{
+.icon-Service{
+    background: url("../../img/PM13_4.png") no-repeat center;
+    margin-left: 263px;
+    width: 132px;
+    height: 204px;
+}
+
+.annotation a{
     color: #FFF;
     font-family: "SF Pro Display";
     font-size: 48px;
@@ -217,8 +288,6 @@
     line-height: 105%; /* 50.4px */
     letter-spacing: -0.48px;
 
-    width: 477px;
-    margin-right: 483px;
 }
 
 .containerForProgressOfAnnotation{
@@ -226,12 +295,9 @@
     justify-content: center;
 }
 
-.progressOfAnnotation{
+.containerForProgressOfAnnotation progress{
     width: 614px;
     height: 10px;
-    border-radius: 40px;
-    background: #F5F5F5;
-    border-left-color: #F5F5F5;
 }
 
 .services{
@@ -243,7 +309,8 @@
     flex-direction: column;
     margin-top: 40px;
     border-style: solid;
-    border-color: rgba(255, 255, 255, 0.50);
+    border-width: thin;
+    border-color: var(--color-main-wihite);
     border-bottom: #000;
     border-left: #000;
     border-right: #000;
@@ -253,49 +320,63 @@
 
 .service{
     border-style: solid;
-    border-color: rgba(255, 255, 255, 0.50);
+    border-color: var(--color-main-wihite);
+    border-width: thin;
     border-top: #000;
     border-left: #000;
     border-right: #000;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
 }
 
 .mainBranchService{
     margin: 30px;
     display: flex;
-    color: #FFF;
+    color: var(--color-main-wihite);
     font-family: "SF Pro Display";
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: 110%; /* 52.8px */
+    width: 960px;
 }
 
 .subBranchesService{
+    width: 960px;
+    margin-top: 30px;
     display: flexbox;
-    margin-right: 153px;
-    width: 704px;
 }
 
 .listOfBranches{
-    color: #2163C9;
+    color: var(--color-main-wihite);
     border-style: solid;
+    border-width: thin;
     border-radius: 42px;
     margin-right: 10px;
     margin-top: 10px;
-    background-color: #DDEAFF;
-    border-color: #DDEAFF;
+    background-color: var(--color-main-violet);
+    border-color: var(--color-main-wihite);
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: var(--color-main-wihite);
+
+    /* Text/наборный текст 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
 }
 
 .allservicesHRef{
     display: flex;
     justify-content: center;
     padding: 20px;
-    color: #FFF;
-
+    color: var(--color-main-wihite);
+    
+    /* Text/ссылка */
     font-family: "SF Pro Display";
     font-size: 24px;
     font-style: normal;
@@ -320,28 +401,28 @@
 }
 
 .item{
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 45px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border-radius: 20px;
-    background: #3973D0;
-    min-width: 432px;
-    min-height: 351px;
-    border-style: solid;
-    border-color: #3973D0;
+    background: var(--color-secondary-violet-cards_2);
+    min-width: 615px;
+    min-height: 533px;
+    border-style: solid;    
+    border-color: var(--color-secondary-violet-cards_2);
 }
 
 .itemsReview{
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
-    gap: 10px;
 }
 
 .itemsReview h1{
-    color: #FFF;
+    color: var(--color-main-wihite);
 
+    /* Headline/H5 */
     font-family: "SF Pro Display";
     font-size: 28px;
     font-style: normal;
@@ -349,10 +430,10 @@
     line-height: 110%; /* 30.8px */
 }
 
-.itemsReview p{
-    margin-top: -10px;
-    color: #FFF;
+.a3{
+    color: var(--color-main-wihite);
 
+    /* Text/наборный текст 1 */
     font-family: "SF Pro Display";
     font-size: 16px;
     font-style: normal;
@@ -360,18 +441,46 @@
     line-height: 110%; /* 17.6px */
 }
 
-.itemsReview a{
-    color: #FFF;
+.a4{
+    margin-top: 40px;
+    color: var(--color-main-wihite);
 
-    font-family: Inter;
+    /* Headline/H2 */
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 26.4px */
+}
+
+.a5{
+    margin-top: 40px;
+    color: var(--color-main-wihite);
+
+    /* Text/наборный текст 3 */
+    font-family: "SF Pro Display";
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: 115%; /* 27.6px */
 }
 
+.a6{
+    margin-top: 15px;
+    color: var(--color-main-wihite);
+
+    /* Text/наборный текст 1 */
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 17.6px */
+}
+
 .itemsMaster{
     display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .photoMaster{
@@ -383,10 +492,8 @@
 .aboutMaster{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    margin-left: 5px;
-    gap: 5px;
-    color: #FFF;
+    gap: 10px;
+    color:  var(--color-main-wihite);
 
     font-family: "SF Pro Display";
     font-size: 16px;
@@ -401,15 +508,63 @@
     margin-top: 150px;
 }
 
-.rightPartOfForum{
+.left-PartOfForum{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
 
-.mainaOfForum{
-    color: #1C1C1C;
+.icon-Forum{
+    background: url("../../img/ARROW\ 1.png") no-repeat center;
+    margin-top: 93px;
+    margin-left: 101px;
+    width: 368px;
+    height: 256px;
+    height: 256px;
+}
 
+.right-PartOfForum{
+    display: flex;
+    flex-direction: column;
+    width: 1057px;
+}
+.toBeContinued{
+    margin-left:11%;
+    padding-left: 10px;
+    border-style: solid;
+    float: left;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    border-radius: 60px;
+    border-color: var(--color-secondary-violet-dies);
+    background: var(--color-secondary-violet-dies);
+}
+
+.toBeContinued a{
+    color: var(--color-main-blue);
+
+    /* Text/кнопка */
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 17.6px */
+}
+
+.toBeContinued button{
+    width: 45px;
+    height: 45px;
+    border-radius: 60px;
+    border-color: var(--color-main-blue);
+    background: url("../../img/arrow-right.png") no-repeat center #3838CE;
+}
+
+.mainOfForum{ 
+    color: var(--color-main-black);
+    
     font-family: "SF Pro Display";
     font-size: 48px;
     font-style: normal;
@@ -417,8 +572,6 @@
     line-height: 105%; /* 50.4px */
     max-width: 1003px;
     height: 211px;
-    text-indent: 207px;
-    margin-right: 164px;
 }
 
 .digitalPartOfForum{
@@ -437,7 +590,7 @@
     height: 550px;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .card {
@@ -451,11 +604,11 @@
     align-items: flex-end;
     transition: .6s cubic-bezier(.28,-0.03,0,.99);
     box-shadow: 0px 10px 30px -5px white;
-    background-color: #2063CC;
+    background-color: var(--color-main-violet);
 }
 
 .card > .row {
-    color: #FFF;
+    color: var(--color-main-wihite);
     margin: 30px;
 }
 .card > .row > .description {
@@ -474,11 +627,11 @@
 .description p {
     margin-top: -60px;
     width: 400px;
-    color: #FFF;
+    color: var(--color-main-wihite);
 }
 
 .description h4 {
-    color: #FFF;
+    color: var(--color-main-wihite);
     font-family: "SF Pro Display";
     font-size: 44px;
     text-transform: uppercase;
@@ -509,19 +662,21 @@ input[name="slide"]:checked + label .description {
 .shaker{
     border-style:solid;
     display: flex;
-    width: 414px;
+    width: 400px;
     height: 549px;
     border-radius: 27px;
-    background: #2063CC;
-    border-color: #2063CC;
+    background: var(--color-main-violet);
+    border-color: var(--color-main-violet);
 }
 
 .shaker a{
     width: max-content;
     height: max-content;
-    background-color:rgba(33, 33, 33, 0.50);
+    background-color: var(--color-main-wihite);
     border-style:none;
-    border-color: rgba(33, 33, 33, 0.50);
-    border-radius: 0%;
-
+    border-color: var(--color-main-wihite);
+    border-radius: 20px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
 }

@@ -1,19 +1,22 @@
+@import '../../index.css';
 .nav{
     max-width: 1920px;
     width: 100%;
     padding: 0 auto;
     margin: 0 auto;
-    background: white;
+    background: var(--color-main-wihite);
 }
 
 .inner-nav{
+    padding-bottom: 16px;
+    padding-top: 26px;
     margin-left: 101px;
     margin-right: 101px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-style: solid;
-    border-color: white white rgba(28, 28, 28, 0.20) white;
+    border-color: var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
 }
 
 .inner-nav select{
@@ -28,14 +31,10 @@
 }
 
 .siteLogo{
-    text-decoration: none;
-    color: #0B4BB0;
-    font-family: Evolventa;
-    font-size: 60px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    }
+    width: 234.084px;
+    height: 30px;
+    background: url("../../img/логотип\ починим\ ру.png") no-repeat left;
+}
 
 .leftPartOfNav{
     display: flex;
@@ -46,28 +45,39 @@
 
 .leftPartOfNav a{
     text-decoration: none;
-    color: #212121;
+    color: var(--color-main-black);
 }
 
 .navInput{
+    box-sizing: border-box;
     display: flex;
     width: 264px;
     height: 32px;
     border-radius: 38px;
     border-style: solid;
-    border-color: rgba(28, 28, 28, 0.05);
-    background: rgba(28, 28, 28, 0.05);
-    background: url("../img/i.webp") no-repeat left ;
+    border-color: var(--color-secondary-grey-searchline);
+    background: url("../../img/i.svg") no-repeat left var(--color-secondary-grey-searchline);
     background-size: 20px;
-    padding-left: 40px;
 }
 
 .acc{
-    color: #1C1C1C;
+    color: var(--color-main-blue);
     font-family: "SF Pro Display";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-decoration-line: underline;
+}
+
+.acc a{
+    color: var(--color-main-blue);
+
+    /* Text/ссылка 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 105%; /* 21px */
     text-decoration-line: underline;
 }

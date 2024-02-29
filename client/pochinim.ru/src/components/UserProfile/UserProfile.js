@@ -21,6 +21,14 @@ const UserProfile = () => {
                     logOut
                 </button>
             </div>
+            <div className="testFont">
+                <h1 className="font-1">
+                    Test new added font 1
+                </h1>
+                <h1 className="font-2">
+                    Test new added font 2
+                </h1>
+            </div>
         </Fragment>);
 };
 

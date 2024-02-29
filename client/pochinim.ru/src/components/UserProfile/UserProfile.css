@@ -1,3 +1,4 @@
+@import '../../index.css';
 .prof{
     background-color: white;
     width: 1920px;
@@ -6,4 +7,12 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
+}
+
+.font-1{
+    font-family: 'Black';
+}
+
+.font-2{
+    font-family: 'Text-Bold';
 }

@@ -12,3 +12,137 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Black';
+  src: url("./fonts/SF-Pro-Display-Black.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'BlackItalic';
+  src: url("./fonts/SF-Pro-Display-BlackItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Bold';
+  src: url("./fonts/SF-Pro-Display-Bold.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'BoldItalic';
+  src: url("./fonts/SF-Pro-Display-BoldItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Heavy';
+  src: url("./fonts/SF-Pro-Display-Heavy.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'HeavyItalic';
+  src: url("./fonts/SF-Pro-Display-HeavyItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Light';
+  src: url("./fonts/SF-Pro-Display-Light.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'LightItalic';
+  src: url("./fonts/SF-Pro-Display-LightItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Medium';
+  src: url("./fonts/SF-Pro-Display-Medium.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'MediumItalic';
+  src: url("./fonts/SF-Pro-Display-MediumItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Regular';
+  src: url("./fonts/SF-Pro-Display-Regular.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'RegularItalic';
+  src: url("./fonts/SF-Pro-Display-RegularItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Semibold';
+  src: url("./fonts/SF-Pro-Display-Semibold.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'SemiboldItalic';
+  src: url("./fonts/SF-Pro-Display-SemiboldItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Thin';
+  src: url("./fonts/SF-Pro-Display-Thin.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'ThinItalic';
+  src: url("./fonts/SF-Pro-Display-ThinItalic.otf") format(otf);
+}
+
+
+@font-face {
+  font-family: 'Ultralight';
+  src: url("./fonts/SF-Pro-Display-Ultralight.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'UltralightItalic';
+  src: url("./fonts/SF-Pro-Display-UltralightItalic.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Text-Bold';
+  src: url("./fonts/SF-Pro-Text-Bold.otf") format(otf);
+}
+
+@font-face {
+  font-family: 'Text-BoldItalic';
+  src: url("./fonts/SF-Pro-Text-BoldItalic.otf") format(otf);
+}
+
+:root{
+  --color-main-black: #1C1C1C;
+  --color-main-violet: #6261E2;
+  --color-main-blue: #3838CE;
+  --color-main-blue-0_2: #2E2EB2;
+  --color-main-wihite: #FFF;
+
+  --color-secondary-grey65: rgba(33, 33, 33, 0.65);
+  --color-secondary-grey50: rgba(33, 33, 33, 0.50);
+  --color-secondary-grey30: rgba(33, 33, 33, 0.30);
+  --color-secondary-grey25: rgba(33, 33, 33, 0.25);
+  --color-secondary-grey15: rgba(33, 33, 33, 0.15);
+  --color-secondary-grey10: rgba(33, 33, 33, 0.10);
+  --color-secondary-grey05: rgba(33, 33, 33, 0.05);
+  --color-secondary-grey-searchline: #EFEFEF;
+  --color-secondary-grey-dies: #F3F3F3;
+
+  --color-secondary-white-dies: rgba(255, 255, 255, 0.50);
+  --color-secondary-white-searchline: rgba(255, 255, 255, 0.10);
+
+  --color-secondary-violet-cards: #D5DFFF;
+  --color-secondary-violet-cards_2: #6E6DDE;
+  --color-secondary-violet-graduation: #7170F5;
+  --color-secondary-violet-graduation_2: #807FFA;
+  --color-secondary-violet-graduation_3: #8E8DFB;
+  --color-secondary-violet-dies: #EBF0FF;
+
+  --color-secondary-blue50: #CADFFF;
+  --color-secondary-green: #299400;
+  --color-secondary-orange: #F48400;
+  --color-secondary-red: #EF0000;
+}

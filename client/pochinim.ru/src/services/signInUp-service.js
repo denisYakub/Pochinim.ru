@@ -1,8 +1,7 @@
-import User from "../models/USER-model";
+import User from "../controllers/USER-controller";
 
 async function checkEmail(email, phase){
-    const user = new User();    
-    const ret = await user.checkEmail(email);
+    const ret = await User.checkEmail(email);
     return ret;
     
 }
@@ -12,9 +11,8 @@ async function fetchRegistrate(login, email, password){
     if(login === "" || email === "" || password === ""){
         return false;
     }
-
-    const user = new User();    
-    const ret = await user.registrate(login, email, password)
+ 
+    const ret = await User.registrate(login, email, password)
 
     if(ret.message){
         console.log(ret.message);
@@ -24,8 +22,7 @@ async function fetchRegistrate(login, email, password){
 }
 
 async function getSendCode(email){
-    const user = new User();
-    var code = await user.sendCode(email);
+    var code = await User.sendCode(email);
     if(code?.message){
         return false;
     }
@@ -34,8 +31,7 @@ async function getSendCode(email){
 }
 
 async function registrate(email, name, password){
-    const user = new User();
-    var ret = await user.registrate(name, email, password);
+    var ret = await User.registrate(name, email, password);
     if(ret?.message){
         return false;
     }
@@ -43,8 +39,7 @@ async function registrate(email, name, password){
 }
 
 async function logIn(email, password){
-    const user = new User();
-    var ret = await user.logIn(email, password);
+    var ret = await User.logIn(email, password);
     console.log(ret);
     if(ret?.message){
         return false;

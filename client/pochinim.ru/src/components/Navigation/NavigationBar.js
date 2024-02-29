@@ -16,7 +16,7 @@ const Navbar = () => {
 
     useEffect( () => {
         name();
-    })
+    }, [])
 
     const submitSearch = e => {
         e.preventDefault()
@@ -27,7 +27,7 @@ const Navbar = () => {
         <nav className="nav">
         <div className="inner-nav">
             <div className="rightPartOfNav">
-                <a href='/' className='siteLogo'>починим.ру</a>
+                <a href='/' className='siteLogo'></a>
                 <select>
                     <option>Санкт-Петербург</option>
                     <option>Москва</option>
@@ -44,8 +44,7 @@ const Navbar = () => {
                     <input className='navInput' onChange={e => setSearch(e.target.value)}></input>
                 </form>
                 <div className='acc'>
-                    
-                    {auth? <a href='/UserProfile'>{auth}</a> : <button onClick={()=> navigate("/SignInUp")}>Войти</button>}
+                    {auth? <a href='/UserProfile'>{auth}</a> : <a href='/SignInUp'>Войти</a>}
                 </div>
             </div>
         </div>

@@ -4,12 +4,12 @@ const WelcomePhase = ({phase, setPhase}) =>{
     };
 
     return(<div className="inner-box">
-        <div className="annotation">
+        <div className="annotationReg">
             <h1>
             Вы успешно зарегистировались!
             </h1>
-            <a>
-            </a>
+            <p>
+            </p>
         </div>
         <button className="buttonNext" onClick={click}>
         Продолжить

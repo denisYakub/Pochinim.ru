@@ -107,14 +107,16 @@ class UserService{
             }
             
             const account_id = await pool.query(`SELECT id_account FROM accounts_tokens WHERE token = '${refreshToken}'`);
-            const email = await pool.query(`SELECT account_email, account_name FROM accounts WHERE id_account = '${account_id.rows[0].id_account}'`);
-    
+            
+            const account_id_on_return = account_id.rows[0].id_account;
+            
+            const email = await pool.query(`SELECT account_email, account_name FROM accounts WHERE id_account = '${account_id_on_return}'`);
+            
+            const account_name_on_return = email.rows[0].account_name;
+
             const tokens = await TokenService.generateToken(email.rows[0].account_email);
     
             await TokenService.saveToken(account_id.rows[0].id_account, (await tokens.refreshToken));
-    
-            const account_id_on_return = account_id.rows[0].id_account;
-            const account_name_on_return = email.rows[0].account_name;
     
             return {
                 "refreshToken": (await tokens.refreshToken), 

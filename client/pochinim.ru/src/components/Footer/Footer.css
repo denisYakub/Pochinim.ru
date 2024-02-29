@@ -1,9 +1,10 @@
+@import'../../index.css';
 .footer{
     max-width: 1920px;
     width: 100%;
     padding: 0 auto;
     margin: 0 auto;
-    background: white;
+    background: var(--color-main-wihite);
 }
 
 .inner-footer{
@@ -11,8 +12,8 @@
     justify-content: space-between;
     border-style: solid;
     border-radius: 44px 44px 0px 0px;
-    background: #2163C8;
-    border-color: #2163C8;
+    background: var(--color-main-violet);
+    border-color: var(--color-main-violet);
 }
 
 .leftPart{
@@ -25,7 +26,7 @@
     margin-top: 54px;
     margin-left: 100px;
 
-    color: #212121;
+    color: var(--color-main-wihite);
     font-family: Evolventa;
     font-size: 47.547px;
     font-style: normal;
@@ -46,7 +47,7 @@
     margin-top: 151px;
     margin-left: 100px;
 
-    color: #212121;
+    color: var(--color-main-wihite);
 
     font-family: "SF Pro Display";
     font-size: 14px;
@@ -62,8 +63,9 @@
     width: 40px;
     height: 40px;
     border-radius: 30px;
-    background: rgba(33, 33, 33, 0.15);
-    border-color: rgba(33, 33, 33, 0.15);
+    background: url("../../img/Facebook.png") no-repeat center var(--color-secondary-violet-graduation_2);
+    border-style: solid;
+    border-color: var(--color-secondary-violet-graduation_2);
 }
 
 .rightPart{
@@ -76,14 +78,12 @@
 .ref{
     margin-top: 54px;
 
-    color: #212121;
+    color: var(--color-main-wihite);
     font-family: "SF Pro Display";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
-
     display: flex;
     justify-content: space-between;
 
@@ -93,6 +93,10 @@
     display: flex;
     flex-direction: column;
     align-items: first baseline;
+}
+
+.col a{
+    margin-top: 5px;
 }
 
 .req{
@@ -111,7 +115,7 @@
 .ask{
     margin-top: 50px;
 
-    color: #212121;
+    color: var(--color-main-wihite);
     font-family: "SF Pro Display";
     font-size: 32px;
     font-style: normal;
@@ -124,7 +128,7 @@
 .info{
     margin-top: 33px;
 
-    color: #212121;
+    color: var(--color-main-wihite);
     font-family: "SF Pro Display";
     font-size: 14px;
     font-style: normal;
@@ -138,16 +142,17 @@
     width: 271px;
     height: 36px;
     border-radius: 30px;
-    background: rgba(33, 33, 33, 0.10);
-    border-color:rgba(33, 33, 33, 0.10);
+    background: var(--color-secondary-white-searchline);
+    border-style: solid;
+    border-color:var(--color-secondary-white-searchline);
 }
 
 .inputButton{
     margin-left: 5px;
-
+    background: url("../../img/arrow-right-blue.png") no-repeat center var(--color-main-wihite);
     width: 36px;
     height: 36px;
     border-radius: 30px;
-    background: #212121;
-    border-color:#212121;
+    border-style: solid;
+    border-color: var(--color-main-wihite);
 }

@@ -3,6 +3,9 @@ import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
 import {motion, useAnimate, useInView} from "framer-motion";
 import { getReviews, getHints, getServices } from "../../services/mainPage-services";
+import Popup from "../Popup/Popup";
+import { useNavigate } from "react-router-dom";
+import buttonsAnimations from "../../animations/buttons-animations";
 
 const reviews = await getReviews();
   
@@ -14,45 +17,51 @@ const steps = ["ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "З
 
 const MainPAge = () => {
 
+    const navigate = useNavigate()
+
     const [widthSteps, setWidthSteps] = useState(0);
     const carouselSteps = useRef();
 
     const [width, setWidth] = useState(0);
     const carousel = useRef();
 
-    const [scope, animate] = useAnimate();
-    const [scope1, animate1] = useAnimate();
-    const [scope2, animate2] = useAnimate();
+    const [buttonBG, animateButtonBG] = useAnimate();
+    const [buttonText, animateButtonText] = useAnimate();
+
+    const [active, setActive] = useState(true);
+
+    const cookies = <Popup active={active} setActive={setActive}>
+    Этот сайт использует куки для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с нашей Политикой конфиденциальности.
+    </Popup>;
     
-    const isInView = useInView(scope);
+    const buttonOnClick = (location) => {
+        navigate(location);
+    }
 
     useEffect(() => {
-        setWidthSteps(carouselSteps.current.scrollWidth-carouselSteps.current.offsetWidth)
+        localStorage.getItem('token')?setActive(false):setActive(true);
+        setWidthSteps(carouselSteps.current.scrollWidth-carouselSteps.current.offsetWidth);
         setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-        if(isInView){
-            animate(scope.current, { y: 353}, {type: "tween", duration: 3});
-            animate1(scope1.current, { y: 353}, {type: "tween", duration: 4});
-            animate2(scope2.current, { y: 353}, {type: "tween", duration: 5});
-        }
-    },[isInView])
+    },[])
     
     return(<Fragment>
         <div className="mainPage">
             <div className="whiteCover">
             <div className="title">
                 <a name="title-a1">починим.ру</a>
-                <a className="title-a2">мастера, которым</a>
-                <a className="title-a3">можно доверить</a>
+                <a className="title-a2"> мастера, которым можно доверить</a>
             </div>
             <div className="out-search">
             <div className="inner-search">
                 <div className="searchLine">
                     <input value={"Услуга или специалист"} className="searchInput"
                     onChange={() => {}}>
-
+                        
                     </input>
                     <button className="searchButton">
+                        <div className="inner-Button">
                         Найти
+                        </div>
                     </button>
                 </div>
                 <div className="hints">
@@ -67,13 +76,30 @@ const MainPAge = () => {
             </div>
             </div>
             <div className="aboutUs">
-                <button className="buttonMore">
-                    о нас
-                </button>
                 <div className="left-aboutUs">
-                    <a className="mainaaboutUs">
+                    <button className="buttonMore">
+                        O нас
+                    </button>
+                    <div className="icon-aboutUs">
+                    </div>
+                </div>
+                <div className="right-aboutUs">
+                    <div className="mainaboutUs">
+                    <div ref={buttonBG} className="toBeContinued"
+                    onMouseEnter={() => 
+                        buttonsAnimations.buttonHover({colour1: "#2E2EB2", buttonBG, animateButtonBG},
+                            {colour2: "#FFFFFF", buttonText, animateButtonText})}
+                    onMouseLeave={() => buttonsAnimations.buttonHover({colour1: "#EBF0FF", buttonBG, animateButtonBG},
+                            {colour2: "#3838CE", buttonText, animateButtonText})}
+                    onClick={() => buttonOnClick("/CreateTopic")}>
+                        <a ref={buttonText}>Написать задание</a>
+                        <button>
+                        </button>
+                    </div>
+                    <a className="a1">
                     “Починим.ру начал свой путь в 2010 году как небольшая стартап-команда, стремящаяся упростить процесс ремонта для людей.” 
                     </a>
+                    </div>
                     <div className="states">
                         <div className="state">
                             <h1>
@@ -123,13 +149,17 @@ const MainPAge = () => {
                         </motion.div>
                     </motion.div>
                     <div className="annotation">
-                        <a className="wordsOfAnnotation">
+                        <a>
                         Мастера найти просто, сделай всего несколько кликов!
                         </a>
-                        <div className="containerForProgressOfAnnotation">
-                            <progress className="progressOfAnnotation">
+                        <div className="icon-Service">
 
+                        </div>
+                        <div className="containerForProgressOfAnnotation">
+                            01
+                            <progress>
                             </progress>
+                            02 03
                         </div>
                     </div>
                 </div>
@@ -178,10 +208,10 @@ const MainPAge = () => {
                                 <motion.div className="item" key={index}>
                                     <div className="itemsReview">
                                         <h1>{item.review.topic}</h1>
-                                        <p>{item.review.time}</p>
-                                        <a>{item.review.price}</a>
-                                        <a>{item.review.a}</a>
-                                        <p>{item.review.date}</p>
+                                        <a className="a3">{item.review.time}</a>
+                                        <a className="a4">{item.review.price}</a>
+                                        <a className="a5">{item.review.a}</a>
+                                        <a className="a6">{item.review.date}</a>
                                     </div>
                                     <div className="itemsMaster">
                                         <div className="photoMaster"></div>
@@ -199,11 +229,21 @@ const MainPAge = () => {
             </div>
             <div className="whiteCoverEnd">
             <div className="forum">
-            <button className="buttonMore">
-                Форум
-            </button>
-            <div className="rightPartOfForum">
-                <a className="mainaOfForum">Здесь вы можете общаться с другими пользователями, делиться опытом, задавать вопросы и получать ответы от экспертов.</a>
+            <div className="left-PartOfForum">
+                <button className="buttonMore">
+                    Форум
+                </button>
+                <div className="icon-Forum"></div>
+            </div>
+            <div className="right-PartOfForum">
+                <div className="mainOfForum">
+                    <div className="toBeContinued">
+                            <a>Читать форум</a>
+                            <button>
+                            </button>
+                    </div>
+                    <a>Здесь вы можете общаться с другими пользователями, делиться опытом, задавать вопросы и получать ответы от экспертов.</a>
+                </div>
             <div className="digitalPartOfForum">
             <div className="wrapper">
                     <div className="container">
@@ -246,19 +286,13 @@ const MainPAge = () => {
                     </div>
                 </div>
                 <motion.div className="shaker">
-                            <motion.a 
-                                ref={scope}
-                                initial={{x:0, y:0, z:0}}>
+                            <motion.a>
                             Дизайн и оформление
                             </motion.a>
-                            <motion.a
-                                ref={scope1}
-                                initial={{x:0, y:0, z:0}}>
+                            <motion.a>
                             Бытовая техника
                             </motion.a>
-                            <motion.a 
-                                ref={scope2}
-                                initial={{x:0, y:0, z:0}}>
+                            <motion.a>
                             Инженерные работы
                             </motion.a>
                 </motion.div>
@@ -270,6 +304,7 @@ const MainPAge = () => {
             </motion.div>
         </div>
         </div>
+        {cookies}
     </Fragment>);
 
 }

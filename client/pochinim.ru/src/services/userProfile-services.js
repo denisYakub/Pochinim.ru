@@ -1,10 +1,8 @@
-import User from "../models/USER-model";
+import User from "../controllers/USER-controller";
 
 async function logOut(){
     
-    const user = new User();
-
-    const ret = await user.logOut();
+    const ret = await User.logOut();
     console.log(ret);
     
 }

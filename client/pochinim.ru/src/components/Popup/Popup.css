@@ -1,21 +1,54 @@
+@import'../../index.css';
 .Popup{
     position: fixed;
     width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
+    height: max-content;
     left: 0;
-    top: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .Popup-content{
-    width:fit-content;
-    height:fit-content;
-    background-color: white;
+    background: var(--color-main-blue);
+    width: 1920px;
+    height: 164px;
+    padding: 50px 50px 52px 50px;
     display: flex;
-    justify-items: center;
-    border-radius: 20px;
-    padding: 15px;
+    gap: 142px;
+    justify-content: center;
+    align-items: center;
+}
+
+.Popup-content a{
+    color: var(--color-main-wihite);
+
+    /* Headline/H5 */
+    font-family: "SF Pro Display";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%; /* 30.8px */
+}
+
+.Popup-content button{
+    border-radius: 60px;
+    background: var(--color-secondary-grey-searchline);
+    display: flex;
+    width: 162px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    color: var(--color-main-black);
+
+    /* Headline/H2 */
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 26.4px */
 }
