@@ -1,43 +1,291 @@
-.creatTopicWithAccess{
-    width: 1920px;
-    height: max-content;
+@import'../../index.css';
+.creatTopic{
+    max-width: 1920px;
+    width: 100%;
+    height: 75vh;
     margin: 0 auto;
     padding: 0 auto;
-    background: white;
-}
+    box-sizing: border-box;
+    background: var(--color-main-wihite);
 
-.creatTopicWithOutAccess{
-    width: 1920px;
-    height: fit-content;
-    margin: 0 auto;
-    padding: 0 auto;
-    background: gray;
+    display: flex;
+    align-items: center;
 }
 
 .content{
+    width: 100%;
+    height: fit-content;
+    margin-left: 101px;
+    margin-right: 101px;
     display: flex;
-    gap: 200px;
+    justify-content: space-between;
+    gap: 189px;
+    box-sizing: border-box;
 }
 
 .left-content{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mastersAndNumber{
+    display: flex;
+    align-content: baseline;
+}
+
+.left-content button{
+    border-radius: 41px;
+    width: fit-content;
+    padding: 15px;
+    background: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
     border-style: solid;
+    color: var(--color-main-black);
+    font-size: 28px;
+}
+
+.left-content a{
+    color: var(--color-secondary-grey50);
+}
+
+.right-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.right-content a{
+    color: var(--color-secondary-grey50);
+}
+
+.control-buttons{
     margin-top: 100px;
-    margin-left: 100px;
+    display: flex;
+    justify-content: space-between;
+    gap: 550px;
+}
+
+.control-buttons button[name=nt]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 185px;
+    height: 48px;
+    padding: 10px 17px;
+    box-sizing: border-box;
+    border-radius: 60px;
+    width: fit-content;
+    background: var(--color-secondary-grey50);
+    border-color: var(--color-secondary-grey50);
+    border-style: solid;
+    color: var(--color-main-wihite);
+    font-size: 20px;
+}
+
+.ntIcon{
+    width: 24px;
+    height: 24px;
+    background: url("../../img/arrow-right.png") no-repeat center;
+}
+
+.control-buttons button[name=prev]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 127px;
+    height: 48px;
+    padding: 10px 17px;
+    box-sizing: border-box;
+    border-radius: 60px;
+    width: fit-content;
+    background: var(--color-secondary-grey25);
+    border-color: var(--color-secondary-grey25);
+    border-style: solid;
+    color: var(--color-secondary-grey50);
+    font-size: 20px;
+}
+
+.prevIcon{
+    width: 24px;
+    height: 24px;
+    background: url("../../img/arrow-left-grey.png") no-repeat center;
+}
+
+.blockPhase{ 
+    display: flex;
+    flex-direction: column;
+    width: 862px;
+    height: 500px;
+}
+
+.blockPhase h1{
+    color: var(--color-main-black);
+    font-size: 48px;
+}
+
+.blockPhase input{
+    border-radius: 60px;
+    background-color: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    border-color: var(--color-secondary-grey-searchline);
+    color: var(--color-main-black);
+    padding: 17px 34px;
+}
+
+.topicNameHints{
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.topicNameHints button{
+    border-radius: 39px;
+    width: fit-content;
+    padding: 10px 15px;
+    background: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    color: var(--color-main-black);
+    font-size: 16px;
+}
+
+.contact{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.right-content{
-    border-style: solid;
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
+.contact input{
+    min-width: 300px;
+    width: fit-content;
 }
 
-.control-buttons{
-    margin-top: 100px;
-    margin-bottom: 50px;
+.listOfOptions{
+    overflow-y: scroll;
+    height: 232px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option input{
+    width: 20px;
+    height: 20px;
+}
+
+.option p{
+    color: var(--color-main-black);
+
+    /* Text/наборный текст 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
+}
+
+.urInput{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.urInput-radio{
+    width: 20px;
+    height: 20px;
+}
+
+.urInput-text{
+    width: 300px;
+}
+
+.addressInfo{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 60px;
+    border-style: solid;
+    border: 1px dashed var(--color-main-black);
+    display: flex;
+    justify-content: center;
+    padding: 17px 34px;
+}
+
+.Ymap{
+    margin-top: 40px;
+}
+
+.paymentOptions{
+
+}
+
+.paymentOption{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.paymentOption h1{
+    color: var(--color-main-black);
+
+    /* Text/наборный текст 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
+}
+
+.moreInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.moreInfo textarea{
+    width:  auto;
+    height: 275px;
+    resize: none;
+    border-style: solid;
+    background-color: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-radius: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.moreInfo input{
+    display: flex;
+    width:  auto;
+    padding: 17px 34px;
+    border-radius: 60px;
+    background-color: var(--color-main-wihite);
+    border: 1px dashed var(--color-main-black);
+}
+
+.inputAndError{
+    display: flex;
+    align-items: center;
+}
+
+.errorInStage{
+    margin-left: -35px;
+    width: 18px;
+    height: 18px;
+    background: url("../../img/icons.png") no-repeat center;
+}
+
+.errorStageMessage{
+    max-width: 252px;
+    position: fixed;
+    border-style: solid;
+    border-color: var(--color-main-wihite);;
+    border-radius: 8px;
+    background: var(--color-main-wihite);
+    box-shadow: 0px 4px 60px 0px rgba(33, 33, 33, 0.12);
 }

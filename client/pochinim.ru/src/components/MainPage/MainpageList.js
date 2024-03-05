@@ -86,11 +86,10 @@ const MainPAge = () => {
                 <div className="right-aboutUs">
                     <div className="mainaboutUs">
                     <div ref={buttonBG} className="toBeContinued"
-                    onMouseEnter={() => 
-                        buttonsAnimations.buttonHover({colour1: "#2E2EB2", buttonBG, animateButtonBG},
-                            {colour2: "#FFFFFF", buttonText, animateButtonText})}
-                    onMouseLeave={() => buttonsAnimations.buttonHover({colour1: "#EBF0FF", buttonBG, animateButtonBG},
-                            {colour2: "#3838CE", buttonText, animateButtonText})}
+                    onMouseEnter={async () => await buttonsAnimations.buttonHover("#2E2EB2", {buttonBG, animateButtonBG},
+                            "#FFFFFF", {buttonText, animateButtonText})}
+                    onMouseLeave={async () => await buttonsAnimations.buttonHover("#EBF0FF", {buttonBG, animateButtonBG},
+                            "#3838CE", {buttonText, animateButtonText})}
                     onClick={() => buttonOnClick("/CreateTopic")}>
                         <a ref={buttonText}>Написать задание</a>
                         <button>
