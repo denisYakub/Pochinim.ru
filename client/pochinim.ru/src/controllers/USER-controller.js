@@ -35,7 +35,8 @@ class User{
                 body: JSON.stringify(body)
             })
             const bot = await data.json();
-            localStorage.setItem('token', bot.accessToken)
+            localStorage.setItem('token', bot.accessToken);
+            localStorage.setItem('mail', bot.email);
 
             console.log(bot);
 

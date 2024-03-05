@@ -1,4 +1,5 @@
 import User from "../controllers/USER-controller";
+import Topic from "../controllers/TOPIC-controller";
 
 async function checkForAccessInCreateTopic(){
 
@@ -12,6 +13,19 @@ async function checkForAccessInCreateTopic(){
         }
     }
     return false;
+}
+
+async function createTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
+                                address, date, paymentOption, detailsText, detailsFiles, accountID}){
+    
+    const ret = await Topic.createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
+        address, date, paymentOption, detailsText, detailsFiles, accountID});
+        
+    if(ret?.message){
+        return false;
+    }else{
+        return true;
+    }
 }
 
 async function getListOfExistingTopics(){
@@ -40,4 +54,4 @@ async function getListofWhereIsProblem(){
     return options;
 }
 
-export {checkForAccessInCreateTopic, getListOfExistingTopics, getListOfWork, getListOfWhatHappend, getListofWhereIsProblem};
+export {createTopic, checkForAccessInCreateTopic, getListOfExistingTopics, getListOfWork, getListOfWhatHappend, getListofWhereIsProblem};

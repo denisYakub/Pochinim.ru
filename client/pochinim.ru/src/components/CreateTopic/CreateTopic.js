@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
-import {checkForAccessInCreateTopic} from "../../services/createTopic-services";
+import {checkForAccessInCreateTopic, createTopic} from "../../services/createTopic-services";
 import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
 import {useAnimate} from 'framer-motion'
 import textAnimations from '../../animations/text-animations'
@@ -67,6 +67,10 @@ const CreateTopic = () => {
             console.log(topic, FIO, phoneNumber, need, problem, problemLocation,
                         address, date, paymentOption, detailsText, detailsFiles,
                         accountID, sendApplication);
+            const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,
+                                    address, date, paymentOption, detailsText, detailsFiles,
+                                        accountID};
+            const resp = createTopic(finalTopic);              
         }
     }, [activeStage, comps, sendApplication])
 
