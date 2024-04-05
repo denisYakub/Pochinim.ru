@@ -8,6 +8,10 @@ class MasterController{
     async registrate(){
         
     }
+
+    async getReviewsById(){
+        
+    }
 };
 
 export default new MasterController();

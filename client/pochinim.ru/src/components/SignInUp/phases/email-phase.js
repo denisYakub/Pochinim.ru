@@ -1,6 +1,6 @@
 import buttonsAnimations from "../../../animations/buttons-animations";
 import textAnimations from "../../../animations/text-animations";
-import { checkEmail, getSendCode } from "../../../services/signInUp-service";
+import USERController from "../../../controllers/USER-controller1";
 import {motion, useAnimate} from 'framer-motion'
 
 const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSingInUp, setErrorInSingInUp}) =>{ 
@@ -9,10 +9,10 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
     const [errorRed, animateErrorRed] = useAnimate();
 
     const click = async () =>{
-        if(await checkEmail(email)){
+        if(await USERController.checkUserEmail(email)){
             setPhase(phase + 2);
         }else{
-            var code = await getSendCode(email);
+            var code = await USERController.getSendCode(email);
             if(code !== false){
                 setEmailCode(code);
                 setErrorInSingInUp(null)

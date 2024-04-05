@@ -2,27 +2,20 @@ import userServices from "../services/user-services";
 
 class UserController{
 
-    async checkUserEmail(email){//signInUp-service
+    async checkUserEmail(email){
         const ret = await userServices.checkEmail(email)
         return ret;
     }
 
-    async registrateUser(login, email, password){//signInUp-service
-
-        if(login === "" || email === "" || password === ""){
-            return false;
-        }
-     
-        const ret = await userServices.registrate(login, email, password)
-    
-        if(ret.message){
-            console.log(ret.message);
+    async registrate(email, name, password){
+        var ret = await userServices.registrate(name, email, password);
+        if(ret?.message){
             return false;
         }
         return true;
     }
 
-    async getSendCode(email){//signInUp-service
+    async getSendCode(email){
         var code = await userServices.sendCode(email);
         if(code?.message){
             return false;

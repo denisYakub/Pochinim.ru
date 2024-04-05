@@ -2,16 +2,16 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
 import {motion, useAnimate, useInView} from "framer-motion";
-import { getReviews, getHints, getServices } from "../../services/mainPage-services";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
 import buttonsAnimations from "../../animations/buttons-animations";
+import WebSiteController from "../../controllers/WEBSITE-controller";
 
-const reviews = await getReviews();
+const reviews = await WebSiteController.getReviews();
   
-const hints = await getHints();
+const hints = await WebSiteController.getHints();
 
-const services = await getServices();
+const services = await WebSiteController.getServices();
 
 const steps = ["ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ"]
 

@@ -1,6 +1,6 @@
 import buttonsAnimations from "../../../animations/buttons-animations";
 import textAnimations from "../../../animations/text-animations";
-import { logIn, registrate } from "../../../services/signInUp-service";
+import USERController from "../../../controllers/USER-controller1";
 import {motion, useAnimate} from 'framer-motion'
 
 const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, email, emailCode, errorInSingInUp, setErrorInSingInUp}) =>{
@@ -10,14 +10,15 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
 
     const click = async() =>{
         if(emailCode === 0){
-            if(await logIn(email, password)){
+            if(await USERController.logInUser(email, password)){
                 setErrorInSingInUp(null)
                 setPhase(phase + 1)
             }else{
                 setErrorInSingInUp("Неверный пароль")
             }
         }else{
-            if(await registrate(email, name, password)){
+            USERController.registrate(email, name, password)
+            if(await USERController.registrate(email, name, password)){
                 setErrorInSingInUp(null)
                 setPhase(phase + 1)
             }else{
