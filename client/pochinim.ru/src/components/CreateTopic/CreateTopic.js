@@ -1,18 +1,21 @@
 import { Fragment, useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
-import {checkForAccessInCreateTopic, createTopic} from "../../services/createTopic-services";
 import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
 import {useAnimate} from 'framer-motion'
 import textAnimations from '../../animations/text-animations'
+import { useNavigate} from "react-router-dom";
+import ListOfMasters from "./ListOfMasters";
+import TOPICController from "../../controllers/TOPIC-controller";
+import USERController from "../../controllers/USER-controller1";
 const CreateTopic = () => {
     
-    const [active, setActive] = useState(false)
-    const [activeStage, setActiveStage] = useState(0);
-    const [formName, setFormName] = useState("");
+    const navigate = useNavigate();
 
-    const [canGoToNt, setCanGoToNt] = useState(false);
-    const [canGoToPrev, setCanGoToPrev] = useState(false);
+    const [activePop, setActivePop] = useState(false)
+    const [textPop, setTextPop] = useState("");
+
+    const [activeStage, setActiveStage] = useState(0);
 
     const [topic, setTopic] = useState("");
     const [FIO, setFIO] = useState("");
@@ -24,8 +27,9 @@ const CreateTopic = () => {
     const [date, setDate] = useState("");
     const [paymentOption, setPaymentOption] = useState("");
     const [detailsText, setDetailsText] = useState("");
-    const [detailsFiles, setDetailsFiles] = useState([]);
-    const [accountID, setAccountID] = useState(""); 
+    const [detailsFiles, setDetailsFiles] = useState(null);
+    const [accountID, setAccountID] = useState("");
+    const [publishOnForum, setPublishOnForum] = useState(false);
     const [sendApplication, setSendApplication] = useState(false); 
     
     const [error, setError] = useState(false);
@@ -36,7 +40,7 @@ const CreateTopic = () => {
                     <Stage2 FIO={FIO} setFIO={setFIO}
                                 phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
                                     error={error} setError={setError} errorRed={errorRed}></Stage2>, 
-                    <Stage3 need={need} setneed={setNeed}
+                    <Stage3 need={need} setNeed={setNeed}
                                 error={error} setError={setError} errorRed={errorRed}></Stage3>, 
                     <Stage4 problem={problem} setProblem={setProblem}
                                 error={error} setError={setError} errorRed={errorRed}></Stage4>,
@@ -53,24 +57,39 @@ const CreateTopic = () => {
                                     error={error} setError={setError} errorRed={errorRed}></Stage9>, 
                     <Stage10 accountID={accountID} setAccountID={setAccountID}
                                 setSendApplication={setSendApplication}
+                                publishOnForum={publishOnForum} setPublishOnForum={setPublishOnForum}
                                 error={error} setError={setError} errorRed={errorRed}></Stage10>]
 
+    const compListOfMasters = <ListOfMasters topic={topic}
+                                                setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>;
+
+    const [listOfMasters, setListOfMasters] = useState(false);
+
     async function checkAccess(){
-        setActive(await checkForAccessInCreateTopic());
+        if(await USERController.checkForAccess()){
+            setActivePop(false);
+            setTextPop("Войдите или зарегестрируйтесь, чтоб создавать темы");
+        }else{
+            setActivePop(true);
+            setTextPop("Войдите или зарегестрируйтесь, чтоб создавать темы");
+        }
     }
 
     useEffect(() => {
         checkAccess();
+    }, [])
+
+    useEffect(() => {
         if(sendApplication == true){
-            console.log("Sending application");
-            console.log("info");
-            console.log(topic, FIO, phoneNumber, need, problem, problemLocation,
-                        address, date, paymentOption, detailsText, detailsFiles,
-                        accountID, sendApplication);
+            console.log(publishOnForum);
             const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,
                                     address, date, paymentOption, detailsText, detailsFiles,
                                         accountID};
-            const resp = createTopic(finalTopic);              
+
+            TOPICController.createNewTopic(finalTopic);
+
+            setSendApplication(false);
+            navigate('/');   
         }
     }, [activeStage, comps, sendApplication])
 
@@ -98,6 +117,7 @@ const CreateTopic = () => {
                 break;
             case 2:
                 if(need != ""){
+                    console.log(need);
                     nextStage = activeStage + 1;
                     setError(false);
                 }else{
@@ -160,7 +180,6 @@ const CreateTopic = () => {
                 }
                 break;
             default:
-                
                 break;
         }
         
@@ -176,47 +195,63 @@ const CreateTopic = () => {
         }
     }
 
+    const help = () => {
+    }
+
+    const masters = () => {
+        if(!listOfMasters){
+            setListOfMasters(true);
+        }else{
+            setListOfMasters(false);
+        }
+    }
+
     return(<Fragment>
         <div className="creatTopic">
             <div className="content">
                 <div className="left-content">
                     <div className="mastersAndNumber">
-                        <button>
+                        <button onClick={masters}>
                             Специалисты
                         </button>
                         <a>1587</a>
                     </div>
-                    <button>
+                    <button onClick={help}>
                         Помощь
                     </button>
                     <a>
-                    Заполнение формы - {formName}
+                    Заполнение формы - {topic}
                     </a>
                 </div>
-                <div className="right-content">
-                    {activeStage<9?<a>{activeStage + 1}/9</a>:<a>Авторизация</a>}
-                    {comps[activeStage]}
-                    <div className="control-buttons">
-                        <button name="prev" onClick={moveBack}
-                        onMouseEnter={()=>{}}
-                        onMouseLeave={()=>{}}>
-                        <div className="prevIcon"></div>
-                            <q>Назад</q>
-                        </button>
-                        {activeStage<9?
-                        <button name="nt" onClick={moveOn}
-                        onMouseEnter={()=>{}}
-                        onMouseLeave={()=>{}}>
-                            <p>Продолжить</p>
-                            <div className="ntIcon"></div>
-                        </button>
-                        :<></>}
+                {!listOfMasters?
+                    <div className="right-content-create-topic">
+                        {activeStage<9?<a>{activeStage + 1}/9</a>:<a>Авторизация</a>}
+                        {comps[activeStage]}
+                        <div className="control-buttons">
+                            <button name="prev" onClick={moveBack}
+                                onMouseEnter={()=>{}}
+                                onMouseLeave={()=>{}}>
+                                <div className="prevIcon"></div>
+                                    <q>Назад</q>
+                            </button>
+                            {activeStage<9?
+                                <button name="nt" onClick={moveOn}
+                                    onMouseEnter={()=>{}}
+                                    onMouseLeave={()=>{}}>
+                                    <p>Продолжить</p>
+                                    <div className="ntIcon"></div>
+                                </button>
+                            :<></>}
+                        </div>
                     </div>
-                </div>
+                    :
+                    <div className="right-content-find-master">
+                        {compListOfMasters}
+                    </div>}
             </div>
         </div>
-        <Popup active={!active} setActive={setActive}>
-            Войдите или зарегестрируйтесь, чтоб создавать темы
+        <Popup active={activePop} setActive={setActivePop}>
+            {textPop}
         </Popup>
     </Fragment>);
 }

@@ -22,7 +22,7 @@ class User{
     setLogin(login){
         this.login = login;
     }
-
+    
     async registrate(login, email, password){
         try {
             const body = {"login": login, "password": password, "email": email};
@@ -36,7 +36,7 @@ class User{
             })
             const bot = await data.json();
             localStorage.setItem('token', bot.accessToken);
-            localStorage.setItem('mail', bot.email);
+            localStorage.setItem('mail', email);
 
             console.log(bot);
 
@@ -100,6 +100,7 @@ class User{
             })
             const bot = await data.json();
             localStorage.setItem('token', bot.accessToken)
+            localStorage.setItem('mail', email);
             console.log(localStorage.getItem('token'));
             return bot;
         } catch (error) {

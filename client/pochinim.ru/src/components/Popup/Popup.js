@@ -4,12 +4,12 @@ const Popup = ({active, setActive, children}) =>{
 
     const [scope, animate] = useAnimate();
 
-    const close = () => {
-        animate(scope.current, {scale:0});
-        //setActive(params)
+    const close = async () => {
+        await animate(scope.current, {scale:0});
+        setActive(false);
     }
 
-    return(active?<motion.div ref={scope} className='Popup'
+    return(<motion.div ref={scope} className='Popup'
             initial={{scale:0}} animate={active?{scale:1}:null}>
         <motion.div className='Popup-content'>
             <a>
@@ -19,7 +19,7 @@ const Popup = ({active, setActive, children}) =>{
             Прекрасно
             </button>
         </motion.div>
-    </motion.div>:<></>);
+    </motion.div>);
 }
 
 export default Popup;

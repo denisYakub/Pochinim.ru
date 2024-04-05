@@ -4,6 +4,7 @@ const {body} = require('express-validator');
 const authMiddleware = require('../middleware/auth-middleware');
 const topicController = require('../controllers/topic-controller');
 const router = new Router();
+const multerMiddleware = require('../middleware/multer-middleware');
 
 router.post('/registration', userController.registration);
 router.post('/checkEmail', userController.checkEmail)
@@ -19,4 +20,9 @@ router.get('/users',
 router.post('/createTopic',
             authMiddleware,
             topicController.createTopic);
+
+router.post('/saveFileForTopic/:id_topic',
+            multerMiddleware.single('photo'),
+            topicController.saveFileForTopic
+            );
 module.exports = router;

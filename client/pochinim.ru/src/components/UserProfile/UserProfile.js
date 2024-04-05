@@ -1,14 +1,14 @@
 import { Fragment } from "react";
 import "../UserProfile/UserProfile.css"
-import { logOut } from "../../services/userProfile-services";
 import { useNavigate } from 'react-router-dom'
+import USERController from "../../controllers/USER-controller1";
 
 const UserProfile = () => {
 
     const navigate = useNavigate();
 
     const logout = async () => {
-        await logOut();
+        await USERController.logOutUser();
         navigate('/')
     }
 

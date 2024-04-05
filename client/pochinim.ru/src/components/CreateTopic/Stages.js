@@ -1,13 +1,13 @@
 import { useRef, useState } from "react"
-import { getListOfExistingTopics, getListOfWhatHappend, getListOfWork, getListofWhereIsProblem } from "../../services/createTopic-services"
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
 import {motion, useAnimate} from 'framer-motion'
 import buttonsAnimations from "../../animations/buttons-animations.js";
+import topicController from "../../controllers/TOPIC-controller.js";
 
-const optionsOfExistingTopics = await getListOfExistingTopics();
-const optionsOfWork = await getListOfWork();
-const optionsOfWhatHappend = await getListOfWhatHappend();
-const optionsOfWhereIsProblem = await getListofWhereIsProblem();
+const optionsOfExistingTopics = topicController.getListOfExistingTopics();
+const optionsOfWork = topicController.getListOfWork();
+const optionsOfWhatHappend = topicController.getListOfWhatHappend();
+const optionsOfWhereIsProblem = topicController.getListofWhereIsProblem();
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
@@ -27,7 +27,7 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>
                 : console.log("no_errors")}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 250}}>Ошибка ввода</motion.a>
         </div>
         <div className="topicNameHints">
             <button>
@@ -61,7 +61,7 @@ const Stage2 = ({FIO, setFIO, phoneNumber, setphoneNumber, error, setError, erro
                     onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                     </div>
                     : console.log("no_errors")}
-                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 650}}>Ошибка ввода</motion.a>
             </div>
             <div className="inputAndError">
                 <input placeholder="+7-000-000-00-00" value={phoneNumber} ref={errorRed} onChange={e => setphoneNumber(e.target.value)}></input>
@@ -71,36 +71,67 @@ const Stage2 = ({FIO, setFIO, phoneNumber, setphoneNumber, error, setError, erro
                     onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                     </div>
                     : console.log("no_errors")}
-                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -30, x: 400}}>Ошибка ввода</motion.a>
             </div>
         </div>
     </div>)
 }
-const Stage3 = ({need, setneed, error, setError, errorRed}) => {
+const Stage3 = ({need, setNeed, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
+    const [localNeed, setLocalNeed] = useState("");
+
+
+    const inputRadioCheck = (e) => {
+        setNeed(e.value);
+    }
+
+    const isChecked = (index) => {
+        if(optionsOfWork.indexOf(need) == index){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    const isCheckedUserInput = () =>{
+        if(need == "" || optionsOfWork.includes(need)){
+            return false;
+        }else{
+             return true;
+        }
+    }
+
+    const setValue = () => {
+        if(optionsOfWork.includes(need)){
+            return "";
+        }else{
+            return need;
+        }
+    }
+
     return(<div className="blockPhase">
         <h1>
             Что требуется?
         </h1>
-        <div className="listOfOptions">
+        <div className="listOfOptions" onChange={e => inputRadioCheck(e.target)}> 
             {optionsOfWork.map((item, index) => {
                 return(
                 <div key={index} className="option">
-                    <input type="radio"></input>
+                    <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
             <div className="urInput">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" className="urInput-radio" value={localNeed} name="check" checked={isCheckedUserInput()}></input>
                 <div className="inputAndError">
-                    <input type="text" className="urInput-text" placeholder="Ваш вариант" value={need} ref={errorRed} onChange={e => setneed(e.target.value)}></input>
+                    <input type="text" className="urInput-text" ref={errorRed}  placeholder="Ваш вариант" value={setValue()} onChange={e => setLocalNeed(e.target.value)}></input>
                     {error
                         ?<div className="errorInStage"
                         onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                         onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                         </div>
                         : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -325, x: 400}}>Ошибка ввода</motion.a>
                 </div>
             </div>
         </div>
@@ -108,29 +139,60 @@ const Stage3 = ({need, setneed, error, setError, errorRed}) => {
 }
 const Stage4 = ({problem, setProblem, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
+    const [localProblem, setLocalProblem] = useState("");
+
+
+    const inputRadioCheck = (e) => {
+        setProblem(e.value);
+    }
+
+    const isChecked = (index) => {
+        if(optionsOfWhatHappend.indexOf(problem) == index){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    const isCheckedUserInput = () =>{
+        if(problem== "" || optionsOfWhatHappend.includes(problem)){
+            return false;
+        }else{
+             return true;
+        }
+    }
+
+    const setValue = () => {
+        if(optionsOfWhatHappend.includes(problem)){
+            return "";
+        }else{
+            return problem;
+        }
+    }
+
     return(<div className="blockPhase">
         <h1>
             Что случилось?
         </h1>
-        <div className="listOfOptions">
+        <div className="listOfOptions" onChange={e => inputRadioCheck(e.target)}>
             {optionsOfWhatHappend.map((item, index) => {
                 return(
                 <div key={index} className="option">
-                    <input type="radio"></input>
+                    <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
             <div className="urInput">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" className="urInput-radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
                 <div className="inputAndError">
-                    <input type="text" className="urInput-text" placeholder="Ваш вариант" value={problem} ref={errorRed} onChange={e => setProblem(e.target.value)}></input>
+                    <input type="text" className="urInput-text" placeholder="Ваш вариант" ref={errorRed} value={setValue()} onChange={e => setLocalProblem(e.target.value)}></input>
                     {error
                         ?<div className="errorInStage"
                         onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                         onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                         </div>
                         : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -30, x: 400}}>Ошибка ввода</motion.a>
                 </div>
             </div>
         </div>
@@ -138,29 +200,60 @@ const Stage4 = ({problem, setProblem, error, setError, errorRed}) => {
 }
 const Stage5 = ({problemLocation, setProblemLocation, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
+    const [localProblemLocation, setLocalProblemLocation] = useState("");
+
+
+    const inputRadioCheck = (e) => {
+        setProblemLocation(e.value);
+    }
+
+    const isChecked = (index) => {
+        if(optionsOfWhereIsProblem.indexOf(problemLocation) == index){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    const isCheckedUserInput = () =>{
+        if(problemLocation == "" || optionsOfWhereIsProblem.includes(problemLocation)){
+            return false;
+        }else{
+             return true;
+        }
+    }
+
+    const setValue = () => {
+        if(optionsOfWhereIsProblem.includes(problemLocation)){
+            return "";
+        }else{
+            return problemLocation;
+        }
+    }
+    
     return(<div className="blockPhase">
         <h1>
             Где проблема?
         </h1>
-        <div className="listOfOptions">
+        <div className="listOfOptions" onChange={e => inputRadioCheck(e.target)}>
             {optionsOfWhereIsProblem.map((item, index) => {
                 return(
                 <div key={index} className="option">
-                    <input type="radio"></input>
+                    <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
             <div className="urInput">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" className="urInput-radio" value={localProblemLocation} name="check" checked={isCheckedUserInput()}></input>
                 <div className="inputAndError">
-                    <input type="text" className="urInput-text" placeholder="Ваш вариант" value={problemLocation} ref={errorRed} onChange={e => setProblemLocation(e.target.value)}></input>
+                    <input type="text" className="urInput-text" placeholder="Ваш вариант" ref={errorRed} value={setValue()} onChange={e => setLocalProblemLocation(e.target.value)}></input>
                     {error
                         ?<div className="errorInStage"
                         onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                         onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                         </div>
                         : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -400, x: 400}}>Ошибка ввода</motion.a>
                 </div>
             </div>
         </div>
@@ -217,7 +310,7 @@ const Stage6 = ({address, setAddress, error, setError, errorRed}) => {
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>
                 : console.log("no_errors")}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 0}}>Ошибка ввода</motion.a>
         </div>
         <div className="Ymap">
         <YMaps query={{apikey: key}}>
@@ -249,34 +342,39 @@ const Stage7 = ({date, setDate, error, setError, errorRed}) => {
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>
                 : console.log("no_errors")}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>Ошибка ввода</motion.a>
+            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 200}}>Ошибка ввода</motion.a>
         </div>
     </div>)
 }
 const Stage8 = ({paymentOption, setPaymentOption, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
-    setPaymentOption(1);
+
+    const inputRadioCheck = (e) => {
+        setPaymentOption(e.value);
+        console.log(e.value);
+    }
+
     return(<div className="blockPhase">
         <h1>
             Сколько готовы заплатить за работу?
         </h1>
-        <div className="paymentOptions">
+        <div className="paymentOptions" onChange={e => inputRadioCheck(e.target)}>
             <div className="paymentOption">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" value={0} className="urInput-radio" name="check"></input>
                 <div>
                     <h1>Сделка без риска</h1>
                     <a>Оплата банковской картой с гарантией возврата и компенсацией материального ущерба до 10 000 ₽. Комиссия 11% + 35 ₽. Подробнее</a>
                 </div>
             </div>
             <div className="paymentOption">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" value={1} className="urInput-radio" name="check"></input>
                 <div>
                     <h1>Оплата напрямую исполнителю</h1>
                     <a>Без гарантий и компенсаций Починим.ру: вы напрямую договариваетесь с исполнителем об условиях и способе оплаты.</a>
                 </div>
             </div>
             <div className="paymentOption">
-                <input type="radio" className="urInput-radio"></input>
+                <input type="radio" value={2} className="urInput-radio" name="check"></input>
                 <div>
                     <h1>Оплата с закрывающими документами</h1>
                     <a>Откликнутся только юридические лица, ИП или самозанятые. Вы платите с расчётного счета компании и получаете закрывающие документы от исполнителя.</a>
@@ -294,24 +392,37 @@ const Stage9 = ({detailsText, setDetailsText, detailsFiles, setDetailsFiles, err
         </h1>
         <div className="moreInfo">
             <textarea ref={errorRed} placeholder="Важные детали для специлиста, о которых мы не спросили" onChange={e => setDetailsText(e.target.value)}></textarea>
-            <input type="file" accept=".jpg,.jpeg,.png" multiple onChange={e => setDetailsFiles(e.target.value)}></input>
+            <input type="file" accept=".jpg,.jpeg,.png" onChange={e => setDetailsFiles(e.target.files[0])}></input>
         </div>
     </div>)
 }
-const Stage10 = ({accountID, setAccountID, setSendApplication, error, setError, errorRed}) => {
+const Stage10 = ({accountID, setAccountID, setSendApplication, publishOnForum, setPublishOnForum, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
+
+    const inputRadioCheck = (e) => {
+        if(publishOnForum === false){
+            setPublishOnForum(true);
+        }else{
+            setPublishOnForum(false);
+        }
+    }
 
     return(<div className="blockPhase">
         <h1>
             Выберете аккаунт для создания темы:
         </h1>
-        <div>
-            <button>Александр И.</button>
+        <div className="block-accounts-to-choose">
+            <div className="list-of-accounts">
+                <button className="acount-info">
+                    {localStorage.getItem("mail")}
+                </button>
+                <button className="add-account"></button>
+            </div>
             <a href="">Зарегистрировать новый </a>
         </div>
-        <button onClick={() => {setSendApplication(true)}}>Опубликовать задание</button>
-        <div>
-            <input type="radio"></input>
+        <button className="publish-topic" onClick={() => {setSendApplication(true)}}>Опубликовать задание</button>
+        <div className="publish-topic-in-forum" onChange={e => inputRadioCheck(e.target)}>
+            <input type='checkbox' name="check" checked={publishOnForum}></input>
             <p>Опубликовать задание также на форуме</p>
         </div>
     </div>)

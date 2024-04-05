@@ -9,7 +9,7 @@ import WelcomePhase from "./phases/welcome-phase";
 
 const SignIn = () => {
 
-
+    
     const [email, setEmail] = useState("email");
     const [inputCode, setInputCode] = useState("код");
     const [emailCode, setEmailCode] = useState(0);

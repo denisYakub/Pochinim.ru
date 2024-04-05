@@ -1,3 +1,4 @@
+const pool = require("../database");
 const topicService = require("../services/topic-service");
 
 class TopicController{
@@ -6,16 +7,28 @@ class TopicController{
             const {topicName, fio, phoneNumber,
             need, problem, problemLocation,
             address, date, payment, 
-            detailsTxt, detailsFiles, 
+            detailsTxt, 
             mail} = req.body;
 
-            const topicData = topicService.createNewTopic(topicName, fio, phoneNumber,
+            const data = topicService.createNewTopic(topicName, fio, phoneNumber,
                                                             need, problem, problemLocation,
                                                             address, date, payment, 
-                                                            detailsTxt, detailsFiles, 
-                                                            mail);
+                                                            detailsTxt, mail);
 
-            return res.json((await topicData));
+            return res.json((await data));
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async saveFileForTopic(req, res, next){
+        try {
+            const id_topic = req.params.id_topic;
+            const file_path = req.file.path;
+
+            const data = topicService.saveNewFileForTopic(id_topic, file_path);
+            
+            return res.json((await data));
         } catch (error) {
             next(error);
         }

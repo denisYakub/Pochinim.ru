@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import "../Navigation/Navigation.css"
 import { Fragment, useEffect, useState } from 'react';
-import checkForAuth from '../../services/navigation-services';
+import USERController from '../../controllers/USER-controller1';
 
 const Navbar = () => {
 
@@ -11,9 +11,11 @@ const Navbar = () => {
     const [search, setSearch] = useState("")
 
     async function name() {
-        setAuth( await checkForAuth());
+        if(await USERController.checkForAccess()){
+            setAuth(localStorage.getItem('mail'));
+        }
     }
-
+    
     useEffect( () => {
         name();
     }, [])

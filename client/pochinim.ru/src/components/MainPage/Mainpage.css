@@ -34,12 +34,11 @@
 .title a[name="title-a1"]{
     color: var(--color-main-blue);
     
-    /* Headline/H1 */
     font-family: "SF Pro Display";
     font-size: 110px;
     font-style: normal;
     font-weight: 500;
-    line-height: 110%; /* 121px */
+    line-height: 110%;
 }
 
 .title a{
