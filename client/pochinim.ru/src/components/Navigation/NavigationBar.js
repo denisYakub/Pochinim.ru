@@ -16,8 +16,10 @@ const Navbar = () => {
         }
     }
     
-    useEffect( () => {
-        name();
+    useEffect(async () => {
+        if(await USERController.checkForAccess()){
+            setAuth(localStorage.getItem('mail'));
+        }
     }, [navigate])
 
     const submitSearch = e => {

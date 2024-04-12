@@ -14,6 +14,10 @@ const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
     const [errorScope, animateError] = useAnimate();
 
+    const activateHint = (value) => {
+        setTopic(value);
+    }
+
     return(<div className="blockPhase">
         <h1>
             Как назвать задачу?
@@ -29,17 +33,17 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
                 : console.log("no_errors")}
             <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 250}}>Ошибка ввода</motion.a>
         </div>
-        <div className="topicNameHints">
-            <button>
+        <div className="hints">
+            <button className="hint" onClick={() => activateHint("Сантехника")}>
             Сантехник
             </button>
-            <button>
+            <button className="hint" onClick={() => activateHint("Ремонт")}>
             Ремонт
             </button>
-            <button>
+            <button className="hint" onClick={() => activateHint("Срочно")}>
             Срочно
             </button>
-            <button>
+            <button className="hint" onClick={() => activateHint("Дистанционно")}>
             Дистанционно
             </button>
         </div>

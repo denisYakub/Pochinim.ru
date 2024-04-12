@@ -108,10 +108,10 @@ class UserServices{
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"}, 
-            })
+            });
             const bot = await data.json();
 
-            localStorage.setItem('token', bot.accessToken)
+            localStorage.setItem('token', bot.accessToken);
 
             return bot;
         } catch (error) {
