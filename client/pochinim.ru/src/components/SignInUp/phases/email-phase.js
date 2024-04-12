@@ -3,12 +3,14 @@ import textAnimations from "../../../animations/text-animations";
 import USERController from "../../../controllers/USER-controller";
 import {motion, useAnimate} from 'framer-motion'
 
-const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSingInUp, setErrorInSingInUp}) =>{ 
+const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSingInUp, setErrorInSingInUp, setShowLoader}) =>{ 
 
     const [errorScope, animateError] = useAnimate();
     const [errorRed, animateErrorRed] = useAnimate();
 
     const click = async () =>{
+        setShowLoader(true);
+
         if(await USERController.checkUserEmail(email)){
             setPhase(phase + 2);
         }else{
@@ -22,6 +24,8 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
                 setErrorInSingInUp("Неверный логин")
             }
         }
+
+        setShowLoader(false);
     };
 
     return(<div className="inner-box">

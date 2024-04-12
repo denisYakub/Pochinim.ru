@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import '../Loader/Loader.css';
 import loadImg from '../../img/load.png';
 
-const Loader = ({showLoader, setShowLoader, timer}) => {
-    useEffect(() => {
-        setTimeout(() => {
-            setShowLoader(false);
-        }, timer);
-    }, []);
-
+const Loader = ({showLoader, setShowLoader}) => {
     return(<div>
             {showLoader?
                 <div className="loader">

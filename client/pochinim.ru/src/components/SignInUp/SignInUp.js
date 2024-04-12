@@ -6,6 +6,7 @@ import EmailPhase from "./phases/email-phase";
 import CodePhase from "./phases/code-phase";
 import PasswordPhase from "./phases/password-phase";
 import WelcomePhase from "./phases/welcome-phase";
+import Loader from "../Loader/Loader";
 
 const SignIn = () => {
 
@@ -18,11 +19,13 @@ const SignIn = () => {
     const [name, setName] = useState("")
 
     const [errorInSingInUp, setErrorInSingInUp] = useState(null);
+    const [showLoader, setShowLoader] = useState(false);
 
     const comp0 =  <EmailPhase phase={phase} setPhase={setPhase} 
                                 email={email} setEmail={setEmail} 
                                 setEmailCode={setEmailCode}
-                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></EmailPhase>
+                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}
+                                setShowLoader={setShowLoader}></EmailPhase>
                                 
     const comp1 = <CodePhase phase={phase} setPhase={setPhase} 
                                 code={inputCode} setCode={setInputCode} 
@@ -56,6 +59,7 @@ const SignIn = () => {
             </div>
             {phase==0?comp0:phase==1?comp1:phase==2?comp2:phase==3?comp3:navigate('/')}
         </div>
+        <Loader showLoader={showLoader} setShowLoader={setShowLoader}></Loader>
     </Fragment>);
 };
 

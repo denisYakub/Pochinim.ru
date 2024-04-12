@@ -20,7 +20,7 @@ const Navbar = () => {
 
         setTimeout(() => {
             getAuth();
-        }, 1000);
+        }, 10);
 
     }, [navigate])
 
