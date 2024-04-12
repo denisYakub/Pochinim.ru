@@ -1,7 +1,6 @@
 @import '../../index.css';
 .nav{
-    max-width: 1920px;
-    width: 100%;
+    width: 1920px;
     padding: 0 auto;
     margin: 0 auto;
     background: var(--color-main-wihite);

@@ -9,17 +9,19 @@ const Navbar = () => {
 
     const [auth, setAuth] = useState(null)
     const [search, setSearch] = useState("")
-
-    async function name() {
-        if(await USERController.checkForAccess()){
-            setAuth(localStorage.getItem('mail'));
-        }
-    }
     
-    useEffect(async () => {
-        if(await USERController.checkForAccess()){
-            setAuth(localStorage.getItem('mail'));
+    useEffect(() => {
+
+        async function getAuth() {
+            if(await USERController.checkForAccess()){
+                setAuth(localStorage.getItem('mail'));
+            }
         }
+
+        setTimeout(() => {
+            getAuth();
+        }, 1000);
+
     }, [navigate])
 
     const submitSearch = e => {

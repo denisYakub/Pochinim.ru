@@ -8,12 +8,14 @@ import { useNavigate} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
 import TOPICController from "../../controllers/TOPIC-controller";
 import USERController from "../../controllers/USER-controller";
+import Loader from "../Loader/Loader";
 const CreateTopic = () => {
     
     const navigate = useNavigate();
 
     const [activePop, setActivePop] = useState(false)
     const [textPop, setTextPop] = useState("");
+    const [showLoader, setShowLoader] = useState(false);
 
     const [activeStage, setActiveStage] = useState(0);
 
@@ -80,9 +82,7 @@ const CreateTopic = () => {
 
     useEffect(() => {
         checkAccess();
-    }, [])
 
-    useEffect(() => {
         if(sendApplication == true){
             console.log(publishOnForum);
             const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,
