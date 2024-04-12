@@ -16,6 +16,7 @@ const SignUpMaster = () => {
     const [occupation, setOccupation] = useState("");
     const [workingFrom, setWorkingFrom] = useState(0);
     const [location, setLocation] = useState("");
+    const [selectedOptionsLocation, setSelectedOptionsLocation] = useState(null);
     const [email, setEmail] = useState("");
     const [codeConf, setCodeConf] = useState(false);
     const [photo, setPhoto] = useState(null);
@@ -29,24 +30,57 @@ const SignUpMaster = () => {
                     <MasterOccupationEnter occupation={occupation} setOccupation={setOccupation}></MasterOccupationEnter>,
 
                     <MasterLocationEnter workingFrom={workingFrom} setWorkingFrom={setWorkingFrom}
-                                            location={location} setLocation={setLocation}></MasterLocationEnter>, 
+                                            location={location} setLocation={setLocation}
+                                            selectedOptionsLocation={selectedOptionsLocation} setSelectedOptionsLocation={setSelectedOptionsLocation}></MasterLocationEnter>, 
 
                     <MasterEmailEnter email={email} setEmail={setEmail}
                                         codeConf={codeConf} setCodeConf={setCodeConf}
                                         code={code} setCode={setCode}></MasterEmailEnter>, 
 
-                    <MasterPhotoEnter photo={photo} setPhoto={setPhoto}></MasterPhotoEnter>,
+                    <MasterPhotoEnter photo={photo} setPhoto={setPhoto}
+                                        FIO={fio}></MasterPhotoEnter>,
                     <MasterPasswordEnter password={password} setPassword={setPassword}></MasterPasswordEnter>]
 
     const move = (incr) => {
         const ntStep = step + incr;
-        if(ntStep >= 0 && ntStep <= 5){
-            if(step === 3){
-                setCodeConf(true)
-            }
-            setStep(ntStep);
-        }else{
-            navigate('/');
+        switch (step) {
+            case 0:
+                if(fio[0] != "" && fio[1] != ""){
+                    setStep(ntStep);
+                }
+                break;
+            case 1:
+                if(occupation != ""){
+                    setStep(ntStep);
+                }
+                break;
+            case 2:
+                if(workingFrom != 0 && (location != ""|| selectedOptionsLocation != null)){
+                    setStep(ntStep);
+                }
+                break;
+            case 3:
+                if(email != "" && codeConf){
+                    setStep(ntStep);
+                }
+                break;
+            case 4:
+                if(photo != null){
+                    setStep(ntStep);
+                }
+                break;
+            case 5:
+                if(password != ""){
+                    setStep(ntStep);
+                    //savedata
+                    console.log({fio, occupation, workingFrom, location, selectedOptionsLocation, 
+                        email, codeConf, photo, password});
+                    navigate('/');
+                }
+                break;
+            default:
+                navigate('/');
+                break;
         }
     }
 

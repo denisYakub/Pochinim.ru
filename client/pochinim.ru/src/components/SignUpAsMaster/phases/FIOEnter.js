@@ -9,7 +9,6 @@ const MasterFIOEnter = ({fio, setFio}) => {
     }
 
     const setFioByIndex = (value, index) => {
-        console.log(value);
         const currentFio = fio.map((v, i) => {
             if(i == index){
                 return v = value;

@@ -6,11 +6,13 @@
     padding:0 auto;
     margin: 0 auto;
     display: flex;
+    justify-content: center;
     background-color: var(--color-main-wihite);
 }
 .back-button-wrapper{
-    margin-top: 101px;
-    margin-left: 101px;
+    left: 101px;
+    top: 181px;
+    position: fixed;
     width: 90px;
     height: fit-content;
     display: flex;
@@ -32,9 +34,7 @@
 }
 
 .phases-window{
-    margin-left: 448px;
     margin-top: 101px;
-    margin-bottom: 150px;
     padding: 50px;
     border-radius: 24px;
     height: fit-content;
@@ -42,7 +42,6 @@
     box-shadow: 0px 4px 39px 2px rgba(28, 28, 28, 0.10);
     display: flex;
     flex-direction: column;
-    max-width: 542px;
 }
 
 .next-button{
@@ -160,14 +159,46 @@
 }
 
 .send-code-button{
-
+    background: var(--color-secondary-grey05);
+    border: 1px var(--color-secondary-grey05);
+    border-radius: 60px;
+    padding: 10px 20px;
+    width: fit-content;
+    align-self: center;
 }
 
 .photo-choose-block{
     display: flex;
+    gap: 35px;
 }
 
 .photo-choose-input{
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
+    background: var(--color-secondary-grey05);
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-secondary-grey05);
+    padding: 50px;
+}
+
+.photo-choose-input img{
+    width: 217.15px;
+    height: 217.15px;
+    border-radius: 50%;
+    border:1px dashed var(--color-main-black);
+}
+
+.text-hints{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-hint{
+    display: flex;
+    width: 291px;
+    align-items: center;
+    gap: 10px;
 }

@@ -4,11 +4,10 @@ import Select from 'react-select';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation}) => {
+const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation, selectedOptionsLocation, setSelectedOptionsLocation}) => {
 
     const [zoom, setZoom] = useState(9);
     const [center, setCenter] = useState([55.75, 37.57]);
-    const [selectedOptions, setSelectedOptions] = useState();
 
     const [placemarkCoords, setPlacemarkCoords] = useState(null);
 
@@ -19,7 +18,6 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
     const optionList = [
         { value: "b-1", label: "Садовая" },
         { value: "b-2", label: "Сенная площадь" },
-        { value: "yellow", label: "Yellow" },
         { value: "b-3", label: "Спортивная" },
         { value: "0-1", label: "Спасская" }
       ];
@@ -57,7 +55,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
     };
 
     function handleSelect(data) {
-        setSelectedOptions(data);
+        setSelectedOptionsLocation(data);
     }
 
     return(<div className="phaseBlock">
@@ -89,7 +87,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
             </div>
             {workingFrom==2?
             <div>
-                <input placeholder={"Город, улица, дом"} onChange={e => setAddress(e.target.value)}></input>
+                <input placeholder={"Город, улица, дом"} value={location} onChange={e => setAddress(e.target.value)}></input>
                 <YMaps query={{apikey: key}}>
                     <Map onClick={handleMapClick} 
                         onLoad={(e) => { ymaps.current = e }}
@@ -107,7 +105,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
                 <Select
                     options={optionList}
                     placeholder="Выберите метро"
-                    value={selectedOptions}
+                    value={selectedOptionsLocation}
                     onChange={handleSelect}
                     isSearchable={true}
                     isMulti

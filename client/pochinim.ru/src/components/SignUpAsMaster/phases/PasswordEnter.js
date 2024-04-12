@@ -1,13 +1,7 @@
-import { useState } from "react";
-import Loader from "../../Loader/Loader";
-
 const MasterPasswordEnter = ({password, setPassword}) => {
-    
-    const [showLoader, setShowLoader] = useState(false);
-
     return(<div className="phaseBlock">
-        <button onClick={() => setShowLoader(true)}>Загрузить</button>
-        <Loader showLoader={showLoader} setShowLoader={setShowLoader} timer={3000}></Loader>
+        <input type="password" placeholder="пароль" value={password} onChange={e => setPassword(e.target.value)} className="inputField"></input>
+        <input type="password" placeholder="повторите пароль" className="inputField"></input>
     </div>);
 };
 
