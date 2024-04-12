@@ -1,0 +1,17 @@
+@import'../../index.css';
+.loader{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--color-secondary-grey50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-img{
+    width: 120px;
+    height: 120px;
+}
