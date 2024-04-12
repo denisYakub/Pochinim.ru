@@ -9,6 +9,15 @@
     justify-content: center;
 }
 
+.inner-signInUp{
+    margin-top: 101px;
+    display: flex;
+    gap: 292px;
+    padding-right: 382px;
+    height: fit-content;
+    width: fit-content;
+}
+
 .back-icon{
     width: 18px;
     height: 18px;
@@ -24,8 +33,6 @@
 
 .inner-box{
     height: fit-content;
-    margin-top: 101px;
-    margin-bottom: 150px;
     display: flex;
     flex-direction: column;
     justify-items: center;

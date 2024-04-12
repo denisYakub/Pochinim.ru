@@ -7,6 +7,7 @@ import MasterLocationEnter from "./phases/LocationEnter";
 import MasterEmailEnter from "./phases/EmailEnter";
 import MasterPhotoEnter from "./phases/PhotoEnter";
 import MasterPasswordEnter from "./phases/PasswordEnter";
+import Loader from '../Loader/Loader';
 
 const SignUpMaster = () => {
 
@@ -22,6 +23,8 @@ const SignUpMaster = () => {
     const [photo, setPhoto] = useState(null);
     const [password, setPassword] = useState("");
     const [code, setCode] = useState("");
+
+    const [showLoader, setShowLoader] = useState(false);
 
     const navigate = useNavigate();
 
@@ -75,7 +78,7 @@ const SignUpMaster = () => {
                     //savedata
                     console.log({fio, occupation, workingFrom, location, selectedOptionsLocation, 
                         email, codeConf, photo, password});
-                    navigate('/');
+                    //navigate('/');
                 }
                 break;
             default:
@@ -90,15 +93,18 @@ const SignUpMaster = () => {
 
     return(<Fragment>
         <div className='SignUpMaster'>
-            <div className='back-button-wrapper'>
-                <div className='back-icon'></div>
-                <button onClick={() => move(-1)} className='back-button'>Назад</button>
-            </div>
-            <div className='phases-window'>
-                {comps[step]}
-                <button onClick={() => move(1)} className='next-button'>Продолжить</button>
+            <div className='inner-SignUpMaster'>
+                <div className='back-button-wrapper'>
+                    <div className='back-icon'></div>
+                    <button onClick={() => move(-1)} className='back-button'>Назад</button>
+                </div>
+                <div className='phases-window'>
+                    {comps[step]}
+                    <button onClick={() => move(1)} className='next-button'>Продолжить</button>
+                </div>
             </div>
         </div>
+        <Loader showLoader={showLoader} setShowLoader={setShowLoader} text={"Отправляем код подтверждения"}></Loader>
     </Fragment>);
 };
 
