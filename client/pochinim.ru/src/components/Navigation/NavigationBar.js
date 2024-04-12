@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import "../Navigation/Navigation.css"
 import { Fragment, useEffect, useState } from 'react';
-import USERController from '../../controllers/USER-controller1';
+import USERController from '../../controllers/USER-controller';
 
 const Navbar = () => {
 

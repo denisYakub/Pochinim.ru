@@ -7,7 +7,7 @@ import textAnimations from '../../animations/text-animations'
 import { useNavigate} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
 import TOPICController from "../../controllers/TOPIC-controller";
-import USERController from "../../controllers/USER-controller1";
+import USERController from "../../controllers/USER-controller";
 const CreateTopic = () => {
     
     const navigate = useNavigate();

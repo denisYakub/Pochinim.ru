@@ -1,6 +1,6 @@
 import buttonsAnimations from "../../../animations/buttons-animations";
 import textAnimations from "../../../animations/text-animations";
-import USERController from "../../../controllers/USER-controller1";
+import USERController from "../../../controllers/USER-controller";
 import {motion, useAnimate} from 'framer-motion'
 
 const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSingInUp, setErrorInSingInUp}) =>{ 

@@ -1,6 +1,6 @@
 import buttonsAnimations from "../../../animations/buttons-animations";
 import textAnimations from "../../../animations/text-animations";
-import USERController from "../../../controllers/USER-controller1";
+import USERController from "../../../controllers/USER-controller";
 import {motion, useAnimate} from 'framer-motion'
 
 const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, email, emailCode, errorInSingInUp, setErrorInSingInUp}) =>{

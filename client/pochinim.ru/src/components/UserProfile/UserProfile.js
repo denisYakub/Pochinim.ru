@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import "../UserProfile/UserProfile.css"
 import { useNavigate } from 'react-router-dom'
-import USERController from "../../controllers/USER-controller1";
+import USERController from "../../controllers/USER-controller";
 
 const UserProfile = () => {
 
