@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
 import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
@@ -35,7 +35,7 @@ const CreateTopic = () => {
     const [error, setError] = useState(false);
     const [errorRed, animateErrorRed] = useAnimate();
 
-    const comps = [<Stage1 topic={topic} setTopic={setTopic}
+    const comps = useMemo(() => { return [<Stage1 topic={topic} setTopic={setTopic}
                                 error={error} setError={setError} errorRed={errorRed}></Stage1>, 
                     <Stage2 FIO={FIO} setFIO={setFIO}
                                 phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
@@ -58,7 +58,10 @@ const CreateTopic = () => {
                     <Stage10 accountID={accountID} setAccountID={setAccountID}
                                 setSendApplication={setSendApplication}
                                 publishOnForum={publishOnForum} setPublishOnForum={setPublishOnForum}
-                                error={error} setError={setError} errorRed={errorRed}></Stage10>]
+                                error={error} setError={setError} errorRed={errorRed}></Stage10>]},
+                                [FIO, accountID, address, date, detailsFiles, detailsText, error, 
+                                    errorRed, need, paymentOption, phoneNumber, problem, problemLocation, 
+                                        publishOnForum, topic]);
 
     const compListOfMasters = <ListOfMasters topic={topic}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>;
@@ -91,7 +94,9 @@ const CreateTopic = () => {
             setSendApplication(false);
             navigate('/');   
         }
-    }, [activeStage, comps, sendApplication])
+    }, [activeStage, comps, sendApplication, FIO, accountID, address, date,
+            detailsFiles, detailsText, navigate, need, paymentOption, phoneNumber, 
+                problem, problemLocation, publishOnForum, topic])
 
     const moveOn = async () => {
         var nextStage;

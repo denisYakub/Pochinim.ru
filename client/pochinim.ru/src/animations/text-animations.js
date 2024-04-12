@@ -5,4 +5,6 @@ class TextAnimations{
     }
 }
 
-export default new TextAnimations();
+const textAnimations = new TextAnimations()
+
+export default textAnimations;

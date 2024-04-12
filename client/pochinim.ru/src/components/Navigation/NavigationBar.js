@@ -18,18 +18,24 @@ const Navbar = () => {
     
     useEffect( () => {
         name();
-    }, [])
+    }, [navigate])
 
     const submitSearch = e => {
         e.preventDefault()
         navigate('/Search', {replace: true, state:{search}})
     }
 
+    const selectHandler = (val) =>{
+        if(val == 2){
+            navigate('/SignInUpAsMaster');
+        }
+    };
+
     return (<Fragment>
         <nav className="nav">
         <div className="inner-nav">
             <div className="rightPartOfNav">
-                <a href='/' className='siteLogo'></a>
+                <a href='/' className='siteLogo'>.</a>
                 <select>
                     <option>Санкт-Петербург</option>
                     <option>Москва</option>
@@ -38,9 +44,9 @@ const Navbar = () => {
             <div className="leftPartOfNav">
                 <a href='/'>Мои заказы</a>
                 <a href='/'>Форум </a>
-                <select>
-                    <option>Специалистам</option>
-                    <option>чз</option>
+                <select onChange={e => selectHandler(e.target.value)}>
+                    <option value={1}>Специалистам</option>
+                    <option value={2}>Регестрация</option>
                 </select>
                 <form onSubmit={submitSearch}>
                     <input className='navInput' onChange={e => setSearch(e.target.value)}></input>

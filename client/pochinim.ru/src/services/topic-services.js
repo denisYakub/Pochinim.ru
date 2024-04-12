@@ -35,7 +35,7 @@ class TopicServices{
     
                 console.log("FormData():", file);
     
-                const dataFile = await fetch(`http://localhost:4000/api/saveFileForTopic/${id_topic}`, {
+                await fetch(`http://localhost:4000/api/saveFileForTopic/${id_topic}`, {
                 method: "POST",
                 body: file
                 })
@@ -46,4 +46,6 @@ class TopicServices{
     }
 }
 
-export default new TopicServices();
+const topicServices = new TopicServices()
+
+export default topicServices;

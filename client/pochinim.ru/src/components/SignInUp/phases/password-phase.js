@@ -9,7 +9,7 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
     const [errorRed, animateErrorRed] = useAnimate();
 
     const click = async() =>{
-        if(emailCode === 0){
+        if(emailCode == 0){
             if(await USERController.logInUser(email, password)){
                 setErrorInSingInUp(null)
                 setPhase(phase + 1)
@@ -17,7 +17,6 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
                 setErrorInSingInUp("Неверный пароль")
             }
         }else{
-            USERController.registrate(email, name, password)
             if(await USERController.registrate(email, name, password)){
                 setErrorInSingInUp(null)
                 setPhase(phase + 1)
@@ -36,17 +35,17 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
             <p>
             </p>
         </div>
-        <div className="inputField">
+        <div className="input-field">
             <div className="inputAndError">
-                <input type="text" placeholder={password} onChange={e => setPassword(e.target.value)}></input>
-                {errorInSingInUp!==null?<div className="errorInSignInUp"
+                <input type="text" placeholder={'пароль'} value={password} onChange={e => setPassword(e.target.value)} ref={errorRed}></input>
+                {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>: console.log("no_errors")}
                 <motion.a className="errorRegMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>{errorInSingInUp}</motion.a>
             </div>
             {console.log(emailCode)}
-            {emailCode!==0?<input type="text" placeholder={name} onChange={e => setName(e.target.value)}></input>:<></>}
+            {emailCode!=0?<input type="text" placeholder={'ФИО'} value={name} onChange={e => setName(e.target.value)}></input>:<></>}
         </div>
         <button className="buttonNext" onClick={click}>
         Продолжить

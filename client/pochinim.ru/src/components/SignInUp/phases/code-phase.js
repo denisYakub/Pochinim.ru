@@ -1,7 +1,7 @@
 import buttonsAnimations from "../../../animations/buttons-animations";
 import textAnimations from "../../../animations/text-animations";
 import {motion, useAnimate} from 'framer-motion'
-const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, setErrorInSingInUp}) =>{
+const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, setErrorInSingInUp, email}) =>{
 
     const [errorScope, animateError] = useAnimate();
     const [errorRed, animateErrorRed] = useAnimate();
@@ -22,13 +22,13 @@ const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, 
             Введите код из сообщения
             </h1>
             <p>
-            Код отправили на почту " + "email"
+            Код отправили на почту {email}
             </p>
         </div>
-        <div className="inputField">
+        <div className="input-field">
             <div className="inputAndError">
-                <input type="text" placeholder={code} onChange={e => setCode(e.target.value)}></input>
-                {errorInSingInUp!==null?<div className="errorInSignInUp"
+                <input type="text" placeholder={'код'} value={code} onChange={e => setCode(e.target.value)} ref={errorRed}></input>
+                {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>: console.log("no_errors")}

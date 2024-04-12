@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
-import {motion, useAnimate, useInView} from "framer-motion";
+import {motion, useAnimate} from "framer-motion";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
 import buttonsAnimations from "../../animations/buttons-animations";

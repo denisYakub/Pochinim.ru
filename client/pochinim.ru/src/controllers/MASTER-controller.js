@@ -14,4 +14,6 @@ class MasterController{
     }
 };
 
-export default new MasterController();
+const masterController = new MasterController();
+
+export default masterController;

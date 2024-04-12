@@ -13,7 +13,7 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
             setPhase(phase + 2);
         }else{
             var code = await USERController.getSendCode(email);
-            if(code !== false){
+            if(code != false){
                 setEmailCode(code);
                 setErrorInSingInUp(null)
                 setPhase(phase + 1);
@@ -33,10 +33,10 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
             Нажимая «Далее», вы соглашаетесьс Правилами сайта
             </p>
         </div>
-        <div className="inputField">
+        <div className="input-field">
             <div className="inputAndError">
-                <input type="text" ref={errorRed} placeholder={email} onChange={e => setEmail(e.target.value)}></input>
-                {errorInSingInUp!==null?<div className="errorInSignInUp"
+                <input type="text" ref={errorRed} placeholder={'почта'} value={email} onChange={e => setEmail(e.target.value)}></input>
+                {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>: console.log("no_errors")}

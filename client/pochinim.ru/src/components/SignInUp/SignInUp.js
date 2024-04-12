@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../SignInUp/SignInUp.css"
@@ -10,12 +10,12 @@ import WelcomePhase from "./phases/welcome-phase";
 const SignIn = () => {
 
     
-    const [email, setEmail] = useState("email");
-    const [inputCode, setInputCode] = useState("код");
+    const [email, setEmail] = useState("");
+    const [inputCode, setInputCode] = useState("");
     const [emailCode, setEmailCode] = useState(0);
     const [phase, setPhase] = useState(0);
-    const [password, setPassword] = useState("пароль");
-    const [name, setName] = useState("ФИО")
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("")
 
     const [errorInSingInUp, setErrorInSingInUp] = useState(null);
 
@@ -27,6 +27,7 @@ const SignIn = () => {
     const comp1 = <CodePhase phase={phase} setPhase={setPhase} 
                                 code={inputCode} setCode={setInputCode} 
                                     emailCode={emailCode}
+                                    email={email}
                                     errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></CodePhase>
 
     const comp2 = <PasswordPhase phase={phase} setPhase={setPhase} 
@@ -40,9 +41,20 @@ const SignIn = () => {
 
     const navigate = useNavigate();
 
+    const movePhaseBack = () => {
+        const prevPhase = phase - 1;
+        if(prevPhase >= 0){
+            setPhase(prevPhase);
+        }
+    }
+
     return(<Fragment>
         <div className="signInUp">
-            {phase===0?comp0:phase===1?comp1:phase===2?comp2:phase===3?comp3:navigate('/')}
+            <div className='back-button-wrapper'>
+                <div className='back-icon'></div>
+                <button onClick={movePhaseBack} className='back-button'>Назад</button>
+            </div>
+            {phase==0?comp0:phase==1?comp1:phase==2?comp2:phase==3?comp3:navigate('/')}
         </div>
     </Fragment>);
 };

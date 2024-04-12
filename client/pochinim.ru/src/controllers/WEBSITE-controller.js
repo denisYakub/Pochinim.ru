@@ -34,4 +34,6 @@ class WebsiteController{
     }
 }
 
-export default new WebsiteController();
+const websiteController = new WebsiteController();
+
+export default websiteController;

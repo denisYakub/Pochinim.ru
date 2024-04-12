@@ -90,4 +90,6 @@ class TopicController{
 
 };
 
-export default new TopicController();
+const topicController = new TopicController();
+
+export default topicController;

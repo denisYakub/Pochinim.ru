@@ -24,7 +24,7 @@ class UserController{
         return code;
     }
 
-    async logInUser(email, password){//signInUp-service
+    async logInUser(email, password){
         var ret = await userServices.logIn(email, password);
         console.log(ret);
         if(ret?.message){
@@ -53,4 +53,6 @@ class UserController{
     }
 }
 
-export default new UserController();
+const userController = new UserController();
+
+export default userController;

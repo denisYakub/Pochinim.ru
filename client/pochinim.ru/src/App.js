@@ -8,6 +8,7 @@ import MainPage from './components/MainPage/MainpageList';
 import Footer from './components/Footer/Footer';
 import UserProfile from './components/UserProfile/UserProfile';
 import CreateTopic from './components/CreateTopic/CreateTopic';
+import SignInUpAsMaster from './components/SignUpAsMaster/SignUpAsMaster';
 
 
 function App(){
@@ -22,6 +23,7 @@ function App(){
             <Route path='/Search' element={<ListOfTopics  />}/>
             <Route path='/UserProfile' element={<UserProfile  />}/>
             <Route path='/CreateTopic' element={<CreateTopic  />}/>
+            <Route path='/SignInUpAsMaster' element={<SignInUpAsMaster />}/>
           </Routes>
           <Footer />
         </BrowserRouter>

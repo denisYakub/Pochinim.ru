@@ -10,4 +10,6 @@ class ButtonsAnimations{
     }
 }
 
-export default new ButtonsAnimations();
+const buttonsAnimations = new ButtonsAnimations();
+
+export default buttonsAnimations;

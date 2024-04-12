@@ -4,7 +4,7 @@ import {motion, useAnimate} from 'framer-motion'
 import buttonsAnimations from "../../animations/buttons-animations.js";
 import topicController from "../../controllers/TOPIC-controller.js";
 
-const optionsOfExistingTopics = topicController.getListOfExistingTopics();
+//const optionsOfExistingTopics = topicController.getListOfExistingTopics();
 const optionsOfWork = topicController.getListOfWork();
 const optionsOfWhatHappend = topicController.getListOfWhatHappend();
 const optionsOfWhereIsProblem = topicController.getListofWhereIsProblem();
@@ -86,7 +86,7 @@ const Stage3 = ({need, setNeed, error, setError, errorRed}) => {
     }
 
     const isChecked = (index) => {
-        if(optionsOfWork.indexOf(need) == index){
+        if(optionsOfWork.indexOf(need) === index){
             return true;
         }else{
             return false;
@@ -94,7 +94,7 @@ const Stage3 = ({need, setNeed, error, setError, errorRed}) => {
     }
 
     const isCheckedUserInput = () =>{
-        if(need == "" || optionsOfWork.includes(need)){
+        if(need === "" || optionsOfWork.includes(need)){
             return false;
         }else{
              return true;
@@ -147,7 +147,7 @@ const Stage4 = ({problem, setProblem, error, setError, errorRed}) => {
     }
 
     const isChecked = (index) => {
-        if(optionsOfWhatHappend.indexOf(problem) == index){
+        if(optionsOfWhatHappend.indexOf(problem) === index){
             return true;
         }else{
             return false;
@@ -155,7 +155,7 @@ const Stage4 = ({problem, setProblem, error, setError, errorRed}) => {
     }
 
     const isCheckedUserInput = () =>{
-        if(problem== "" || optionsOfWhatHappend.includes(problem)){
+        if(problem === "" || optionsOfWhatHappend.includes(problem)){
             return false;
         }else{
              return true;
@@ -208,7 +208,7 @@ const Stage5 = ({problemLocation, setProblemLocation, error, setError, errorRed}
     }
 
     const isChecked = (index) => {
-        if(optionsOfWhereIsProblem.indexOf(problemLocation) == index){
+        if(optionsOfWhereIsProblem.indexOf(problemLocation) === index){
             return true;
         }else{
             return false;
@@ -216,7 +216,7 @@ const Stage5 = ({problemLocation, setProblemLocation, error, setError, errorRed}
     }
 
     const isCheckedUserInput = () =>{
-        if(problemLocation == "" || optionsOfWhereIsProblem.includes(problemLocation)){
+        if(problemLocation === "" || optionsOfWhereIsProblem.includes(problemLocation)){
             return false;
         }else{
              return true;
@@ -347,8 +347,7 @@ const Stage7 = ({date, setDate, error, setError, errorRed}) => {
     </div>)
 }
 const Stage8 = ({paymentOption, setPaymentOption, error, setError, errorRed}) => {
-    const [errorScope, animateError] = useAnimate();
-
+    
     const inputRadioCheck = (e) => {
         setPaymentOption(e.value);
         console.log(e.value);
@@ -384,8 +383,6 @@ const Stage8 = ({paymentOption, setPaymentOption, error, setError, errorRed}) =>
     </div>)
 }
 const Stage9 = ({detailsText, setDetailsText, detailsFiles, setDetailsFiles, error, setError, errorRed}) => {
-    const [errorScope, animateError] = useAnimate();
-    
     return(<div className="blockPhase">
         <h1>
             Остались пожелания к заказу?
@@ -397,8 +394,6 @@ const Stage9 = ({detailsText, setDetailsText, detailsFiles, setDetailsFiles, err
     </div>)
 }
 const Stage10 = ({accountID, setAccountID, setSendApplication, publishOnForum, setPublishOnForum, error, setError, errorRed}) => {
-    const [errorScope, animateError] = useAnimate();
-
     const inputRadioCheck = (e) => {
         if(publishOnForum === false){
             setPublishOnForum(true);

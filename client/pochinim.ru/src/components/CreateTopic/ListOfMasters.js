@@ -30,7 +30,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
             return(<div key={index} className="masterBox">
             <div className="masterCard">
                 <div className="masterMainInfo">
-                    <img src={value.photo}></img>
+                    <img src={value.photo} alt=""></img>
                     {value.name}
                     {value.stars}
                     {value.reviews}
@@ -74,7 +74,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
             </div>
         </div>);
         }else{
-            <div>Не подходит</div>
+            return(<div>Не подходит</div>);
         }
     }));
 }

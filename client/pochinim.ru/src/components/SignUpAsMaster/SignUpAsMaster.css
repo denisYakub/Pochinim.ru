@@ -1,3 +1,173 @@
+@import'../../index.css';
+
+.SignUpMaster{
+    width: 1920px;
+    height: 100vh;
+    padding:0 auto;
+    margin: 0 auto;
+    display: flex;
+    background-color: var(--color-main-wihite);
+}
+.back-button-wrapper{
+    margin-top: 101px;
+    margin-left: 101px;
+    width: 90px;
+    height: fit-content;
+    display: flex;
+    align-items: baseline;
+    justify-content: baseline;
+}
+
+.back-icon{
+    width: 18px;
+    height: 18px;
+    background: url("../../img/arrow-left-black.png") no-repeat center;
+}
+
+.back-button{
+    background-color: var(--color-main-wihite);
+    border-color: var(--color-main-wihite);
+    border-style: solid;
+    font-size: 20px;
+}
+
+.phases-window{
+    margin-left: 448px;
+    margin-top: 101px;
+    margin-bottom: 150px;
+    padding: 50px;
+    border-radius: 24px;
+    height: fit-content;
+    background: var(--color-main-wihite);
+    box-shadow: 0px 4px 39px 2px rgba(28, 28, 28, 0.10);
+    display: flex;
+    flex-direction: column;
+    max-width: 542px;
+}
+
+.next-button{
+    margin-top: 50px;
+    color: var(--color-main-wihite);
+    background-color: var(--color-main-blue);
+    min-width: 542px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+    font-size: 20px;
+}
+
 .phaseBlock{
-    
+    display: flex;
+    flex-direction: column;
+}
+
+.phaseBlock a{
+    margin-bottom: 35px;
+    color: var(--color-secondary-grey65);
+}
+
+.inputField{
+    margin-bottom: 15px;
+    border-radius: 60px;
+    background: var(--color-secondary-grey05);
+    border-color: var(--color-secondary-grey05);
+    border-style: solid;
+    display: flex;
+    padding: 12px 24px;
+    align-items: center;
+    gap: 10px;
+}
+
+.hints{
+    width: 542px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hint{
+    display: flex;
+    width: fit-content;
+    padding: 10px 15px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 39px;
+    background: var(--color-secondary-violet-dies);
+    border-style: solid;
+    border-color: var(--color-secondary-violet-dies);
+    color: var(--color-main-black);
+    font-size: 16px;
+}
+
+.location-block{
+    display: flex;
+    flex-direction: column;
+}
+
+.location-block input{
+    margin-bottom: 15px;
+    display: flex;
+    padding: 12px 24px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 60px;
+    background: var(--color-secondary-grey05);
+    border-style: solid;
+    border-color: var(--color-secondary-grey05);
+}
+
+.final-address{
+    height: 44px;
+    width: fit-content;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 35px;
+    align-items: center;
+    border-radius: 35px;
+    border: 1px solid var(--color-main-blue);
+    padding: 0px 15px;
+    gap: 10px;
+}
+
+.truck-icon{
+    width: 18px;
+    height: 18px;
+    background: url("../../img/truck.png") no-repeat center;
+}
+
+.home-icon{
+    width: 18px;
+    height: 18px;
+    background: url("../../img/home.png") no-repeat center;
+}
+
+.final-address p{
+    color: var(--color-main-blue);
+    font-size: 20px;
+}
+
+.yep-icon{
+    width: 24px;
+    height: 24px;
+    background: url("../../img/check.png") no-repeat center;
+}
+
+.nope-icon{
+    width: 24px;
+    height: 24px;
+    background: url("../../img/x.png") no-repeat center;
+}
+
+.send-code-button{
+
+}
+
+.photo-choose-block{
+    display: flex;
+}
+
+.photo-choose-input{
+    display: flex;
+    flex-direction: column;
 }
