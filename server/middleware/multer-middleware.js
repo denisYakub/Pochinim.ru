@@ -9,14 +9,16 @@ const storage = multer.diskStorage({
                 const id_master = req.params?.id_master;
                 dir = `images/mastersPhoto/${id_master}`;
                 break;
-            case 'topicMainPhoto':
+            case 'topicMainPhotos':
                 const id_topic = req.params?.id_topic;
                 dir = `images/topicsMainPhotos/${id_topic}`;
                 break;
             default:
                 break;
         }
-        fs.mkdirSync(dir);
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
         cd(null, dir);
     },
     filename(req, file, cd){

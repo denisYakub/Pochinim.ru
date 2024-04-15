@@ -176,7 +176,7 @@ const CreateTopic = () => {
                 }
                 break;
             case 8:
-                if(detailsText != "" && detailsFiles != ""){
+                if(detailsText != "" && detailsFiles != null){
                     nextStage = activeStage + 1;
                     setError(false);
                 }else{

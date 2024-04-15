@@ -24,11 +24,19 @@ class TopicController{
     async saveFileForTopic(req, res, next){
         try {
             const id_topic = req.params.id_topic;
-            const file_path = req.file.path;
+            var d = {"success": true};
 
-            const data = topicService.saveNewFileForTopic(id_topic, file_path);
-            
-            return res.json((await data));
+            for (let i = 0; i < req.files.length; i++) {
+                const file_path = req.files[i].path;
+
+                const data = await topicService.saveNewFileForTopic(id_topic, file_path);
+                
+                if(!data){
+                    d.success = false;
+                }
+            }
+        
+            return res.json((await d));
         } catch (error) {
             next(error);
         }

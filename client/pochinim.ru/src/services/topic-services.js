@@ -30,12 +30,14 @@ class TopicServices{
     async addFilesToTopic(id_topic, detailsFiles){
         try {
             if(id_topic){
-                const file = new FormData();
-                file.append('topicMainPhoto', detailsFiles);
+                const files = new FormData();
+                for(let i = 0; i < detailsFiles.length; i++){
+                    files.append('topicMainPhotos', detailsFiles[i]);
+                }
     
                 await fetch(`http://localhost:4000/api/saveFileForTopic/${id_topic}`, {
                 method: "POST",
-                body: file
+                body: files
                 })
             }
         } catch (error) {

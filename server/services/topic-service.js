@@ -33,7 +33,7 @@ class TopicService{
             await pool.query(`INSERT INTO topics_files (id_topic, id_file)
                                 VALUES(${id_topic}, ${id_file.rows[0].id_file})`);
 
-            return {"success": true}
+            return true;
         } catch (error) {
             throw error;
         }

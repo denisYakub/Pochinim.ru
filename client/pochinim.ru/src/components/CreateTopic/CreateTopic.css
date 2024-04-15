@@ -59,7 +59,7 @@
 }
 
 .control-buttons{
-    margin-top: 100px;
+    margin-top: 200px;
     display: flex;
     justify-content: space-between;
     gap: 550px;
@@ -259,13 +259,15 @@
     box-sizing: border-box;
 }
 
-.moreInfo input{
-    display: flex;
-    width:  auto;
-    padding: 17px 34px;
+.topic-photo-choose{
     border-radius: 60px;
-    background-color: var(--color-main-wihite);
     border: 1px dashed var(--color-main-black);
+    display: flex;
+    padding: 0px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
 }
 
 .inputAndError{

@@ -22,7 +22,7 @@ router.post('/createTopic',
             authMiddleware,
             topicController.createTopic);
 router.post('/saveFileForTopic/:id_topic',
-            multerMiddleware.single('topicMainPhoto'),
+            multerMiddleware.any('topicMainPhotos'),
             topicController.saveFileForTopic);
 
 router.post('/registrateMaster',

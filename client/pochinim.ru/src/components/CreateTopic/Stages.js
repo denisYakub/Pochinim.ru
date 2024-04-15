@@ -3,11 +3,12 @@ import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
 import {motion, useAnimate} from 'framer-motion'
 import buttonsAnimations from "../../animations/buttons-animations.js";
 import topicController from "../../controllers/TOPIC-controller.js";
+import loadPhotoIcon from "../../img/putFile.png";
 
 //const optionsOfExistingTopics = topicController.getListOfExistingTopics();
-const optionsOfWork = topicController.getListOfWork();
-const optionsOfWhatHappend = topicController.getListOfWhatHappend();
-const optionsOfWhereIsProblem = topicController.getListofWhereIsProblem();
+const optionsOfWork = await topicController.getListOfWork();
+const optionsOfWhatHappend = await topicController.getListOfWhatHappend();
+const optionsOfWhereIsProblem = await topicController.getListofWhereIsProblem();
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
@@ -33,7 +34,7 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
                 : console.log("no_errors")}
             <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 250}}>Ошибка ввода</motion.a>
         </div>
-        <div className="hints">
+        <div className="button-hints">
             <button className="hint" onClick={() => activateHint("Сантехника")}>
             Сантехник
             </button>
@@ -393,7 +394,23 @@ const Stage9 = ({detailsText, setDetailsText, detailsFiles, setDetailsFiles, err
         </h1>
         <div className="moreInfo">
             <textarea ref={errorRed} placeholder="Важные детали для специлиста, о которых мы не спросили" onChange={e => setDetailsText(e.target.value)}></textarea>
-            <input type="file" accept=".jpg,.jpeg,.png" onChange={e => setDetailsFiles(e.target.files[0])}></input>
+            <div className="topic-photos">
+                {detailsFiles!=null?Array.from(detailsFiles)?.map((file)=> {
+                    return(
+                    <div className="topic-photo">
+                        <img className="photo" src={URL.createObjectURL(file)} alt="your file"></img>
+                        {file.name};
+                    </div>
+                )}):null}
+            </div>
+            <div className="topic-photo-choose" onClick={() => document.querySelector(".photo-input").click()}>
+                <img src={loadPhotoIcon} alt="loadPhotoIcon"></img>
+                <p>Добавить/удалить файл или фото</p>
+                <input type="file" accept=".jpg,.jpeg,.png" multiple={true} hidden={true} 
+                className="photo-input"
+                onChange={e => setDetailsFiles(e.target.files)}></input>
+            </div>
+            
         </div>
     </div>)
 }
