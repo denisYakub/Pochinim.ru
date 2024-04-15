@@ -3,11 +3,20 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination(req, file, cd){
-        const id_topic = req.params?.id_topic;
-
-        const dir = `images/${id_topic}`;
+        var dir;
+        switch (file.fieldname) {
+            case 'masterPhoto':
+                const id_master = req.params?.id_master;
+                dir = `images/mastersPhoto/${id_master}`;
+                break;
+            case 'topicMainPhoto':
+                const id_topic = req.params?.id_topic;
+                dir = `images/topicsMainPhotos/${id_topic}`;
+                break;
+            default:
+                break;
+        }
         fs.mkdirSync(dir);
-        
         cd(null, dir);
     },
     filename(req, file, cd){

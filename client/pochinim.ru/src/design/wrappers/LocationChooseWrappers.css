@@ -1,0 +1,18 @@
+@import'../../index.css';
+
+.location-choose-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.location-choose-wrapper input{
+    margin-bottom: 15px;
+    display: flex;
+    padding: 12px 24px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 60px;
+    background: var(--color-secondary-grey05);
+    border-style: solid;
+    border-color: var(--color-secondary-grey05);
+}

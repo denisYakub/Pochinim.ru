@@ -2,7 +2,7 @@ import userServices from "../services/user-services";
 
 class UserController{
 
-    async checkUserEmail(email){
+    async checkUserEmailInBd(email){
         const ret = await userServices.checkEmail(email)
         return ret;
     }

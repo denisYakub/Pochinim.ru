@@ -5,6 +5,7 @@ const authMiddleware = require('../middleware/auth-middleware');
 const topicController = require('../controllers/topic-controller');
 const router = new Router();
 const multerMiddleware = require('../middleware/multer-middleware');
+const masterController = require('../controllers/master-controller');
 
 router.post('/registration', userController.registration);
 router.post('/checkEmail', userController.checkEmail)
@@ -20,9 +21,14 @@ router.get('/users',
 router.post('/createTopic',
             authMiddleware,
             topicController.createTopic);
-
 router.post('/saveFileForTopic/:id_topic',
-            multerMiddleware.single('photo'),
-            topicController.saveFileForTopic
-            );
+            multerMiddleware.single('topicMainPhoto'),
+            topicController.saveFileForTopic);
+
+router.post('/registrateMaster',
+            masterController.registration);
+router.put('/saveMasterPhoto/:id_master',
+            multerMiddleware.single('masterPhoto'),
+            masterController.setMasterPhoto);
+            
 module.exports = router;

@@ -16,7 +16,7 @@ const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, 
         }
     };
 
-    return(<div className="inner-box">
+    return(<div className="phase-block">
         <div className="annotationReg">
             <h1>
             Введите код из сообщения
@@ -27,7 +27,7 @@ const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, 
         </div>
         <div className="input-field">
             <div className="inputAndError">
-                <input type="text" placeholder={'код'} value={code} onChange={e => setCode(e.target.value)} ref={errorRed}></input>
+                <input className="text-input-field" type="text" placeholder={'код'} value={code} onChange={e => setCode(e.target.value)} ref={errorRed}></input>
                 {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
@@ -35,7 +35,7 @@ const CodePhase = ({phase, setPhase, code, setCode, emailCode, errorInSingInUp, 
                 <motion.a className="errorRegMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>{errorInSingInUp}</motion.a>
             </div>
         </div>
-        <button className="buttonNext" onClick={click}>
+        <button className="continue-button" onClick={click}>
         Продолжить
         </button>
     </div>);

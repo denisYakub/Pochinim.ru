@@ -355,7 +355,6 @@
 }
 
 .right-content-find-master{
-    border-style: solid;
     display: flex;
     flex-direction: column;
     padding: 20px;

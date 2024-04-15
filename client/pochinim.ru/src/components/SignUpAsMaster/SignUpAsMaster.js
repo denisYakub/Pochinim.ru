@@ -8,6 +8,8 @@ import MasterEmailEnter from "./phases/EmailEnter";
 import MasterPhotoEnter from "./phases/PhotoEnter";
 import MasterPasswordEnter from "./phases/PasswordEnter";
 import Loader from '../Loader/Loader';
+import userController from '../../controllers/USER-controller';
+import masterController from '../../controllers/MASTER-controller';
 
 const SignUpMaster = () => {
 
@@ -19,10 +21,11 @@ const SignUpMaster = () => {
     const [location, setLocation] = useState("");
     const [selectedOptionsLocation, setSelectedOptionsLocation] = useState(null);
     const [email, setEmail] = useState("");
-    const [codeConf, setCodeConf] = useState(false);
+    const [codeConf, setcodeConf] = useState(false);
     const [photo, setPhoto] = useState(null);
     const [password, setPassword] = useState("");
-    const [code, setCode] = useState("");
+    const [code, setcode] = useState("");
+    const [sendCode, setSendCode] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
 
@@ -37,14 +40,15 @@ const SignUpMaster = () => {
                                             selectedOptionsLocation={selectedOptionsLocation} setSelectedOptionsLocation={setSelectedOptionsLocation}></MasterLocationEnter>, 
 
                     <MasterEmailEnter email={email} setEmail={setEmail}
-                                        codeConf={codeConf} setCodeConf={setCodeConf}
-                                        code={code} setCode={setCode}></MasterEmailEnter>, 
+                                        codeConf={codeConf} setCodeConf={setcodeConf}
+                                        code={code} setCode={setcode}
+                                        sendCode={sendCode} setSendCode={setSendCode}></MasterEmailEnter>, 
 
                     <MasterPhotoEnter photo={photo} setPhoto={setPhoto}
                                         FIO={fio}></MasterPhotoEnter>,
                     <MasterPasswordEnter password={password} setPassword={setPassword}></MasterPasswordEnter>]
 
-    const move = (incr) => {
+    const move = async (incr) => {
         const ntStep = step + incr;
         switch (step) {
             case 0:
@@ -63,8 +67,11 @@ const SignUpMaster = () => {
                 }
                 break;
             case 3:
-                if(email != "" && codeConf){
-                    setStep(ntStep);
+                if(email != "" && code != ""){
+                    if(code == sendCode){
+                        setStep(ntStep);
+                        setcodeConf(false);
+                    }
                 }
                 break;
             case 4:
@@ -74,11 +81,9 @@ const SignUpMaster = () => {
                 break;
             case 5:
                 if(password != ""){
+                    await masterController.registrate(fio, occupation, workingFrom, location, selectedOptionsLocation, 
+                        email, photo, password);
                     setStep(ntStep);
-                    //savedata
-                    console.log({fio, occupation, workingFrom, location, selectedOptionsLocation, 
-                        email, codeConf, photo, password});
-                    //navigate('/');
                 }
                 break;
             default:
@@ -94,17 +99,17 @@ const SignUpMaster = () => {
     return(<Fragment>
         <div className='SignUpMaster'>
             <div className='inner-SignUpMaster'>
-                <div className='back-button-wrapper'>
+                <div className='go-back-button'>
                     <div className='back-icon'></div>
                     <button onClick={() => move(-1)} className='back-button'>Назад</button>
                 </div>
-                <div className='phases-window'>
+                <div className='phases-wrapper'>
                     {comps[step]}
-                    <button onClick={() => move(1)} className='next-button'>Продолжить</button>
+                    <button onClick={() => move(1)} className='continue-button'>Продолжить</button>
                 </div>
             </div>
         </div>
-        <Loader showLoader={showLoader} setShowLoader={setShowLoader} text={"Отправляем код подтверждения"}></Loader>
+        <Loader showLoader={showLoader} setShowLoader={setShowLoader} text={"Проверяем код"}></Loader>
     </Fragment>);
 };
 

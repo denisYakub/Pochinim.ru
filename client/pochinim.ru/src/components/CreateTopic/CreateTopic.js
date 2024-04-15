@@ -212,7 +212,7 @@ const CreateTopic = () => {
     }
 
     return(<Fragment>
-        <div className="creatTopic">
+        <div className= "creatTopic">
             <div className="content">
                 <div className="left-content">
                     <div className="mastersAndNumber">
@@ -249,7 +249,7 @@ const CreateTopic = () => {
                             :<></>}
                         </div>
                     </div>
-                    :
+                :
                     <div className="right-content-find-master">
                         {compListOfMasters}
                     </div>}

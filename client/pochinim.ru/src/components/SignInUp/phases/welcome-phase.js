@@ -3,7 +3,7 @@ const WelcomePhase = ({phase, setPhase}) =>{
         setPhase(phase + 1)
     };
 
-    return(<div className="inner-box">
+    return(<div className="phase-block">
         <div className="annotationReg">
             <h1>
             Вы успешно зарегистировались!
@@ -11,7 +11,7 @@ const WelcomePhase = ({phase, setPhase}) =>{
             <p>
             </p>
         </div>
-        <button className="buttonNext" onClick={click}>
+        <button className="continue-button" onClick={click}>
         Продолжить
         </button>
     </div>);

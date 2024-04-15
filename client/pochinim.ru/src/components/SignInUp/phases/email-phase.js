@@ -11,7 +11,7 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
     const click = async () =>{
         setShowLoader(true);
 
-        if(await USERController.checkUserEmail(email)){
+        if(await USERController.checkUserEmailInBd(email)){
             setPhase(phase + 2);
         }else{
             var code = await USERController.getSendCode(email);
@@ -28,7 +28,7 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
         setShowLoader(false);
     };
 
-    return(<div className="inner-box">
+    return(<div className="phase-block">
         <div className="annotationReg">
             <h1>
             Вход и регистрация
@@ -39,7 +39,7 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
         </div>
         <div className="input-field">
             <div className="inputAndError">
-                <input type="text" ref={errorRed} placeholder={'почта'} value={email} onChange={e => setEmail(e.target.value)}></input>
+                <input className="text-input-field" type="text" ref={errorRed} placeholder={'почта'} value={email} onChange={e => setEmail(e.target.value)}></input>
                 {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
@@ -48,7 +48,7 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
             </div>
             <a>Специалисты не видят вашу почту. Вы сами решите, кому она будет доступена.</a>
         </div>
-        <button className="buttonNext" onClick={click}>
+        <button className="continue-button" onClick={click}>
         Продолжить
         </button>
         <div className="additionalEnter">

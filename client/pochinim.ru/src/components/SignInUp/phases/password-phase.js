@@ -27,7 +27,7 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
         }
     };
 
-    return(<div className="inner-box">
+    return(<div className="phase-block">
         <div className="annotationReg">
             <h1>
             Введите пароль
@@ -37,7 +37,7 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
         </div>
         <div className="input-field">
             <div className="inputAndError">
-                <input type="text" placeholder={'пароль'} value={password} onChange={e => setPassword(e.target.value)} ref={errorRed}></input>
+                <input className="text-input-field" type="text" placeholder={'пароль'} value={password} onChange={e => setPassword(e.target.value)} ref={errorRed}></input>
                 {errorInSingInUp!=null?<div className="errorInSignInUp"
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
@@ -47,7 +47,7 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
             {console.log(emailCode)}
             {emailCode!=0?<input type="text" placeholder={'ФИО'} value={name} onChange={e => setName(e.target.value)}></input>:<></>}
         </div>
-        <button className="buttonNext" onClick={click}>
+        <button className="continue-button" onClick={click}>
         Продолжить
         </button>
     </div>);

@@ -10,7 +10,6 @@ import Loader from "../Loader/Loader";
 
 const SignIn = () => {
 
-    
     const [email, setEmail] = useState("");
     const [inputCode, setInputCode] = useState("");
     const [emailCode, setEmailCode] = useState(0);
@@ -21,26 +20,23 @@ const SignIn = () => {
     const [errorInSingInUp, setErrorInSingInUp] = useState(null);
     const [showLoader, setShowLoader] = useState(false);
 
-    const comp0 =  <EmailPhase phase={phase} setPhase={setPhase} 
+    const comps = [<EmailPhase phase={phase} setPhase={setPhase} 
                                 email={email} setEmail={setEmail} 
                                 setEmailCode={setEmailCode}
                                 errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}
-                                setShowLoader={setShowLoader}></EmailPhase>
-                                
-    const comp1 = <CodePhase phase={phase} setPhase={setPhase} 
+                                setShowLoader={setShowLoader}></EmailPhase>, 
+                    <CodePhase phase={phase} setPhase={setPhase} 
                                 code={inputCode} setCode={setInputCode} 
-                                    emailCode={emailCode}
-                                    email={email}
-                                    errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></CodePhase>
-
-    const comp2 = <PasswordPhase phase={phase} setPhase={setPhase} 
-                                    password={password} setPassword={setPassword}
-                                    name={name} setName={setName}
-                                    email={email}
-                                    emailCode={emailCode}
-                                    errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></PasswordPhase>
-
-    const comp3 = <WelcomePhase phase={phase} setPhase={setPhase}></WelcomePhase>
+                                emailCode={emailCode}
+                                email={email}
+                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></CodePhase>,
+                    <PasswordPhase phase={phase} setPhase={setPhase} 
+                                password={password} setPassword={setPassword}
+                                name={name} setName={setName}
+                                email={email}
+                                emailCode={emailCode}
+                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></PasswordPhase>,
+                    <WelcomePhase phase={phase} setPhase={setPhase}></WelcomePhase>];
 
     const navigate = useNavigate();
 
@@ -54,11 +50,13 @@ const SignIn = () => {
     return(<Fragment>
         <div className="signInUp">
             <div className="inner-signInUp">
-                <div className='back-button-wrapper'>
+                <div className='go-back-button'>
                     <div className='back-icon'></div>
                     <button onClick={movePhaseBack} className='back-button'>Назад</button>
                 </div>
-                {phase==0?comp0:phase==1?comp1:phase==2?comp2:phase==3?comp3:navigate('/')}
+                <div className="phases-wrapper">
+                    {phase<=3?comps[phase]:navigate('/')}
+                </div>
             </div>
         </div>
         <Loader showLoader={showLoader} setShowLoader={setShowLoader}></Loader>

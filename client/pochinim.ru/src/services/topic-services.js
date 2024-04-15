@@ -31,9 +31,7 @@ class TopicServices{
         try {
             if(id_topic){
                 const file = new FormData();
-                file.append('photo', detailsFiles);
-    
-                console.log("FormData():", file);
+                file.append('topicMainPhoto', detailsFiles);
     
                 await fetch(`http://localhost:4000/api/saveFileForTopic/${id_topic}`, {
                 method: "POST",

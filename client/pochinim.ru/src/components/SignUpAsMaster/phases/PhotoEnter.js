@@ -10,7 +10,7 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO}) => {
         setImage(URL.createObjectURL(value));
     }
 
-    return(<div className="phaseBlock">
+    return(<div className="phase-block">
         <h1>Фото в профиль</h1>
         <a>Клиенты чаще всего выбирают мастеров с фото в профиле. В любой момент можно сметь фото.</a>
         <div className="photo-choose-block">

@@ -1,6 +1,15 @@
 import {Fragment} from 'react';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
+import '../src/design/buttons/Buttons.css';
+
+import '../src/design/wrappers/PhaseWrappers.css';
+import '../src/design/wrappers/LocationChooseWrappers.css';
+import '../src/design/wrappers/HintWrappers.css';
+
+import '../src/design/Inputs/TextInputs.css';
+import '../src/design/options/Options.css';
+
 import SignInUp from './components/SignInUp/SignInUp';
 import Navbar from './components/Navigation/NavigationBar';
 import ListOfTopics from './components/SearchPage/SearchPageOfTopics';

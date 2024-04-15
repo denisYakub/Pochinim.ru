@@ -20,13 +20,13 @@ const MasterFIOEnter = ({fio, setFio}) => {
         setFio(currentFio);
     }
 
-    return(<div className="phaseBlock">
+    return(<div className="phase-block">
         <h1>Как вас представить клиентам?</h1>
         <a>Пожалуйств , укажите ваши ФИО как в паспорте, это важно для проверки.</a>
-        <input placeholder="Имя" value={fio[0]} onChange={e => setFioByIndex(e.target.value, 0)} className="inputField"></input>
-        <input placeholder="Фамилия" value={fio[1]} onChange={e => setFioByIndex(e.target.value, 1)} className="inputField"></input>
+        <input placeholder="Имя" value={fio[0]} onChange={e => setFioByIndex(e.target.value, 0)} className="text-input-field"></input>
+        <input placeholder="Фамилия" value={fio[1]} onChange={e => setFioByIndex(e.target.value, 1)} className="text-input-field"></input>
         {secondName?
-            <input placeholder="Отчество" value={fio[2]} onChange={e => setFioByIndex(e.target.value, 2)} className="inputField"></input>
+            <input placeholder="Отчество" value={fio[2]} onChange={e => setFioByIndex(e.target.value, 2)} className="text-input-field"></input>
             :
             <></>}
         <div className="options" onChange={e => setNoSecondName(e.target.value)}>

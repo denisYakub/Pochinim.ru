@@ -1,0 +1,34 @@
+@import'../../index.css';
+
+.button-hints{
+    width: 542px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-hints button{
+    display: flex;
+    width: fit-content;
+    padding: 10px 15px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 39px;
+    background: var(--color-secondary-violet-dies);
+    border-style: solid;
+    border-color: var(--color-secondary-violet-dies);
+    color: var(--color-main-black);
+    font-size: 16px;
+}
+
+.text-hints{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-hint{
+    display: flex;
+    width: 291px;
+    align-items: center;
+    gap: 10px;
+}

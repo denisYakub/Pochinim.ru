@@ -58,7 +58,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
         setSelectedOptionsLocation(data);
     }
 
-    return(<div className="phaseBlock">
+    return(<div className="phase-block">
         {workingFrom==0?
         <div>
             <h1>Где работаете?</h1>
@@ -75,7 +75,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, location, setLocation
             </div>
         </div>
         :
-        <div className="location-block">
+        <div className="location-choose-wrapper">
             <h1>Ваш адрес</h1>
             <a>Будем предлагать заказы поблизости. Ваш адрес не будет виден клиентам.</a>
             <div className="final-address">

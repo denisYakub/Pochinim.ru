@@ -14,8 +14,6 @@ class UserServices{
             localStorage.setItem('token', bot.accessToken);
             localStorage.setItem('mail', email);
 
-            console.log(bot);
-
             return bot;
         } catch (error) {
             console.log("Error in registration:", error);
