@@ -31,6 +31,17 @@ class MasterService{
             throw error
         }
     }
+
+    async getListOfMastersWithReviews(from, to){
+        try {
+            
+            const listofMasters = await pool.query(`SELECT fio, master_email, occupation, working_from, location, selected_options_of_location, master_photo_path  FROM masters`);
+            
+            return listofMasters.rows;
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = new MasterService();

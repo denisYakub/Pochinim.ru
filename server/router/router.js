@@ -24,6 +24,8 @@ router.post('/createTopic',
 router.post('/saveFileForTopic/:id_topic',
             multerMiddleware.any('topicMainPhotos'),
             topicController.saveFileForTopic);
+router.get('/listOfMasterAndReviews',
+            masterController.getListOfMasters)
 
 router.post('/registrateMaster',
             masterController.registration);

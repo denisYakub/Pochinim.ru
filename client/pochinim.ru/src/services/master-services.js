@@ -37,6 +37,27 @@ class MasterServices{
             console.log('Error in setMasterPhoto:', error);
         }
     }
+
+    async getListOfMasters(from, to){
+        try {
+            const body = { "from": from, "to": to };
+
+            const dataMasters = await fetch('http://localhost:4000/api/listOfMasterAndReviews', {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+
+            const bot = await dataMasters.json();
+
+            return bot;
+        } catch (error) {
+            console.log("Error in getListOfMasters:", error);
+        }
+    }
 }
 
 const masterServices = new MasterServices();

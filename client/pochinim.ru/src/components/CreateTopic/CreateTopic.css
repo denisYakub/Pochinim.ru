@@ -1,26 +1,23 @@
 @import'../../index.css';
 .creatTopic{
     max-width: 1920px;
-    width: 100%;
-    height: 100vh;
     margin: 0 auto;
     padding: 0 auto;
     box-sizing: border-box;
     background: var(--color-main-wihite);
     display: flex;
-    align-items: center;
 }
 
 .content{
     width: 100%;
-    height: fit-content;
     margin-left: 101px;
     margin-right: 101px;
     display: flex;
-    justify-content: space-between;
     box-sizing: border-box;
     margin-top: 50px;
     margin-bottom: 50px;
+    gap: 20px;
+    justify-content: space-around;
 }
 
 .left-content{
@@ -52,6 +49,7 @@
 .right-content-create-topic{
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .right-content-create-topic a{
@@ -361,48 +359,4 @@
     flex-direction: column;
     padding: 20px;
     gap: 130px;
-}
-
-.masterBox{
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-}
-
-.masterCard{
-    border-style: solid;
-    width: 950px;
-}
-
-.masterAction{
-    display: flex;
-    flex-direction: column;
-    background: var(--color-secondary-grey-dies);
-    width: 281px;
-    height: 205px;
-    border-radius: 20px;
-    padding-top: 23px;
-    padding-left: 20px;
-    padding-right: 20px;
-    gap: 10px;
-}
-
-.masterAction button{
-    border-radius: 60px;
-    background: var(--color-secondary-grey15);
-    border-style: solid;
-    border-color: var(--color-secondary-grey15);
-    font-size: 20px;
-    padding: 10px;
-}
-
-.masterLocation{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    border-style: solid;
-    margin-top: 13px;
-    border-color: var(--color-secondary-grey15) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies);
-    padding: 10px;
 }

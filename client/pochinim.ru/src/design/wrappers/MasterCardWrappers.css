@@ -1,0 +1,143 @@
+@import'../../index.css';
+
+.master-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.master-info-card{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.master-main-info{
+    display: flex;
+    gap: 20px;
+}
+
+.master-main-info-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.master-fio-stats{
+    display: flex;
+    flex-direction: column;
+}
+
+.master-stats{
+    display: flex;
+    gap: 30px;
+}
+
+.master-stat{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.star-icon{
+    width: 18px;
+    height: 18px;
+    background: url('../../img/star.png') no-repeat center;
+}
+
+.review-icon{
+    width: 18px;
+    height: 18px;
+    background: url('../../img/review.png') no-repeat center;
+}
+
+.master-documents{
+    display: flex;
+    gap: 30px;
+}
+
+.master-document{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.shield-icon{
+    width: 18px;
+    height: 18px;
+    background: url('../../img/shield.png') no-repeat center;
+}
+
+.document-icon{
+    width: 18px;
+    height: 18px;
+    background: url('../../img/document.png') no-repeat center;
+}
+
+.master-h{
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 105%; /* 25.2px */
+    color: var(--color-main-black);
+}
+
+.about-master{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.experiences-educations-master{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sercices-price-master{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.master-reviews{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.master-action-card{
+    display: flex;
+    flex-direction: column;
+    background: var(--color-secondary-grey-dies);
+    width: 281px;
+    height: 205px;
+    border-radius: 20px;
+    padding-top: 23px;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 10px;
+}
+
+.master-action-card button{
+    border-radius: 60px;
+    background: var(--color-secondary-grey15);
+    border-style: solid;
+    border-color: var(--color-secondary-grey15);
+    font-size: 20px;
+    padding: 10px;
+}
+
+.masterLocation{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border-style: solid;
+    margin-top: 10px;
+    border-color: var(--color-secondary-grey15) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies);
+    padding: 10px;
+}

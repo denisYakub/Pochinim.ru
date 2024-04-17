@@ -189,7 +189,7 @@ const MainPAge = () => {
                 Все услуги
                 </a>
             </div>
-            <div className="reviews">
+            <div className="reviews-carousel">
                 <button className="buttonMore">
                     Отзывы
                 </button>

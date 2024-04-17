@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import topicServices from "../services/topic-services";
-import masterPhoto from '../img/masterPhoto.png';
+import topicServices from "../services/topic-services"
 class TopicController{
 
     constructor(){
@@ -43,51 +42,6 @@ class TopicController{
                             "Полотенцесушитель", "Стояк", "Не знаю"];
         return options;
     }
-    
-    async getListOfMasters(){
-        const master = {name: 'Антон Горячев',
-                        photo: masterPhoto,
-                        stars: '4,8',
-                        reviews: 297,
-                        about: "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
-                        experience: ["с 1999 г. (25 лет)"],
-                        education: ["РосТех строй"],
-                        sercicesAndPrice: [["Сантехнические работы", '2500 ₽/точка'], 
-                                            ["Аварийные сантехники", '1500 ₽/усл.'],
-                                            ["Замена смесителя", '700 ₽/шт.']],
-                        reviewsExample: {stars: '5',
-                                        date: '13 декабря 2023',
-                                        from: 'Владислав',
-                                        topic: 'Сантехника',
-                                        text: 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились',
-                                        price: '3000 ₽'}
-                        };
-        const master228 = {name: 'Антон Горячев',
-                        photo: masterPhoto,
-                        stars: '4,8',
-                        reviews: 297,
-                        about: "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
-                        experience: ["с 1999 г. (25 лет)"],
-                        education: ["РосТех строй"],
-                        sercicesAndPrice: [["жопа", '2500 ₽/точка']],
-                        reviewsExample: {stars: '5',
-                                        date: '13 декабря 2023',
-                                        from: 'Владислав',
-                                        topic: 'Сантехника',
-                                        text: 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились',
-                                        price: '3000 ₽'}
-                        };
-        var masters = [];
-    
-        masters.push(master228);
-    
-        for (let index = 0; index < 30; index++) {
-            masters.push(master);
-        }
-    
-        return masters;
-    }
-
 };
 
 const topicController = new TopicController();

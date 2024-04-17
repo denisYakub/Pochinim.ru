@@ -1,0 +1,124 @@
+@import'../../index.css';
+
+.reviews{
+    display: flex;
+    gap: 20px;
+}
+
+.review{
+    display: flex;
+    flex-direction: column;
+    border-radius: 9px;
+    border: solid 1px var(--color-secondary-grey-dies);
+    background-color: var(--color-secondary-grey-dies);
+    gap: 16px;
+    padding: 20px;
+}
+
+.review-stars-date{
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-stars{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.review-date{
+    color: var(--color-secondary-grey30);
+}
+
+.review-from-topic{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.review-from{
+    color: var(--color-main-black);
+}
+
+.review-topic{
+    color: var(--color-secondary-grey50);
+}
+
+.review-price{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.review-price p{
+    color: var(--color-secondary-grey50);
+}
+
+.review-price div{
+    color: var(--color-main-blue);
+}
+
+.stars-0{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-0-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-1{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-1-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-2{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-2-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-3{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-3-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-4{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-4-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}
+
+.stars-5{
+    width: 68.166px;
+    height: 10.804px;
+    background: url('../../img/five-stars.png');
+}

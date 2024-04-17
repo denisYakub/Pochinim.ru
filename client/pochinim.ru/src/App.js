@@ -7,6 +7,8 @@ import '../src/design/wrappers/PhaseWrappers.css';
 import '../src/design/wrappers/LocationChooseWrappers.css';
 import '../src/design/wrappers/HintWrappers.css';
 import '../src/design/wrappers/PhotoWrappers.css';
+import '../src/design/wrappers/MasterCardWrappers.css';
+import '../src/design/wrappers/ReviewWrappers.css';
 
 import '../src/design/Inputs/TextInputs.css';
 import '../src/design/options/Options.css';
