@@ -11,6 +11,7 @@ import '../src/design/wrappers/PhotoWrappers.css';
 import '../src/design/wrappers/MasterCardWrappers.css';
 import '../src/design/wrappers/ReviewWrappers.css';
 import '../src/design/wrappers/InputFieldWithErrorWrappers.css';
+import '../src/design/wrappers/ProfileWrappers.css';
 
 import '../src/design/Inputs/TextInputs.css';
 import '../src/design/options/Options.css';
@@ -54,7 +55,7 @@ function App(){
             <Route path='/Search' element={<ListOfTopics  />}/>
             <Route path='/UserProfile' element={<UserProfile  />}/>
             <Route path='/CreateTopic' element={<CreateTopic  />}/>
-            <Route path='/:pev_page/MasterProfile' element={<MasterProfile />}/>
+            <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
             <Route path='/HelpPAge' element={<HelpPage />}/>
           </Routes>
           </contextCreatetopic.Provider>

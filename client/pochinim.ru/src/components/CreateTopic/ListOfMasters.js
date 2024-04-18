@@ -97,7 +97,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                     <div className="experience-education-master">
                         <p>{value.experience}</p>
                         <p>{value.education}</p>
-                        <Link to='/CreateTopic/MasterProfile'>Все(N шт)</Link>
+                        <Link to={`/CreateTopic/MasterProfile/${index}`}>Все(N шт)</Link>
                     </div>
                 </div>
                 <div className="sercices-price-master">
@@ -112,7 +112,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                                 </div>
                             );
                         })}
-                        <Link to="/CreateTopic/MasterProfile">Все(N шт)</Link>
+                        <Link to={`/CreateTopic/MasterProfile/${index}`}>Все(N шт)</Link>
                     </div>
                 </div>
                 <div className="master-reviews">
@@ -163,7 +163,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                             </div>
                         </div>
                     </div>
-                    <Link to="/CreateTopic/MasterProfile">Все(N шт)</Link>
+                    <Link to={`/CreateTopic/MasterProfile/${index}`}>Все(N шт)</Link>
                 </div>
             </div>
             <div className="master-action-card">

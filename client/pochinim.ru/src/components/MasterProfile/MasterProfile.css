@@ -6,4 +6,5 @@
     display: flex;
     justify-content: center;
     background: var(--color-main-wihite);
+    box-sizing: border-box;
 }

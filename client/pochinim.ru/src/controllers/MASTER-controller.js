@@ -31,8 +31,12 @@ class MasterController{
         return true;
     }
 
-    async getReviewsById(){
+    async getReviewsById(id){
         
+    }
+
+    async getWholeInfById(id){
+
     }
 
     async getListOfMasters1(){
