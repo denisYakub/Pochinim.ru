@@ -1,4 +1,5 @@
 import masterController from "../../controllers/MASTER-controller";
+import { Link} from "react-router-dom";
 
 const list = await masterController.getListOfMasters();
 
@@ -94,8 +95,9 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                 <div className="experiences-educations-master">
                     <div className="master-h">Образование и опыт</div>
                     <div className="experience-education-master">
-                        {value.experience}
-                        {value.education}
+                        <p>{value.experience}</p>
+                        <p>{value.education}</p>
+                        <Link to='/CreateTopic/MasterProfile'>Все(N шт)</Link>
                     </div>
                 </div>
                 <div className="sercices-price-master">
@@ -110,6 +112,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                                 </div>
                             );
                         })}
+                        <Link to="/CreateTopic/MasterProfile">Все(N шт)</Link>
                     </div>
                 </div>
                 <div className="master-reviews">
@@ -160,6 +163,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                             </div>
                         </div>
                     </div>
+                    <Link to="/CreateTopic/MasterProfile">Все(N шт)</Link>
                 </div>
             </div>
             <div className="master-action-card">

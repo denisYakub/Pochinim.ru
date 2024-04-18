@@ -17,7 +17,7 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
 
     const activateHint = (value) => {
         setTopic(value);
-    }
+    };
 
     return(<div className="blockPhase">
         <h1>

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
 import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
@@ -8,28 +8,29 @@ import { useNavigate} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
 import TOPICController from "../../controllers/TOPIC-controller";
 import USERController from "../../controllers/USER-controller";
-import Loader from "../Loader/Loader";
+import HelpPage from "../HelpPage/HelpPage";
+import { contextCreatetopic } from '../../contexts/contextCreatetopic';
+
 const CreateTopic = () => {
-    
     const navigate = useNavigate();
 
     const [activePop, setActivePop] = useState(false)
     const [textPop, setTextPop] = useState("");
-    const [showLoader, setShowLoader] = useState(false);
 
     const [activeStage, setActiveStage] = useState(0);
 
-    const [topic, setTopic] = useState("");
-    const [FIO, setFIO] = useState("");
-    const [phoneNumber, setphoneNumber] = useState("");
-    const [need, setNeed] = useState("");
-    const [problem, setProblem] = useState("");
-    const [problemLocation, setProblemLocation] = useState("");
-    const [address, setAddress] = useState("Поставте метку на карте");
-    const [date, setDate] = useState("");
-    const [paymentOption, setPaymentOption] = useState("");
-    const [detailsText, setDetailsText] = useState("");
-    const [detailsFiles, setDetailsFiles] = useState(null);
+    const { topic, setTopic, 
+            FIO, setFIO, 
+            phoneNumber, setphoneNumber, 
+            need, setNeed,
+            problem, setProblem, 
+            problemLocation, setProblemLocation,
+            address, setAddress,
+            date, setDate,
+            paymentOption, setPaymentOption,
+            detailsText, setDetailsText,
+            detailsFiles, setDetailsFiles} = useContext(contextCreatetopic)
+
     const [accountID, setAccountID] = useState("");
     const [publishOnForum, setPublishOnForum] = useState(false);
     const [sendApplication, setSendApplication] = useState(false); 
@@ -37,7 +38,7 @@ const CreateTopic = () => {
     const [error, setError] = useState(false);
     const [errorRed, animateErrorRed] = useAnimate();
 
-    const comps = useMemo(() => { return [<Stage1 topic={topic} setTopic={setTopic}
+    const phasesComps = useMemo(() => { return [<Stage1 topic={topic} setTopic={setTopic}
                                 error={error} setError={setError} errorRed={errorRed}></Stage1>, 
                     <Stage2 FIO={FIO} setFIO={setFIO}
                                 phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
@@ -65,10 +66,13 @@ const CreateTopic = () => {
                                     errorRed, need, paymentOption, phoneNumber, problem, problemLocation, 
                                         publishOnForum, topic]);
 
-    const compListOfMasters = <ListOfMasters topic={topic}
-                                                setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>;
+    const leftButtonsComps = [<ListOfMasters topic={topic}
+                                                setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>,
+                                <HelpPage></HelpPage>];                                
+    
+    const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
 
-    const [listOfMasters, setListOfMasters] = useState(false);
+    
 
     async function checkAccess(){
         if(await USERController.checkForAccess()){
@@ -94,7 +98,7 @@ const CreateTopic = () => {
             setSendApplication(false);
             navigate('/');   
         }
-    }, [activeStage, comps, sendApplication, FIO, accountID, address, date,
+    }, [activeStage, phasesComps, sendApplication, FIO, accountID, address, date,
             detailsFiles, detailsText, navigate, need, paymentOption, phoneNumber, 
                 problem, problemLocation, publishOnForum, topic])
 
@@ -188,7 +192,7 @@ const CreateTopic = () => {
                 break;
         }
         
-        if(nextStage <= comps.length - 1){
+        if(nextStage <= phasesComps.length - 1){
             setActiveStage(nextStage);
         }
     }
@@ -201,26 +205,33 @@ const CreateTopic = () => {
     }
 
     const help = () => {
+        if(idLeftButtonsComps === 1){
+            setIdLeftButtonsComps(2);
+        }else if(idLeftButtonsComps === 2){
+            setIdLeftButtonsComps(1);
+        }else if(idLeftButtonsComps === 0){
+            setIdLeftButtonsComps(1);
+        }
     }
 
     const masters = () => {
-        if(!listOfMasters){
-            setListOfMasters(true);
-        }else{
-            setListOfMasters(false);
+        if(idLeftButtonsComps === 0){
+            setIdLeftButtonsComps(2);
+        }else if(idLeftButtonsComps === 2){
+            setIdLeftButtonsComps(0);
+        }else if(idLeftButtonsComps === 1){
+            setIdLeftButtonsComps(0);
         }
+        
     }
 
     return(<Fragment>
         <div className= "creatTopic">
             <div className="content">
                 <div className="left-content">
-                    <div className="mastersAndNumber">
-                        <button onClick={masters}>
-                            Специалисты
-                        </button>
-                        <a>1587</a>
-                    </div>
+                    <button onClick={masters}>
+                        Специалисты
+                    </button>
                     <button onClick={help}>
                         Помощь
                     </button>
@@ -228,10 +239,10 @@ const CreateTopic = () => {
                     Заполнение формы - {topic}
                     </a>
                 </div>
-                {!listOfMasters?
+                {idLeftButtonsComps === 2?
                     <div className="right-content-create-topic">
                         {activeStage<9?<a>{activeStage + 1}/9</a>:<a>Авторизация</a>}
-                        {comps[activeStage]}
+                        {phasesComps[activeStage]}
                         <div className="control-buttons">
                             <button name="prev" onClick={moveBack}
                                 onMouseEnter={()=>{}}
@@ -251,7 +262,8 @@ const CreateTopic = () => {
                     </div>
                 :
                     <div className="right-content-find-master">
-                        {compListOfMasters}
+                        {/*compListOfMasters*/}
+                        {leftButtonsComps[idLeftButtonsComps]}
                     </div>}
             </div>
         </div>

@@ -93,7 +93,11 @@
 .experiences-educations-master{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+}
+
+.experience-education-master{
+    display: flex;
+    flex-direction: column;
 }
 
 .sercices-price-master{

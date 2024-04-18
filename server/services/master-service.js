@@ -32,10 +32,10 @@ class MasterService{
         }
     }
 
-    async getListOfMastersWithReviews(from, to){
+    async getListOfMasters(from, to){
         try {
             
-            const listofMasters = await pool.query(`SELECT fio, master_email, occupation, working_from, location, selected_options_of_location, master_photo_path  FROM masters`);
+            const listofMasters = await pool.query(`SELECT id_master, fio, master_email, occupation, working_from, location, selected_options_of_location, master_photo_path  FROM masters`);
             
             return listofMasters.rows;
         } catch (error) {

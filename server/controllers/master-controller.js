@@ -1,4 +1,5 @@
 const masterService = require("../services/master-service");
+const reviewService = require("../services/review-service");
 
 class MasterController{
     async registration(req, res, next){
@@ -30,12 +31,19 @@ class MasterController{
         }
     }
 
-    async getListOfMasters(req, res, next){
+    async getListOfMastersAndReviews(req, res, next){
         try {
             const from = req.params.from;
             const to = req.params.to;
 
-            const data = await masterService.getListOfMastersWithReviews(from, to);
+            const data_masters = await masterService.getListOfMasters(from, to);
+
+            var data= [];
+
+            data_masters.map(async (v, i) => {
+                v["reviews"] = await reviewService.getAllReviewsByRecipientId(v.id_master);
+                data.push(v);
+            });
 
             return res.json(await data);
         } catch (error) {
