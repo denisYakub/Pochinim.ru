@@ -39,10 +39,10 @@ const CreateTopic = () => {
     const [errorRed, animateErrorRed] = useAnimate();
 
     const phasesComps = useMemo(() => { return [<Stage1 topic={topic} setTopic={setTopic}
-                                error={error} setError={setError} errorRed={errorRed}></Stage1>, 
+                                error={error}></Stage1>, 
                     <Stage2 FIO={FIO} setFIO={setFIO}
                                 phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
-                                    error={error} setError={setError} errorRed={errorRed}></Stage2>, 
+                                    error={error}></Stage2>, 
                     <Stage3 need={need} setNeed={setNeed}
                                 error={error} setError={setError} errorRed={errorRed}></Stage3>, 
                     <Stage4 problem={problem} setProblem={setProblem}
@@ -111,7 +111,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 1:
@@ -121,7 +120,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 2:
@@ -131,7 +129,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 3:
@@ -139,8 +136,7 @@ const CreateTopic = () => {
                     nextStage = activeStage + 1;
                     setError(false);
                 }else{
-                    setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
+                    setError(true)
                 }
                 break;
             case 4:
@@ -149,7 +145,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 5:
@@ -158,7 +153,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 6:
@@ -167,7 +161,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 7:
@@ -176,7 +169,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             case 8:
@@ -185,7 +177,6 @@ const CreateTopic = () => {
                     setError(false);
                 }else{
                     setError(true);
-                    await textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
                 }
                 break;
             default:

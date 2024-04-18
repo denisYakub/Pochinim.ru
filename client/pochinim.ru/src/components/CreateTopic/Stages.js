@@ -4,6 +4,7 @@ import {motion, useAnimate} from 'framer-motion'
 import buttonsAnimations from "../../animations/buttons-animations.js";
 import topicController from "../../controllers/TOPIC-controller.js";
 import loadPhotoIcon from "../../img/putFile.png";
+import InputWithError from "../../animations/input-error-field.js";
 
 //const optionsOfExistingTopics = topicController.getListOfExistingTopics();
 const optionsOfWork = await topicController.getListOfWork();
@@ -12,9 +13,7 @@ const optionsOfWhereIsProblem = await topicController.getListofWhereIsProblem();
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
-    const [errorScope, animateError] = useAnimate();
-
+const Stage1 = ({topic, setTopic, error}) => {
     const activateHint = (value) => {
         setTopic(value);
     };
@@ -23,16 +22,8 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
         <h1>
             Как назвать задачу?
         </h1>
-        
-        <div className="inputAndError">
-            <input placeholder="Сантехник" ref={errorRed} value={topic} onChange={e => setTopic(e.target.value)}></input> 
-            {error
-                ?<div className="errorInStage"
-                onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                </div>
-                : console.log("no_errors")}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 250}}>Ошибка ввода</motion.a>
+        <div style={{width: "500px"}}>
+            <InputWithError placeholder={"Сантехника"} value={topic} setValue={setTopic} error={error}></InputWithError>
         </div>
         <div className="button-hints">
             <button className="hint" onClick={() => activateHint("Сантехника")}>
@@ -50,33 +41,17 @@ const Stage1 = ({topic, setTopic, error, setError, errorRed}) => {
         </div>
     </div>)
 }
-const Stage2 = ({FIO, setFIO, phoneNumber, setphoneNumber, error, setError, errorRed}) => {
-    const [errorScope, animateError] = useAnimate();
-
+const Stage2 = ({FIO, setFIO, phoneNumber, setphoneNumber, error}) => {
     return(<div className="blockPhase">
         <h1>
             Контактная информация
         </h1>
         <div className="contact">
-            <div className="inputAndError">
-                <input placeholder="Имя Фамилия" value={FIO} ref={errorRed} onChange={e => setFIO(e.target.value)}></input>
-                {error
-                    ?<div className="errorInStage"
-                    onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                    onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                    </div>
-                    : console.log("no_errors")}
-                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 650}}>Ошибка ввода</motion.a>
+            <div style={{width: "500px"}}>
+                <InputWithError placeholder={"Имя Фамилия"} value={FIO} setValue={setFIO} error={error}></InputWithError>
             </div>
-            <div className="inputAndError">
-                <input placeholder="+7-000-000-00-00" value={phoneNumber} ref={errorRed} onChange={e => setphoneNumber(e.target.value)}></input>
-                {error
-                    ?<div className="errorInStage"
-                    onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                    onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                    </div>
-                    : console.log("no_errors")}
-                <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -30, x: 400}}>Ошибка ввода</motion.a>
+            <div style={{width: "500px"}}>
+                <InputWithError placeholder={"+7-000-000-00-00"} value={phoneNumber} setValue={setphoneNumber} error={error}></InputWithError>
             </div>
         </div>
     </div>)
