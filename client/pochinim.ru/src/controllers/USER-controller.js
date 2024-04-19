@@ -48,8 +48,11 @@ class UserController{
 
     async logOutUser(){
         const ret = await userServices.logOut();
-        console.log(ret);
-
+        
+        if(ret?.message){
+            return false;
+        }
+        return true;
     }
 }
 

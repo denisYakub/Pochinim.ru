@@ -10,7 +10,7 @@ const Loader = ({showLoader, setShowLoader, text}) => {
                     <motion.img src={loadImg} alt="It should be load image..." className="loader-img"
                         animate={{rotate: 360}}
                         transition={{repeat: Infinity, duration: 3, type: "tween"}}></motion.img>
-                    <text className="loader-text">{text}</text>
+                    <p className="loader-text">{text}</p>
                 </div>
             :
                 <></>}

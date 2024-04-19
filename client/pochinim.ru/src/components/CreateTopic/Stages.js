@@ -5,6 +5,7 @@ import buttonsAnimations from "../../animations/buttons-animations.js";
 import topicController from "../../controllers/TOPIC-controller.js";
 import loadPhotoIcon from "../../img/putFile.png";
 import InputWithError from "../../animations/input-error-field.js";
+import InputDateWithError from "../../animations/input-error-date.js";
 
 //const optionsOfExistingTopics = topicController.getListOfExistingTopics();
 const optionsOfWork = await topicController.getListOfWork();
@@ -22,7 +23,7 @@ const Stage1 = ({topic, setTopic, error}) => {
         <h1>
             Как назвать задачу?
         </h1>
-        <div style={{width: "500px"}}>
+        <div className="create-topic-input-size">
             <InputWithError placeholder={"Сантехника"} value={topic} setValue={setTopic} error={error}></InputWithError>
         </div>
         <div className="button-hints">
@@ -103,16 +104,9 @@ const Stage3 = ({need, setNeed, error, setError, errorRed}) => {
             })}
             <div className="urInput">
                 <input type="radio" className="urInput-radio" value={localNeed} name="check" checked={isCheckedUserInput()}></input>
-                <div className="inputAndError">
-                    <input type="text" className="urInput-text" ref={errorRed}  placeholder="Ваш вариант" value={setValue()} onChange={e => setLocalNeed(e.target.value)}></input>
-                    {error
-                        ?<div className="errorInStage"
-                        onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                        onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                        </div>
-                        : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -325, x: 400}}>Ошибка ввода</motion.a>
-                </div>
+                <div className="create-topic-input-size">
+                    <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalNeed} error={error}></InputWithError>
+                 </div>
             </div>
         </div>
     </div>)
@@ -164,16 +158,9 @@ const Stage4 = ({problem, setProblem, error, setError, errorRed}) => {
             })}
             <div className="urInput">
                 <input type="radio" className="urInput-radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
-                <div className="inputAndError">
-                    <input type="text" className="urInput-text" placeholder="Ваш вариант" ref={errorRed} value={setValue()} onChange={e => setLocalProblem(e.target.value)}></input>
-                    {error
-                        ?<div className="errorInStage"
-                        onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                        onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                        </div>
-                        : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -30, x: 400}}>Ошибка ввода</motion.a>
-                </div>
+                <div className="create-topic-input-size">
+                    <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} error={error}></InputWithError>
+                 </div>
             </div>
         </div>
     </div>)
@@ -225,16 +212,9 @@ const Stage5 = ({problemLocation, setProblemLocation, error, setError, errorRed}
             })}
             <div className="urInput">
                 <input type="radio" className="urInput-radio" value={localProblemLocation} name="check" checked={isCheckedUserInput()}></input>
-                <div className="inputAndError">
-                    <input type="text" className="urInput-text" placeholder="Ваш вариант" ref={errorRed} value={setValue()} onChange={e => setLocalProblemLocation(e.target.value)}></input>
-                    {error
-                        ?<div className="errorInStage"
-                        onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                        onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                        </div>
-                        : console.log("no_errors")}
-                    <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: -400, x: 400}}>Ошибка ввода</motion.a>
-                </div>
+                <div className="create-topic-input-size">
+                    <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblemLocation} error={error}></InputWithError>
+                 </div>
             </div>
         </div>
     </div>)
@@ -289,7 +269,7 @@ const Stage6 = ({address, setAddress, error, setError, errorRed}) => {
                 onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
                 onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
                 </div>
-                : console.log("no_errors")}
+                : null}
             <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 0}}>Ошибка ввода</motion.a>
         </div>
         <div className="Ymap">
@@ -314,15 +294,8 @@ const Stage7 = ({date, setDate, error, setError, errorRed}) => {
         <h1>
             Когда нужна услуга?
         </h1>
-        <div className="inputAndError">
-            <input type="date" ref={errorRed} onChange={e => setDate(e.target.value)}></input>
-            {error
-                ?<div className="errorInStage"
-                onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                </div>
-                : console.log("no_errors")}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 200}}>Ошибка ввода</motion.a>
+        <div className="create-topic-input-date-size">
+            <InputDateWithError value={date} setValue={setDate} error={error}></InputDateWithError>
         </div>
     </div>)
 }
@@ -330,7 +303,6 @@ const Stage8 = ({paymentOption, setPaymentOption, error, setError, errorRed}) =>
     
     const inputRadioCheck = (e) => {
         setPaymentOption(e.value);
-        console.log(e.value);
     }
 
     return(<div className="blockPhase">

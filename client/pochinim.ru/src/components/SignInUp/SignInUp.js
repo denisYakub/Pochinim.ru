@@ -17,7 +17,7 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("")
 
-    const [errorInSingInUp, setErrorInSingInUp] = useState(null);
+    const [errorInSingInUp, setErrorInSingInUp] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
     const comps = [<EmailPhase phase={phase} setPhase={setPhase} 

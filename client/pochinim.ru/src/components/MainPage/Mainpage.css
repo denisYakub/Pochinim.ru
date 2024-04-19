@@ -526,40 +526,6 @@
     flex-direction: column;
     width: 1057px;
 }
-.toBeContinued{
-    margin-left:11%;
-    padding-left: 10px;
-    border-style: solid;
-    float: left;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    border-radius: 60px;
-    border-color: var(--color-secondary-violet-dies);
-    background: var(--color-secondary-violet-dies);
-}
-
-.toBeContinued a{
-    color: var(--color-main-blue);
-
-    /* Text/кнопка */
-    font-family: "SF Pro Display";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 110%; /* 17.6px */
-}
-
-.toBeContinued button{
-    width: 45px;
-    height: 45px;
-    border-radius: 60px;
-    border-color: var(--color-main-blue);
-    background: url("../../img/arrow-right.png") no-repeat center #3838CE;
-}
 
 .mainOfForum{ 
     color: var(--color-main-black);

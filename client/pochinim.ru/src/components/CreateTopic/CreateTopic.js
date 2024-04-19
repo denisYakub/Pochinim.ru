@@ -3,7 +3,6 @@ import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
 import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
 import {useAnimate} from 'framer-motion'
-import textAnimations from '../../animations/text-animations'
 import { useNavigate} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
 import TOPICController from "../../controllers/TOPIC-controller";
@@ -29,7 +28,8 @@ const CreateTopic = () => {
             date, setDate,
             paymentOption, setPaymentOption,
             detailsText, setDetailsText,
-            detailsFiles, setDetailsFiles} = useContext(contextCreatetopic)
+            detailsFiles, setDetailsFiles,
+            idLeftButtonsComps, setIdLeftButtonsComps} = useContext(contextCreatetopic)
 
     const [accountID, setAccountID] = useState("");
     const [publishOnForum, setPublishOnForum] = useState(false);
@@ -68,11 +68,7 @@ const CreateTopic = () => {
 
     const leftButtonsComps = [<ListOfMasters topic={topic}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>,
-                                <HelpPage></HelpPage>];                                
-    
-    const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
-
-    
+                                <HelpPage></HelpPage>];                                    
 
     async function checkAccess(){
         if(await USERController.checkForAccess()){
@@ -116,7 +112,6 @@ const CreateTopic = () => {
             case 1:
                 if(FIO != "" && phoneNumber != ""){
                     nextStage = activeStage + 1;
-                    console.log(FIO);
                     setError(false);
                 }else{
                     setError(true);
@@ -124,7 +119,6 @@ const CreateTopic = () => {
                 break;
             case 2:
                 if(need != ""){
-                    console.log(need);
                     nextStage = activeStage + 1;
                     setError(false);
                 }else{
@@ -253,7 +247,6 @@ const CreateTopic = () => {
                     </div>
                 :
                     <div className="right-content-find-master">
-                        {/*compListOfMasters*/}
                         {leftButtonsComps[idLeftButtonsComps]}
                     </div>}
             </div>

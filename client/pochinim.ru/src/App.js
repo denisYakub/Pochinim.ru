@@ -12,6 +12,7 @@ import '../src/design/wrappers/MasterCardWrappers.css';
 import '../src/design/wrappers/ReviewWrappers.css';
 import '../src/design/wrappers/InputFieldWithErrorWrappers.css';
 import '../src/design/wrappers/ProfileWrappers.css';
+import '../src/design/wrappers/UserCardWrappers.css';
 
 import '../src/design/Inputs/TextInputs.css';
 import '../src/design/options/Options.css';
@@ -40,13 +41,15 @@ function App(){
   const [paymentOption, setPaymentOption] = useState("");
   const [detailsText, setDetailsText] = useState("");
   const [detailsFiles, setDetailsFiles] = useState(null);
+  const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
 
   return (
     <Fragment>
         <BrowserRouter>
         <contextCreatetopic.Provider value={{ topic, setTopic, FIO, setFIO, phoneNumber, setphoneNumber, need, setNeed,
                                               problem, setProblem, problemLocation, setProblemLocation, address, setAddress,
-                                              date, setDate, paymentOption, setPaymentOption, detailsText, setDetailsText, detailsFiles, setDetailsFiles}}>
+                                              date, setDate, paymentOption, setPaymentOption, detailsText, setDetailsText, detailsFiles, setDetailsFiles,
+                                              idLeftButtonsComps, setIdLeftButtonsComps}}>
           <Navbar />
           <Routes>
             <Route path="/" element={<MainPage  />}/>

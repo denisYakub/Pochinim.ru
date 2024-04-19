@@ -4,12 +4,14 @@
     display: flex;
     align-items: center;
 }
+
 .input-with-error{
     display: flex;
     align-items: center;
     align-items: center;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 .input-with-error input{
@@ -34,12 +36,7 @@
 }
 
 .error-message{
-    margin-left: 10px;
-    padding: 5px;
-    width: fit-content;
-    height: fit-content;
-    border-style: solid;
-    border-color: var(--color-main-wihite);;
+    border: solid var(--color-main-wihite) 1px;
     border-radius: 8px;
     background: var(--color-main-wihite);
     box-shadow: 0px 4px 60px 0px rgba(33, 33, 33, 0.12);

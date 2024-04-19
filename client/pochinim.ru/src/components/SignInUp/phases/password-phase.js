@@ -1,28 +1,21 @@
-import buttonsAnimations from "../../../animations/buttons-animations";
-import textAnimations from "../../../animations/text-animations";
 import USERController from "../../../controllers/USER-controller";
-import {motion, useAnimate} from 'framer-motion'
+import InputWithError from "../../../animations/input-error-field";
 
 const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, email, emailCode, errorInSingInUp, setErrorInSingInUp}) =>{
-
-    const [errorScope, animateError] = useAnimate();
-    const [errorRed, animateErrorRed] = useAnimate();
-
     const click = async() =>{
         if(emailCode == 0){
             if(await USERController.logInUser(email, password)){
-                setErrorInSingInUp(null)
-                setPhase(phase + 1)
+                setErrorInSingInUp(false);
+                setPhase(phase + 1);
             }else{
-                setErrorInSingInUp("Неверный пароль")
+                setErrorInSingInUp(true);
             }
         }else{
             if(await USERController.registrate(email, name, password)){
-                setErrorInSingInUp(null)
-                setPhase(phase + 1)
+                setErrorInSingInUp(false);
+                setPhase(phase + 1);
             }else{
-                textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed})
-                setErrorInSingInUp("Неизвестная ошибка")
+                setErrorInSingInUp(true);
             }
         }
     };
@@ -35,18 +28,11 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
             <p>
             </p>
         </div>
-        <div className="input-field">
-            <div className="inputAndError">
-                <input className="text-input-field" type="text" placeholder={'пароль'} value={password} onChange={e => setPassword(e.target.value)} ref={errorRed}></input>
-                {errorInSingInUp!=null?<div className="errorInSignInUp"
-                onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                </div>: console.log("no_errors")}
-                <motion.a className="errorRegMessage" ref={errorScope} initial={{scale: 0, y: 40, x: 542}}>{errorInSingInUp}</motion.a>
-            </div>
-            {console.log(emailCode)}
-            {emailCode!=0?<input type="text" placeholder={'ФИО'} value={name} onChange={e => setName(e.target.value)}></input>:<></>}
+        <div className="sighnInUp-input-size">
+            <InputWithError placeholder={'пароль'} value={password} setValue={setPassword} error={errorInSingInUp}></InputWithError>
+            <a>Специалисты не видят вашу почту. Вы сами решите, кому она будет доступена.</a>
         </div>
+        {emailCode!=0?<input type="text" placeholder={'ФИО'} value={name} onChange={e => setName(e.target.value)}></input>:<></>}
         <button className="continue-button" onClick={click}>
         Продолжить
         </button>

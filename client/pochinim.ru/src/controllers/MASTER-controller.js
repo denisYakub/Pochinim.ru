@@ -37,6 +37,13 @@ class MasterController{
 
     async getWholeInfById(id){
 
+        const photo = masterPhoto;
+        const fio = "Антон Горячев";
+        const stars = "4,8";
+        const reviewsCount = 297;
+
+        return {"photo": masterPhoto, "fio": "Антон Горячев", "stars": "4,8", "reviewsCount": 297, "aboutMe": "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
+                "experience": null, "education": null };
     }
 
     async getListOfMasters1(){

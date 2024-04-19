@@ -53,7 +53,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
         }
         return `stars-${stars}`
     }
-
+    
     return(list.map((value, index) => {
         if(checkTopic(value.sercicesAndPrice)){
             return(<div key={index} className="master-wrapper">

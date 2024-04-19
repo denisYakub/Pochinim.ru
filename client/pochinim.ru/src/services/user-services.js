@@ -73,9 +73,10 @@ class UserServices{
                 body: JSON.stringify(body)
             })
             const bot = await data.json();
+
             localStorage.setItem('token', bot.accessToken)
             localStorage.setItem('mail', email);
-            console.log(localStorage.getItem('token'));
+
             return bot;
         } catch (error) {
             console.log("Error in logIn:", error);
@@ -92,6 +93,10 @@ class UserServices{
                     "Content-Type": "application/json"}, 
             })
             const bot = await data.json();
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('mail');
+
             return bot;
         } catch (error) {
             console.log("Error in logOut:", error);

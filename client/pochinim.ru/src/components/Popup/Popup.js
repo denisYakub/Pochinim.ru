@@ -10,15 +10,12 @@ const Popup = ({active, setActive, children}) =>{
     }
 
     return(<motion.div ref={scope} className='Popup'
-            initial={{scale:0}} animate={active?{scale:1}:null}>
-        <motion.div className='Popup-content'>
-            <a>
-            {children}
-            </a>
-            <button onClick={() => close()}>
-            Прекрасно
-            </button>
-        </motion.div>
+        initial={{scale:0}} animate={active?{scale:1}:null}>
+            <div className='info-popup'>
+                <div className='icon-popup'></div>
+                <p>{children}</p>
+            </div>
+            <button onClick={() => close()}>Прекрасно</button>
     </motion.div>);
 }
 

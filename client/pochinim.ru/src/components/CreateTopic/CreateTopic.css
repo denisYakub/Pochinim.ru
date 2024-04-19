@@ -268,21 +268,12 @@
     align-items: center;
 }
 
-.errorInStage{
-    margin-left: -35px;
-    width: 18px;
-    height: 18px;
-    background: url("../../img/icons.png") no-repeat center;
+.create-topic-input-size{
+    width: 500px;
 }
 
-.errorStageMessage{
-    max-width: 252px;
-    position: fixed;
-    border-style: solid;
-    border-color: var(--color-main-wihite);;
-    border-radius: 8px;
-    background: var(--color-main-wihite);
-    box-shadow: 0px 4px 60px 0px rgba(33, 33, 33, 0.12);
+.create-topic-input-date-size{
+    width: 500px;
 }
 
 .block-accounts-to-choose{

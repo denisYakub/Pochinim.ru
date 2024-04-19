@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
-import {motion, useAnimate} from "framer-motion";
+import { motion } from "framer-motion";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
-import buttonsAnimations from "../../animations/buttons-animations";
 import WebSiteController from "../../controllers/WEBSITE-controller";
+import ButtonGoTo from "../../animations/button-go-to";
 
 const reviews = await WebSiteController.getReviews();
   
@@ -25,19 +25,12 @@ const MainPAge = () => {
     const [width, setWidth] = useState(0);
     const carousel = useRef();
 
-    const [buttonBG, animateButtonBG] = useAnimate();
-    const [buttonText, animateButtonText] = useAnimate();
-
     const [active, setActive] = useState(true);
 
     const cookies = <Popup active={active} setActive={setActive}>
     Этот сайт использует куки для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с нашей Политикой конфиденциальности.
     </Popup>;
     
-    const buttonOnClick = (location) => {
-        navigate(location);
-    }
-
     useEffect(() => {
         localStorage.getItem('token')?setActive(false):setActive(true);
         setWidthSteps(carouselSteps.current.scrollWidth-carouselSteps.current.offsetWidth);
@@ -85,16 +78,7 @@ const MainPAge = () => {
                 </div>
                 <div className="right-aboutUs">
                     <div className="mainaboutUs">
-                    <div ref={buttonBG} className="toBeContinued"
-                    onMouseEnter={async () => await buttonsAnimations.buttonHover("#2E2EB2", {buttonBG, animateButtonBG},
-                            "#FFFFFF", {buttonText, animateButtonText})}
-                    onMouseLeave={async () => await buttonsAnimations.buttonHover("#EBF0FF", {buttonBG, animateButtonBG},
-                            "#3838CE", {buttonText, animateButtonText})}
-                    onClick={() => buttonOnClick("/CreateTopic")}>
-                        <a ref={buttonText}>Написать задание</a>
-                        <button>
-                        </button>
-                    </div>
+                    <ButtonGoTo text={"Написать задание"} road={"/CreateTopic"}></ButtonGoTo>
                     <a className="a1">
                     “Починим.ру начал свой путь в 2010 году как небольшая стартап-команда, стремящаяся упростить процесс ремонта для людей.” 
                     </a>
@@ -236,11 +220,7 @@ const MainPAge = () => {
             </div>
             <div className="right-PartOfForum">
                 <div className="mainOfForum">
-                    <div className="toBeContinued">
-                            <a>Читать форум</a>
-                            <button>
-                            </button>
-                    </div>
+                    <ButtonGoTo text={"Читать форум"} road={"/"}></ButtonGoTo>
                     <a>Здесь вы можете общаться с другими пользователями, делиться опытом, задавать вопросы и получать ответы от экспертов.</a>
                 </div>
             <div className="digitalPartOfForum">

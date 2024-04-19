@@ -1,0 +1,34 @@
+.button-go-to{
+    margin-left:11%;
+    padding-left: 10px;
+    border-style: solid;
+    float: left;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    border-radius: 60px;
+    border-color: var(--color-secondary-violet-dies);
+    background: var(--color-secondary-violet-dies);
+}
+
+.button-go-to a{
+    color: var(--color-main-blue);
+
+    /* Text/кнопка */
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 17.6px */
+}
+
+.button-go-to button{
+    width: 45px;
+    height: 45px;
+    border-radius: 60px;
+    border: solid 1px var(--color-main-blue);
+    background: url("../img/arrow-right.png") no-repeat center var(--color-main-blue);
+}

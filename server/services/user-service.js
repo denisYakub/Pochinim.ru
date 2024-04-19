@@ -42,10 +42,9 @@ class UserService{
             
             if(candidat.rows[0].count == 0){
                 return false;
-            }else{
-                return true;
             }
 
+            return true;
         } catch (error) {
             throw error;
         }

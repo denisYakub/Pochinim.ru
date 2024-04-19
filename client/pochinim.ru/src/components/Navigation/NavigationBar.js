@@ -11,10 +11,11 @@ const Navbar = () => {
     const [search, setSearch] = useState("")
     
     useEffect(() => {
-
         async function getAuth() {
             if(await USERController.checkForAccess()){
                 setAuth(localStorage.getItem('mail'));
+            }else{
+                setAuth(null);
             }
         }
 
@@ -22,7 +23,7 @@ const Navbar = () => {
             getAuth();
         }, 10);
 
-    }, [navigate])
+    },[navigate, auth])
 
     const submitSearch = e => {
         e.preventDefault()

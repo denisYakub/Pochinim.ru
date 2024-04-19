@@ -8,7 +8,6 @@ const InputWithError = ({placeholder, value, setValue, error}) => {
    
     useEffect(() => {
         if(error){
-            //textAnimations.highlightErrorInput("#1C1C1C", {errorRed, animateErrorRed});
             highlightErrorInput("#1C1C1C", errorRed, animateErrorRed);
         }
     },[error])
@@ -33,7 +32,12 @@ const InputWithError = ({placeholder, value, setValue, error}) => {
             : 
                 <></>}
         </div>
-        <motion.p className="error-message" ref={errorScope} initial={{scale: 0 }}>Ошибка ввода</motion.p>
+        <motion.div className='error-message' ref={errorScope} initial={{scale: 0, position: "absolute", 
+            width: "fit-content", height: "fit-content", display: "flex", justifyContent: 'center', alignItems: "center"}}>
+            <p>
+                Вы тут ошиблись!
+            </p>
+        </motion.div>
     </div>);
 }
 
