@@ -22,6 +22,17 @@ const storage = multer.diskStorage({
         cd(null, dir);
     },
     filename(req, file, cd){
+        /*var name;
+        switch (file.fieldname) {
+            case 'masterPhoto':
+                name = 'photo'
+                break;
+            case 'topicMainPhotos':
+                
+                break;
+            default:
+                break;
+        }*/
         cd(null, file.originalname);
     }
 })

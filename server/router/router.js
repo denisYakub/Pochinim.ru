@@ -6,6 +6,7 @@ const topicController = require('../controllers/topic-controller');
 const router = new Router();
 const multerMiddleware = require('../middleware/multer-middleware');
 const masterController = require('../controllers/master-controller');
+const imageController = require('../controllers/image-controller');
 
 router.post('/registration', userController.registration);
 router.post('/checkEmail', userController.checkEmail)
@@ -24,8 +25,11 @@ router.post('/createTopic',
 router.post('/saveFileForTopic/:id_topic',
             multerMiddleware.any('topicMainPhotos'),
             topicController.saveFileForTopic);
-router.get('/listOfMasterAndReviews',
-            masterController.getListOfMastersAndReviews)
+router.post('/listOfMasterAndReviews',
+            masterController.getListOfMastersAndReviews);
+            
+router.post('/getSinglePhoto',
+            imageController.getSinglePhoto);
 
 router.post('/registrateMaster',
             masterController.registration);

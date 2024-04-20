@@ -1,8 +1,11 @@
 const pool = require('../database');
 
 class ReviewService{
-    async getAllReviewsByRecipientId(id){    
-        return [{"stars": 4.8, "date": "17.04.2024"}, {"stars": 2.2, "date": "01.04.2024"}]
+    async getAllReviewsByRecipientId(id){
+        return [{"stars": 4.8, "date": "17.04.2024", "from": 'Владислав', 'topic': 'Сантехника', 
+                    "text": 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились', 'price': '3000 ₽'}, 
+                {"stars": 4.8, "date": "17.04.2024", "from": 'Владислав', 'topic': 'Сантехника', 
+                    "text": 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились', 'price': '3000 ₽'}];
     }
 }
 module.exports = new ReviewService();

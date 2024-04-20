@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
 import masterController from "../../controllers/MASTER-controller";
-import { Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const list = await masterController.getListOfMasters();
+const list = await masterController.getListOfMasters(0, 30);
 
 const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
+
+    useEffect(() => {
+        
+    }, []);
 
     const checkTopic = (value) => {
         var tf = false;
@@ -14,6 +19,10 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
         });
         return tf;
     }   
+
+    const showPhoto = async (path) => {
+        return await masterController.getMasterPhotoByPath(path);
+    };
 
     const sendMessage = () => {
         console.log("hi");
@@ -54,7 +63,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
         return `stars-${stars}`
     }
     
-    return(list.map((value, index) => {
+    return(list?.map((value, index) => {
         if(checkTopic(value.sercicesAndPrice)){
             return(<div key={index} className="master-wrapper">
             <div className="master-info-card">
@@ -121,45 +130,45 @@ const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
                         <div className="review">
                             <div className="review-stars-date">
                                 <div className="review-stars">
-                                    <div className={setStars(value.review.stars)}></div>
-                                    {value.review.stars}
+                                    <div className={setStars(value.reviews.stars)}></div>
+                                    {value.reviews.stars}
                                 </div>
                                 <div className="review-date">
-                                    {value.review.date}
+                                    {value.reviews.date}
                                 </div>
                             </div>
                             <div className="review-from-topic">
-                                <div className="review-from">{value.review.from}</div>
-                                <div className="review-topic">{value.review.topic}</div>
+                                <div className="review-from">{value.reviews.from}</div>
+                                <div className="review-topic">{value.reviews.topic}</div>
                             </div>
                             <div className="review-text">
-                                {value.review.text}
+                                {value.reviews.text}
                             </div>
                             <div className="review-price">
                                 <p>Стоимость работ:</p>
-                                <div>{value.review.price}</div>
+                                <div>{value.reviews.price}</div>
                             </div>
                         </div>
                         <div className="review">
                             <div className="review-stars-date">
                                 <div className="review-stars">
-                                    <div className={setStars(value.review.stars)}></div>
-                                    {value.review.stars}
+                                    <div className={setStars(value.reviews.stars)}></div>
+                                    {value.reviews.stars}
                                 </div>
                                 <div className="review-date">
-                                    {value.review.date}
+                                    {value.reviews.date}
                                 </div>
                             </div>
                             <div className="review-from-topic">
-                                <div className="review-from">{value.review.from}</div>
-                                <div className="review-topic">{value.review.topic}</div>
+                                <div className="review-from">{value.reviews.from}</div>
+                                <div className="review-topic">{value.reviews.topic}</div>
                             </div>
                             <div className="review-text">
-                                {value.review.text}
+                                {value.reviews.text}
                             </div>
                             <div className="review-price">
                                 <p>Стоимость работ:</p>
-                                <div>{value.review.price}</div>
+                                <div>{value.reviews.price}</div>
                             </div>
                         </div>
                     </div>

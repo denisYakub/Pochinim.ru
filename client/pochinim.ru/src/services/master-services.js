@@ -43,7 +43,7 @@ class MasterServices{
             const body = { "from": from, "to": to };
 
             const dataMasters = await fetch('http://localhost:4000/api/listOfMasterAndReviews', {
-                method: "GET",
+                method: "POST",
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
@@ -56,6 +56,29 @@ class MasterServices{
             return bot;
         } catch (error) {
             console.log("Error in getListOfMasters:", error);
+        }
+    }
+
+    async getMasterPhoto(path){
+        try { 
+            const body = { "path": path };
+
+            const data = await fetch(`http://localhost:4000/api/getSinglePhoto`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+
+            const bot = await data.blob();
+
+            const url = URL.createObjectURL(bot);
+
+            return url;
+        } catch (error) {
+            console.log("Error in getMasterPhoto:", error);
         }
     }
 }

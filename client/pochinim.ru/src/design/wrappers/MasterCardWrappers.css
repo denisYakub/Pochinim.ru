@@ -19,6 +19,11 @@
     gap: 20px;
 }
 
+.master-main-info img{
+    width: 143px;
+    height: 172px;
+}
+
 .master-main-info-text{
     display: flex;
     flex-direction: column;

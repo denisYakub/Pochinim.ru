@@ -46,55 +46,35 @@ class MasterController{
                 "experience": null, "education": null };
     }
 
-    async getListOfMasters1(){
+    async getListOfMasters(from, to){
 
-        const masters = await masterServices.getListOfMasters(0, 30);
+        const masters = await masterServices.getListOfMasters(from, to);
     
-        return masters;
+        var fin = [];
+
+        masters.map(async obj => {
+            fin.push({
+                'id': obj.id,
+                'fio': obj.fio,
+                'photo': await masterServices.getMasterPhoto(obj.photo_path),
+                'stars': obj.stars,
+                'reviewsCount': obj.reviewsCount,
+                'aboutMe': obj.aboutMe,
+                'experience': obj.experience,
+                'education': obj.education,
+                'sercicesAndPrice': obj.sercicesAndPrice,
+                'reviews': obj.reviews,
+            })
+        })
+        
+        return fin;
+        //return masters;
     }
 
-    async getListOfMasters(){
-        const master = {fio: 'Антон Горячев',
-                        photo: masterPhoto,
-                        stars: '4,8',
-                        reviewsCount: 297,
-                        aboutMe: "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
-                        experience: ["с 1999 г. (25 лет)"],
-                        education: ["РосТех строй"],
-                        sercicesAndPrice: [["Сантехнические работы", '2500 ₽/точка'], 
-                                            ["Аварийные сантехники", '1500 ₽/усл.'],
-                                            ["Замена смесителя", '700 ₽/шт.']],
-                        review: {stars: '5',
-                                        date: '13 декабря 2023',
-                                        from: 'Владислав',
-                                        topic: 'Сантехника',
-                                        text: 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились',
-                                        price: '3000 ₽'}
-                        };
-        const master228 = {fio: 'Антон Горячев',
-                        photo: masterPhoto,
-                        stars: '4,8',
-                        reviewsCount: 297,
-                        aboutMe: "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
-                        experience: ["с 1999 г. (25 лет)"],
-                        education: ["РосТех строй"],
-                        sercicesAndPrice: [["жопа", '2500 ₽/точка']],
-                        review: {stars: '5',
-                                        date: '13 декабря 2023',
-                                        from: 'Владислав',
-                                        topic: 'Сантехника',
-                                        text: 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились',
-                                        price: '3000 ₽'}
-                        };
-        var masters = [];
-    
-        masters.push(master228);
-    
-        for (let index = 0; index < 30; index++) {
-            masters.push(master);
-        }
-    
-        return masters;
+    async getMasterPhotoByPath(path){
+        const photo = await masterServices.getMasterPhoto(path);
+
+        return photo;
     }
 };
 

@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import "../UserProfile/UserProfile.css"
 import { useNavigate } from 'react-router-dom'
 import USERController from "../../controllers/USER-controller";
+import masterController from "../../controllers/MASTER-controller";
 
 const UserProfile = () => {
 
@@ -13,7 +14,9 @@ const UserProfile = () => {
         }
     }
 
-    useEffect(()=>{},[navigate]);
+    useEffect(async () => {
+        
+    },[navigate]);
 
     return(<Fragment>
             <div className="user-profile">
@@ -23,7 +26,7 @@ const UserProfile = () => {
                     </div>
                     <div className='profile-info'>
                         <div>
-                            
+
                         </div>
                     </div>
                 </div>
