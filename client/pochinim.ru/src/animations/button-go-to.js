@@ -14,10 +14,6 @@ const ButtonGoTo = ({text, road}) => {
        await animateButtonText(buttonText.current, {color: colour2});
    }
 
-   const showErrorHint = async(scale, {errorScope, animateError}) => {
-       await animateError(errorScope.current, {scale: scale});
-   }
-
     return(<div ref={buttonBG} className="button-go-to"
                 onMouseEnter={e => {buttonHover("#3838CE", {buttonBG, animateButtonBG}, "#FFF", {buttonText, animateButtonText})}}
                 onMouseLeave={e => {buttonHover("#EBF0FF", {buttonBG, animateButtonBG}, "#3838CE", {buttonText, animateButtonText})}}

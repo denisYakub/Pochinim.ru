@@ -3,7 +3,6 @@ import {observer} from "mobx-react-lite"
 import '../MainPage/Mainpage.css'
 import { motion } from "framer-motion";
 import Popup from "../Popup/Popup";
-import { useNavigate } from "react-router-dom";
 import WebSiteController from "../../controllers/WEBSITE-controller";
 import ButtonGoTo from "../../animations/button-go-to";
 
@@ -16,8 +15,6 @@ const services = await WebSiteController.getServices();
 const steps = ["ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ", "ЗАПОЛНИ АНКЕТУ"]
 
 const MainPAge = () => {
-
-    const navigate = useNavigate()
 
     const [widthSteps, setWidthSteps] = useState(0);
     const carouselSteps = useRef();

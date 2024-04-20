@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import '../Loader/Loader.css';
 import loadImg from '../../img/load.png';

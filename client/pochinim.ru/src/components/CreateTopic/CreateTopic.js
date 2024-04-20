@@ -1,7 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
-import {Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10} from "./Stages";
 import {useAnimate} from 'framer-motion'
 import { useNavigate} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
@@ -9,6 +8,16 @@ import TOPICController from "../../controllers/TOPIC-controller";
 import USERController from "../../controllers/USER-controller";
 import HelpPage from "../HelpPage/HelpPage";
 import { contextCreatetopic } from '../../contexts/contextCreatetopic';
+import AccountEnter from "./phases/AccountEnter";
+import DetailsEnter from "./phases/DetailsEnter";
+import PaymentEnter from "./phases/PaymentEnter";
+import DateEnter from "./phases/DateEnter";
+import AddressEnter from "./phases/AddressEnter";
+import ProblemLocationEnter from "./phases/ProblemLocationEnter";
+import ProblemEnter from "./phases/ProblemEnter";
+import NeedEnter from "./phases/NeedEnter";
+import ContactEnter from "./phases/ContactEnter";
+import TopicEnter from "./phases/TopicEnter";
 
 const CreateTopic = () => {
     const navigate = useNavigate();
@@ -38,30 +47,30 @@ const CreateTopic = () => {
     const [error, setError] = useState(false);
     const [errorRed, animateErrorRed] = useAnimate();
 
-    const phasesComps = useMemo(() => { return [<Stage1 topic={topic} setTopic={setTopic}
-                                error={error}></Stage1>, 
-                    <Stage2 FIO={FIO} setFIO={setFIO}
+    const phasesComps = useMemo(() => { return [<TopicEnter topic={topic} setTopic={setTopic}
+                                error={error}></TopicEnter>, 
+                    <ContactEnter FIO={FIO} setFIO={setFIO}
                                 phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
-                                    error={error}></Stage2>, 
-                    <Stage3 need={need} setNeed={setNeed}
-                                error={error} setError={setError} errorRed={errorRed}></Stage3>, 
-                    <Stage4 problem={problem} setProblem={setProblem}
-                                error={error} setError={setError} errorRed={errorRed}></Stage4>,
-                    <Stage5 problemLocation={problemLocation} setProblemLocation={setProblemLocation}
-                                error={error} setError={setError} errorRed={errorRed}></Stage5>, 
-                    <Stage6 address={address} setAddress={setAddress}
-                                error={error} setError={setError} errorRed={errorRed}></Stage6>, 
-                    <Stage7 date={date} setDate={setDate}
-                                error={error} setError={setError} errorRed={errorRed}></Stage7>, 
-                    <Stage8 paymentOption={paymentOption} setPaymentOption={setPaymentOption}
-                                error={error} setError={setError} errorRed={errorRed}></Stage8>, 
-                    <Stage9 detailsText={detailsText} setDetailsText={setDetailsText}
+                                    error={error}></ContactEnter>, 
+                    <NeedEnter need={need} setNeed={setNeed}
+                                error={error} setError={setError} errorRed={errorRed}></NeedEnter>, 
+                    <ProblemEnter problem={problem} setProblem={setProblem}
+                                error={error} setError={setError} errorRed={errorRed}></ProblemEnter>,
+                    <ProblemLocationEnter problemLocation={problemLocation} setProblemLocation={setProblemLocation}
+                                error={error} setError={setError} errorRed={errorRed}></ProblemLocationEnter>, 
+                    <AddressEnter address={address} setAddress={setAddress}
+                                error={error} setError={setError} errorRed={errorRed}></AddressEnter>, 
+                    <DateEnter date={date} setDate={setDate}
+                                error={error} setError={setError} errorRed={errorRed}></DateEnter>, 
+                    <PaymentEnter paymentOption={paymentOption} setPaymentOption={setPaymentOption}
+                                error={error} setError={setError} errorRed={errorRed}></PaymentEnter>, 
+                    <DetailsEnter detailsText={detailsText} setDetailsText={setDetailsText}
                                 detailsFiles={detailsFiles} setDetailsFiles={setDetailsFiles}
-                                    error={error} setError={setError} errorRed={errorRed}></Stage9>, 
-                    <Stage10 accountID={accountID} setAccountID={setAccountID}
+                                    error={error} setError={setError} errorRed={errorRed}></DetailsEnter>, 
+                    <AccountEnter accountID={accountID} setAccountID={setAccountID}
                                 setSendApplication={setSendApplication}
                                 publishOnForum={publishOnForum} setPublishOnForum={setPublishOnForum}
-                                error={error} setError={setError} errorRed={errorRed}></Stage10>]},
+                                error={error} setError={setError} errorRed={errorRed}></AccountEnter>]},
                                 [FIO, accountID, address, date, detailsFiles, detailsText, error, 
                                     errorRed, need, paymentOption, phoneNumber, problem, problemLocation, 
                                         publishOnForum, topic]);
