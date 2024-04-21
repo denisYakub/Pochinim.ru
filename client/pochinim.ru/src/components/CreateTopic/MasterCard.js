@@ -1,12 +1,17 @@
-import { Fragment } from "react"
+import { Fragment, useEffect, useState } from "react"
 import {Link} from "react-router-dom";
 import masterController from "../../controllers/MASTER-controller";
 
 const MasterProfileCard = ({value, setActivePop, setTextPop}) => {
 
-    const showPhoto = async (path) => {
-        return await masterController.getMasterPhotoByPath(path);
-    };
+    const [photo, setPhoto] = useState(null);
+
+    useEffect(() => {
+        async function showPhoto(path){
+            setPhoto(await masterController.getMasterPhotoByPath(path));
+        };
+        showPhoto(value.photo_path);
+    }, [])
 
     const sendMessage = () => {
         console.log("hi");
@@ -51,7 +56,7 @@ const MasterProfileCard = ({value, setActivePop, setTextPop}) => {
         <div className="master-wrapper">
             <div className="master-info-card">
                 <div className="master-main-info">
-                    <img src={/*value?.photo*/showPhoto(value?.photo_path)} alt=""></img>
+                    <img src={photo} alt=""></img>
                     <div className="master-main-info-text">
                         <div className="master-fio-stats">
                             <div className="master-fio">

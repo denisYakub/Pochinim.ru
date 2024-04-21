@@ -56,7 +56,7 @@ class MasterController{
             fin.push({
                 'id': obj.id,
                 'fio': obj.fio,
-                'photo': await masterServices.getMasterPhoto(obj.photo_path),
+                'photo_path': obj.photo_path,
                 'stars': obj.stars,
                 'reviewsCount': obj.reviewsCount,
                 'aboutMe': obj.aboutMe,
@@ -68,7 +68,6 @@ class MasterController{
         })
         
         return fin;
-        //return masters;
     }
 
     async getMasterPhotoByPath(path){
