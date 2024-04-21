@@ -19,6 +19,8 @@ import NeedEnter from "./phases/NeedEnter";
 import ContactEnter from "./phases/ContactEnter";
 import TopicEnter from "./phases/TopicEnter";
 
+import masterController from "../../controllers/MASTER-controller";
+
 const CreateTopic = () => {
     const navigate = useNavigate();
 
@@ -43,6 +45,7 @@ const CreateTopic = () => {
     const [accountID, setAccountID] = useState("");
     const [publishOnForum, setPublishOnForum] = useState(false);
     const [sendApplication, setSendApplication] = useState(false); 
+    const [listOfMasters, setListOfMasters] = useState([]);
     
     const [error, setError] = useState(false);
     const [errorRed, animateErrorRed] = useAnimate();
@@ -75,7 +78,7 @@ const CreateTopic = () => {
                                     errorRed, need, paymentOption, phoneNumber, problem, problemLocation, 
                                         publishOnForum, topic]);
 
-    const leftButtonsComps = [<ListOfMasters topic={topic}
+    const leftButtonsComps = [<ListOfMasters listOfMasters={listOfMasters} topic={topic}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}></ListOfMasters>,
                                 <HelpPage></HelpPage>];                                    
 
@@ -89,9 +92,14 @@ const CreateTopic = () => {
         }
     }
 
+    async function setMAaters(){
+        setListOfMasters(await masterController.getListOfMasters(0, 30));
+    }
+
     useEffect(() => {
         checkAccess();
-
+        setMAaters();
+        
         if(sendApplication == true){
             console.log(publishOnForum);
             const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,

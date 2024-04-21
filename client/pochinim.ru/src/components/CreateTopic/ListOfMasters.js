@@ -3,11 +3,11 @@ import masterController from "../../controllers/MASTER-controller";
 import MasterProfileCard from "./MasterCard";
 
 //======================fix_it===========================
-const l = await masterController.getListOfMasters(0, 30);
+//const l = await masterController.getListOfMasters(0, 30);
 //======================fix_it===========================
 
-const ListOfMasters = ({topic, setActivePop, setTextPop}) => {
-    const [list, setList] = useState(l);
+const ListOfMasters = ({listOfMasters, topic, setActivePop, setTextPop}) => {
+    const [list, setList] = useState(listOfMasters);
 
     useEffect(() => {
         var sortedList = [];
