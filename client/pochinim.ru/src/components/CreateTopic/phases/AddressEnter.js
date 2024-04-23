@@ -5,10 +5,10 @@ import buttonsAnimations from "../../../animations/buttons-animations.js";
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const AddressEnter = ({address, setAddress, error, setError, errorRed}) => {
+const AddressEnter = ({address, setAddress, error, setError, errorRed, location}) => {
     const [errorScope, animateError] = useAnimate();
     const [zoom, setZoom] = useState(9);
-    const [center, setCenter] = useState([55.75, 37.57]);
+    const [center, setCenter] = useState(location);
 
     const [placemarkCoords, setPlacemarkCoords] = useState(null);
 
@@ -39,6 +39,7 @@ const AddressEnter = ({address, setAddress, error, setError, errorRed}) => {
             ]
             .filter(Boolean)
             .join(", ");
+            
             setAddress(newAddress);
         });
     };

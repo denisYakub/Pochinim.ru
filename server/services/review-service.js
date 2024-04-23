@@ -2,10 +2,16 @@ const pool = require('../database');
 
 class ReviewService{
     async getAllReviewsByRecipientId(id){
-        return [{"stars": 4.8, "date": "17.04.2024", "from": 'Владислав', 'topic': 'Сантехника', 
-                    "text": 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились', 'price': '3000 ₽'}, 
-                {"stars": 4.8, "date": "17.04.2024", "from": 'Владислав', 'topic': 'Сантехника', 
-                    "text": 'Все хорошо и без лишних вопрос сделал задачу о которой мы договорились', 'price': '3000 ₽'}];
+        const reviews = await pool.query(`SELECT stars, date, account_name AS from, topic, text, price
+                                            FROM reviews INNER JOIN accounts ON reviews.id_from = accounts.id_account
+                                                WHERE id_to = '${id}'`);
+        
+        return reviews.rows;
+    }
+
+    async countStat(){
+        return {'total_star': '4,8',
+                    'count': 297};
     }
 }
 module.exports = new ReviewService();

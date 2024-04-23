@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import '../SignUpAsMaster/SignUpAsMaster.css';
 import MasterFIOEnter from "./phases/FIOEnter";
@@ -10,15 +10,18 @@ import MasterPasswordEnter from "./phases/PasswordEnter";
 import Loader from '../Loader/Loader';
 import userController from '../../controllers/USER-controller';
 import masterController from '../../controllers/MASTER-controller';
+import { contextLocation } from '../../contexts/contextLocation';
 
 const SignUpMaster = () => {
+
+    const { city } = useContext(contextLocation);
 
     const [step, setStep] = useState(0);
 
     const [fio, setFio] = useState(["", "", ""]);
     const [occupation, setOccupation] = useState("");
     const [workingFrom, setWorkingFrom] = useState(0);
-    const [location, setLocation] = useState("");
+    const [address, setAddress] = useState("");
     const [selectedOptionsLocation, setSelectedOptionsLocation] = useState(null);
     const [email, setEmail] = useState("");
     const [codeConf, setcodeConf] = useState(false);
@@ -36,7 +39,7 @@ const SignUpMaster = () => {
                     <MasterOccupationEnter occupation={occupation} setOccupation={setOccupation}></MasterOccupationEnter>,
 
                     <MasterLocationEnter workingFrom={workingFrom} setWorkingFrom={setWorkingFrom}
-                                            location={location} setLocation={setLocation}
+                                            address={address} setAddress={setAddress}
                                             selectedOptionsLocation={selectedOptionsLocation} setSelectedOptionsLocation={setSelectedOptionsLocation}></MasterLocationEnter>, 
 
                     <MasterEmailEnter email={email} setEmail={setEmail}
@@ -62,7 +65,7 @@ const SignUpMaster = () => {
                 }
                 break;
             case 2:
-                if(workingFrom != 0 && (location != ""|| selectedOptionsLocation != null)){
+                if(workingFrom != 0 && (address != ""|| selectedOptionsLocation != null)){
                     setStep(ntStep);
                 }
                 break;
@@ -81,9 +84,9 @@ const SignUpMaster = () => {
                 break;
             case 5:
                 if(password != ""){
-                    await masterController.registrate(fio, occupation, workingFrom, location, selectedOptionsLocation, 
-                        email, photo, password);
-                    setStep(ntStep);
+                    await masterController.registrate(fio, occupation, workingFrom, address, selectedOptionsLocation, 
+                        email, photo, password, city);
+                    //setStep(ntStep);
                 }
                 break;
             default:

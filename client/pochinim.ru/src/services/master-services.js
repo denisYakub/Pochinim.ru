@@ -1,9 +1,9 @@
 class MasterServices{
     async registrate(fio, occupation, workingFrom, location, selectedOptionsLocation, 
-        email, password){
+        email, password, city){
         try {
             const body = {"fio": fio, "occupation": occupation, "workingFrom": workingFrom, "location": location,
-                            "selectedOptionsLocation": selectedOptionsLocation, "email": email, "password": password};
+                            "selectedOptionsLocation": selectedOptionsLocation, "email": email, "password": password, "city": city};
             const data = await fetch("http://localhost:4000/api/registrateMaster",{
                 method: "POST",
                 headers: {

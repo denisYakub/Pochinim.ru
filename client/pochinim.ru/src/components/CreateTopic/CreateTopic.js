@@ -20,12 +20,13 @@ import ContactEnter from "./phases/ContactEnter";
 import TopicEnter from "./phases/TopicEnter";
 
 import masterController from "../../controllers/MASTER-controller";
+import { contextLocation } from "../../contexts/contextLocation";
 
 const CreateTopic = () => {
     const navigate = useNavigate();
 
-    const [activePop, setActivePop] = useState(false)
-    const [textPop, setTextPop] = useState("");
+    const [activePop, setActivePop] = useState(false);
+    const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
 
     const [activeStage, setActiveStage] = useState(0);
 
@@ -41,6 +42,8 @@ const CreateTopic = () => {
             detailsText, setDetailsText,
             detailsFiles, setDetailsFiles,
             idLeftButtonsComps, setIdLeftButtonsComps} = useContext(contextCreatetopic)
+
+    const { location, setLocation } = useContext(contextLocation)
 
     const [accountID, setAccountID] = useState("");
     const [publishOnForum, setPublishOnForum] = useState(false);
@@ -61,7 +64,7 @@ const CreateTopic = () => {
                                 error={error} setError={setError} errorRed={errorRed}></ProblemEnter>,
                     <ProblemLocationEnter problemLocation={problemLocation} setProblemLocation={setProblemLocation}
                                 error={error} setError={setError} errorRed={errorRed}></ProblemLocationEnter>, 
-                    <AddressEnter address={address} setAddress={setAddress}
+                    <AddressEnter address={address} setAddress={setAddress} location={location}
                                 error={error} setError={setError} errorRed={errorRed}></AddressEnter>, 
                     <DateEnter date={date} setDate={setDate}
                                 error={error} setError={setError} errorRed={errorRed}></DateEnter>, 
@@ -83,22 +86,19 @@ const CreateTopic = () => {
                                 <HelpPage></HelpPage>];                                    
 
     async function checkAccess(){
-        if(await USERController.checkForAccess()){
-            setActivePop(false);
-            setTextPop("Войдите или зарегестрируйтесь, чтоб создавать темы");
-        }else{
+        if(!localStorage.getItem('mail')){
             setActivePop(true);
-            setTextPop("Войдите или зарегестрируйтесь, чтоб создавать темы");
         }
     }
 
-    async function setMAaters(){
+    async function setMaters(){
         setListOfMasters(await masterController.getListOfMasters(0, 30));
     }
 
     useEffect(() => {
         checkAccess();
-        setMAaters();
+
+        setMaters();
         
         if(sendApplication == true){
             console.log(publishOnForum);
@@ -111,8 +111,8 @@ const CreateTopic = () => {
             setSendApplication(false);
             navigate('/');   
         }
-    }, [activeStage, phasesComps, sendApplication, FIO, accountID, address, date,
-            detailsFiles, detailsText, navigate, need, paymentOption, phoneNumber, 
+    }, [sendApplication, FIO, accountID, address, date,
+            detailsFiles, detailsText, need, paymentOption, phoneNumber, 
                 problem, problemLocation, publishOnForum, topic])
 
     const moveOn = async () => {

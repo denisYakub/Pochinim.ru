@@ -2,15 +2,14 @@ const pool = require('../database');
 
 class MasterService{
     async registrateNewMaster(fio, occupation, workingFrom, 
-                                location, selectedOptionsLocation, email, password){
+                                location, selectedOptionsLocation, email, password, city){
         try {
-            
             await pool.query(`INSERT INTO masters (master_email, master_password, 
                                                     fio, occupation, working_from,
-                                                    location, selected_options_of_location) 
+                                                    location, selected_options_of_location, city) 
                                             VALUES('${email}', '${password}', 
                                                     '${fio}','${occupation}','${workingFrom}',
-                                                    '${location}', '${selectedOptionsLocation}')`);
+                                                    '${location}', '{${selectedOptionsLocation}}', '${city}')`);
 
             const id_master = await pool.query(`SELECT id_master FROM masters WHERE master_email = '${email}'`);
             
@@ -35,9 +34,24 @@ class MasterService{
     async getListOfMasters(from, to){
         try {
             
-            const listofMasters = await pool.query(`SELECT id_master, fio, occupation, location, master_photo_path  FROM masters`);
+            const listofMasters = await pool.query(`SELECT masters.id_master AS id_master, fio, occupation, location, master_photo_path, 
+                                                    about_me, experience, education, sercices_price, city
+                                                        FROM masters INNER JOIN masters_additional_information 
+                                                            ON masters.id_master = masters_additional_information.id_master`);
             
             return listofMasters.rows;
+        } catch (error) {
+            throw error
+        }
+    }
+    async getMasterInfo(id){
+        try {
+            const listofMasters = await pool.query(`SELECT masters.id_master AS id_master, fio, occupation, location, master_photo_path, 
+                                                    about_me, experience, education, sercices_price
+                                                        FROM masters INNER JOIN masters_additional_information 
+                                                            ON masters.id_master = masters_additional_information.id_master
+                                                                WHERE masters.id_master = '${id}'`);
+            return listofMasters.rows[0];
         } catch (error) {
             throw error
         }

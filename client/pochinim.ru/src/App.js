@@ -1,6 +1,7 @@
 import {Fragment, useState} from 'react';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { contextCreatetopic } from './contexts/contextCreatetopic';
+import { contextLocation } from './contexts/contextLocation';
 
 import '../src/design/buttons/Buttons.css';
 
@@ -43,13 +44,18 @@ function App(){
   const [detailsFiles, setDetailsFiles] = useState(null);
   const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
 
+  const [location, setLocation] = useState([55.75, 37.57]);
+  const cities = ['Москва', 'Санкт-Петербург'];
+  const [city, setCity] = useState(cities[0]);
+
   return (
     <Fragment>
         <BrowserRouter>
-        <contextCreatetopic.Provider value={{ topic, setTopic, FIO, setFIO, phoneNumber, setphoneNumber, need, setNeed,
+          <contextCreatetopic.Provider value={{ topic, setTopic, FIO, setFIO, phoneNumber, setphoneNumber, need, setNeed,
                                               problem, setProblem, problemLocation, setProblemLocation, address, setAddress,
                                               date, setDate, paymentOption, setPaymentOption, detailsText, setDetailsText, detailsFiles, setDetailsFiles,
                                               idLeftButtonsComps, setIdLeftButtonsComps}}>
+          <contextLocation.Provider value={{location, setLocation, cities, city, setCity}}>                                    
           <Navbar />
           <Routes>
             <Route path="/" element={<MainPage  />}/>
@@ -61,6 +67,7 @@ function App(){
             <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
             <Route path='/HelpPAge' element={<HelpPage />}/>
           </Routes>
+          </contextLocation.Provider> 
           </contextCreatetopic.Provider>
           <Footer />
         </BrowserRouter>

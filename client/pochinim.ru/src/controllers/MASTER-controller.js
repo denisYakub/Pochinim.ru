@@ -12,16 +12,17 @@ class MasterController{
     }
 
     async registrate(fio, occupation, workingFrom, location, selectedOptionsLocation, 
-                        email, photo, password){
+                        email, photo, password, city){
 
-        var selectedOptionsLocationStr = "";
+        var selectedOptionsLocationStr = [];
 
-        selectedOptionsLocation.map((v, i) => {
-            selectedOptionsLocationStr = selectedOptionsLocationStr + ' ' + v;
-        })
-
-        const id_master = await masterServices.registrate(fio, occupation, workingFrom, location, selectedOptionsLocationStr, 
-            email, password);
+        for (const obj of selectedOptionsLocation){
+            selectedOptionsLocationStr.push(obj.label)
+        }
+        
+        const id_master = await masterServices.registrate(fio, occupation, workingFrom, location, 
+            JSON.stringify(selectedOptionsLocationStr).replace('[', '').replace(']', ''), 
+            email, password, city);
         
         const ret = await masterServices.setMasterPhoto(id_master, photo);
         

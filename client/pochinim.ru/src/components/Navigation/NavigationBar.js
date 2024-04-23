@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import "../Navigation/Navigation.css"
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import USERController from '../../controllers/USER-controller';
+import { contextLocation } from '../../contexts/contextLocation';
 
 const Navbar = () => {
 
@@ -9,47 +10,61 @@ const Navbar = () => {
 
     const [auth, setAuth] = useState(null)
     const [search, setSearch] = useState("")
-    
-    useEffect(() => {
-        async function getAuth() {
-            if(await USERController.checkForAccess()){
-                setAuth(localStorage.getItem('mail'));
-            }else{
-                setAuth(null);
-            }
-        }
 
+    const { location, setLocation, cities, city, setCity } = useContext(contextLocation);
+    
+    async function getAuth() {
+        if(await USERController.checkForAccess()){
+            setAuth(localStorage.getItem('mail'));
+        }else{
+            setAuth(null);
+        }
+    }
+
+    useEffect(() => {
         setTimeout(() => {
             getAuth();
         }, 10);
 
-    },[navigate, auth])
+    },[navigate])
 
     const submitSearch = e => {
         e.preventDefault()
         navigate('/Search', {replace: true, state:{search}})
     }
 
-    const selectHandler = (val) =>{
-        if(val == 2){
+    const selectMasterHandler = (val) =>{
+        if(val == 1){
+
+        }else if(val == 2){
             navigate('/SignInUpAsMaster');
         }
     };
 
+    const selectLocationHandler = (val) =>{
+        if(val == 1){
+            setLocation([55.75, 37.57]);
+            setCity(cities[0]);
+        }else if(val == 2){
+            setLocation([59.57, 30.19]);
+                setCity(cities[1]);
+        }
+    };
+    
     return (<Fragment>
         <nav className="nav">
         <div className="inner-nav">
             <div className="rightPartOfNav">
                 <a href='/' className='siteLogo'>.</a>
-                <select>
-                    <option>Санкт-Петербург</option>
-                    <option>Москва</option>
+                <select onChange={e => selectLocationHandler(e.target.value)}>
+                    <option value={1}>Москва</option>
+                    <option value={2}>Санкт-Петербург</option>
                 </select>
             </div>
             <div className="leftPartOfNav">
                 <a href='/'>Мои заказы</a>
                 <a href='/'>Форум </a>
-                <select onChange={e => selectHandler(e.target.value)}>
+                <select onChange={e => selectMasterHandler(e.target.value)}>
                     <option value={1}>Специалистам</option>
                     <option value={2}>Регестрация</option>
                 </select>

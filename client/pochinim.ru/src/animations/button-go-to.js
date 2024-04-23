@@ -9,14 +9,14 @@ const ButtonGoTo = ({text, road}) => {
 
     const navigate = useNavigate();
 
-    const buttonHover = async (colour1, {buttonBG, animateButtonBG},colour2, {buttonText, animateButtonText}) => {
-       await animateButtonBG(buttonBG.current, {backgroundColor: colour1, border: colour1});
-       await animateButtonText(buttonText.current, {color: colour2});
+    const buttonHover = (colour1, {buttonBG, animateButtonBG},colour2, {buttonText, animateButtonText}) => {
+       animateButtonBG(buttonBG.current, {backgroundColor: colour1, border: colour1});
+       animateButtonText(buttonText.current, {color: colour2});
    }
 
     return(<div ref={buttonBG} className="button-go-to"
-                onMouseEnter={e => {buttonHover("#3838CE", {buttonBG, animateButtonBG}, "#FFF", {buttonText, animateButtonText})}}
-                onMouseLeave={e => {buttonHover("#EBF0FF", {buttonBG, animateButtonBG}, "#3838CE", {buttonText, animateButtonText})}}
+                onMouseEnter={() => buttonHover("#3838CE", {buttonBG, animateButtonBG}, "#FFF", {buttonText, animateButtonText})}
+                onMouseLeave={() => buttonHover("#EBF0FF", {buttonBG, animateButtonBG}, "#3838CE", {buttonText, animateButtonText})}
                 onClick={e => navigate(road)}>
         <a ref={buttonText}>{text}</a>
         <button></button>
