@@ -75,7 +75,7 @@ const MainPAge = () => {
                 </div>
                 <div className="right-aboutUs">
                     <div className="mainaboutUs">
-                    <ButtonGoTo text={"Написать задание"} road={"/CreateTopic"}></ButtonGoTo>
+                    <ButtonGoTo text={"Написать задание"} road={`/CreateTopic/${localStorage.getItem('mail')}`}></ButtonGoTo>
                     <a className="a1">
                     “Починим.ру начал свой путь в 2010 году как небольшая стартап-команда, стремящаяся упростить процесс ремонта для людей.” 
                     </a>

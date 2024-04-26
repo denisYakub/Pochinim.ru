@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import topicServices from "../services/topic-services"
+import fetchServices from "../services/fetch-services";
 class TopicController{
 
     constructor(){
@@ -11,10 +11,23 @@ class TopicController{
 
         const mail = localStorage.getItem("mail");
 
-        const id_topic = await topicServices.createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
-            address, date, paymentOption, detailsText, detailsFiles, mail})
+        const body = {"topicName": topic, "fio": FIO, "phoneNumber": phoneNumber,
+                            "need": need, "problem": problem, "problemLocation": problemLocation,
+                            "address": address, "date": date, "payment":paymentOption, 
+                            "detailsTxt": detailsText, "mail": mail};
+
+        const id_topic = (await fetchServices.fetchPOSTWithCredentialsAndAuthorization(`/topics`, JSON.stringify(body), localStorage.getItem('token'))).id_topic;
+        /*const id_topic = await topicServices.createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
+            address, date, paymentOption, detailsText, detailsFiles, mail})*/
         
-        topicServices.addFilesToTopic(id_topic, detailsFiles);
+        //topicServices.addFilesToTopic(id_topic, detailsFiles);
+        const files = new FormData();
+
+        for(let i = 0; i < detailsFiles.length; i++){
+            files.append('topicMainPhotos', detailsFiles[i]);
+        }
+        
+        const ret = await fetchServices.fetchPUTFiles(`/topics/${id_topic}`, files);
     }
 
     async getListOfExistingTopics(){

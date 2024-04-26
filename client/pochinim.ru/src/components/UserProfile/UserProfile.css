@@ -8,3 +8,14 @@
     display: flex;
     justify-content: center;
 }
+
+.socials{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.social{
+    display: flex;
+    justify-content: space-between;
+}

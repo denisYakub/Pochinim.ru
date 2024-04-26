@@ -36,9 +36,20 @@ class TopicController{
                 }
             }
         
-            return res.json((await d));
+            return res.json(d);
         } catch (error) {
             next(error);
+        }
+    }
+    async getAllUsersTopics(req, res, next){
+        try {   
+            const email = req.params.email;
+
+            const data = await topicService.getListOfTopicsByEmail(email);
+
+            return res.json(data);
+        } catch (error) {
+            next(e);
         }
     }
 }

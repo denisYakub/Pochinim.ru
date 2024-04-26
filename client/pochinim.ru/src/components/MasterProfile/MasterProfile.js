@@ -1,27 +1,38 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+ import { Fragment, useEffect, useState } from 'react';
 import '../MasterProfile/MasterProfile.css';
 import { Link, useParams } from 'react-router-dom';
-import { contextCreatetopic } from '../../contexts/contextCreatetopic';
 import masterController from '../../controllers/MASTER-controller';
 
 const MasterProfile = () => {
 
     const params = useParams();
-    const { topic } = useContext(contextCreatetopic);
 
     const prev_page = params.pev_page;
     const id_master = params.id;
 
     const [reviews, setReviews] = useState({});
     const [masterInf, setMasterInf] = useState({});
+    const [photo, setPhoto] = useState(null);
+
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         async function getData(){
             setReviews(await masterController.getReviewsById(id_master));
             setMasterInf(await masterController.getWholeInfById(id_master));
         };
+        async function showPhoto(path){
+            setPhoto(await masterController.getMasterPhotoByPath(path));
+        };
 
         getData();
+        showPhoto(masterInf.master_photo_path);
+
+        if(prev_page == '/CreateTopic'){
+            setEdit(false);
+        }else{
+            setEdit(true);
+        }
     }, [])
     
     const setStars = (value) => {
@@ -73,7 +84,7 @@ const MasterProfile = () => {
                 <div className='profile-info'>
                     <div className='master-info-card'>
                         <div className="master-main-info">
-                            <img src={masterInf?.photo} alt=""></img>
+                            <img src={photo} alt=""></img>
                             <div className="master-main-info-text">
                                 <div className="master-fio-stats">
                                     <div className="master-fio">
@@ -104,7 +115,7 @@ const MasterProfile = () => {
                         </div>
                         <div className="about-master">
                             <div className="master-h">Обо мне</div>
-                            {masterInf?.aboutMe}
+                            {masterInf?.about_me}
                         </div>
                         <div className="experiences-educations-master">
                             <div className="master-h">Образование и опыт</div>
@@ -127,7 +138,7 @@ const MasterProfile = () => {
                         <div className="sercices-price-master">
                             <div className="master-h">Услуги и цены</div>
                             <div className="list-of-sercices-prices-master">
-                                {masterInf?.sercicesAndPrice?.map((val, ind) => {
+                                {masterInf?.sercices_price?.map((val, ind) => {
                                     return(
                                         <div key={ind} className="sercice-price-master">
                                             {val[0]}

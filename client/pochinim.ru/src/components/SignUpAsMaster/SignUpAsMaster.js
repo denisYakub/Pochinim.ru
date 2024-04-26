@@ -86,7 +86,7 @@ const SignUpMaster = () => {
                 if(password != ""){
                     await masterController.registrate(fio, occupation, workingFrom, address, selectedOptionsLocation, 
                         email, photo, password, city);
-                    //setStep(ntStep);
+                    setStep(ntStep);
                 }
                 break;
             default:

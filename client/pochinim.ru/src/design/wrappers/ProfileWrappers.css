@@ -10,6 +10,7 @@
 
 .navigation-profile-wrapper{
     width: 200px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -30,4 +31,5 @@
     margin-right: 400px;
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }

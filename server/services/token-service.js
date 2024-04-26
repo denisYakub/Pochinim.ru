@@ -88,3 +88,17 @@ class TokenService{
 }
 
 module.exports = new TokenService();
+
+/*CREATE TABLE IF NOT EXISTS public.accounts_tokens
+(
+    id integer NOT NULL DEFAULT 'nextval('accounts_tokens_id_seq'::regclass)',
+    id_account integer,
+    token character varying(1000) COLLATE pg_catalog."default",
+    r_token character varying(1000) COLLATE pg_catalog."default",
+    CONSTRAINT accounts_tokens_pkey PRIMARY KEY (id),
+    CONSTRAINT accounts_tokens_token_key UNIQUE (token),
+    CONSTRAINT accounts_tokens_id_account_fkey FOREIGN KEY (id_account)
+        REFERENCES public.accounts (id_account) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)*/

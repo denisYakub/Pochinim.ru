@@ -11,7 +11,7 @@ const Navbar = () => {
     const [auth, setAuth] = useState(null)
     const [search, setSearch] = useState("")
 
-    const { location, setLocation, cities, city, setCity } = useContext(contextLocation);
+    const { locations, location, setLocation, cities, city, setCity } = useContext(contextLocation);
     
     async function getAuth() {
         if(await USERController.checkForAccess()){
@@ -42,13 +42,10 @@ const Navbar = () => {
     };
 
     const selectLocationHandler = (val) =>{
-        if(val == 1){
-            setLocation([55.75, 37.57]);
-            setCity(cities[0]);
-        }else if(val == 2){
-            setLocation([59.57, 30.19]);
-                setCity(cities[1]);
-        }
+        setLocation(locations[val]);
+        setCity(cities[val]);
+        console.log(city);
+        console.log(location);
     };
     
     return (<Fragment>
@@ -57,12 +54,12 @@ const Navbar = () => {
             <div className="rightPartOfNav">
                 <a href='/' className='siteLogo'>.</a>
                 <select onChange={e => selectLocationHandler(e.target.value)}>
-                    <option value={1}>Москва</option>
-                    <option value={2}>Санкт-Петербург</option>
+                    <option value={0}>Москва</option>
+                    <option value={1}>Санкт-Петербург</option>
                 </select>
             </div>
             <div className="leftPartOfNav">
-                <a href='/'>Мои заказы</a>
+                <a href={`/MyOrders/${auth}`}>Мои заказы</a>
                 <a href='/'>Форум </a>
                 <select onChange={e => selectMasterHandler(e.target.value)}>
                     <option value={1}>Специалистам</option>
@@ -72,7 +69,7 @@ const Navbar = () => {
                     <input className='navInput' onChange={e => setSearch(e.target.value)}></input>
                 </form>
                 <div className='acc'>
-                    {auth? <a href='/UserProfile'>{auth}</a> : <a href='/SignInUp'>Войти</a>}
+                    {auth? <a href={`/UserProfile/${auth}`}>{auth}</a> : <a href='/SignInUp'>Войти</a>}
                 </div>
             </div>
         </div>

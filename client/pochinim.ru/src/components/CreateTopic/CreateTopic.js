@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import Popup from "../Popup/Popup";
 import '../CreateTopic/CreateTopic.css'
 import {useAnimate} from 'framer-motion'
-import { useNavigate} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import ListOfMasters from "./ListOfMasters";
 import TOPICController from "../../controllers/TOPIC-controller";
 import USERController from "../../controllers/USER-controller";
@@ -24,6 +24,9 @@ import { contextLocation } from "../../contexts/contextLocation";
 
 const CreateTopic = () => {
     const navigate = useNavigate();
+
+    const params = useParams();
+    const auth = params?.email;
 
     const [activePop, setActivePop] = useState(false);
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
@@ -86,7 +89,7 @@ const CreateTopic = () => {
                                 <HelpPage></HelpPage>];                                    
 
     async function checkAccess(){
-        if(!localStorage.getItem('mail')){
+        if(auth == 'null'){
             setActivePop(true);
         }
     }

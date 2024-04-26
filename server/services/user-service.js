@@ -127,13 +127,66 @@ class UserService{
             throw error;
         }
     }
+    async getFullUserInfo(email){
+        try {
+            const user = await pool.query(`SELECT accounts.id_account, account_name, account_email, photo_path, registration_date, 
+                                                    gender, phone_number, notification_option, socials
+                                            FROM accounts LEFT JOIN accounts_additional_information
+                                            ON accounts.id_account = accounts_additional_information.id_account
+                                            WHERE account_email = '${email}'`)
 
-    async getAllUsers(){
-        const users = await pool.query("SELECT * FROM accounts");
-
-        return users.rows;
+            return user.rows[0];
+        } catch (error) {
+            throw error;
+        }
     }
+    async updateColumn(column_name, new_value, id_account){
+        try {
+            var ret;
+            if(['account_name', 'account_password', 'account_email'].includes(column_name)){
+                ret = await pool.query(`UPDATE accounts
+                                        SET ${column_name} = '${new_value}'
+                                        WHERE id_account = '${id_account}'`);
 
+            }else if(['photo_path', 'gender', 'phone_number', 'notification_option', 'socials'].includes(column_name)){
+                ret = await pool.query(`UPDATE accounts_additional_information
+                                        SET ${column_name} = '${new_value}'
+                                        WHERE id_account = '${id_account}'`);
+
+            }else{
+                throw ApiError.BadRequest('tabels dont have this column: ', column_name);
+            }
+            return ret;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new UserService();
+
+/*CREATE TABLE IF NOT EXISTS public.accounts
+(
+    id_account integer NOT NULL DEFAULT 'nextval('accounts_id_account_seq'::regclass)',
+    account_name character varying(50) COLLATE pg_catalog."default",
+    account_password character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    account_email character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT accounts_pkey PRIMARY KEY (id_account),
+    CONSTRAINT accounts_account_name_key UNIQUE (account_name)
+)
+CREATE TABLE IF NOT EXISTS public.accounts_additional_information
+(
+    id_account integer NOT NULL,
+    photo_path character varying(200) COLLATE pg_catalog."default",
+    registration_date date,
+    gender character varying(50) COLLATE pg_catalog."default",
+    phone_number character varying(100) COLLATE pg_catalog."default",
+    notification_option integer,
+    socials character varying(200)[] COLLATE pg_catalog."default",
+    CONSTRAINT accounts_additional_information_pkey PRIMARY KEY (id_account),
+    CONSTRAINT accounts_additional_information_id_account_fkey FOREIGN KEY (id_account)
+        REFERENCES public.accounts (id_account) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+*/

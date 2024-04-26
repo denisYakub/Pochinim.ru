@@ -35,14 +35,15 @@ class MasterController{
 
     async getListOfMastersAndReviews(req, res, next){
         try {
-            const {from, to} = req.body;
+            const from = req.params.from;
+            const to = req.params.to;
 
             const data_masters = await masterService.getListOfMasters(from, to);
             
             var data = [];
 
             for (const data_master of data_masters){
-                const reviewsStat = await reviewService.countStat();
+                const reviewsStat = await reviewService.countMasterStat(data_master.id_master);
 
                 data.push({
                     'id': data_master.id_master,
@@ -70,6 +71,12 @@ class MasterController{
             const master_id = req.params.id;
 
             const data = await masterService.getMasterInfo(master_id);
+
+            const reviewsStat = await reviewService.countMasterStat(master_id);
+
+            data.stars = reviewsStat.total_star;
+            data.reviewsCount = reviewsStat.count;
+            data.reviews = await reviewService.getAllReviewsByRecipientId(master_id);
 
             return res.json(await data);
         } catch (error) {

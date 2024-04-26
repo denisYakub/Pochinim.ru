@@ -16,3 +16,15 @@
     width: 157px;
     height: 156px;
 }
+
+.round-profile-photo{
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
+    border-radius: 84px;
+}
+
+.round-profile-photo img{
+    width: 100%;
+    height: 100%;
+}

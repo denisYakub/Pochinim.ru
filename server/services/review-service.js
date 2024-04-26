@@ -9,9 +9,13 @@ class ReviewService{
         return reviews.rows;
     }
 
-    async countStat(){
+    async countMasterStat(id){
         return {'total_star': '4,8',
                     'count': 297};
+
+        const stats = await pool.query(`SELECT COUNT(stars), COUNT(id_review) FROM reviews WHERE id_to = '${id}'`);
+
+        return stats.rows[0];
     }
 }
 module.exports = new ReviewService();
@@ -21,9 +25,9 @@ module.exports = new ReviewService();
     stars integer NOT NULL,
     date date NOT NULL,
     id_from integer NOT NULL,
-    id_to integer,
-    topic character varying(100)[] COLLATE pg_catalog."default" NOT NULL,
-    text character varying(500)[] COLLATE pg_catalog."default" NOT NULL,
-    price money,
+    id_to integer NOT NULL,
+    price money NOT NULL,
+    topic character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    text character varying(500) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT reviews_pkey PRIMARY KEY (id_review)
 )*/

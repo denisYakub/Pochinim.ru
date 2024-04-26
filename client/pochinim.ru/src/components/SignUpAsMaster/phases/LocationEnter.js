@@ -22,7 +22,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
         { value: "b-1", label: "Садовая" },
         { value: "b-2", label: "Сенная площадь" },
         { value: "b-3", label: "Спортивная" },
-        { value: "0-1", label: "Спасская" }
+        { value: "0-1", label: "Спасская" },
       ];
 
     const handleWorkingFrom = (value) => {
@@ -110,7 +110,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
                 </YMaps>
             </div>
             :
-            <div>
+            <div className="Select-m">
                 <Select
                     options={optionList}
                     placeholder="Выберите метро"

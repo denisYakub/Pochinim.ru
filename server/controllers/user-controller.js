@@ -30,7 +30,7 @@ class UserController {
 
     async checkEmail(req, res, next){
         try {
-            const {email} = req.body;
+            const email = req.params.email;
             const userData = UserService.checkEmail(email);
 
             return res.json((await userData));
@@ -67,17 +67,10 @@ class UserController {
         }
     }
 
-    async activate(req, res, next){
-        try {
-
-        } catch (e) {
-            next(e);
-        }
-    }
-
     async refresh(req, res, next){
         try {
             const refreshToken = await req.headers.cookie;
+            
             const token = refreshToken?.split("=")[1];
             
             const userData = await UserService.refresh(token);
@@ -85,17 +78,7 @@ class UserController {
             res.cookie('refreshToken', (await userData).refreshToken, 
                         {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 
-            return res.json((await userData));
-        } catch (e) {
-            next(e);
-        }
-    }
-
-    async getUsers(req, res, next){
-        try {
-            const users = await UserService.getAllUsers();
-
-            return res.json(users);
+            return res.json(userData);
         } catch (e) {
             next(e);
         }
@@ -103,7 +86,7 @@ class UserController {
 
     async sendActivationMail(req, res, next){
         try {
-            const {email} = req.body;
+            const email = req.params.email;
             const code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
 
             await emailService.sendActivationEmail(email, code);
@@ -111,9 +94,33 @@ class UserController {
             return res.json(code);
 
         } catch (e) {
-            next(e)
+            next(e);
         }
     }
+
+    async getUserInfo(req, res, next){
+        try {
+            const email = req.params.email;
+            
+            const userInfo = await userService.getFullUserInfo(email);
+            
+            return res.json(userInfo);
+        } catch (e) {
+            next(e);
+        }
+    }
+    async updateUserInfo(req, res, next){
+        try {
+            const { column_name, new_value, id_account } = req.body;
+            
+            const ret = userService.updateColumn(column_name, new_value, id_account)
+
+            return res.json(ret);
+        } catch (e) {
+            next(e);
+        }
+    }
+
 }
 
 module.exports = new UserController();

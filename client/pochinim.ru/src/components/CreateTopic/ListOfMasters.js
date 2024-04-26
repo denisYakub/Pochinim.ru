@@ -31,7 +31,7 @@ const ListOfMasters = ({listOfMasters, topic, setActivePop, setTextPop}) => {
     }, []);
 
     return(<Fragment>
-        {list.map((obj, key) => {
+        {list?.map((obj, key) => {
             return(<MasterProfileCard value={obj} key={key} setActivePop={setActivePop} setTextPop={setTextPop}></MasterProfileCard>);    
         })}
     </Fragment>);

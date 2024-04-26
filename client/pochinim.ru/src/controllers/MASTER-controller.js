@@ -1,6 +1,5 @@
 import {makeAutoObservable} from "mobx"
-import masterServices from "../services/master-services";
-import masterPhoto from '../img/masterPhoto.png';
+import fetchServices from "../services/fetch-services";
 
 class MasterController{
     constructor(){
@@ -20,11 +19,22 @@ class MasterController{
             selectedOptionsLocationStr.push(obj.label)
         }
         
-        const id_master = await masterServices.registrate(fio, occupation, workingFrom, location, 
+        /*const id_master = await masterServices.registrate(fio, occupation, workingFrom, location, 
             JSON.stringify(selectedOptionsLocationStr).replace('[', '').replace(']', ''), 
-            email, password, city);
+            email, password, city);*/
+
+        const body = {"fio": fio, "occupation": occupation, "workingFrom": workingFrom, "location": location,
+                        "selectedOptionsLocation": JSON.stringify(selectedOptionsLocationStr).replace('[', '').replace(']', ''),
+                            "email": email, "password": password, "city": city};
+
+        const id_master = (await fetchServices.fetchPOSTWithCredentials('/master', JSON.stringify(body))).id_master;
         
-        const ret = await masterServices.setMasterPhoto(id_master, photo);
+        const file = new FormData();
+        file.append('masterPhoto', photo);
+
+        const ret = await fetchServices.fetchPUT(`/masters/${id_master}`, file)
+
+        //const ret = await masterServices.setMasterPhoto(id_master, photo);
         
         if(id_master?.message || ret?.message){
             return false;
@@ -38,22 +48,19 @@ class MasterController{
 
     async getWholeInfById(id){
 
-        const photo = masterPhoto;
-        const fio = "Антон Горячев";
-        const stars = "4,8";
-        const reviewsCount = 297;
-
-        return {"photo": masterPhoto, "fio": "Антон Горячев", "stars": "4,8", "reviewsCount": 297, "aboutMe": "Здравствуйте. Произвожу комплекс работ по сантехнике и электрике. От замены санфаянса, розеток, выключателей до прокладки коммуникаций. Буду рад вам помочь.",
-                "experience": null, "education": null };
+        //const master = await masterServices.getMasterInfo(id);
+        const master = await fetchServices.fetchGET(`/masters/${id}`);
+        
+        return master;
     }
 
     async getListOfMasters(from, to){
+        //const masters = await masterServices.getListOfMasters(from, to);
+        const masters = await fetchServices.fetchGET(`/masters/${from}/${to}`);
 
-        const masters = await masterServices.getListOfMasters(from, to);
-    
         var fin = [];
 
-        masters.map(async obj => {
+        masters?.map(obj => {
             fin.push({
                 'id': obj.id,
                 'fio': obj.fio,
@@ -67,14 +74,17 @@ class MasterController{
                 'reviews': obj.reviews,
             })
         })
-        
+
         return fin;
     }
 
     async getMasterPhotoByPath(path){
-        const photo = await masterServices.getMasterPhoto(path);
+        //const photo = await imageServices.getImageByPath(path);
+        const photo = await fetchServices.fetchGETBlob(`/photos/${path}`);
 
-        return photo;
+        const obj = URL.createObjectURL(photo);
+
+        return obj;
     }
 };
 
