@@ -3,6 +3,7 @@ const masterService = require("../services/master-service");
 const photoService = require("../services/photo-service");
 const reviewService = require("../services/review-service");
 const fs = require('fs');
+const tokenService = require("../services/token-service");
 class MasterController{
     async registration(req, res, next){
         try {
@@ -13,6 +14,8 @@ class MasterController{
             const data = await masterService.registrateNewMaster(fio, occupation, workingFrom, 
                                                             location, selectedOptionsLocation, 
                                                                 email, password, city);
+            res.cookie('refreshToken-master', (await data).refreshToken, 
+                        {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 
             return res.json(await data);
         } catch (error) {
@@ -30,6 +33,49 @@ class MasterController{
             return res.json(await data);
         } catch (error) {
             next(error);
+        }
+    }
+    async login(req, res, next){
+        try {
+            const {email, password} = await req.body;
+            const data = await masterService.logIn(email, password);
+
+            res.cookie('refreshToken-master', data.refreshToken, 
+                        {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false});
+
+            return res.json((await data));
+        } catch (e) {
+            next(e);
+        }
+    }
+    async logout(req, res, next){
+        try {
+            const refreshToken = await req.headers.cookie;
+            const tokenRf = refreshToken.split("=")[1];
+
+            const token = await masterService.logOut(tokenRf);
+            res.clearCookie('refreshToken-master');
+
+            return res.json((await token));
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async refresh(req, res, next){
+        try {
+            const refreshToken = await req.headers.cookie;
+            
+            const token = refreshToken?.split("=")[1];
+            
+            const userData = await masterService.refresh(token);
+            
+            res.cookie('refreshToken-master', (await userData).refreshToken, 
+                        {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+
+            return res.json(userData);
+        } catch (e) {
+            next(e);
         }
     }
 

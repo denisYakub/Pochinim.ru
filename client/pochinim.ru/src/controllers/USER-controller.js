@@ -1,19 +1,34 @@
-import userServices from "../services/delete/user-services";
-import fetchServices from "../services/fetch-services";
+import { json } from "react-router-dom";
 
 class UserController{
 
     async checkUserEmailInBd(email){
-        //const ret = await userServices.checkEmail(email)
-        const ret = await fetchServices.fetchGETWithCredentials(`/users/check_email/${email}`);
-        return ret;
+        const data = await fetch(`http://localhost:4000/api/users/check_email/${email}`,{
+            credentials: 'include',
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        return (await data.json());
     }
 
     async registrate(email, login, password){
-        //var ret = await userServices.registrate(name, email, password);
         const body = {"login": login, "password": password, "email": email};
 
-        var ret = await fetchServices.fetchPOSTWithCredentials(`/users`, JSON.stringify(body));
+        const data = await fetch(`http://localhost:4000/api/users`,{
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }, 
+            credentials: 'include',
+            body: JSON.stringify(body)
+        });
+
+        const ret = await data.json();
 
         localStorage.setItem('token', ret.accessToken);
         localStorage.setItem('mail', email);
@@ -25,8 +40,15 @@ class UserController{
     }
 
     async getSendCode(email){
-        //var code = await userServices.sendCode(email);
-        var code = await fetchServices.fetchGET(`/users/send_code/${email}`);
+        const data = await fetch(`http://localhost:4000/api/users/send_code/${email}`,{
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        const code = await data.json();
 
         if(code?.message){
             return false;
@@ -36,26 +58,43 @@ class UserController{
     }
 
     async logInUser(email, password){
-        //var ret = await userServices.logIn(email, password);
         const body = {'email': email, 'password': password};
 
-        const ret = await fetchServices.fetchPOSTWithCredentials('/users/login', JSON.stringify(body));
-        
+        const data = await fetch(`http://localhost:4000/api/users/login`,{
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }, 
+            credentials: 'include',
+            body: JSON.stringify(body)
+        });
+
+        const ret = await data.json();
+
         localStorage.setItem('token', ret?.accessToken);
         localStorage.setItem('mail', email);
-        console.log(ret);
+        
         if(ret?.message){
             return false;
         }
         return true;
     }
 
-    async checkForAccess(){
+    async refreshUserTokens(){
         if(localStorage.getItem('token')){
-            //const ret = await userServices.checkAuth();
-            const ret = await fetchServices.fetchGETWithCredentials(`/refresh`);
-            //denisyakubov321@gmail.com
-            localStorage.setItem('token', ret.accessToken);
+            const data = await fetch(`http://localhost:4000/api/refresh`,{
+                credentials: 'include',
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const ret = await data.json();
+            
+            localStorage.setItem('token', ret?.accessToken);
 
             if(ret?.message){
                 return false;
@@ -67,8 +106,16 @@ class UserController{
     }
 
     async logOutUser(){
-        //const ret = await userServices.logOut();
-        const ret = await fetchServices.fetchGETWithCredentials(`/users/logout`);
+        const data = await fetch(`http://localhost:4000/api/users/logout`,{
+            credentials: 'include',
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        const ret = await data.json();
 
         localStorage.removeItem('token');
         localStorage.removeItem('mail');
@@ -79,27 +126,71 @@ class UserController{
         return true;
     }
 
-    async getUserInfo(email){
-        //const ret = await userServices.getUserInfo(email);
-        const ret = await fetchServices.fetchGETWithCredentialsAndAuthorization(`/users/${email}`, localStorage.getItem('token'));
+    async getUserInfo(email, secondCall = true){
+        var data = await fetch(`http://localhost:4000/api/users/${email}`, {
+            credentials: "include",
+            method: "GET", 
+            headers : {
+                "Accept": "application/json",                    
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
 
-        return ret;
+        if(data.status == 401 && secondCall){
+            await userController.refreshUserTokens();
+            data = await userController.getUserInfo(email, false);
+        }
+
+        if(secondCall){
+            return data.json();
+        }
+        return data;
     }
 
-    async updateUserField(field, newValue, id_account){
-        console.log(field + ' will be now: ' + newValue);
+    async updateUserField(field, newValue, id_account, secondCall = true){
         const body = {'column_name': field, 'new_value': newValue, 'id_account': id_account};
 
-        const ret = fetchServices.fetchPUTWithCredentialsAndAuthorization('/users', body, localStorage.getItem('token'));
- 
-        return ret;
+        var data = await fetch(`http://localhost:4000/api/users`,{
+            credentials: "include",
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(body)
+        });
+        
+        if(data.status == 401 && secondCall){
+            await userController.refreshUserTokens();
+            data = await userController.updateUserField(field, newValue, id_account, false);
+        }
+
+        return (await data.json());
     }
 
-    async getUserTopics(email){
-        //const ret = await topicServices.getAllUserTopics(email);
-        const ret = await fetchServices.fetchGETWithCredentialsAndAuthorization(`/topics/${email}`, localStorage.getItem('token'));
-        console.log(ret);
-        return ret;
+    async getUserTopics(email, secondCall = true){
+        var data = await fetch(`http://localhost:4000/api/topics/${email}`, {
+            credentials: "include",
+            method: "GET", 
+            headers : {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if(data.status == 401 && secondCall){
+            await userController.refreshUserTokens();
+            data = await userController.getUserTopics(email, false);
+        }
+
+        if(secondCall){
+            return data.json();
+        }
+        return data;
+
     }
 }
 

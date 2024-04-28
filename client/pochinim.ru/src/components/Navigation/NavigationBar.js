@@ -3,22 +3,21 @@ import "../Navigation/Navigation.css"
 import { Fragment, useContext, useEffect, useState } from 'react';
 import USERController from '../../controllers/USER-controller';
 import { contextLocation } from '../../contexts/contextLocation';
+import masterController from '../../controllers/MASTER-controller';
 
 const Navbar = () => {
 
     const navigate = useNavigate();
 
     const [auth, setAuth] = useState(null)
+    const [authMaster, setAuthMaster] = useState(null)
     const [search, setSearch] = useState("")
 
     const { locations, location, setLocation, cities, city, setCity } = useContext(contextLocation);
     
     async function getAuth() {
-        if(await USERController.checkForAccess()){
-            setAuth(localStorage.getItem('mail'));
-        }else{
-            setAuth(null);
-        }
+        setAuth(localStorage.getItem('mail'));
+        setAuthMaster(localStorage.getItem('mail-master'));
     }
 
     useEffect(() => {
@@ -37,7 +36,9 @@ const Navbar = () => {
         if(val == 1){
 
         }else if(val == 2){
-            navigate('/SignInUpAsMaster');
+            navigate('/SignUpAsMaster');
+        }else if(val == 3){
+            authMaster?navigate('/'):navigate('/SignInAsMaster');
         }
     };
 
@@ -64,6 +65,7 @@ const Navbar = () => {
                 <select onChange={e => selectMasterHandler(e.target.value)}>
                     <option value={1}>Специалистам</option>
                     <option value={2}>Регестрация</option>
+                    <option value={3}>{authMaster?authMaster:'Вход'}</option>
                 </select>
                 <form onSubmit={submitSearch}>
                     <input className='navInput' onChange={e => setSearch(e.target.value)}></input>

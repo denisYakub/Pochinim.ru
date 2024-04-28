@@ -1,0 +1,10 @@
+@import'../../../index.css';
+.master-profile{
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 auto;
+    display: flex;
+    justify-content: center;
+    background: var(--color-main-wihite);
+    box-sizing: border-box;
+}

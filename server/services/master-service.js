@@ -1,20 +1,38 @@
 const pool = require('../database');
+const crypto = require('crypto-js')
+const TokenService = require('../services/token-service');
+const ApiError = require('../exeptions/api-error');
 
 class MasterService{
     async registrateNewMaster(fio, occupation, workingFrom, 
                                 location, selectedOptionsLocation, email, password, city){
         try {
+            const candidat = await pool.query(`SELECT COUNT(*) FROM masters WHERE master_email = '${email}'`);
+
+            if(candidat.rows[0].count > 0) {
+                throw ApiError.BadRequest(`Пользователь с почтой ${email} уже существуе!`);
+            };
+
+            const hashPassword = await crypto.MD5(password);
+
             await pool.query(`INSERT INTO masters (master_email, master_password, 
                                                     fio, occupation, working_from,
                                                     location, selected_options_of_location, city) 
-                                            VALUES('${email}', '${password}', 
+                                            VALUES('${email}', '${hashPassword}', 
                                                     '${fio}','${occupation}','${workingFrom}',
                                                     '${location}', '{${selectedOptionsLocation}}', '${city}')`);
 
+            const tokens = await TokenService.generateToken(email);
+
             const id_master = await pool.query(`SELECT id_master FROM masters WHERE master_email = '${email}'`);
             
+            await TokenService.saveToken(await id_master.rows[0].id_master, (await tokens.refreshToken), 'master');
+
             return {"result": true,
-                    "id_master": id_master.rows[0].id_master};
+                    "id_master": id_master.rows[0].id_master,
+                    "refreshToken": (await tokens.refreshToken), 
+                    "accessToken": (await tokens.accessToken)
+                };
         } catch (error) {
             throw error
         }
@@ -29,6 +47,43 @@ class MasterService{
         } catch (error) {
             throw error
         }
+    }
+
+    async logIn(email, password){
+        try {
+            const candidat = await pool.query(`SELECT master_password FROM masters WHERE master_email = '${email}'`);
+
+            if(candidat.rows[0] === undefined) {
+                throw ApiError.BadRequest(`Пользователь с почтой ${email} не найден!`);
+            };
+    
+            const isPasswordsEquals = (await crypto.MD5(password) == candidat.rows[0].account_password);
+
+            if(!isPasswordsEquals){
+                throw ApiError.BadRequest(`Неверный пароль!`);
+            }
+
+            const master = await pool.query(`SELECT id_master, fio FROM masters WHERE master_email = '${email}'`);
+
+            const tokens = await TokenService.generateToken(email);
+    
+            await TokenService.saveToken(master.rows[0].id_master, (await tokens.refreshToken), 'master');
+    
+            return {
+                "refreshToken": (await tokens.refreshToken), 
+                "accessToken": (await tokens.accessToken),
+                "id_master": master.rows[0].id_master, 
+                "login": master.rows[0].fio
+            };
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async logOut(refreshToken){
+        const token = await TokenService.removeToken(refreshToken, 'master');
+
+        return token;
     }
 
     async getListOfMasters(from, to){

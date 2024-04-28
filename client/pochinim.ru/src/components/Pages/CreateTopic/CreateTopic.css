@@ -1,0 +1,329 @@
+@import'../../../index.css';
+.content{
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    padding: 101px;
+    justify-content: space-between;
+}
+
+.left-content button{
+    border-radius: 41px;
+    width: fit-content;
+    padding: 15px;
+    background: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    color: var(--color-main-black);
+    font-size: 28px;
+}
+
+.left-content a{
+    color: var(--color-secondary-grey50);
+}
+
+.right-content-create-topic{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.right-content-create-topic a{
+    color: var(--color-secondary-grey50);
+}
+
+.control-buttons{
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-between;
+    gap: 550px;
+}
+
+.control-buttons button[name=nt]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 185px;
+    height: 48px;
+    padding: 10px 17px;
+    box-sizing: border-box;
+    border-radius: 60px;
+    width: fit-content;
+    background: var(--color-secondary-grey50);
+    border-color: var(--color-secondary-grey50);
+    border-style: solid;
+    color: var(--color-main-wihite);
+    font-size: 20px;
+}
+
+.ntIcon{
+    width: 24px;
+    height: 24px;
+    background: url("../../../img/arrow-right.png") no-repeat center;
+}
+
+.control-buttons button[name=prev]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 127px;
+    height: 48px;
+    padding: 10px 17px;
+    box-sizing: border-box;
+    border-radius: 60px;
+    width: fit-content;
+    background: var(--color-secondary-grey25);
+    border-color: var(--color-secondary-grey25);
+    border-style: solid;
+    color: var(--color-secondary-grey50);
+    font-size: 20px;
+}
+
+.prevIcon{
+    width: 24px;
+    height: 24px;
+    background: url("../../../img/arrow-left-grey.png") no-repeat center;
+}
+
+.blockPhase{ 
+    display: flex;
+    flex-direction: column;
+    width: 862px;
+    height: 500px;
+}
+
+.blockPhase h1{
+    color: var(--color-main-black);
+    font-size: 48px;
+}
+
+.blockPhase input{
+    border-radius: 60px;
+    background-color: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    border-color: var(--color-secondary-grey-searchline);
+    color: var(--color-main-black);
+    padding: 17px 34px;
+}
+
+.topicNameHints{
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.topicNameHints button{
+    border-radius: 39px;
+    width: fit-content;
+    padding: 10px 15px;
+    background: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-style: solid;
+    color: var(--color-main-black);
+    font-size: 16px;
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact input{
+    min-width: 300px;
+    width: fit-content;
+}
+
+.listOfOptions{
+    overflow-y: scroll;
+    height: 232px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option input{
+    width: 20px;
+    height: 20px;
+}
+
+.option p{
+    color: var(--color-main-black);
+
+    /* Text/наборный текст 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
+}
+
+.urInput{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.urInput-radio{
+    width: 20px;
+    height: 20px;
+}
+
+.urInput-text{
+    width: 300px;
+}
+
+.addressInfo{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 60px;
+    border-style: solid;
+    border: 1px dashed var(--color-main-black);
+    display: flex;
+    justify-content: center;
+    padding: 17px 34px;
+}
+
+.Ymap{
+    margin-top: 40px;
+}
+
+.paymentOptions{
+
+}
+
+.paymentOption{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.paymentOption h1{
+    color: var(--color-main-black);
+
+    /* Text/наборный текст 2 */
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 22px */
+}
+
+.moreInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.moreInfo textarea{
+    width:  auto;
+    height: 275px;
+    resize: none;
+    border-style: solid;
+    background-color: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-radius: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.topic-photo-choose{
+    border-radius: 60px;
+    border: 1px dashed var(--color-main-black);
+    display: flex;
+    padding: 0px 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.inputAndError{
+    display: flex;
+    align-items: center;
+}
+
+.create-topic-input-size{
+    width: 500px;
+}
+
+.create-topic-input-date-size{
+    width: 500px;
+}
+
+.block-accounts-to-choose{
+    width: 862px;
+    height: 178px;
+    border-radius: 24px;
+    background: var(--color-secondary-grey-searchline);
+    display: flex;
+    flex-direction: column;
+}
+
+.list-of-accounts{
+    display: flex;
+    align-items: center;
+    padding: 25px 25px 25px 25px;
+    gap: 5px;
+    border-style: solid;
+    border-radius: 24px 24px 0px 0px;
+    border-color: var(--color-secondary-grey-searchline) var(--color-secondary-grey-searchline) var(--color-secondary-grey15) var(--color-secondary-grey-searchline);
+}
+
+.acount-info{
+    display: flex;
+    min-height: 54px;
+    padding: 14px 15px 14px 15px;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 60px;
+    border-style: solid;
+    border-color: var(--color-main-wihite);
+    background: var(--color-main-wihite);
+}
+
+.add-account{
+    width: 54px;
+    height: 54px;
+    border-radius: 60px;
+    border-style: solid;
+    border-color: var(--color-main-wihite);
+    background: url('../../../img/add.png') no-repeat center var(--color-main-wihite);
+}
+
+.block-accounts-to-choose a{
+    color: var(--color-main-black);
+    display: flex;
+    border-style: solid;
+    margin: 25px;
+    border-color: var(--color-secondary-grey-searchline);
+}
+
+.publish-topic{
+    margin-top: 20px;
+    min-height: 45px;
+    background-color: var(--color-main-blue);
+    border-style: solid;
+    border-color: var(--color-main-blue);
+    border-radius: 60px;
+    color: var(--color-main-wihite);
+}
+
+.publish-topic-in-forum{
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.right-content-find-master{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 130px;
+}

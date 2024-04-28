@@ -69,7 +69,9 @@ class UserController {
 
     async refresh(req, res, next){
         try {
-            const refreshToken = await req.headers.cookie;
+            const tokens = await req.headers.cookie;
+
+            const refreshToken = tokens?.split("; ")[0];
             
             const token = refreshToken?.split("=")[1];
             
@@ -88,7 +90,7 @@ class UserController {
         try {
             const email = req.params.email;
             const code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; 
-
+            console.log(email);
             await emailService.sendActivationEmail(email, code);
 
             return res.json(code);
@@ -100,6 +102,7 @@ class UserController {
 
     async getUserInfo(req, res, next){
         try {
+            
             const email = req.params.email;
             
             const userInfo = await userService.getFullUserInfo(email);

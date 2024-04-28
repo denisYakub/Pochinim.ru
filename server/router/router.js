@@ -11,8 +11,8 @@ const imageController = require('../controllers/image-controller');
 router.post('/users', 
                 userController.registration);
 router.put('/users',
-            authMiddleware,
-            userController.updateUserInfo)
+                authMiddleware,
+                userController.updateUserInfo)
 router.get('/users/:email',
                 authMiddleware,
                 userController.getUserInfo);
@@ -24,32 +24,38 @@ router.get('/refresh',
                 userController.refresh);
 router.get('/users/check_email/:email', 
                 userController.checkEmail);
-router.post('/users/send_code/:email', 
+router.get('/users/send_code/:email', 
                 userController.sendActivationMail);
 //=================================================
 
 //==================Masters========================
 router.post('/masters',
             masterController.registration);
+router.get('/refresh-master', 
+                masterController.refresh);
+router.post('/masters/login', 
+                masterController.login);
+router.post('/masters/logout', 
+                masterController.logout);
 router.get('/masters/:from/:to',
-            masterController.getListOfMastersAndReviews);
+                masterController.getListOfMastersAndReviews);
 router.get('/masters/:id',
-            masterController.getMasterFullInfo);
+                masterController.getMasterFullInfo);
 router.put('/masters/:id_master',
-            multerMiddleware.single('masterPhoto'),
-            masterController.setMasterPhoto);
+                multerMiddleware.single('masterPhoto'),
+                masterController.setMasterPhoto);
 //=================================================
 
 //==================Topics=========================
 router.post('/topics',
-            authMiddleware,
-            topicController.createTopic);
+                authMiddleware,
+                topicController.createTopic);
 router.put('/topics/:id_topic',
-            multerMiddleware.any('topicMainPhotos'),
-            topicController.saveFileForTopic);
+                multerMiddleware.any('topicMainPhotos'),
+                topicController.saveFileForTopic);
 router.get('/topics/:email',
-            authMiddleware,
-            topicController.getAllUsersTopics)
+                authMiddleware,
+                topicController.getAllUsersTopics)
 //=================================================
 
 //==================Photos=========================

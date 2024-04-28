@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import fetchServices from "../services/fetch-services";
+import userController from "./USER-controller";
 class TopicController{
 
     constructor(){
@@ -7,27 +7,45 @@ class TopicController{
     }
 
     async createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
-        address, date, paymentOption, detailsText, detailsFiles}){
-
-        const mail = localStorage.getItem("mail");
-
+        address, date, paymentOption, detailsText, detailsFiles}, secondCall = true){
         const body = {"topicName": topic, "fio": FIO, "phoneNumber": phoneNumber,
                             "need": need, "problem": problem, "problemLocation": problemLocation,
                             "address": address, "date": date, "payment":paymentOption, 
-                            "detailsTxt": detailsText, "mail": mail};
+                            "detailsTxt": detailsText, "mail": localStorage.getItem("mail")};
 
-        const id_topic = (await fetchServices.fetchPOSTWithCredentialsAndAuthorization(`/topics`, JSON.stringify(body), localStorage.getItem('token'))).id_topic;
-        /*const id_topic = await topicServices.createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
-            address, date, paymentOption, detailsText, detailsFiles, mail})*/
-        
-        //topicServices.addFilesToTopic(id_topic, detailsFiles);
-        const files = new FormData();
+        var dataTopic = await fetch(`http://localhost:4000/api/topics`, {
+            credentials: "include",
+            method: "POST", 
+            headers : {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(body)
+        });
 
-        for(let i = 0; i < detailsFiles.length; i++){
-            files.append('topicMainPhotos', detailsFiles[i]);
+        if(dataTopic.status == 401 && secondCall){
+            await userController.refreshUserTokens();
+            dataTopic = topicController.createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
+                address, date, paymentOption, detailsText, detailsFiles}, false);
         }
-        
-        const ret = await fetchServices.fetchPUTFiles(`/topics/${id_topic}`, files);
+
+        if(secondCall === false){
+            return (await dataTopic.json());
+        }else{
+            const id_topic = (await dataTopic)?.id_topic;
+            
+            const files = new FormData();
+
+            for(let i = 0; i < detailsFiles.length; i++){
+                files.append('topicMainPhotos', detailsFiles[i]);
+            }
+                
+            await fetch(`http://localhost:4000/api/topics/${id_topic}`,{
+                method: "PUT",
+                body: files
+            });
+        }
     }
 
     async getListOfExistingTopics(){

@@ -2,35 +2,23 @@ import {Fragment, useState} from 'react';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { contextCreatetopic } from './contexts/contextCreatetopic';
 import { contextLocation } from './contexts/contextLocation';
+import { contextOrder } from './contexts/contextOrder';
 
-import '../src/design/buttons/Buttons.css';
-
-import '../src/design/wrappers/PhaseWrappers.css';
-import '../src/design/wrappers/LocationChooseWrappers.css';
-import '../src/design/wrappers/HintWrappers.css';
-import '../src/design/wrappers/PhotoWrappers.css';
-import '../src/design/wrappers/MasterCardWrappers.css';
-import '../src/design/wrappers/ReviewWrappers.css';
-import '../src/design/wrappers/InputFieldWithErrorWrappers.css';
-import '../src/design/wrappers/ProfileWrappers.css';
-import '../src/design/wrappers/UserCardWrappers.css';
-import '../src/design/wrappers/EditableBlocksWrappers.css';
-
-import '../src/design/Inputs/TextInputs.css';
-import '../src/design/options/Options.css';
-
-import SignInUp from './components/SignInUp/SignInUp';
+import SignInUp from './components/Pages/SignInUp/SignInUp';
 import Navbar from './components/Navigation/NavigationBar';
-import ListOfTopics from './components/SearchPage/SearchPageOfTopics';
-import MainPage from './components/MainPage/MainpageList';
+import ListOfTopics from './components/Pages/SearchPage/SearchPageOfTopics';
+import MainPage from './components/Pages/MainPage/MainpageList';
 import Footer from './components/Footer/Footer';
-import UserProfile from './components/UserProfile/UserProfile';
-import CreateTopic from './components/CreateTopic/CreateTopic';
-import SignInUpAsMaster from './components/SignUpAsMaster/SignUpAsMaster';
-import HelpPage from './components/HelpPage/HelpPage';
-import MasterProfile from './components/MasterProfile/MasterProfile';
-import MyOrders from './components/UserOrders/UserOrders';
-import Order from './Order/Order';
+import UserProfile from './components/Pages/UserProfile/UserProfile';
+import CreateTopic from './components/Pages/CreateTopic/CreateTopic';
+import SignUpAsMaster from './components/Pages/SignUpAsMaster/SignUpAsMaster';
+import HelpPage from './components/Pages/HelpPage/HelpPage';
+import MasterProfile from './components/Pages/MasterProfile/MasterProfile';
+import MyOrders from './components/Pages/UserOrders/UserOrders';
+import Order from './components/Pages/Order/Order';
+import SignInAsMaster from './components/Pages/SignInAsMaster/SignInAsMaster';
+
+import './components/UI-KIT/uiKit.css';
 
 function App(){
 
@@ -52,6 +40,8 @@ function App(){
   const cities = ['Москва', 'Санкт-Петербург'];
   const [city, setCity] = useState(cities[0]);
 
+  const [order, setOrder] = useState({});
+
   return (
     <Fragment>
         <BrowserRouter>
@@ -59,20 +49,23 @@ function App(){
                                               problem, setProblem, problemLocation, setProblemLocation, address, setAddress,
                                               date, setDate, paymentOption, setPaymentOption, detailsText, setDetailsText, detailsFiles, setDetailsFiles,
                                               idLeftButtonsComps, setIdLeftButtonsComps}}>
-          <contextLocation.Provider value={{locations, location, setLocation, cities, city, setCity}}>                                    
+          <contextLocation.Provider value={{locations, location, setLocation, cities, city, setCity}}>
+          <contextOrder.Provider value={{order, setOrder}}>                                   
           <Navbar />
           <Routes>
             <Route path="/" element={<MainPage  />}/>
             <Route path='/SignInUp' element={<SignInUp />}/>
-            <Route path='/SignInUpAsMaster' element={<SignInUpAsMaster />}/>
+            <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
+            <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
             <Route path='/Search' element={<ListOfTopics  />}/>
             <Route path='/UserProfile/:email' element={<UserProfile  />}/>
             <Route path='/CreateTopic/:email' element={<CreateTopic  />}/>
             <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
             <Route path='/HelpPage' element={<HelpPage />}/>
             <Route path='/MyOrders/:email' element={<MyOrders />}/>
-            <Route path='/:pev_page/Order/:id' element={<Order />}/>
+            <Route path='/:pev_page/:who/Order/:id' element={<Order />}/>
           </Routes>
+          </contextOrder.Provider> 
           </contextLocation.Provider> 
           </contextCreatetopic.Provider>
           <Footer />

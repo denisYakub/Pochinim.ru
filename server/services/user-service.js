@@ -7,14 +7,15 @@ const jose = require('jose')
 class UserService{
     async registration(email, login, password){
         try {
-            const candidat = await pool.query(`SELECT COUNT(*) FROM accounts WHERE account_email = '${email}'`)
+            const candidat = await pool.query(`SELECT COUNT(*) FROM accounts WHERE account_email = '${email}'`);
+
             if(candidat.rows[0].count > 0) {
                 throw ApiError.BadRequest(`Пользователь с почтой ${email} уже существуе!`);
-            }
+            };
 
-            const hashPassword = await crypto.MD5(password)
+            const hashPassword = await crypto.MD5(password);
 
-            const user = await pool.query(`INSERT INTO Accounts (account_email, account_name, account_password) 
+            await pool.query(`INSERT INTO Accounts (account_email, account_name, account_password) 
                                             VALUES ('${email}', '${login}', '${hashPassword}')`);
 
             const tokens = await TokenService.generateToken(email);
@@ -30,7 +31,7 @@ class UserService{
                 "accessToken": (await tokens.accessToken),
                 "account_id": account_id_on_return, 
                 "email":email
-            }
+            };
         } catch (error) {
             throw error;
         }
@@ -76,7 +77,7 @@ class UserService{
                 "accessToken": (await tokens.accessToken),
                 "account_id": account_id_on_return, 
                 "login": login
-            }
+            };
         } catch (error) {
             throw error;
         }
@@ -107,7 +108,7 @@ class UserService{
             
             const account_id = await pool.query(`SELECT id_account FROM accounts_tokens WHERE token = '${refreshToken}'`);
             
-            const account_id_on_return = account_id.rows[0].id_account;
+            const account_id_on_return = await account_id.rows[0].id_account;
             
             const email = await pool.query(`SELECT account_email, account_name FROM accounts WHERE id_account = '${account_id_on_return}'`);
             
@@ -143,16 +144,25 @@ class UserService{
     async updateColumn(column_name, new_value, id_account){
         try {
             var ret;
+            
             if(['account_name', 'account_password', 'account_email'].includes(column_name)){
                 ret = await pool.query(`UPDATE accounts
                                         SET ${column_name} = '${new_value}'
                                         WHERE id_account = '${id_account}'`);
 
             }else if(['photo_path', 'gender', 'phone_number', 'notification_option', 'socials'].includes(column_name)){
-                ret = await pool.query(`UPDATE accounts_additional_information
-                                        SET ${column_name} = '${new_value}'
-                                        WHERE id_account = '${id_account}'`);
-
+                const nothingToUpdate = (await pool.query(`SELECT COUNT(*) FROM accounts_additional_information
+                                                            WHERE id_account = '${id_account}'`)).rows[0].count
+                if(nothingToUpdate == 0){
+                    ret = await pool.query(`INSERT INTO accounts_additional_information 
+                                                (id_account, ${column_name}) 
+                                                    VALUES 
+                                                ('${id_account}', '${new_value}')`)
+                }else{
+                    ret = await pool.query(`UPDATE accounts_additional_information
+                                                SET ${column_name} = '${new_value}'
+                                                    WHERE id_account = '${id_account}'`);
+                }
             }else{
                 throw ApiError.BadRequest('tabels dont have this column: ', column_name);
             }

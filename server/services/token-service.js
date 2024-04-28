@@ -27,26 +27,26 @@ class TokenService{
         };
     }
 
-    async saveToken(account_id, refreshToken){
-
-            const tokenData = await pool.query(`SELECT Count(*) FROM accounts_tokens 
-                                                WHERE id_account = ${account_id}`)
+    async saveToken(account_id, refreshToken, tabel = 'account'){
+            console.log(account_id);
+            const tokenData = await pool.query(`SELECT Count(*) FROM ${tabel}s_tokens 
+                                                WHERE id_${tabel} = ${account_id}`)
             if(tokenData.rows[0].count > 0){
-                await pool.query(`UPDATE accounts_tokens SET token = '${refreshToken}' 
-                                    WHERE id_account = ${account_id}`)
+                await pool.query(`UPDATE ${tabel}s_tokens SET token = '${refreshToken}' 
+                                    WHERE id_${tabel} = ${account_id}`)
             }else{
                 console.log(refreshToken);
                 console.log(account_id);
-                await pool.query(`INSERT INTO accounts_tokens (id_account, token) 
+                await pool.query(`INSERT INTO ${tabel}s_tokens (id_${tabel}, token) 
                                 VALUES (${account_id}, '${refreshToken}')`);
             }
 
             return refreshToken;
 
     }
-
-    async removeToken(refreshToken){
-        const tokenData = await pool.query(`DELETE FROM accounts_tokens WHERE token = '${refreshToken}'`);
+    
+    async removeToken(refreshToken, tabel = 'account'){
+        const tokenData = await pool.query(`DELETE FROM ${tabel}s_tokens WHERE token = '${refreshToken}'`);
 
         return tokenData;
     }
@@ -79,8 +79,8 @@ class TokenService{
         })
     }
 
-    async findToken(token){
-        const tokenData = await pool.query(`SELECT COUNT(*) FROM accounts_tokens WHERE token = '${token}'`);
+    async findToken(token, tabel = 'account'){
+        const tokenData = await pool.query(`SELECT COUNT(*) FROM ${tabel}s_tokens WHERE token = '${token}'`);
         
         return tokenData.rows[0].count;
     }

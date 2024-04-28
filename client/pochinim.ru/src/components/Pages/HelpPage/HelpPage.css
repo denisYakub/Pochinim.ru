@@ -1,0 +1,9 @@
+@import'../../../index.css';
+.help-page{
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
