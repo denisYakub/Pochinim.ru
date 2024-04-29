@@ -19,6 +19,7 @@ import Order from './components/Pages/Order/Order';
 import SignInAsMaster from './components/Pages/SignInAsMaster/SignInAsMaster';
 
 import './components/UI-KIT/uiKit.css';
+import Chats from './components/Pages/Chats/Chats';
 
 function App(){
 
@@ -62,8 +63,13 @@ function App(){
             <Route path='/CreateTopic/:email' element={<CreateTopic  />}/>
             <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
             <Route path='/HelpPage' element={<HelpPage />}/>
-            <Route path='/MyOrders/:email' element={<MyOrders />}/>
-            <Route path='/:pev_page/:who/Order/:id' element={<Order />}/>
+            <Route path='/MyOrders/:email'>
+              <Route index element={<MyOrders />} />
+              <Route path='Order/:id'>
+                <Route index element={<Order />} />
+                <Route path='Chats/:with' element={<Chats />}/>
+              </Route>
+            </Route>
           </Routes>
           </contextOrder.Provider> 
           </contextLocation.Provider> 

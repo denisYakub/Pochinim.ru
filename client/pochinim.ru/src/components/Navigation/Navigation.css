@@ -1,82 +1,40 @@
 @import '../../index.css';
-.nav{
-    width: 1920px;
-    padding: 0 auto;
-    margin: 0 auto;
-    background: var(--color-main-wihite);
-}
-
-.inner-nav{
-    padding-bottom: 16px;
-    padding-top: 26px;
+.navigation-content{
+    padding-bottom: 10px;
+    padding-top: 20px;
     margin-left: 101px;
     margin-right: 101px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-style: solid;
+    border: 3px solid;
     border-color: var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
 }
 
-.inner-nav select{
-    border-style: none;
-    border-radius: 20px;
-}
-
-.rightPartOfNav{
+.navigation-site-logo-cities{
     display: flex;
     align-items: center;
     gap: 50px;
 }
 
-.siteLogo{
+.site-logo{
     width: 234.084px;
     height: 30px;
     background: url("../../img/логотип\ починим\ ру.png") no-repeat left;
 }
 
-.leftPartOfNav{
+.navigation-orders-forum-masters-search-users{
     display: flex;
     align-items: center;
     gap: 50px;
-    justify-content: space-between;
 }
 
-.leftPartOfNav a{
-    text-decoration: none;
-    color: var(--color-main-black);
-}
-
-.navInput{
-    box-sizing: border-box;
-    display: flex;
-    width: 264px;
-    height: 32px;
-    border-radius: 38px;
-    border-style: solid;
-    border-color: var(--color-secondary-grey-searchline);
-    background: url("../../img/i.svg") no-repeat left var(--color-secondary-grey-searchline);
-    background-size: 20px;
-}
-
-.acc{
+.users{
     color: var(--color-main-blue);
     font-family: "SF Pro Display";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-decoration-line: underline;
-}
-
-.acc a{
-    color: var(--color-main-blue);
-
-    /* Text/ссылка 2 */
-    font-family: "SF Pro Display";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 105%; /* 21px */
     text-decoration-line: underline;
 }

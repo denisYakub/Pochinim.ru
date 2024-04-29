@@ -20,19 +20,23 @@ const PasswordPhase = ({phase, setPhase, password, setPassword, name, setName, e
         }
     };
 
-    return(<div className="phase-block">
-        <div className="annotationReg">
-            <h1>
-            Введите пароль
-            </h1>
-            <p>
-            </p>
+    return(<div className="phases-wrapper">
+        <div className="sighnInUp-annotation">
+            <h1>Введите пароль</h1>
+            {emailCode!=0?
+                <p>Создайте пароль и впишите имя</p>
+            :
+                <></>}
         </div>
-        <div className="sighnInUp-input-size">
-            <InputWithError placeholder={'пароль'} value={password} setValue={setPassword} error={errorInSingInUp}></InputWithError>
-            <a>Специалисты не видят вашу почту. Вы сами решите, кому она будет доступена.</a>
-        </div>
-        {emailCode!=0?<input type="text" placeholder={'ФИО'} value={name} onChange={e => setName(e.target.value)}></input>:<></>}
+        <InputWithError placeholder={'пароль'} value={password} setValue={setPassword} error={errorInSingInUp}></InputWithError>
+        {emailCode!=0?
+            <div className="sighnInUp-input-with-text">
+                <input type="text" placeholder={'Имя'} className='text-input-field'
+                        value={name} onChange={e => setName(e.target.value)}></input>
+                <p>Специалисты будут видеть вас под этим именем</p>
+            </div>
+        :
+            <></>}
         <button className="continue-button" onClick={click}>
         Продолжить
         </button>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import defaultPhoto from '../../../../img/default-user-img.png'
 
-const MasterPhotoEnter = ({photo, setPhoto, FIO}) => {
+const MasterPhotoEnter = ({photo, setPhoto, FIO, step, setStep}) => {
 
     const [image, setImage] = useState(photo?URL.createObjectURL(photo):defaultPhoto);
 
@@ -10,7 +10,13 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO}) => {
         setImage(URL.createObjectURL(value));
     }
 
-    return(<div className="phase-block">
+    const click = async () =>{
+        if(photo != null){
+            setStep(step + 1);
+        }
+    }
+
+    return(<div className="phases-wrapper">
         <h1>Фото в профиль</h1>
         <a>Клиенты чаще всего выбирают мастеров с фото в профиле. В любой момент можно сметь фото.</a>
         <div className="photo-choose-block">
@@ -53,6 +59,7 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO}) => {
                 </div>
             </div>
         </div>
+        <button onClick={click} className='continue-button'>Продолжить</button>
     </div>);
 };
 

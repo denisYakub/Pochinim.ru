@@ -15,7 +15,7 @@ const OrderPreView = ({value, email}) => {
     }, []);
 
     return(<Fragment>
-        <div className='order-preview' onClick={() => {navigate(`/MyOrders/${email}/Order/${value?.id_topic}`)}}>
+        <div className='order-preview' onClick={() => {navigate(`Order/${value?.id_topic}`)}}>
             <div className='order-preview-info'>
                 <h1 style={{marginTop: '0'}}>{value?.topic_name}</h1>
                 <p style={{marginTop: '0'}}>{value?.address}</p>

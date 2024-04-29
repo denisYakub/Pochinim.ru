@@ -1,8 +1,11 @@
 import { Fragment, useEffect, useState } from "react"
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import masterController from '../../../controllers/MASTER-controller';
 
 const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) => {
+
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const [photo, setPhoto] = useState(null);
 
@@ -15,7 +18,7 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) =>
 
     const sendMessage = () => {
         if(localStorage.getItem('mail') && canSendMessage){
-            console.log('u can');
+            navigate(`Chats/${value?.id}`);
         }else{
             setActivePop(true);
             setTextPop("Вы не можете писать специалистам, пока не заполните анкету");

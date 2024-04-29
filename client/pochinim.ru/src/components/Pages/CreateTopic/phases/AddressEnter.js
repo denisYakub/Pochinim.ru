@@ -1,6 +1,7 @@
-import { useRef, useState } from "react"
+import { useRef, useState } from "react";
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
-import {motion, useAnimate} from 'framer-motion'
+import {motion, useAnimate} from 'framer-motion';
+import buttonsAnimations from '../../../../animations/buttons-animations';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 

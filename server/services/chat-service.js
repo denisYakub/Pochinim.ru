@@ -1,8 +1,8 @@
 const pool = require('../database');
 class ChatService{
-    async createChatWithFirstMessage(messages, id_account, id_master){
+    async createChat(id_account, id_master){
         
-    }
+    };
 }
 
 module.exports = new ChatService();

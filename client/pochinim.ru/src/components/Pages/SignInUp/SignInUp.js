@@ -48,15 +48,13 @@ const SignIn = () => {
     }
 
     return(<Fragment>
-        <div className="signInUp">
-            <div className="inner-signInUp">
+        <div className="page-wrapper">
+            <div className="sighnInUp-content">
                 <div className='go-back-button'>
                     <div className='back-icon'></div>
                     <button onClick={movePhaseBack} className='back-button'>Назад</button>
                 </div>
-                <div className="phases-wrapper">
-                    {phase<=3?comps[phase]:navigate('/')}
-                </div>
+                {phase<=3?comps[phase]:navigate('/')}
             </div>
         </div>
         <Loader showLoader={showLoader} setShowLoader={setShowLoader}></Loader>

@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, selectedOptionsLocation, setSelectedOptionsLocation}) => {
+const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, selectedOptionsLocation, setSelectedOptionsLocation, step, setStep}) => {
 
     const { location, cities, setCity } = useContext(contextLocation);
 
@@ -67,11 +67,19 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
         setSelectedOptionsLocation(data);
     }
 
-    return(<div className="phase-block">
+    const click = async () =>{
+        if(workingFrom != 0 && (address != ""|| selectedOptionsLocation != null)){
+            setStep(step + 1);
+        }
+    }
+
+    return(<div className="phases-wrapper">
         {workingFrom==0?
         <div>
-            <h1>Где работаете?</h1>
-            <a>Будем предлагать заказы поблизости.</a>
+            <div className="signUpMaster-annotation">
+                <h1>Где работаете?</h1>
+                <a>Будем предлагать заказы поблизости.</a>
+            </div>
             <div className="options" onChange={e => handleWorkingFrom(e.target.value)}>
                 <div className="option">
                     <input type="radio" value={1}></input>
@@ -121,6 +129,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
                 />
             </div>}
         </div>}
+        <button onClick={click} className='continue-button'>Продолжить</button>
     </div>);
 };
 

@@ -9,7 +9,7 @@ import './Order.css';
 
 const Order = () =>{
 
-    const params = useParams;
+    const params = useParams();
 
     const pev_page = `${params.pev_page}/${params.who}`;
 
@@ -21,6 +21,9 @@ const Order = () =>{
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
 
     const [listOfMasters, setListOfMasters] = useState([]);
+    const [chats, setChats] = useState([]);
+    const [photos, setPhotos] = useState([]);
+    const [review, setReview] = useState([{}, {}]);
 
     const comps = [<OrderInfo order={order}></OrderInfo>,
                     <ListOfMasters listOfMasters={listOfMasters} topic={order?.topic_name}
@@ -30,11 +33,13 @@ const Order = () =>{
     const [id, setId] = useState(0);                              
 
     useEffect(() => {
-        console.log(order);
         async function setData(){
             setListOfMasters(await masterController.getListOfMasters(0, 30));
+            //setChats();
+            //setPhotos();
+            //setReview();
         }
-
+        
         setData();
     }, [])
 
@@ -57,30 +62,48 @@ const Order = () =>{
                             <button className='button-grey'>Помощь</button>
                         </div>
                         <div className="order-chats">
-                            <p>чаты</p>
+                            {chats.map((val, ind) => {
+                                return(<div key={ind}>
+
+                                </div>);
+                            })}
                         </div>
                     </div>
                     {comps[id]}
                 </div>
                 :order?.status == 'отменен'?
                 <div className="order-content">
-                    <div className="phases-wrapper">
-                        <div className="order-head">
-                            <h1>{order?.topic_name}</h1>
-                            <button>{order?.status}</button>
-                        </div>
-                    </div>
+                    {comps[id]}
                 </div>
                 :order?.status == 'завершен'?
                 <div className="order-content">
-                    <div className="phases-wrapper">
-                        <div className="order-head">
-                            <h1>{order?.topic_name}</h1>
-                            <button>{order?.status}</button>
-                        </div>
-                    </div>
+                    {comps[id]}
                     <div className="order-review">
-                        <p>оставить отзыв</p>
+                        {review[0]?.null?
+                            <div className="order-review-yours-empty">
+                                <p>Ваш отзыв на мастера</p>
+                                <p>Нет отзыва</p>
+                                <button className="blue-review-button">Оставить отзыв на мастера</button>
+                            </div>
+                        :       
+                            <div className="order-review-yours">
+                                <p>{review[0]?.stars}</p>
+                                <p>{review[0]?.date}</p>
+                                <p>{review[0]?.id_from}</p>
+                                <p>{review[0]?.text}</p>
+                            </div>}
+                        {review[1]?.null?
+                            <div className="order-review-masters-empty">
+                                <p>Отзыв мастера на Вас</p>
+                                <p>Нет отзыва</p>
+                            </div>
+                        :
+                            <div className="order-review-masters">
+                                <p>{review[1]?.stars}</p>
+                                <p>{review[0]?.date}</p>
+                                <p>{review[0]?.id_from}</p>
+                                <p>{review[0]?.text}</p>
+                            </div>}
                     </div>
                 </div>
             :<></>}

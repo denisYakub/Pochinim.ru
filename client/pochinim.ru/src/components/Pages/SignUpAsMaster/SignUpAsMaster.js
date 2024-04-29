@@ -1,6 +1,4 @@
 import { Fragment, useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { contextLocation } from '../../../contexts/contextLocation';
 import Loader from '../../Loader/Loader';
 import MasterFIOEnter from './phases/FIOEnter';
 import MasterOccupationEnter from './phases/OccupationEnter';
@@ -8,12 +6,9 @@ import MasterLocationEnter from './phases/LocationEnter';
 import MasterEmailEnter from './phases/EmailEnter';
 import MasterPhotoEnter from './phases/PhotoEnter';
 import MasterPasswordEnter from './phases/PasswordEnter';
-import masterController from '../../../controllers/MASTER-controller';
 import './SignUpAsMaster.css';
 
 const SignUpMaster = () => {
-
-    const { city } = useContext(contextLocation);
 
     const [step, setStep] = useState(0);
 
@@ -31,84 +26,41 @@ const SignUpMaster = () => {
 
     const [showLoader, setShowLoader] = useState(false);
 
-    const navigate = useNavigate();
+    const comps = [<MasterFIOEnter fio={fio} setFio={setFio} step={step} setStep={setStep}></MasterFIOEnter>, 
 
-    const comps = [<MasterFIOEnter fio={fio} setFio={setFio}></MasterFIOEnter>, 
-
-                    <MasterOccupationEnter occupation={occupation} setOccupation={setOccupation}></MasterOccupationEnter>,
+                    <MasterOccupationEnter occupation={occupation} setOccupation={setOccupation} 
+                                            step={step} setStep={setStep}></MasterOccupationEnter>,
 
                     <MasterLocationEnter workingFrom={workingFrom} setWorkingFrom={setWorkingFrom}
                                             address={address} setAddress={setAddress}
-                                            selectedOptionsLocation={selectedOptionsLocation} setSelectedOptionsLocation={setSelectedOptionsLocation}></MasterLocationEnter>, 
+                                            selectedOptionsLocation={selectedOptionsLocation} setSelectedOptionsLocation={setSelectedOptionsLocation}
+                                            step={step} setStep={setStep}></MasterLocationEnter>, 
 
                     <MasterEmailEnter email={email} setEmail={setEmail}
                                         codeConf={codeConf} setCodeConf={setcodeConf}
                                         code={code} setCode={setcode}
-                                        sendCode={sendCode} setSendCode={setSendCode}></MasterEmailEnter>, 
+                                        sendCode={sendCode} setSendCode={setSendCode}
+                                        step={step} setStep={setStep}></MasterEmailEnter>, 
 
                     <MasterPhotoEnter photo={photo} setPhoto={setPhoto}
-                                        FIO={fio}></MasterPhotoEnter>,
-                    <MasterPasswordEnter password={password} setPassword={setPassword}></MasterPasswordEnter>]
+                                        FIO={fio}
+                                        step={step} setStep={setStep}></MasterPhotoEnter>,
 
-    const move = async (incr) => {
-        const ntStep = step + incr;
-        switch (step) {
-            case 0:
-                if(fio[0] != "" && fio[1] != ""){
-                    setStep(ntStep);
-                }
-                break;
-            case 1:
-                if(occupation != ""){
-                    setStep(ntStep);
-                }
-                break;
-            case 2:
-                if(workingFrom != 0 && (address != ""|| selectedOptionsLocation != null)){
-                    setStep(ntStep);
-                }
-                break;
-            case 3:
-                if(email != "" && code != ""){
-                    if(code == sendCode){
-                        setStep(ntStep);
-                        setcodeConf(false);
-                    }
-                }
-                break;
-            case 4:
-                if(photo != null){
-                    setStep(ntStep);
-                }
-                break;
-            case 5:
-                if(password != ""){
-                    await masterController.registrate(fio, occupation, workingFrom, address, selectedOptionsLocation, 
-                        email, photo, password, city);
-                    setStep(ntStep);
-                }
-                break;
-            default:
-                navigate('/');
-                break;
-        }
-    }
+                    <MasterPasswordEnter password={password} setPassword={setPassword} 
+                                            step={step} setStep={setStep}></MasterPasswordEnter>]
 
     useEffect(()=>{
 
     }, [step])
 
     return(<Fragment>
-        <div className='SignUpMaster'>
-            <div className='inner-SignUpMaster'>
+        <div className='page-wrapper'>
+            <div className='signUpMaster-content'>
                 <div className='go-back-button'>
                     <div className='back-icon'></div>
-                    <button onClick={() => move(-1)} className='back-button'>Назад</button>
+                    <button onClick={() => {setStep(step - 1)}} className='back-button'>Назад</button>
                 </div>
-                <div className='phases-wrapper'>
-                    {comps[step]}
-                    <button onClick={() => move(1)} className='continue-button'>Продолжить</button>
-                </div>
+                {comps[step]}
             </div>
         </div>
         <Loader showLoader={showLoader} setShowLoader={setShowLoader} text={"Проверяем код"}></Loader>
