@@ -11,11 +11,12 @@ const AccountEnter = ({setSendApplication, publishOnForum, setPublishOnForum}) =
 
     const [hide, setHide] = useState(false);
 
-    return(<div className="blockPhase">
-        <h1>
-            {hide?'Тема создана':'Выберете аккаунт для создания темы:'}
-        </h1>
-        <div className="block-accounts-to-choose">
+    return(<div className="createTopic-phase">
+        <div className='createTopic-phase-annotation'>
+            <p>Авторизация</p>
+            <h1>{hide?'Тема создана':'Выберете аккаунт для создания темы:'}</h1>
+        </div>
+        <div className="createTopic-accounts-to-choose">
             <div className="list-of-accounts">
                 <button className="acount-info">
                     {localStorage.getItem("mail")}
@@ -24,10 +25,12 @@ const AccountEnter = ({setSendApplication, publishOnForum, setPublishOnForum}) =
             </div>
             <a href="">Зарегистрировать новый </a>
         </div>
-        <button className="publish-topic" onClick={() => {setHide(true);setSendApplication(true)}} hidden={hide}>Опубликовать задание</button>
-        <div className="publish-topic-in-forum" onChange={e => inputRadioCheck(e.target)}>
-            <input type='checkbox' name="check" checked={publishOnForum} hidden={hide}></input>
-            <p hidden={hide}>Опубликовать задание также на форуме</p>
+        <button className="continue-button" onClick={() => {setHide(true);setSendApplication(true)}} hidden={hide}>Опубликовать задание</button>
+        <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
+            <div>
+                <input type='checkbox' name="check" checked={publishOnForum} hidden={hide}></input>
+                <p hidden={hide}>Опубликовать задание также на форуме</p>
+            </div>
         </div>
     </div>)
 }

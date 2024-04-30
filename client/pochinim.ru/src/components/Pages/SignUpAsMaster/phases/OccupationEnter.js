@@ -15,7 +15,7 @@ const MasterOccupationEnter = ({occupation, setOccupation, step, setStep}) => {
             <h1>Чем вы занимаетесь?</h1>
             <a>Укажите все наши специальность — так подходящий заказов будет больше.</a>
         </div>
-        <div>
+        <div className="signUpMaster-inputs">
             <input placeholder="Род деятельности" value={occupation} onChange={e => setOccupation(e.target.value)} className="text-input-field"></input>
             <div className="button-hints">
                 <button className="hint" onClick={() => activateHint("Ремонт компьтеров")}>Ремонт компьтеров</button>

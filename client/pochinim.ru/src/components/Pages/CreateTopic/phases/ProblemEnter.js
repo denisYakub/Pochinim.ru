@@ -36,23 +36,22 @@ const ProblemEnter = ({problem, setProblem, error}) => {
         }
     }
 
-    return(<div className="blockPhase">
-        <h1>
-            Что случилось?
-        </h1>
-        <div className="listOfOptions" onChange={e => inputRadioCheck(e.target)}>
+    return(<div className="createTopic-phase">
+        <div className='createTopic-phase-annotation'>
+            <p>4/9</p>
+            <h1>Что случилось?</h1>
+        </div>
+        <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             {optionsOfWhatHappend.map((item, index) => {
                 return(
-                <div key={index} className="option">
+                <div key={index}>
                     <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
-            <div className="urInput">
-                <input type="radio" className="urInput-radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
-                <div className="create-topic-input-size">
-                    <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} error={error}></InputWithError>
-                 </div>
+            <div>
+                <input type="radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
+                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} error={error}></InputWithError>
             </div>
         </div>
     </div>)

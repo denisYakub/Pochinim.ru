@@ -12,16 +12,6 @@
 .page-wrapper p{
     margin: 0;
 }
-.assist-navigation-wrapper{
-    width: 200px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 10px;
-    border: solid 1px; 
-    border-color: var(--color-secondary-grey15) var(--color-main-wihite);
-}
 .editable-block{
     border: solid 1px;
     border-color: var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
@@ -33,7 +23,7 @@
     border: 1px var(--color-secondary-grey05);
 }
 .button-hints{
-    width: 542px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -103,21 +93,6 @@
     border-radius: 8px;
     background: var(--color-main-wihite);
     box-shadow: 0px 4px 60px 0px rgba(33, 33, 33, 0.12);
-}
-.location-choose-wrapper{
-    display: flex;
-    flex-direction: column;
-}
-.location-choose-wrapper input{
-    margin-bottom: 15px;
-    display: flex;
-    padding: 12px 24px;
-    align-items: center;
-    gap: 10px;
-    border-radius: 60px;
-    background: var(--color-secondary-grey05);
-    border-style: solid;
-    border-color: var(--color-secondary-grey05);
 }
 .master-wrapper{
     display: flex;
@@ -260,6 +235,7 @@
 .topic-photos{
     display: flex;
     gap: 20px;
+    overflow: auto;
 }
 .topic-photo{
     display: flex;
@@ -421,10 +397,11 @@
     background: var(--color-secondary-grey05);
     border-color: var(--color-secondary-grey05);
     border-style: solid;
-    width: 542px;
+    width: 100%;
     display: flex;
     padding: 12px 24px;
     align-items: center;
+    box-sizing: border-box;
     gap: 10px;
 }
 .main-info-block{
@@ -457,6 +434,24 @@
     border-radius: 38px;
     border: 1px solid var(--color-secondary-grey-dies);
     background: url("../../img/search.png") no-repeat left var(--color-secondary-grey-dies);
+}
+.options-input{
+    overflow-y: auto;
+    width: fit-content;
+    max-height: 290px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.options-input div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.options-input div input{
+    width: 20px;
+    height: 20px;
 }
 /*===============================================================================*/
 /*===================================BUTTONS=====================================*/
@@ -564,6 +559,7 @@
     border: 1px solid var(--color-secondary-red);
     color: red;
 }
+
 /*===============================================================================*/
 /*===================================LINKS=======================================*/
 .link-as-text{

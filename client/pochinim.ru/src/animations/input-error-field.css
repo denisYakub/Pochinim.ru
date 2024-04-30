@@ -3,6 +3,7 @@
 .input-with-error-wrapper{
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .input-with-error{

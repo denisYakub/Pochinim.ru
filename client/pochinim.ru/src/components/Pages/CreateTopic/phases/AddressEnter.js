@@ -44,33 +44,25 @@ const AddressEnter = ({address, setAddress, error, errorRed, location}) => {
         });
     };
 
-    return(<div className="blockPhase">
-        <h1>
-            По какому адресу?
-        </h1>
-        <input placeholder={"Город, улица, дом"} ref={errorRed} onChange={e => setLocation(e.target.value)}></input>
-        <div className="inputAndError">
-            <p className="addressInfo" ref={errorRed}>{address}</p>
-            {error
-                ?<div className="errorInStage"
-                onMouseEnter={() => buttonsAnimations.showErrorHint(1, {errorScope, animateError})}
-                onMouseLeave={() => buttonsAnimations.showErrorHint(0, {errorScope, animateError})}>
-                </div>
-                : null}
-            <motion.a className="errorStageMessage" ref={errorScope} initial={{scale: 0, y: 0, x: 0}}>Ошибка ввода</motion.a>
-        </div>
-        <div className="Ymap">
-        <YMaps query={{apikey: key}}>
-            <Map onClick={handleMapClick} 
-                onLoad={(e) => { ymaps.current = e }}
-                modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
-                instanceRef={mapRef}
-                state={{center: center, zoom: zoom}} 
-                width={"862px"} height={"267px"}>
-                    {placemarkCoords && (<Placemark geometry = 
-                    {placemarkCoords}></Placemark>)}
-            </Map>
-        </YMaps>
+    return(<div className="createTopic-phase">
+        <div className='createTopic-phase-annotation'>
+            <p>6/9</p>
+            <h1>По какому адресу?</h1>
+        </div> 
+        <input className="text-input-field" placeholder={"Город, улица, дом"} ref={errorRed} onChange={e => setLocation(e.target.value)}></input>
+        <div className="createTopic-address-map">
+            <p className="createTopic-address" ref={errorRed}>{address}</p>
+            <YMaps query={{apikey: key}}>
+                <Map onClick={handleMapClick} 
+                    onLoad={(e) => { ymaps.current = e }}
+                    modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
+                    instanceRef={mapRef}
+                    state={{center: center, zoom: zoom}} 
+                    width={"100%"} height={"267px"}>
+                        {placemarkCoords && (<Placemark geometry = 
+                        {placemarkCoords}></Placemark>)}
+                </Map>
+            </YMaps>
         </div>
     </div>)
 }

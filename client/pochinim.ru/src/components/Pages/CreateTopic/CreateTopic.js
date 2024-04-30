@@ -224,45 +224,40 @@ const CreateTopic = () => {
         }
         
     }
-
+    
     return(<Fragment>
         <div className= "page-wrapper">
-            <div className="content">
-                <div className="assist-navigation-wrapper">
+            <div className="createTopic-content">
+                <div className="navigation-profile-wrapper">
                     <button className="button-grey" onClick={masters}>Специалисты</button>
                     <button className="button-grey" onClick={help}> Помощь</button>
                     <a>Заполнение формы - {topic}</a>
                 </div>
                 {idLeftButtonsComps === 2?
-                    <div className="right-content-create-topic">
-                        {activeStage<9?<a>{activeStage + 1}/9</a>:<a>Авторизация</a>}
+                    <div className="createTopic-phases">
                         {phasesComps[activeStage]}
-                        <div className="control-buttons">
-                            <button name="prev" onClick={moveBack}
-                                onMouseEnter={()=>{}}
-                                onMouseLeave={()=>{}}>
+                        <div className="createTopic-phases-control-buttons">
+                            <button name="prev" onClick={moveBack}>
                                 <div className="prevIcon"></div>
-                                    <q>Назад</q>
+                                Назад
                             </button>
                             {activeStage<9?
-                                <button name="nt" onClick={moveOn}
-                                    onMouseEnter={()=>{}}
-                                    onMouseLeave={()=>{}}>
-                                    <p>Продолжить</p>
+                                <button name="nt" onClick={moveOn}>
+                                    Продолжить
                                     <div className="ntIcon"></div>
                                 </button>
                             :<></>}
                         </div>
                     </div>
                 :
-                    <div className="right-content-find-master">
+                    <div className="createTopic-list-of-masters">
                         {leftButtonsComps[idLeftButtonsComps]}
                     </div>}
             </div>
+            <Popup active={activePop} setActive={setActivePop}>
+                {textPop}
+            </Popup>
         </div>
-        <Popup active={activePop} setActive={setActivePop}>
-            {textPop}
-        </Popup>
     </Fragment>);
 }
 

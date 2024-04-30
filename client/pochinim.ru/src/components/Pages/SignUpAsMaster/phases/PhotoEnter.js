@@ -17,8 +17,10 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO, step, setStep}) => {
     }
 
     return(<div className="phases-wrapper">
-        <h1>Фото в профиль</h1>
-        <a>Клиенты чаще всего выбирают мастеров с фото в профиле. В любой момент можно сметь фото.</a>
+        <div className="signUpMaster-annotation">
+            <h1>Фото в профиль</h1>
+            <a>Клиенты чаще всего выбирают мастеров с фото в профиле. В любой момент можно сметь фото.</a>
+        </div>
         <div className="photo-choose-block">
             <div className="photo-choose-input" onClick={() => document.querySelector(".photo-input-field").click()}>
                 <img src={image} alt="photo"></img>

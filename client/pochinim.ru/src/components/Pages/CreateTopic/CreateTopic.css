@@ -1,45 +1,31 @@
 @import'../../../index.css';
-.content{
+.createTopic-content{
     width: 100%;
+    height: 100vh;
+    padding: 101px;
     display: flex;
     box-sizing: border-box;
-    padding: 101px;
     justify-content: space-between;
 }
 
-.left-content button{
-    border-radius: 41px;
-    width: fit-content;
-    padding: 15px;
-    background: var(--color-secondary-grey-searchline);
-    border-color: var(--color-secondary-grey-searchline);
-    border-style: solid;
-    color: var(--color-main-black);
-    font-size: 28px;
-}
-
-.left-content a{
-    color: var(--color-secondary-grey50);
-}
-
-.right-content-create-topic{
+.createTopic-phases{
+    width: 800px;
+    max-height: 750px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    justify-content: space-between;
 }
 
-.right-content-create-topic a{
-    color: var(--color-secondary-grey50);
-}
-
-.control-buttons{
-    margin-top: 200px;
+.createTopic-phases-control-buttons{
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    gap: 550px;
+    align-items: center;
 }
 
-.control-buttons button[name=nt]{
+.createTopic-phases-control-buttons button[name=nt]{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +48,7 @@
     background: url("../../../img/arrow-right.png") no-repeat center;
 }
 
-.control-buttons button[name=prev]{
+.createTopic-phases-control-buttons button[name=prev]{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,24 +71,44 @@
     background: url("../../../img/arrow-left-grey.png") no-repeat center;
 }
 
-.blockPhase{ 
+.createTopic-phase{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 862px;
-    height: 500px;
+    gap: 40px;
 }
 
-.blockPhase h1{
-    color: var(--color-main-black);
-    font-size: 48px;
+.createTopic-phase-annotation{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 15px;
 }
 
-.blockPhase input{
+.createTopic-phase-annotation p{
+    color: var(--color-secondary-grey50);
+}
+
+.createTopic-phase-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.createTopic-address-map{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.createTopic-address{
+    width: 100%;
     border-radius: 60px;
-    background-color: var(--color-secondary-grey-searchline);
-    border-style: solid;
-    border-color: var(--color-secondary-grey-searchline);
-    color: var(--color-main-black);
+    border: 1px dashed var(--color-main-black);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
     padding: 17px 34px;
 }
 
@@ -110,92 +116,6 @@
     margin-top: 15px;
     display: flex;
     gap: 10px;
-}
-
-.topicNameHints button{
-    border-radius: 39px;
-    width: fit-content;
-    padding: 10px 15px;
-    background: var(--color-secondary-grey-searchline);
-    border-color: var(--color-secondary-grey-searchline);
-    border-style: solid;
-    color: var(--color-main-black);
-    font-size: 16px;
-}
-
-.contact{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.contact input{
-    min-width: 300px;
-    width: fit-content;
-}
-
-.listOfOptions{
-    overflow-y: scroll;
-    height: 232px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.option{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.option input{
-    width: 20px;
-    height: 20px;
-}
-
-.option p{
-    color: var(--color-main-black);
-
-    /* Text/наборный текст 2 */
-    font-family: "SF Pro Display";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 110%; /* 22px */
-}
-
-.urInput{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.urInput-radio{
-    width: 20px;
-    height: 20px;
-}
-
-.urInput-text{
-    width: 300px;
-}
-
-.addressInfo{
-    margin-top: 20px;
-    width: 100%;
-    border-radius: 60px;
-    border-style: solid;
-    border: 1px dashed var(--color-main-black);
-    display: flex;
-    justify-content: center;
-    padding: 17px 34px;
-}
-
-.Ymap{
-    margin-top: 40px;
-}
-
-.paymentOptions{
-
 }
 
 .paymentOption{
@@ -215,13 +135,13 @@
     line-height: 110%; /* 22px */
 }
 
-.moreInfo{
+.createTopic-details-text-photo{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.moreInfo textarea{
+.createTopic-details-text-photo textarea{
     width:  auto;
     height: 275px;
     resize: none;
@@ -233,7 +153,7 @@
     box-sizing: border-box;
 }
 
-.topic-photo-choose{
+.createTopic-details-photo-choose{
     border-radius: 60px;
     border: 1px dashed var(--color-main-black);
     display: flex;
@@ -241,29 +161,10 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-
-}
-
-.inputAndError{
-    display: flex;
-    align-items: center;
-}
-
-.create-topic-input-size{
-    width: 500px;
 }
 
 .create-topic-input-date-size{
     width: 500px;
-}
-
-.block-accounts-to-choose{
-    width: 862px;
-    height: 178px;
-    border-radius: 24px;
-    background: var(--color-secondary-grey-searchline);
-    display: flex;
-    flex-direction: column;
 }
 
 .list-of-accounts{
@@ -297,7 +198,16 @@
     background: url('../../../img/add.png') no-repeat center var(--color-main-wihite);
 }
 
-.block-accounts-to-choose a{
+.createTopic-accounts-to-choose{
+    width: 100%;
+    height: 178px;
+    border-radius: 24px;
+    background: var(--color-secondary-grey-searchline);
+    display: flex;
+    flex-direction: column;
+}
+
+.createTopic-accounts-to-choose a{
     color: var(--color-main-black);
     display: flex;
     border-style: solid;
@@ -305,23 +215,7 @@
     border-color: var(--color-secondary-grey-searchline);
 }
 
-.publish-topic{
-    margin-top: 20px;
-    min-height: 45px;
-    background-color: var(--color-main-blue);
-    border-style: solid;
-    border-color: var(--color-main-blue);
-    border-radius: 60px;
-    color: var(--color-main-wihite);
-}
-
-.publish-topic-in-forum{
-    display: flex;
-    gap: 7px;
-    align-items: center;
-}
-
-.right-content-find-master{
+.createTopic-list-of-masters{
     display: flex;
     flex-direction: column;
     padding: 20px;

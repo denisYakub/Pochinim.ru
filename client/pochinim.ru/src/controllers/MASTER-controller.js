@@ -36,7 +36,7 @@ class MasterController{
         const master = await data.json();
 
         localStorage.setItem('token-master', master?.accessToken);
-        localStorage.setItem('mail-master', email);
+        localStorage.setItem('mail-master', master?.email);
 
         const file = new FormData();
         file.append('masterPhoto', photo);

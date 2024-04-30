@@ -15,7 +15,12 @@
     align-items: center;
 }
 
+.signUpMaster-inputs{
+    max-width: 500px;
+}
+
 .final-address{
+    margin-top: 40px;
     height: 44px;
     width: fit-content;
     display: flex;

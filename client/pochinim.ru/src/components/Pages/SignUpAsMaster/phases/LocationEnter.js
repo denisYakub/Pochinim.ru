@@ -75,26 +75,28 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
 
     return(<div className="phases-wrapper">
         {workingFrom==0?
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: '40px'}}>
             <div className="signUpMaster-annotation">
                 <h1>Где работаете?</h1>
                 <a>Будем предлагать заказы поблизости.</a>
             </div>
-            <div className="options" onChange={e => handleWorkingFrom(e.target.value)}>
-                <div className="option">
+            <div className="options-input" onChange={e => handleWorkingFrom(e.target.value)}>
+                <div>
                     <input type="radio" value={1}></input>
                     <p>Выезжаю к клиентам</p>
                 </div>
-                <div className="option">
+                <div>
                     <input type="radio" value={2}></input>
                     <p>Принимаю клиентов у себя</p>
                 </div>
             </div>
         </div>
         :
-        <div className="location-choose-wrapper">
-            <h1>Ваш адрес</h1>
-            <a>Будем предлагать заказы поблизости. Ваш адрес не будет виден клиентам.</a>
+        <div>
+            <div className="signUpMaster-annotation">
+                <h1>Ваш адрес</h1>
+                <a>Будем предлагать заказы поблизости. Ваш адрес не будет виден клиентам.</a>
+            </div>
             <div className="final-address">
                 {workingFrom==1?
                 <div className="truck-icon"></div>
@@ -104,21 +106,21 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
             </div>
             {workingFrom==2?
             <div>
-                <input placeholder={"Город, улица, дом"} value={address} onChange={e => setNewAddress(e.target.value)}></input>
+                <input className="text-input-field" placeholder={"Город, улица, дом"} value={address} onChange={e => setNewAddress(e.target.value)}></input>
                 <YMaps query={{apikey: key}}>
                     <Map onClick={handleMapClick} 
                         onLoad={(e) => { ymaps.current = e }}
                         modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
                         instanceRef={mapRef}
                         state={{center: center, zoom: zoom}} 
-                        width={"542px"} height={"267px"}>
+                        width={"100%"} height={"267px"}>
                             {placemarkCoords && (<Placemark geometry = 
                             {placemarkCoords}></Placemark>)}
                     </Map>
                 </YMaps>
             </div>
             :
-            <div className="Select-m">
+            <div>
                 <Select
                     options={optionList}
                     placeholder="Выберите метро"
