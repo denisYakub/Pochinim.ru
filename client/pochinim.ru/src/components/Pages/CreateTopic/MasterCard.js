@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react"
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import masterController from '../../../controllers/MASTER-controller';
+import './MasterCard.css'
 
 const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) => {
 
