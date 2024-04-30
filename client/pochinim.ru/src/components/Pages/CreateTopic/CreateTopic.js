@@ -250,9 +250,7 @@ const CreateTopic = () => {
                         </div>
                     </div>
                 :
-                    <div className="createTopic-list-of-masters">
-                        {leftButtonsComps[idLeftButtonsComps]}
-                    </div>}
+                    leftButtonsComps[idLeftButtonsComps]}
             </div>
             <Popup active={activePop} setActive={setActivePop}>
                 {textPop}
