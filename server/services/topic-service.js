@@ -1,7 +1,7 @@
 const pool = require('../database');
 class TopicService{
     async createNewTopic(topicName, fio, phoneNumber, need, problem, problemLocation,
-                            address, date, payment, detailsTxt, mail){
+                            address, date, payment, priceStart, priceEnd, detailsTxt, mail){
         try {
 
             const accountId = await pool.query(`SELECT id_account FROM accounts
@@ -9,11 +9,12 @@ class TopicService{
 
             await pool.query(`INSERT INTO topics (FIO, phone_number, need, problem,
                                                 problem_location, address, details, id_payment, 
-                                                id_account, topic_name, date, status, views) 
+                                                id_account, topic_name, date, status, views, price_start_end) 
                                             VALUES('${fio}', '${phoneNumber}', '${need}', '${problem}',
                                                 '${problemLocation}', '${address}', '${detailsTxt}', 
                                                 ${payment}, ${accountId.rows[0].id_account}, 
-                                                '${topicName}', '${date}', 'активен', 0)`);
+                                                '${topicName}', '${date}', 'активен', 0, 
+                                                '{${priceStart}, ${priceEnd}}')`);
             const id_topic = await pool.query(`SELECT id_topic FROM topics 
                                                     WHERE phone_number = '${phoneNumber}'
                                                     AND date = '${date}'`);
@@ -72,6 +73,7 @@ module.exports = new TopicService();
     date date NOT NULL,
     views integer NOT NULL,
     status character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    price_start_end character varying(100)[] COLLATE pg_catalog."default",
     CONSTRAINT "Topics_pkey" PRIMARY KEY (id_topic),
     CONSTRAINT "Topics_id_account_fkey" FOREIGN KEY (id_account)
         REFERENCES public.accounts (id_account) MATCH SIMPLE

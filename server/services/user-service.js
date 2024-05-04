@@ -105,7 +105,7 @@ class UserService{
             if(!tokenFromBD){
                 throw ApiError.UnAuthorizedError();
             }
-            
+            console.log(refreshToken);
             const account_id = await pool.query(`SELECT id_account FROM accounts_tokens WHERE token = '${refreshToken}'`);
             
             const account_id_on_return = await account_id.rows[0].id_account;
@@ -167,6 +167,14 @@ class UserService{
                 throw ApiError.BadRequest('tabels dont have this column: ', column_name);
             }
             return ret;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getUserIdByMail(email){
+        try {
+            return (await pool.query(`SELECT id_account FROM accounts
+                        WHERE account_email = '${email}'`)).rows[0].id_account;
         } catch (error) {
             throw error;
         }

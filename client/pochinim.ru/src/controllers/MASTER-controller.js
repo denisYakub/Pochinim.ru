@@ -28,7 +28,7 @@ class MasterController{
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
-            }, 
+            },  
             credentials: 'include',
             body: JSON.stringify(body)
         });
@@ -43,10 +43,6 @@ class MasterController{
 
         const ret = await fetch(`http://localhost:4000/api/masters/${master?.id_master}`,{
             method: "PUT",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
             body: file
         });
           
@@ -152,25 +148,8 @@ class MasterController{
         });
 
         const masters = await data.json();
-
-        var fin = [];
-
-        masters?.map(obj => {
-            fin.push({
-                'id': obj.id,
-                'fio': obj.fio,
-                'photo_path': obj.photo_path,
-                'stars': obj.stars,
-                'reviewsCount': obj.reviewsCount,
-                'aboutMe': obj.aboutMe,
-                'experience': obj.experience,
-                'education': obj.education,
-                'sercicesAndPrice': obj.sercicesAndPrice,
-                'reviews': obj.reviews,
-            })
-        })
-
-        return fin;
+        
+        return masters;
     }
 
     async getMasterPhotoByPath(path){

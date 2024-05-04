@@ -1,8 +1,8 @@
-const PaymentEnter = ({paymentOption, setPaymentOption}) => {
+const PaymentEnter = ({priceStart, setPriceStart, priceEnd, setPriceEnd, paymentOption, setPaymentOption}) => {
     
     const inputRadioCheck = (e) => {
         setPaymentOption(e.value);
-    }
+    };
 
     const isChecked = (index) => {
         if(paymentOption === index){
@@ -10,12 +10,16 @@ const PaymentEnter = ({paymentOption, setPaymentOption}) => {
         }else{
             return false;
         }
-    }
+    };
 
     return(<div className="createTopic-phase">
         <div className='createTopic-phase-annotation'>
             <p>8/9</p>
             <h1>Сколько готовы заплатить за работу?</h1>
+        </div>
+        <div className="price-input">
+            <input className="text-input-field" type='number' placeholder={priceStart} onChange={e => setPriceStart(e.target.value)}></input>
+            <input className="text-input-field" type='number' placeholder={priceEnd} onChange={e => setPriceEnd(e.target.value, 1)}></input>
         </div>
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             <div>

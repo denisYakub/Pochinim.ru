@@ -94,7 +94,7 @@ class UserController{
 
             const ret = await data.json();
             
-            localStorage.setItem('token', ret?.accessToken);
+            localStorage.setItem('token', ret.accessToken);
 
             if(ret?.message){
                 return false;

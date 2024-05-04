@@ -50,8 +50,13 @@ class MasterController{
     }
     async logout(req, res, next){
         try {
-            const refreshToken = await req.headers.cookie;
-            const tokenRf = refreshToken.split("=")[1];
+            //const refreshToken = await req.headers.cookie;
+            //const tokenRf = refreshToken.split("=")[1];
+            const tokens = await req.headers.cookie;
+            
+            const refreshToken = tokens?.split("; ")[0];
+            
+            const tokenRf = refreshToken?.split("=")[1];
 
             const token = await masterService.logOut(tokenRf);
             res.clearCookie('refreshToken-master');
@@ -64,7 +69,9 @@ class MasterController{
 
     async refresh(req, res, next){
         try {
-            const refreshToken = await req.headers.cookie;
+            const tokens = await req.headers.cookie;
+            
+            const refreshToken = tokens?.split("; ")[0];
             
             const token = refreshToken?.split("=")[1];
             
@@ -97,6 +104,7 @@ class MasterController{
                     'photo_path': data_master.master_photo_path,
                     'stars': reviewsStat.total_star,
                     'reviewsCount': reviewsStat.count,
+                    'documents': data_master.documents,
                     'aboutMe': data_master.about_me,
                     'experience': data_master.experience,
                     'education': data_master.education,

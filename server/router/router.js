@@ -6,6 +6,7 @@ const router = new Router();
 const multerMiddleware = require('../middleware/multer-middleware');
 const masterController = require('../controllers/master-controller');
 const imageController = require('../controllers/image-controller');
+const chatController = require('../controllers/chat-controller');
 
 //===================Users=========================
 router.post('/users', 
@@ -34,7 +35,7 @@ router.post('/masters',
 router.get('/refresh-master', 
                 masterController.refresh);
 router.post('/masters/login', 
-                masterController.login);
+                masterController.login); 
 router.post('/masters/logout', 
                 masterController.logout);
 router.get('/masters/:from/:to',
@@ -61,5 +62,17 @@ router.get('/topics/:email',
 //==================Photos=========================
 router.get('/photos/:path',
             imageController.getSinglePhoto);
+//=================================================
+
+//==================Chats==========================
+router.post('/chats/users',
+            authMiddleware,
+            chatController.sendMessageUser);
+router.get('/chats/users/:id_sender/:id_topic',
+            authMiddleware,
+            chatController.getChatsUser);  
+router.get('/chats/users/:id_sender/:id_topic/:id_companion',
+            authMiddleware,
+            chatController.getMessagesUser);  
 //=================================================
 module.exports = router;

@@ -4,6 +4,7 @@
     max-width: 1920px;
     margin: 0 auto;
     padding: 0 auto;
+    position: relative;
     background: var(--color-main-wihite);
 }
 .page-wrapper h1{
@@ -262,15 +263,51 @@
     height: 10.804px;
     background: url('../../img/five-stars.png');
 }
+.list-of-masters-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: max-content;
+    width: 100%;
+}
+.messages-wrapper{
+    padding: 20px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.message-wrapper{
+    padding: 15px;
+    width: 330px;
+    border-radius: 12px;
+    background: var(--color-main-wihite);
+    box-shadow: 0px 4px 39px 2px rgba(28, 28, 28, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.message-wrapper img{
+    width: 83px;
+    height: 83px;
+    border-radius: 83px;
+}
+.message-wrapper div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
 /*===============================================================================*/
 /*====================================INPUTS=====================================*/
 .text-input-field{
-    margin-bottom: 15px;
     border-radius: 60px;
     background: var(--color-secondary-grey05);
     border-color: var(--color-secondary-grey05);
     border-style: solid;
     width: 100%;
+    height: 100%;
     display: flex;
     padding: 12px 24px;
     align-items: center;

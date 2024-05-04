@@ -29,7 +29,7 @@ const Navbar = () => {
         }
 
         getAuth();
-    },[navigate])
+    })
 
     const selectMasterHandler = (val) =>{
         if(val == 1){

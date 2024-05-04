@@ -1,5 +1,21 @@
 @import'../../../index.css';
-.createTopic-content{
+.createTopic-content-0{
+    width: 100%;
+    height: fit-content;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.createTopic-content-1{
+    width: 100%;
+    height: fit-content;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.createTopic-content-2{
     width: 100%;
     height: 100vh;
     padding: 101px;
@@ -7,7 +23,6 @@
     box-sizing: border-box;
     justify-content: space-between;
 }
-
 .createTopic-phases{
     width: 800px;
     max-height: 750px;
@@ -213,4 +228,10 @@
     border-style: solid;
     margin: 25px;
     border-color: var(--color-secondary-grey-searchline);
+}
+
+.price-input{
+    width: 50%;
+    display: flex;
+    gap: 20px;
 }

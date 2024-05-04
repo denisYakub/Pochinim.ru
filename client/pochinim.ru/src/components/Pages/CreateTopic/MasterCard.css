@@ -1,11 +1,12 @@
 .master-wrapper{
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    border: solid;
+    box-sizing: border-box;
+    justify-content: space-around;
 }
 .master-info-card{
-    width: 700px;
+    width: fit-content;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 35px;
@@ -26,6 +27,7 @@
 .master-fio-stats{
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 .master-stats{
     display: flex;
@@ -55,12 +57,12 @@
     align-items: center;
     gap: 5px;
 }
-.shield-icon{
+.document-Паспорт-icon{
     width: 18px;
     height: 18px;
     background: url('../../../img/shield.png') no-repeat center;
 }
-.document-icon{
+.document-Договор-icon{
     width: 18px;
     height: 18px;
     background: url('../../../img/document.png') no-repeat center;
@@ -82,13 +84,23 @@
     flex-direction: column;
 }
 .experience-education-master{
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
-.sercices-price-master{
+.list-of-sercices-prices-master{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+}
+.services-prices{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px dashed var(--color-main-black);
+    border-color: var(--color-main-wihite) var(--color-main-wihite) 
+                    var(--color-secondary-grey10) var(--color-main-wihite);
 }
 .master-reviews{
     display: flex;
@@ -99,8 +111,8 @@
     display: flex;
     flex-direction: column;
     background: var(--color-secondary-grey-dies);
-    width: 281px;
-    height: 205px;
+    width: fit-content;
+    height: fit-content;
     border-radius: 20px;
     padding-top: 23px;
     padding-left: 20px;
@@ -108,12 +120,14 @@
     gap: 10px;
 }
 .master-action-card button{
-    border-radius: 60px;
-    background: var(--color-secondary-grey15);
-    border-style: solid;
-    border-color: var(--color-secondary-grey15);
-    font-size: 20px;
+    display: flex;
+    width: 100%;
     padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 46px;
+    background: var(--color-secondary-grey10);
+    border: solid 1px var(--color-secondary-grey10);
 }
 .masterLocation{
     box-sizing: border-box;
@@ -121,7 +135,7 @@
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    border-style: solid;
+    border: 1px solid;
     margin-top: 10px;
     border-color: var(--color-secondary-grey15) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies) var(--color-secondary-grey-dies);
     padding: 10px;

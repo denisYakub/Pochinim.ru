@@ -6,7 +6,10 @@ import MasterLocationEnter from './phases/LocationEnter';
 import MasterEmailEnter from './phases/EmailEnter';
 import MasterPhotoEnter from './phases/PhotoEnter';
 import MasterPasswordEnter from './phases/PasswordEnter';
+import { useNavigate } from "react-router-dom";
 import './SignUpAsMaster.css';
+import masterController from '../../../controllers/MASTER-controller';
+import { contextLocation } from '../../../contexts/contextLocation';
 
 const SignUpMaster = () => {
 
@@ -49,8 +52,15 @@ const SignUpMaster = () => {
                     <MasterPasswordEnter password={password} setPassword={setPassword} 
                                             step={step} setStep={setStep}></MasterPasswordEnter>]
 
-    useEffect(()=>{
+    const navigate = useNavigate();
+    const { city } = useContext(contextLocation);
 
+    useEffect(()=>{
+        if(step === 5){
+            masterController.registrate(`${fio[0]} ${fio[1]} ${fio[2]}`, occupation, workingFrom, address, selectedOptionsLocation,
+                                            email, photo, password, city);
+            navigate('/');
+        }
     }, [step])
 
     return(<Fragment>

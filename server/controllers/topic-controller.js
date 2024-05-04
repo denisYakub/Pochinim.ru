@@ -4,15 +4,18 @@ const topicService = require("../services/topic-service");
 class TopicController{
     async createTopic(req, res, next){
         try {
+            console.log(req.body);
             const {topicName, fio, phoneNumber,
             need, problem, problemLocation,
-            address, date, payment, 
+            address, date, payment, priceStart, priceEnd,
             detailsTxt, 
             mail} = req.body;
 
+            console.log(priceStart, priceEnd);
+
             const data = topicService.createNewTopic(topicName, fio, phoneNumber,
                                                             need, problem, problemLocation,
-                                                            address, date, payment, 
+                                                            address, date, payment, priceStart, priceEnd, 
                                                             detailsTxt, mail);
 
             return res.json((await data));

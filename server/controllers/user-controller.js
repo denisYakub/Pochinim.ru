@@ -55,8 +55,13 @@ class UserController {
 
     async logOut(req, res, next){
         try {
-            const refreshToken = await req.headers.cookie;
-            const tokenRf = refreshToken.split("=")[1];
+            //const refreshToken = await req.headers.cookie;
+            //const tokenRf = refreshToken.split("=")[1];
+            const tokens = await req.headers.cookie;
+            
+            const refreshToken = tokens?.split("; ")[1];
+            
+            const tokenRf = refreshToken?.split("=")[1];
 
             const token = await userService.logOut(tokenRf);
             res.clearCookie('refreshToken');
@@ -70,8 +75,8 @@ class UserController {
     async refresh(req, res, next){
         try {
             const tokens = await req.headers.cookie;
-
-            const refreshToken = tokens?.split("; ")[0];
+            console.log(tokens);
+            const refreshToken = tokens?.split("; ")[1];
             
             const token = refreshToken?.split("=")[1];
             

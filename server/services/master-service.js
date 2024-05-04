@@ -30,6 +30,7 @@ class MasterService{
 
             return {"result": true,
                     "id_master": id_master.rows[0].id_master,
+                    "email": email,
                     "refreshToken": (await tokens.refreshToken), 
                     "accessToken": (await tokens.accessToken)
                 };
@@ -90,7 +91,7 @@ class MasterService{
         try {
             
             const listofMasters = await pool.query(`SELECT masters.id_master AS id_master, fio, occupation, location, master_photo_path, 
-                                                    about_me, experience, education, sercices_price, city
+                                                    about_me, experience, education, sercices_price, city, documents
                                                         FROM masters INNER JOIN masters_additional_information 
                                                             ON masters.id_master = masters_additional_information.id_master`);
             
@@ -109,6 +110,14 @@ class MasterService{
             return listofMasters.rows[0];
         } catch (error) {
             throw error
+        }
+    }
+    async getMasterIdByMail(email){
+        try {
+            return (await pool.query(`SELECT id_master FROM masters
+                        WHERE master_email = '${email}'`)).rows[0].id_master;
+        } catch (error) {
+            throw error;
         }
     }
 }

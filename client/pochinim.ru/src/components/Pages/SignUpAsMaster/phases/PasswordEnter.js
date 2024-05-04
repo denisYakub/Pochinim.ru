@@ -1,13 +1,7 @@
-import { useNavigate } from "react-router-dom";
-
 const MasterPasswordEnter = ({password, setPassword, step, setStep}) => {
-
-    const navigate = useNavigate();
 
     const click = async () =>{
         if(password != ""){
-            //setStep(step + 1);
-            navigate('/');
         }
     }
 

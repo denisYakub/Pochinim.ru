@@ -1,25 +1,32 @@
-import { Fragment, useEffect, useState } from "react"
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import { Fragment, useContext, useEffect, useState } from "react"
+import {Link, useNavigate} from "react-router-dom";
 import masterController from '../../../controllers/MASTER-controller';
-import './MasterCard.css'
+import { contextChats } from "../../../contexts/contextChats";
 
-const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) => {
+const MasterProfileCard = ({value, setActivePop, setTextPop, topicId}) => {
 
     const navigate = useNavigate();
-    const { pathname } = useLocation();
 
     const [photo, setPhoto] = useState(null);
+
+    const {setCompanionInfo} = useContext(contextChats);
 
     useEffect(() => {
         async function showPhoto(path){
             setPhoto(await masterController.getMasterPhotoByPath(path));
         };
+
         showPhoto(value.photo_path);
+        setCompanionInfo({'fio': value?.fio, 'photo': photo});
     }, [])
 
-    const sendMessage = () => {
-        if(localStorage.getItem('mail') && canSendMessage){
-            navigate(`Chats/${value?.id}`);
+    const sendMessage = async () => {
+        if(localStorage.getItem('mail') && topicId != null){
+            if(topicId != true){
+                navigate(`Chats/${value?.id}/${(await topicId)}`);
+            }else{
+                navigate(`Chats/${value?.id}`);
+            }
         }else{
             setActivePop(true);
             setTextPop("Вы не можете писать специалистам, пока не заполните анкету");
@@ -81,14 +88,12 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) =>
                             </div>
                         </div>
                         <div className="master-documents">
-                            <div className="master-document">
-                                <div className="shield-icon"></div>
-                                Паспорт подтвержден
-                            </div>
-                            <div className="master-document">
-                                <div className="document-icon"></div>
-                                Работает по договору
-                            </div>
+                            {value?.documents?.map((val, ind)=>{
+                                return(<div key={ind} className="master-document">
+                                    <div className={`document-${val}-icon`}></div>
+                                    <p>{val} подтвержден</p>
+                                </div>);
+                            })}
                         </div>
                     </div>
                 </div>
@@ -99,24 +104,31 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) =>
                 <div className="experiences-educations-master">
                     <div className="master-h">Образование и опыт</div>
                     <div className="experience-education-master">
-                        <p>{value?.experience}</p>
-                        <p>{value?.education}</p>
-                        <Link to={`/CreateTopic/MasterProfile/${value?.id}`}>Все(N шт)</Link>
+                        <p>{value?.experience[0]}</p>
+                        <p>{value?.education[0]}</p>
+                        <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
+                            Все({value?.experience?.length+value?.education?.length} шт)
+                        </Link>
                     </div>
                 </div>
                 <div className="sercices-price-master">
                     <div className="master-h">Услуги и цены</div>
                     <div className="list-of-sercices-prices-master">
-                        {value?.sercicesAndPrice.map((val, ind) => {
-                            return(
-                                <div key={ind} className="sercice-price-master">
-                                    {val[0]}
-                                    ....
-                                    {val[1]}
-                                </div>
-                            );
-                        })}
-                        <Link to={`/CreateTopic/MasterProfile/${value?.id}`}>Все(N шт)</Link>
+                        <div className="services-prices" style={{marginTop: '10px'}}>
+                            <p>{value?.sercicesAndPrice[0][0]}</p>
+                            <p>{value?.sercicesAndPrice[0][1]}</p>
+                        </div>
+                        <div className="services-prices">
+                            <p>{value?.sercicesAndPrice[1][0]}</p>
+                            <p>{value?.sercicesAndPrice[1][1]}</p>
+                        </div>
+                        <div className="services-prices">
+                            <p>{value?.sercicesAndPrice[2][0]}</p>
+                            <p>{value?.sercicesAndPrice[2][1]}</p>
+                        </div>
+                        <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
+                            Все({value?.sercicesAndPrice?.length} шт)
+                        </Link>
                     </div>
                 </div>
                 <div className="master-reviews">
@@ -146,60 +158,17 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, canSendMessage}) =>
                                 </div>
                             </div>)
                         })}
-                        {/*<div className="review">
-                            <div className="review-stars-date">
-                                <div className="review-stars">
-                                    <div className={setStars(value?.reviews.stars)}></div>
-                                    {value?.reviews.stars}
-                                </div>
-                                <div className="review-date">
-                                    {value?.reviews.date}
-                                </div>
-                            </div>
-                            <div className="review-from-topic">
-                                <div className="review-from">{value?.reviews.from}</div>
-                                <div className="review-topic">{value?.reviews.topic}</div>
-                            </div>
-                            <div className="review-text">
-                                {value?.reviews.text}
-                            </div>
-                            <div className="review-price">
-                                <p>Стоимость работ:</p>
-                                <div>{value?.reviews.price}</div>
-                            </div>
-                        </div>
-                        <div className="review">
-                            <div className="review-stars-date">
-                                <div className="review-stars">
-                                    <div className={setStars(value?.reviews.stars)}></div>
-                                    {value?.reviews.stars}
-                                </div>
-                                <div className="review-date">
-                                    {value?.reviews.date}
-                                </div>
-                            </div>
-                            <div className="review-from-topic">
-                                <div className="review-from">{value?.reviews.from}</div>
-                                <div className="review-topic">{value?.reviews.topic}</div>
-                            </div>
-                            <div className="review-text">
-                                {value?.reviews.text}
-                            </div>
-                            <div className="review-price">
-                                <p>Стоимость работ:</p>
-                                <div>{value?.reviews.price}</div>
-                            </div>
-                        </div>*/}
                     </div>
-                    <Link to={`/CreateTopic/MasterProfile/${value?.id}`}>Все(N шт)</Link>
+                    <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
+                        Все({value?.reviews?.length} шт)
+                        </Link>
                 </div>
             </div>
             <div className="master-action-card">
                 <button onClick={sendMessage}>Написать соощение</button>
                 <button onClick={offerTopic}>Предложить заказ</button>
                 <div className="masterLocation">
-                    <a>Регион-</a>
-                    <p>Москва и Мо</p>
+                    <p>{value?.city}</p>
                 </div>
             </div>
         </div>

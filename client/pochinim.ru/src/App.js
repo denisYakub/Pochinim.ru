@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import { contextCreatetopic } from './contexts/contextCreatetopic';
 import { contextLocation } from './contexts/contextLocation';
 import { contextOrder } from './contexts/contextOrder';
+import { contextChats } from './contexts/contextChats';
 
 import SignInUp from './components/Pages/SignInUp/SignInUp';
 import Navbar from './components/Navigation/NavigationBar';
@@ -32,6 +33,8 @@ function App(){
   const [address, setAddress] = useState("Поставте метку на карте");
   const [date, setDate] = useState("");
   const [paymentOption, setPaymentOption] = useState("");
+  const [priceStart, setPriceStart] = useState(0);
+  const [priceEnd, setPriceEnd] = useState(0);
   const [detailsText, setDetailsText] = useState("");
   const [detailsFiles, setDetailsFiles] = useState(null);
   const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
@@ -42,35 +45,45 @@ function App(){
   const [city, setCity] = useState(cities[0]);
 
   const [order, setOrder] = useState({});
-
+  const [chats, setChats] = useState([]);
+  const [companionInfo, setCompanionInfo] = useState({});
+  
   return (
     <Fragment>
         <BrowserRouter>
           <contextCreatetopic.Provider value={{ topic, setTopic, FIO, setFIO, phoneNumber, setphoneNumber, need, setNeed,
                                               problem, setProblem, problemLocation, setProblemLocation, address, setAddress,
-                                              date, setDate, paymentOption, setPaymentOption, detailsText, setDetailsText, detailsFiles, setDetailsFiles,
+                                              date, setDate, paymentOption, setPaymentOption, 
+                                              priceStart, setPriceStart, 
+                                              priceEnd, setPriceEnd,
+                                              detailsText, setDetailsText, detailsFiles, setDetailsFiles,
                                               idLeftButtonsComps, setIdLeftButtonsComps}}>
           <contextLocation.Provider value={{locations, location, setLocation, cities, city, setCity}}>
-          <contextOrder.Provider value={{order, setOrder}}>                                   
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<MainPage  />}/>
-            <Route path='/SignInUp' element={<SignInUp />}/>
-            <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
-            <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
-            <Route path='/Search' element={<ListOfTopics  />}/>
-            <Route path='/UserProfile/:email' element={<UserProfile  />}/>
-            <Route path='/CreateTopic/:email' element={<CreateTopic  />}/>
-            <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
-            <Route path='/HelpPage' element={<HelpPage />}/>
-            <Route path='/MyOrders/:email'>
-              <Route index element={<MyOrders />} />
-              <Route path='Order/:id'>
-                <Route index element={<Order />} />
-                <Route path='Chats/:with' element={<Chats />}/>
+          <contextOrder.Provider value={{order, setOrder}}>    
+          <contextChats.Provider value={{chats, setChats, companionInfo, setCompanionInfo}}>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<MainPage  />}/>
+              <Route path='/SignInUp' element={<SignInUp />}/>
+              <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
+              <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
+              <Route path='/Search' element={<ListOfTopics  />}/>
+              <Route path='/UserProfile/:email' element={<UserProfile  />}/>
+              <Route path='/CreateTopic/:email'>
+                <Route index element={<CreateTopic  />} />
+                <Route path='Chats/:with/:id' element={<Chats />}/>
               </Route>
-            </Route>
-          </Routes>
+              <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
+              <Route path='/HelpPage' element={<HelpPage />}/>
+              <Route path='/MyOrders/:email'>
+                <Route index element={<MyOrders />} />
+                <Route path='Order/:id'>
+                  <Route index element={<Order />} />
+                  <Route path='Chats/:with' element={<Chats />}/>
+                </Route>
+              </Route>
+            </Routes>
+          </contextChats.Provider>                              
           </contextOrder.Provider> 
           </contextLocation.Provider> 
           </contextCreatetopic.Provider>

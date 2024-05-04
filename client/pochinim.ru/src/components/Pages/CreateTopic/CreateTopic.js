@@ -40,6 +40,7 @@ const CreateTopic = () => {
             address, setAddress,
             date, setDate,
             paymentOption, setPaymentOption,
+            priceStart, setPriceStart, priceEnd, setPriceEnd,
             detailsText, setDetailsText,
             detailsFiles, setDetailsFiles,
             idLeftButtonsComps, setIdLeftButtonsComps} = useContext(contextCreatetopic)
@@ -49,7 +50,7 @@ const CreateTopic = () => {
     const [accountID, setAccountID] = useState("");
     const [publishOnForum, setPublishOnForum] = useState(false);
     const [sendApplication, setSendApplication] = useState(false); 
-    const [canSendMessage, setCanSendMessage] = useState(false);
+    const [topicId, setTopicId] = useState(null);
     const [listOfMasters, setListOfMasters] = useState([]);
     
     const [error, setError] = useState(false);
@@ -70,7 +71,9 @@ const CreateTopic = () => {
                                 error={error} errorRed={errorRed}></AddressEnter>, 
                     <DateEnter date={date} setDate={setDate}
                                 error={error}></DateEnter>, 
-                    <PaymentEnter paymentOption={paymentOption} setPaymentOption={setPaymentOption}></PaymentEnter>, 
+                    <PaymentEnter priceStart={priceStart} setPriceStart={setPriceStart}
+                                    priceEnd={priceEnd} setPriceEnd={setPriceEnd}
+                                    paymentOption={paymentOption} setPaymentOption={setPaymentOption}></PaymentEnter>, 
                     <DetailsEnter detailsText={detailsText} setDetailsText={setDetailsText}
                                 detailsFiles={detailsFiles} setDetailsFiles={setDetailsFiles}
                                     errorRed={errorRed}></DetailsEnter>, 
@@ -82,9 +85,8 @@ const CreateTopic = () => {
 
     const leftButtonsComps = [<ListOfMasters listOfMasters={listOfMasters} topic={topic}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}
-                                                canSendMessage={canSendMessage}></ListOfMasters>,
+                                                topicId={topicId}></ListOfMasters>,
                                 <HelpPage></HelpPage>];                                    
-
     async function checkAccess(){
         if(auth == 'null'){
             setActivePop(true);
@@ -94,25 +96,28 @@ const CreateTopic = () => {
     async function setMaters(){
         setListOfMasters(await masterController.getListOfMasters(0, 30));
     }
-
+    
     useEffect(() => {
         checkAccess();
 
         setMaters();
         
         if(sendApplication == true){
-            console.log(publishOnForum);
             const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,
-                                    address, date, paymentOption, detailsText, detailsFiles,
+                                    address, date, priceStart, priceEnd, paymentOption, detailsText, detailsFiles,
                                         accountID};
+            async function createAndGetTopic(finalTopic){
+                const id_topic = await TOPICController.createNewTopic(finalTopic);
+                
+                return (await id_topic);
+            }
 
-            TOPICController.createNewTopic(finalTopic);
-            setCanSendMessage(true);
+            setTopicId(createAndGetTopic(finalTopic));
             setSendApplication(false);  
         }
     }, [sendApplication, FIO, accountID, address, date,
             detailsFiles, detailsText, need, paymentOption, phoneNumber, 
-                problem, problemLocation, publishOnForum, topic])
+                problem, problemLocation, publishOnForum, topic, ])
 
     const moveOn = async () => {
         var nextStage;
@@ -227,7 +232,7 @@ const CreateTopic = () => {
     
     return(<Fragment>
         <div className= "page-wrapper">
-            <div className="createTopic-content">
+            <div className={`createTopic-content-${idLeftButtonsComps}`}>
                 <div className="navigation-profile-wrapper">
                     <button className="button-grey" onClick={masters}>Специалисты</button>
                     <button className="button-grey" onClick={help}> Помощь</button>

@@ -6,6 +6,9 @@ import OrderInfo from "./OrderInfo";
 import AlertPopup from '../../Popups/AlarmPopup/AlarmPopup';
 import masterController from '../../../controllers/MASTER-controller';
 import './Order.css';
+import { contextChats } from "../../../contexts/contextChats";
+import chatController from "../../../controllers/Chat-controller";
+import Chat from '../Chats/Chat';
 
 const Order = () =>{
 
@@ -21,21 +24,24 @@ const Order = () =>{
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
 
     const [listOfMasters, setListOfMasters] = useState([]);
-    const [chats, setChats] = useState([]);
     const [photos, setPhotos] = useState([]);
     const [review, setReview] = useState([{}, {}]);
+    const [idCompanion, setIdCompanion] = useState(null);
+
+    const {chats, setChats} = useContext(contextChats);
 
     const comps = [<OrderInfo order={order}></OrderInfo>,
                     <ListOfMasters listOfMasters={listOfMasters} topic={order?.topic_name}
                                     setActivePop={setActive} setTextPop={setTextPop}
-                                    canSendMessage={true}></ListOfMasters>];
+                                    topicId={true}></ListOfMasters>,
+                    <Chat idCompanion={idCompanion} idTopic={id_topic}></Chat>];
 
     const [id, setId] = useState(0);                              
 
     useEffect(() => {
         async function setData(){
             setListOfMasters(await masterController.getListOfMasters(0, 30));
-            //setChats();
+            setChats(await chatController.getChatsUserByIdTopic(id_topic));
             //setPhotos();
             //setReview();
         }
@@ -50,21 +56,28 @@ const Order = () =>{
         if(id == 1){
             setId(0);
         }
+        if(id == 2){
+            setId(0);
+        }
     }
 
     return(<Fragment>
         <div className="page-wrapper">
             {order?.status == 'активен'?
                 <div className="order-content">
-                    <div>
+                    <div className="order-navigation">
                         <div className='navigation-profile-wrapper'>
                             <button className='button-grey' onClick={masters}>Специалисты</button>
                             <button className='button-grey'>Помощь</button>
                         </div>
-                        <div className="order-chats">
-                            {chats.map((val, ind) => {
-                                return(<div key={ind}>
-
+                        <div className="messages-wrapper">
+                            {chats?.map((val, ind) => {
+                                return(<div key={ind} className="message-wrapper" onClick={() => {setId(2);setIdCompanion(val?.id_master)}}>
+                                    <img src={val?.photo} alt=""></img>
+                                    <div> 
+                                        <h1>{val?.id_master}</h1>
+                                        <p>{val?.text_of_last_message}</p>
+                                    </div>
                                 </div>);
                             })}
                         </div>
