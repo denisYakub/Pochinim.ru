@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from "react";
-import {useAnimate} from 'framer-motion'
-import { useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { contextCreatetopic } from '../../../contexts/contextCreatetopic';
 import { contextLocation } from "../../../contexts/contextLocation";
 import TopicEnter from './phases/TopicEnter';
@@ -16,197 +15,66 @@ import AccountEnter from './phases/AccountEnter';
 import ListOfMasters from './ListOfMasters';
 import HelpPage from '../HelpPage/HelpPage';
 import masterController from '../../../controllers/MASTER-controller';
-import TOPICController from '../../../controllers/TOPIC-controller';
 import Popup from '../../Popups/AlarmPopup/AlarmPopup';
 import './CreateTopic.css';
 
 const CreateTopic = () => {
-    const navigate = useNavigate();
 
     const params = useParams();
     const auth = params?.email;
 
+    const TOPIC = useContext(contextCreatetopic);
+    const { location } = useContext(contextLocation);
+
     const [activePop, setActivePop] = useState(false);
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
+    const [hide, setHide] = useState(false);
 
     const [activeStage, setActiveStage] = useState(0);
-
-    const { topic, setTopic, 
-            FIO, setFIO, 
-            phoneNumber, setphoneNumber, 
-            need, setNeed,
-            problem, setProblem, 
-            problemLocation, setProblemLocation,
-            address, setAddress,
-            date, setDate,
-            paymentOption, setPaymentOption,
-            priceStart, setPriceStart, priceEnd, setPriceEnd,
-            detailsText, setDetailsText,
-            detailsFiles, setDetailsFiles,
-            idLeftButtonsComps, setIdLeftButtonsComps} = useContext(contextCreatetopic)
-
-    const { location, setLocation } = useContext(contextLocation)
-
-    const [accountID, setAccountID] = useState("");
-    const [publishOnForum, setPublishOnForum] = useState(false);
-    const [sendApplication, setSendApplication] = useState(false); 
-    const [topicId, setTopicId] = useState(null);
-    const [listOfMasters, setListOfMasters] = useState([]);
+    const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2);
     
-    const [error, setError] = useState(false);
-    const [errorRed, animateErrorRed] = useAnimate();
+    const [listOfMasters, setListOfMasters] = useState([]);
 
-    const phasesComps = useMemo(() => { return [<TopicEnter topic={topic} setTopic={setTopic}
-                                error={error}></TopicEnter>, 
-                    <ContactEnter FIO={FIO} setFIO={setFIO}
-                                phoneNumber={phoneNumber} setphoneNumber={setphoneNumber}
-                                    error={error}></ContactEnter>, 
-                    <NeedEnter need={need} setNeed={setNeed}
-                                error={error}></NeedEnter>, 
-                    <ProblemEnter problem={problem} setProblem={setProblem}
-                                error={error}></ProblemEnter>,
-                    <ProblemLocationEnter problemLocation={problemLocation} setProblemLocation={setProblemLocation}
-                                error={error}></ProblemLocationEnter>, 
-                    <AddressEnter address={address} setAddress={setAddress} location={location}
-                                error={error} errorRed={errorRed}></AddressEnter>, 
-                    <DateEnter date={date} setDate={setDate}
-                                error={error}></DateEnter>, 
-                    <PaymentEnter priceStart={priceStart} setPriceStart={setPriceStart}
-                                    priceEnd={priceEnd} setPriceEnd={setPriceEnd}
-                                    paymentOption={paymentOption} setPaymentOption={setPaymentOption}></PaymentEnter>, 
-                    <DetailsEnter detailsText={detailsText} setDetailsText={setDetailsText}
-                                detailsFiles={detailsFiles} setDetailsFiles={setDetailsFiles}
-                                    errorRed={errorRed}></DetailsEnter>, 
-                    <AccountEnter setSendApplication={setSendApplication}
-                                    publishOnForum={publishOnForum} setPublishOnForum={setPublishOnForum}></AccountEnter>]},
-                                [FIO, accountID, address, date, detailsFiles, detailsText, error, 
-                                    errorRed, need, paymentOption, phoneNumber, problem, problemLocation, 
-                                        publishOnForum, topic]);
+    const phasesComps = [<TopicEnter TOPIC={TOPIC}></TopicEnter>, 
+                        <ContactEnter TOPIC={TOPIC}></ContactEnter>, 
+                        <NeedEnter TOPIC={TOPIC}></NeedEnter>, 
+                        <ProblemEnter TOPIC={TOPIC}></ProblemEnter>,
+                        <ProblemLocationEnter TOPIC={TOPIC}></ProblemLocationEnter>, 
+                        <AddressEnter TOPIC={TOPIC} 
+                                        location={location}></AddressEnter>, 
+                        <DateEnter TOPIC={TOPIC}></DateEnter>, 
+                        <PaymentEnter TOPIC={TOPIC}></PaymentEnter>, 
+                        <DetailsEnter TOPIC={TOPIC}></DetailsEnter>, 
+                        <AccountEnter TOPIC={TOPIC} hide={hide} setHide={setHide}></AccountEnter>]
 
-    const leftButtonsComps = [<ListOfMasters listOfMasters={listOfMasters} topic={topic}
+    const leftButtonsComps = [<ListOfMasters listOfMasters={listOfMasters} topic={TOPIC.topicName}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}
-                                                topicId={topicId}></ListOfMasters>,
+                                                topicId={TOPIC.topicId}></ListOfMasters>,
                                 <HelpPage></HelpPage>];                                    
-    async function checkAccess(){
-        if(auth == 'null'){
-            setActivePop(true);
-        }
-    }
-
-    async function setMaters(){
-        setListOfMasters(await masterController.getListOfMasters(0, 30));
-    }
     
     useEffect(() => {
-        checkAccess();
-
-        setMaters();
-        
-        if(sendApplication == true){
-            const finalTopic = {topic, FIO, phoneNumber, need, problem, problemLocation,
-                                    address, date, priceStart, priceEnd, paymentOption, detailsText, detailsFiles,
-                                        accountID};
-            async function createAndGetTopic(finalTopic){
-                const id_topic = await TOPICController.createNewTopic(finalTopic);
-                
-                return (await id_topic);
+        async function checkAccess(){
+            if(auth == 'null'){
+                setActivePop(true);
             }
-
-            setTopicId(createAndGetTopic(finalTopic));
-            setSendApplication(false);  
         }
-    }, [sendApplication, FIO, accountID, address, date,
-            detailsFiles, detailsText, need, paymentOption, phoneNumber, 
-                problem, problemLocation, publishOnForum, topic, ])
+        async function setMasters(){
+            setListOfMasters(await masterController.getListOfMasters(0, 30));
+        }
+
+        checkAccess();
+        setMasters();
+
+    }, [])
 
     const moveOn = async () => {
-        var nextStage;
-        switch (activeStage) {
-            case 0:
-                if(topic != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 1:
-                if(FIO != "" && phoneNumber != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 2:
-                if(need != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 3:
-                if(problem != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true)
-                }
-                break;
-            case 4:
-                if(problemLocation != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 5:
-                if(address != "Поставте метку на карте"){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 6:
-                if(date != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 7:
-                if(paymentOption != ""){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-                break;
-            case 8:
-                if(detailsText != "" && detailsFiles != null){
-                    nextStage = activeStage + 1;
-                    setError(false);
-                }else{
-                    setError(true);
-                }
-            default:
-                break;
-        }
-        
-        if(nextStage <= phasesComps.length - 1){
-            setActiveStage(nextStage);
-        }
+        if(activeStage + 1 <= 9)
+            setActiveStage(activeStage + 1);
     }
 
     const moveBack = () => {
-        const prevStage = activeStage - 1;
-        if(prevStage >= 0){
-            setActiveStage(prevStage);
-        }
+        if(activeStage - 1 >= 0)
+            setActiveStage(activeStage - 1);
     }
 
     const help = () => {
@@ -233,10 +101,12 @@ const CreateTopic = () => {
     return(<Fragment>
         <div className= "page-wrapper">
             <div className={`createTopic-content-${idLeftButtonsComps}`}>
-                <div className="navigation-profile-wrapper">
-                    <button className="button-grey" onClick={masters}>Специалисты</button>
-                    <button className="button-grey" onClick={help}> Помощь</button>
-                    <a>Заполнение формы - {topic}</a>
+                <div className="createTopic-navigation">
+                    <div className="navigation-profile-wrapper">
+                        <button className="button-grey" onClick={masters}>Специалисты</button>
+                        <button className="button-grey"onClick={help}> Помощь</button>
+                    </div>
+                    <a>Заполнение формы - {TOPIC.topicName}</a>
                 </div>
                 {idLeftButtonsComps === 2?
                     <div className="createTopic-phases">

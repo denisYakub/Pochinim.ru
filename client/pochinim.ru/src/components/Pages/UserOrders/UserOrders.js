@@ -33,9 +33,9 @@ const MyOrders = () => {
                     <div className='my-orders-logged-in'>
                             <div className='my-orders-list'>
                                 <div className='my-orders-head'>
-                                    <h1 style={{marginTop: '0'}}>Мои заказы</h1>
+                                    <h1>Мои заказы</h1>
                                     <button className='button-grey'>Я заказчик</button>
-                                    <div style={{position: 'relative', height: '24px', marginTop: '50px', marginBottom: '10px'}}>
+                                    <div>
                                         <img src={FilterIcon} alt='' className='filter-icon'></img>
                                     </div>
                                 </div>
@@ -56,11 +56,13 @@ const MyOrders = () => {
                                     </div>
                                 </div>
                                 <div className='my-orders-assists-questions'>
-                                    <h3>Частые вопросы</h3>
-                                    <Link>Сколько откликов я получу?</Link>
-                                    <Link>Обязательно ли выбирать исполнителя?</Link>
-                                    <Link>Как оплачить услуги исполнителя?</Link>
-                                    <Link>Как выбрать надежного исполнителя?</Link>
+                                    <h1>Частые вопросы</h1>
+                                    <div>
+                                        <Link className='link-as-text'>Сколько откликов я получу?</Link>
+                                        <Link className='link-as-text'>Обязательно ли выбирать исполнителя?</Link>
+                                        <Link className='link-as-text'>Как оплачить услуги исполнителя?</Link>
+                                        <Link className='link-as-text'>Как выбрать надежного исполнителя?</Link>
+                                    </div>
                                 </div>
                             </div>
                     </div>}

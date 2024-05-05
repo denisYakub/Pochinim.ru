@@ -5,60 +5,53 @@ class TopicController{
     constructor(){
         makeAutoObservable(this)
     }
+    async createNewTopic(topic_name, fio, phoneNumber, need,
+            problem, problem_location, address, date,
+            {payment_option, priceStart, priceEnd}, {details_text, details_files}, 
+            mail, token
+        ){
+            console.log(topic_name, fio, phoneNumber, need,
+                problem, problem_location, address, date,
+                {payment_option, priceStart, priceEnd}, {details_text, details_files}, 
+                mail, token);
 
-    async createNewTopic({topic, FIO, phoneNumber, need, problem, problemLocation,
-        address, date, paymentOption, priceStart, priceEnd, detailsText, detailsFiles}){
-        const body = {"topicName": topic, "fio": FIO, "phoneNumber": phoneNumber,
-                            "need": need, "problem": problem, "problemLocation": problemLocation,
-                            "address": address, "date": date, "payment":paymentOption, 
+            const body = {"topicName": topic_name, "fio": fio, "phoneNumber": phoneNumber,
+                            "need": need, "problem": problem, "problemLocation": problem_location,
+                            "address": address, "date": date, "payment":payment_option, 
                             "priceStart": priceStart, "priceEnd": priceEnd,
-                            "detailsTxt": detailsText, "mail": localStorage.getItem("mail")};
+                            "detailsTxt":  details_text, "mail": mail};
 
-        var dataTopic = await fetch(`http://localhost:4000/api/topics`, {
-            credentials: "include",
-            method: "POST", 
-            headers : {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(body)
-        });
-
-        if(dataTopic.status == 401){
-            await userController.refreshUserTokens();
-
-            dataTopic = await fetch(`http://localhost:4000/api/topics`, {
-                credentials: "include",
-                method: "POST", 
-                headers : {
+            const resultFromServer = await (await fetch(`http://localhost:4000/api/topics`,{
+                    credentials: 'include',
+                    method: 'POST',
+                    headers : {
+                    "Authorization": `Bearer ${token}`,
                     "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(body)
-            });
-        }
-
-        var id_topic;
-
-        if(dataTopic.status == 200){
-            id_topic = (await dataTopic.json())?.id_topic;
-            const files = new FormData();
-
-            for(let i = 0; i < detailsFiles.length; i++){
-                files.append('topicMainPhotos', detailsFiles[i]);
-            }
+            })).json()
+            
+            if(resultFromServer?.id_topic){
+            
+                const files = new FormData();
                 
-            await fetch(`http://localhost:4000/api/topics/${id_topic}`,{
-                method: "PUT",
-                body: files
-            });
-        }
-
-        return id_topic;
+                for(let i = 0; i < details_files.length; i++){
+                    files.append('topicMainPhotos', details_files[i]);
+                }
+                
+                await fetch(`http://localhost:4000/api/topics/${resultFromServer.id_topic}`,{
+                    method: "PUT",
+                    body: files
+                });
+                
+                return resultFromServer.id_topic;
+            }else{
+                return resultFromServer;
+            }
+        
     }
-
+    
     async getListOfExistingTopics(){
         const options = ["Сантехник ремонт", "Сантехник ремонт стояка",
                             "Сантехник онлайн", "Сантехник эксперт", 

@@ -5,19 +5,21 @@ const OrderInfo = ({order, photos}) => {
         <div className="phases-wrapper">
             <div className="order-head">
                 <h1>{order?.topic_name}</h1>
-                <div className="order-id">
-                    <p>Номер заказа</p>
-                    <p>{order?.id_topic}</p>
+                <div className="order-head-info">
+                    <div className="order-id">
+                        <p style={{color: '#1C1C1C4D'}}>Номер заказа</p>
+                        <p>{order?.id_topic}</p>
+                    </div>
+                    <div className="order-date">
+                        <p style={{color: '#1C1C1C4D'}}>Создан</p>
+                        <p>{order?.date.split('T')[0]}</p>
+                    </div>
+                    <button className={`order-preview-status-${order?.status}`}>Заказ {order?.status}</button>
                 </div>
-                <div className="order-date">
-                    <p>Создан</p>
-                    <p>{order?.date}</p>
-                </div>
-                <button className={`order-preview-status-${order?.status}`}>Заказ {order?.status}</button>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Детали</p>
+                    <p>Детали</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.problem}</p>
@@ -25,49 +27,49 @@ const OrderInfo = ({order, photos}) => {
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Информация об объекте</p>
+                    <p>Информация об объекте</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.problem_location}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Удобные дни и время</p>
+                    <p>Удобные дни и время</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.date}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Стоимость услуги</p>
+                    <p>Стоимость услуги</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>от {order?.price_start} до {order?.price_end}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Кому</p>
+                    <p>Кому</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.fio}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Куда вам удобно приехать?</p>
+                    <p>Куда вам удобно приехать?</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.address}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Дополнения и пожелания</p>
+                    <p>Дополнения и пожелания</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.details}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p style={{marginTop: '0'}}>Фото и файлы</p>
+                    <p>Фото и файлы</p>
                     <div className='edit-button'></div>
                 </div>
                 <div className="order-photos">
@@ -80,7 +82,7 @@ const OrderInfo = ({order, photos}) => {
                 </div>
             </div>
             <div className="order-info-block">
-                <p style={{marginTop: '0'}}>Аккаунт</p>
+                <p>Аккаунт</p>
                 <p>{order?.id_account}</p>
             </div>
         </div>

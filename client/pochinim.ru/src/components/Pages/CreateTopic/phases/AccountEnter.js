@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-const AccountEnter = ({setSendApplication, publishOnForum, setPublishOnForum}) => {
+const AccountEnter = ({TOPIC, hide, setHide}) => {
+
     const inputRadioCheck = (e) => {
-        if(publishOnForum === false){
-            setPublishOnForum(true);
-        }else{
-            setPublishOnForum(false);
-        }
+        
     }
 
-    const [hide, setHide] = useState(false);
+    const click = async () =>{
+        setHide(true);
+        TOPIC.topicId = await TOPIC.saveTopic();
+    }
 
     return(<div className="createTopic-phase">
         <div className='createTopic-phase-annotation'>
@@ -25,10 +25,14 @@ const AccountEnter = ({setSendApplication, publishOnForum, setPublishOnForum}) =
             </div>
             <a href="">Зарегистрировать новый </a>
         </div>
-        <button className="continue-button" onClick={() => {setHide(true);setSendApplication(true)}} hidden={hide}>Опубликовать задание</button>
+        {hide?
+            <></>
+        :
+            <button className="continue-button" onClick={click}>Опубликовать задание</button>
+        }
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             <div>
-                <input type='checkbox' name="check" checked={publishOnForum} hidden={hide}></input>
+                <input type='checkbox' name="check" hidden={hide}></input>
                 <p hidden={hide}>Опубликовать задание также на форуме</p>
             </div>
         </div>

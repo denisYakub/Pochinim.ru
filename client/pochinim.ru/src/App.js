@@ -21,23 +21,9 @@ import SignInAsMaster from './components/Pages/SignInAsMaster/SignInAsMaster';
 
 import './components/UI-KIT/uiKit.css';
 import Chats from './components/Pages/Chats/Chats';
+import TOPIC from './Classes/Topic-class';
 
 function App(){
-
-  const [topic, setTopic] = useState("");
-  const [FIO, setFIO] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
-  const [need, setNeed] = useState("");
-  const [problem, setProblem] = useState("");
-  const [problemLocation, setProblemLocation] = useState("");
-  const [address, setAddress] = useState("Поставте метку на карте");
-  const [date, setDate] = useState("");
-  const [paymentOption, setPaymentOption] = useState("");
-  const [priceStart, setPriceStart] = useState(0);
-  const [priceEnd, setPriceEnd] = useState(0);
-  const [detailsText, setDetailsText] = useState("");
-  const [detailsFiles, setDetailsFiles] = useState(null);
-  const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2); 
 
   const locations = [[55.75, 37.57], [59.57, 30.19]]
   const [location, setLocation] = useState(locations[0]);
@@ -51,13 +37,7 @@ function App(){
   return (
     <Fragment>
         <BrowserRouter>
-          <contextCreatetopic.Provider value={{ topic, setTopic, FIO, setFIO, phoneNumber, setphoneNumber, need, setNeed,
-                                              problem, setProblem, problemLocation, setProblemLocation, address, setAddress,
-                                              date, setDate, paymentOption, setPaymentOption, 
-                                              priceStart, setPriceStart, 
-                                              priceEnd, setPriceEnd,
-                                              detailsText, setDetailsText, detailsFiles, setDetailsFiles,
-                                              idLeftButtonsComps, setIdLeftButtonsComps}}>
+          <contextCreatetopic.Provider value={TOPIC}>
           <contextLocation.Provider value={{locations, location, setLocation, cities, city, setCity}}>
           <contextOrder.Provider value={{order, setOrder}}>    
           <contextChats.Provider value={{chats, setChats, companionInfo, setCompanionInfo}}>

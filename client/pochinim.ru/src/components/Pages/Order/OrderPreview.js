@@ -17,11 +17,13 @@ const OrderPreView = ({value, email}) => {
     return(<Fragment>
         <div className='order-preview' onClick={() => {navigate(`Order/${value?.id_topic}`)}}>
             <div className='order-preview-info'>
-                <h1 style={{marginTop: '0'}}>{value?.topic_name}</h1>
-                <p style={{marginTop: '0'}}>{value?.address}</p>
-                <p style={{marginTop: '0'}}>{value?.date}</p>
+                <div>
+                    <h1>{value?.topic_name}</h1>
+                    <button className={`order-preview-status-${value?.status}`}>Заказ {value?.status}</button>
+                </div>
+                <p>{value?.address}</p>
+                <p>{value?.date}</p>
             </div>
-            <button className={`order-preview-status-${value?.status}`}>Заказ {value?.status}</button>
             <div className='order-views'>
                 <img src={Eye} alt=''></img>
                 {value?.views}

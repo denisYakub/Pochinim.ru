@@ -71,6 +71,7 @@ const Order = () =>{
                             <button className='button-grey'>Помощь</button>
                         </div>
                         <div className="messages-wrapper">
+                            {console.log(chats)}
                             {chats?.map((val, ind) => {
                                 return(<div key={ind} className="message-wrapper" onClick={() => {setId(2);setIdCompanion(val?.id_master)}}>
                                     <img src={val?.photo} alt=""></img>
@@ -84,7 +85,7 @@ const Order = () =>{
                     </div>
                     {comps[id]}
                 </div>
-                :order?.status == 'отменен'?
+            :order?.status == 'отменен'?
                 <div className="order-content">
                     {comps[id]}
                 </div>

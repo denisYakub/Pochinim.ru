@@ -19,3 +19,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.user-profile-navigation{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}

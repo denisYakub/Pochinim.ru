@@ -29,12 +29,14 @@ const UserProfile = () => {
     return(<Fragment>
             <div className="user-profile">
                 <div className='profile-wrapper'>
-                    <div className='navigation-profile-wrapper'>
-                        <button className='button-grey'>Личные данные</button>
-                        <button className='button-grey'>Уведомления</button>
-                        <button className='button-grey'>Привязанные соц сети</button>
-                        <button className='button-grey'>Безопасность аккаунта</button>
-                        <button className='button-grey'>Действия с профилем</button>
+                    <div className="user-profile-navigation">
+                        <div className='navigation-profile-wrapper'>
+                            <button className='button-grey'>Личные данные</button>
+                            <button className='button-grey'>Уведомления</button>
+                            <button className='button-grey'>Привязанные соц сети</button>
+                            <button className='button-grey'>Безопасность аккаунта</button>
+                            <button className='button-grey'>Действия с профилем</button>
+                        </div>
                     </div>
                     <div className='profile-info'>
                         <MainInfoBlock photo_path={user?.photo_path} name={user?.account_name} 

@@ -1,14 +1,22 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
-import {motion, useAnimate} from 'framer-motion';
-import buttonsAnimations from '../../../../animations/buttons-animations';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const AddressEnter = ({address, setAddress, error, errorRed, location}) => {
-    const [errorScope, animateError] = useAnimate();
+const AddressEnter = ({TOPIC, location}) => {
     const [zoom, setZoom] = useState(9);
     const [center, setCenter] = useState(location);
+    const [address, setAddress] = useState(TOPIC.address);
+
+    useEffect(()=>{
+        try {
+            TOPIC.address = address;
+        } catch (error) {
+            console.log(error);
+            setAddress('');
+        }
+        
+    },[address])
 
     const [placemarkCoords, setPlacemarkCoords] = useState(null);
 
@@ -49,9 +57,9 @@ const AddressEnter = ({address, setAddress, error, errorRed, location}) => {
             <p>6/9</p>
             <h1>По какому адресу?</h1>
         </div> 
-        <input className="text-input-field" placeholder={"Город, улица, дом"} ref={errorRed} onChange={e => setLocation(e.target.value)}></input>
+        <input className="text-input-field" placeholder={"Город, улица, дом"} onChange={e => setLocation(e.target.value)}></input>
         <div className="createTopic-address-map">
-            <p className="createTopic-address" ref={errorRed}>{address}</p>
+            <p className="createTopic-address">{address}</p>
             <YMaps query={{apikey: key}}>
                 <Map onClick={handleMapClick} 
                     onLoad={(e) => { ymaps.current = e }}

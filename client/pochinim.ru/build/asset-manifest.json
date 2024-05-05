@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.52c90605.css",
-    "main.js": "/static/js/main.8cc6e757.js",
+    "main.css": "/static/css/main.d651b3e8.css",
+    "main.js": "/static/js/main.25ad52cf.js",
     "static/media/SF-Pro-Text-Bold.otf": "/static/media/SF-Pro-Text-Bold.9ef3e7915275d9c15bbb.otf",
     "static/media/SF-Pro-Display-Semibold.otf": "/static/media/SF-Pro-Display-Semibold.037dc63930459813f575.otf",
     "static/media/SF-Pro-Display-Heavy.otf": "/static/media/SF-Pro-Display-Heavy.cfa3bd7b4cd82b11760b.otf",
@@ -23,15 +23,15 @@
     "static/media/SF-Pro-Display-RegularItalic.otf": "/static/media/SF-Pro-Display-RegularItalic.55118ef4e17d67dde923.otf",
     "static/media/SF-Pro-Display-BlackItalic.otf": "/static/media/SF-Pro-Display-BlackItalic.bf4f55c98ce6b6478da6.otf",
     "static/media/load.png": "/static/media/load.ece4ee9a2c7ea8f16e83.png",
+    "static/media/congrats-img.png": "/static/media/congrats-img.a10fc8d6be6ade65d57f.png",
     "static/media/ARROW 1.png": "/static/media/ARROW 1.8d9918adaf9f890e0ba2.png",
     "static/media/PM13_4.png": "/static/media/PM13_4.754f0ac96c9cff9ae7c1.png",
     "index.html": "/index.html",
-    "static/media/i.svg": "/static/media/i.244b4e06037a19629245.svg",
-    "main.52c90605.css.map": "/static/css/main.52c90605.css.map",
-    "main.8cc6e757.js.map": "/static/js/main.8cc6e757.js.map"
+    "main.d651b3e8.css.map": "/static/css/main.d651b3e8.css.map",
+    "main.25ad52cf.js.map": "/static/js/main.25ad52cf.js.map"
   },
   "entrypoints": [
-    "static/css/main.52c90605.css",
-    "static/js/main.8cc6e757.js"
+    "static/css/main.d651b3e8.css",
+    "static/js/main.25ad52cf.js"
   ]
 }

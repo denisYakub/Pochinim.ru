@@ -1,5 +1,29 @@
-const PaymentEnter = ({priceStart, setPriceStart, priceEnd, setPriceEnd, paymentOption, setPaymentOption}) => {
-    
+import { useState, useEffect } from "react";
+
+const PaymentEnter = ({TOPIC}) => {
+    const [paymentOption, setPaymentOption] = useState(TOPIC.paymentOption);
+    const [paymentPriceStart, setPaymentPriceStart] = useState(TOPIC.paymentPriceStart);
+    const [paymentPriceEnd, setPaymentPriceEnd] = useState(TOPIC.paymentPriceEnd);
+    const [error, setError] = useState(false);
+
+    useEffect(()=>{
+        try {
+            TOPIC.paymentOption = paymentOption;
+            TOPIC.paymentPriceStart = paymentPriceStart;
+            TOPIC.paymentPriceEnd = paymentPriceEnd;
+        } catch (error) {
+            console.log(error);
+            setPaymentOption('');
+            setPaymentPriceStart(0);
+            setPaymentPriceEnd(0);
+            setError(true);
+            setTimeout(()=>{
+                setError(false);
+            }, 5000);
+        }
+        
+    },[paymentOption, paymentPriceStart, paymentPriceEnd])
+
     const inputRadioCheck = (e) => {
         setPaymentOption(e.value);
     };
@@ -18,8 +42,8 @@ const PaymentEnter = ({priceStart, setPriceStart, priceEnd, setPriceEnd, payment
             <h1>Сколько готовы заплатить за работу?</h1>
         </div>
         <div className="price-input">
-            <input className="text-input-field" type='number' placeholder={priceStart} onChange={e => setPriceStart(e.target.value)}></input>
-            <input className="text-input-field" type='number' placeholder={priceEnd} onChange={e => setPriceEnd(e.target.value, 1)}></input>
+            <input className="text-input-field" type='number' placeholder={paymentPriceStart} onChange={e => setPaymentPriceStart(e.target.value)}></input>
+            <input className="text-input-field" type='number' placeholder={paymentPriceEnd} onChange={e => setPaymentPriceEnd(e.target.value)}></input>
         </div>
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             <div>

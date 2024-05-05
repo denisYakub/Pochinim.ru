@@ -7,6 +7,13 @@
     box-sizing: border-box;
     justify-content: space-between;
 }
+.createTopic-navigation{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: baseline;
+    gap: 10px;
+}
 .createTopic-content-1{
     width: 100%;
     height: fit-content;

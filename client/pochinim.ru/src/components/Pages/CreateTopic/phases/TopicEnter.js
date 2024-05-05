@@ -1,8 +1,26 @@
+import { useEffect, useState } from 'react';
 import InputWithError from '../../../../animations/input-error-field';
 
-const TopicEnter = ({topic, setTopic, error}) => {
+const TopicEnter = ({TOPIC}) => {
+    const [topic_name, setTopic_name] = useState(TOPIC.topicName);
+    const [error, setError] = useState(false);
+
+    useEffect(()=>{
+        try {
+            TOPIC.topicName = topic_name;
+        } catch (error) {
+            console.log(error);
+            setTopic_name('');
+            setError(true);
+            setTimeout(()=>{
+                setError(false);
+            }, 5000);
+        }
+        
+    },[topic_name])
+
     const activateHint = (value) => {
-        setTopic(value);
+        setTopic_name(value);
     };
 
     return(<div className="createTopic-phase">
@@ -11,7 +29,7 @@ const TopicEnter = ({topic, setTopic, error}) => {
             <h1>Как назвать задачу?</h1>
         </div>
         <div className='createTopic-phase-inputs'>
-            <InputWithError placeholder={"Сантехника"} value={topic} setValue={setTopic} error={error}></InputWithError>
+            <InputWithError placeholder={"Сантехника"} value={topic_name} setValue={setTopic_name} error={error}></InputWithError>
             <div className="button-hints">
                 <button className="hint" onClick={() => activateHint("Сантехника")}>
                 Сантехник

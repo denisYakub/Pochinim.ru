@@ -1,12 +1,27 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import topicController from '../../../../controllers/TOPIC-controller';
 import InputWithError from '../../../../animations/input-error-field';
 
 const optionsOfWhereIsProblem = await topicController.getListofWhereIsProblem();
 
-const ProblemLocationEnter = ({problemLocation, setProblemLocation, error}) => {
+const ProblemLocationEnter = ({TOPIC}) => {
     const [localProblemLocation, setLocalProblemLocation] = useState("");
+    const [problemLocation, setProblemLocation] = useState(TOPIC.problemLocation);
+    const [error, setError] = useState(false);
 
+    useEffect(()=>{
+        try {
+            TOPIC.problemLocation = problemLocation;
+        } catch (error) {
+            console.log(error);
+            setProblemLocation('');
+            setError(true);
+            setTimeout(()=>{
+                setError(false);
+            }, 5000);
+        }
+        
+    },[problemLocation])
 
     const inputRadioCheck = (e) => {
         setProblemLocation(e.value);

@@ -1,12 +1,27 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import topicController from '../../../../controllers/TOPIC-controller';
 import InputWithError from '../../../../animations/input-error-field';
 
 const optionsOfWork = await topicController.getListOfWork();
 
-const NeedEnter = ({need, setNeed, error}) => {
+const NeedEnter = ({TOPIC}) => {
     const [localNeed, setLocalNeed] = useState("");
+    const [need, setNeed] = useState(TOPIC.need);
+    const [error, setError] = useState(false);
 
+    useEffect(()=>{
+        try {
+            TOPIC.need = need;
+        } catch (error) {
+            console.log(error);
+            setNeed('');
+            setError(true);
+            setTimeout(()=>{
+                setError(false);
+            }, 5000);
+        }
+        
+    },[need])
 
     const inputRadioCheck = (e) => {
         setNeed(e.value);
