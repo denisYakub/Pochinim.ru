@@ -1,22 +1,26 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
+import { contextWebsite } from "../../../../contexts/contextWebsite";
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const AddressEnter = ({TOPIC, location}) => {
+const AddressEnter = ({TOPIC}) => {
+    const WEBSITE = useContext(contextWebsite)
+
     const [zoom, setZoom] = useState(9);
-    const [center, setCenter] = useState(location);
+    const [center, setCenter] = useState(WEBSITE.currentCoordinates);
     const [address, setAddress] = useState(TOPIC.address);
 
-    useEffect(()=>{
+    useEffect(() => {
         try {
             TOPIC.address = address;
+            
+            setCenter(WEBSITE.currentCoordinates);
         } catch (error) {
             console.log(error);
             setAddress('');
         }
-        
-    },[address])
+    },[address, center])
 
     const [placemarkCoords, setPlacemarkCoords] = useState(null);
 

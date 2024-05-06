@@ -1,0 +1,7 @@
+@import'../../../../index.css';
+
+.signin-as-master-content{
+    display: flex;
+    flex-direction: column;
+    padding: 101px;
+}

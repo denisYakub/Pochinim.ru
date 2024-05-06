@@ -54,25 +54,31 @@ router.post('/topics',
 router.put('/topics/:id_topic',
                 multerMiddleware.any('topicMainPhotos'),
                 topicController.saveFileForTopic);
+router.get('/topics/images/:id_topic',
+                authMiddleware,
+                topicController.getPathsOfTopicImgs);
 router.get('/topics/:email',
                 authMiddleware,
-                topicController.getAllUsersTopics)
+                topicController.getAllUsersTopics);
 //=================================================
 
 //==================Photos=========================
-router.get('/photos/:path',
+router.post('/photos/',
             imageController.getSinglePhoto);
 //=================================================
 
 //==================Chats==========================
-router.post('/chats/users',
+router.post('/chats',
             authMiddleware,
-            chatController.sendMessageUser);
+            chatController.getChat);
 router.get('/chats/users/:id_sender/:id_topic',
             authMiddleware,
-            chatController.getChatsUser);  
-router.get('/chats/users/:id_sender/:id_topic/:id_companion',
+            chatController.getChatsUser);
+router.get('/messages/:id_chat',
             authMiddleware,
-            chatController.getMessagesUser);  
+            chatController.getMessages);  
+router.post('/messages/:id_chat',
+            authMiddleware,
+            chatController.sendMessage); 
 //=================================================
 module.exports = router;

@@ -2,7 +2,7 @@ const pool = require('../database');
 const masterService = require('./master-service');
 const userService = require('./user-service');
 class ChatService{
-    async sendMessage(email_sender, id_companion, message_text, id_topic, sender_role){
+    /*async sendMessage(email_sender, id_companion, message_text, id_topic, sender_role){
         try {
             var chat_exists;
             var id_sender;
@@ -47,24 +47,8 @@ class ChatService{
         } catch (error) {
             throw error;
         }
-    }
-    async createChat(id_account, id_master, message_text, id_topic){
-        try {
-            const today = new Date();
-
-            await pool.query(`INSERT INTO chats 
-                                (text_of_last_message, id_user, id_master, date, id_topic) 
-                                        VALUES 
-                                ('${message_text}', '${id_account}', '${id_master}', 
-                                '${today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()}', '${id_topic}')`);
-
-            return (await pool.query(`SELECT id_chat FROM chats 
-                        WHERE id_user = '${id_account}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
-        } catch (error) {
-            throw error;
-        }
-    };
-    async getAllMessagesFromChat(sender_email, id_companion, id_topic, sender_role){
+    }*/
+    /*async getAllMessagesFromChat(sender_email, id_companion, id_topic, sender_role){
         try {
             var id_chat;
             var id_sender;
@@ -84,12 +68,72 @@ class ChatService{
         } catch (error) {
             throw error;
         }
+    }*/
+    async getChatID(id_user, id_master, id_topic){
+        try {
+            const chat_exists = (await pool.query(`SELECT COUNT(*) FROM chats
+                                WHERE id_user = '${id_user}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].count;
+
+            var id_chat;
+            
+            if(chat_exists == 1){
+                id_chat = (await pool.query(`SELECT id_chat FROM chats
+                            WHERE id_user = '${id_user}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
+            }else{
+                id_chat = this.createChat(id_user, id_master, 'Пока тут пусто', id_topic)
+            }
+            
+            return id_chat;
+        } catch (error) {
+            throw error;
+        }
     }
+    async createChat(id_account, id_master, message_text, id_topic){
+        try {
+            const today = new Date();
+
+            await pool.query(`INSERT INTO chats 
+                                (text_of_last_message, id_user, id_master, date, id_topic) 
+                                        VALUES 
+                                ('${message_text}', '${id_account}', '${id_master}', 
+                                '${today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()}', '${id_topic}')`);
+
+            return (await pool.query(`SELECT id_chat FROM chats 
+                        WHERE id_user = '${id_account}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
+        } catch (error) {
+            throw error;
+        }
+    };
     async getUserChatsByIdTopic(sender_email, id_topic){
         try {
             const id_user = await userService.getUserIdByMail(sender_email);
 
             return (await pool.query(`SELECT * FROM chats WHERE id_user = '${id_user}' AND id_topic = '${id_topic}'`)).rows;            
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getMessagesByIdChat(id_chat){
+        try {
+            
+            return (await pool.query(`SELECT * from messages WHERE id_chat = ${id_chat}`)).rows;
+
+        } catch (error) {
+            throw error;
+        }
+    }
+    async sendMessageByIdChat(id_chat, text, sender_email){
+        try {
+            
+            await pool.query(`INSERT INTO messages 
+                                (id_chat, sender_email, message)
+                                    VALUES
+                                (${id_chat}, '${sender_email}', '${text}')`);
+
+            await pool.query(`UPDATE chats SET 
+                                text_of_last_message = '${text}' WHERE id_chat = '${id_chat}'`)
+
+            return;
         } catch (error) {
             throw error;
         }

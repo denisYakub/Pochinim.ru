@@ -3,38 +3,34 @@ import { useParams } from "react-router-dom";
 import './Chats.css';
 import { contextChats } from "../../../contexts/contextChats";
 import DotsImg from '../../../img/3-bots-img.png';
-import chatController from "../../../controllers/Chat-controller";
 
-const Chats = ({idCompanion, idTopic}) => {
+const Chats = () => {
 
     const params = useParams();
 
-    //const {chats, companionInfo} = useContext(idCompanion);
-
-    const [companionID, setCompanionID] = useState(idCompanion);
-    const [messages, setMessages] = useState([]);
+    const CHATS = useContext(contextChats);
+    const [messages, setMessages] = useState(CHATS.messages);
     const [message, setMessage] = useState('');
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getData(){
-            setMessages(await chatController.getMessagesUser(idTopic, companionID));
+            await CHATS.downloadMessagesOfChat();
+            setMessages(CHATS.messages);
         };
         
         getData();
-    });
+    }, [messages]);
 
     const enter = async () => {
-        if(message != ''){
-            await chatController.sendMessageUser(message, companionID, idTopic);
-            setMessage('');
-        }
+        CHATS.sendMessage(message);
+        setMessage('');
     }
 
     return(<Fragment>
                 <div className="opened-chat">
                     <div className="chat-head">
                         <div>
-                            {companionID}
+                            {CHATS.idCompanion}
                         </div>
                         <img src={DotsImg} alt=""></img>
                     </div>

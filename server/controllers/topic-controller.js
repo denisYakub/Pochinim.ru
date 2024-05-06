@@ -52,7 +52,19 @@ class TopicController{
 
             return res.json(data);
         } catch (error) {
-            next(e);
+            next(error);
+        }
+    }
+
+    async getPathsOfTopicImgs(req, res, next){
+        try {
+            const id_topic = req.params.id_topic;
+            
+            const data = await topicService.getPathsOfTopicFiles(id_topic);
+
+            return res.json(data);
+        } catch (error) {
+            next(error);
         }
     }
 }

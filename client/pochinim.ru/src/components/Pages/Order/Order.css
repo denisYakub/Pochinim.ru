@@ -104,3 +104,71 @@
     border-radius: 8px;
     background: var(--color-secondary-grey10);
 }
+
+.order-preview{
+    border: 1px solid;
+    border-color: var(--color-main-wihite) var(--color-main-wihite) 
+                    var(--color-secondary-grey15) var(--color-main-wihite);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.order-preview-info{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.order-preview-info div{
+    display: flex;
+    align-items: center;
+}
+.order-preview-status-активен{
+    margin-left: 20px;
+    width: 140px;
+    display: flex;
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 39px;
+    background: var(--color-secondary-green);
+    border: 1px solid var(--color-secondary-green);
+}
+
+.order-preview-status-отменен{
+    margin-left: 20px;
+    width: 140px;
+    display: flex;
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 39px;
+    background: var(--color-secondary-red);
+    border: 1px solid var(--color-secondary-red);
+}
+
+.order-preview-status-завершен{
+    margin-left: 20px;
+    width: 140px;
+    display: flex;
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 39px;
+    background: var(--color-secondary-grey15);
+    border: 1px solid var(--color-secondary-grey15);
+}
+
+.order-views{
+    margin-left: 280px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.order-views img{
+    width: 16px;
+    height: 16px;
+}

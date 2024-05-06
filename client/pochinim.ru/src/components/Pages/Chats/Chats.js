@@ -3,41 +3,32 @@ import { useParams } from "react-router-dom";
 import './Chats.css';
 import { contextChats } from "../../../contexts/contextChats";
 import DotsImg from '../../../img/3-bots-img.png';
-import chatController from "../../../controllers/Chat-controller";
 
-const Chats = ({idCompanion, idTopic}) => {
+const Chats = () => {
 
     const params = useParams();
 
-    const {chats, companionInfo} = useContext(contextChats);
+    const CHATS = useContext(contextChats);
+    const [chats, setChats] = useState(CHATS.chats);
 
     const [companionID, setCompanionID] = useState('');
-    const [topicId, setTopicId] = useState('');
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
     useEffect(()=>{
         async function getData(){
-            if(companionID == '' && topicId == ''){
-                if(idCompanion && idTopic){
-                    setCompanionID(idCompanion);
-                    setTopicId(idTopic);
-                }else{
-                    console.log(params.with, params.id);
-                    setCompanionID(params.with);
-                    setTopicId(params.id);
-                }
-            }
-            setMessages(await chatController.getMessagesUser(topicId, companionID));
+            await CHATS.downloadChatsOfTopic(CHATS.idTopic);
+            setChats(CHATS.chats);
+            await CHATS.downloadMessagesOfChat();
+            setMessages(CHATS.messages);
         };
+
         getData();
-    });
+    }, [chats]);
 
     const enter = async () => {
-        if(message != ''){
-            await chatController.sendMessageUser(message, companionID, topicId);
-            setMessage('');
-        }
+        CHATS.sendMessage(message);
+        setMessage('');
     }
 
     return(<Fragment>
@@ -45,7 +36,7 @@ const Chats = ({idCompanion, idTopic}) => {
             <div className="chats-content">
                     <div className="messages-wrapper">
                         {chats?.map((val, ind) => {
-                            return(<div key={ind} className="message-wrapper" onClick={() => {setCompanionID(val?.id_master)}}>
+                            return(<div key={ind} className="message-wrapper" onClick={() => {CHATS.idCompanion = val?.id_master}}>
                                 <img src={val?.photo} alt=""></img>
                                 <div> 
                                     <h1>{val?.id_master}</h1>

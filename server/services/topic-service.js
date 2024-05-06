@@ -53,6 +53,26 @@ class TopicService{
             throw error;
         }
     }
+
+    async getPathsOfTopicFiles(id_topic){
+        try {
+            const id_files = (await pool.query(`SELECT id_file FROM topics_files 
+                                                    WHERE id_topic = ${id_topic}`)).rows
+
+            var paths = [];
+
+            for(const id_file of id_files){
+
+                const path = (await pool.query(`SELECT file_url FROM files 
+                                                    WHERE id_file = ${id_file.id_file}`)).rows[0].file_url;
+                paths.push(path);                             
+            }
+
+            return paths;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new TopicService();

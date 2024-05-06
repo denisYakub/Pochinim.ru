@@ -1,0 +1,95 @@
+@import'../../../../index.css';
+
+.signUpMaster-content{
+    width: 100%;
+    height: 100vh;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.signUpMaster-annotation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpMaster-inputs{
+    max-width: 500px;
+}
+
+.final-address{
+    margin-top: 40px;
+    height: 44px;
+    width: fit-content;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 35px;
+    align-items: center;
+    border-radius: 35px;
+    border: 1px solid var(--color-main-blue);
+    padding: 0px 15px;
+    gap: 10px;
+}
+
+.truck-icon{
+    width: 18px;
+    height: 18px;
+    background: url("../../../../img/truck.png") no-repeat center;
+}
+
+.home-icon{
+    width: 18px;
+    height: 18px;
+    background: url("../../../../img/home.png") no-repeat center;
+}
+
+.final-address p{
+    color: var(--color-main-blue);
+    font-size: 20px;
+}
+
+.yep-icon{
+    width: 24px;
+    height: 24px;
+    background: url("../../../../img/check.png") no-repeat center;
+}
+
+.nope-icon{
+    width: 24px;
+    height: 24px;
+    background: url("../../../../img/x.png") no-repeat center;
+}
+
+.send-code-button{
+    background: var(--color-secondary-grey05);
+    border: 1px var(--color-secondary-grey05);
+    border-radius: 60px;
+    padding: 10px 20px;
+    width: fit-content;
+    align-self: center;
+}
+
+.photo-choose-block{
+    display: flex;
+    gap: 35px;
+}
+
+.photo-choose-input{
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-secondary-grey05);
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-secondary-grey05);
+    padding: 50px;
+}
+
+.photo-choose-input img{
+    width: 217.15px;
+    height: 217.15px;
+    border-radius: 50%;
+    border:1px dashed var(--color-main-black);
+}

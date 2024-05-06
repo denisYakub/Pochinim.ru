@@ -3,13 +3,13 @@ import {Link, useNavigate} from "react-router-dom";
 import masterController from '../../../controllers/MASTER-controller';
 import { contextChats } from "../../../contexts/contextChats";
 
-const MasterProfileCard = ({value, setActivePop, setTextPop, topicId}) => {
+const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
 
     const navigate = useNavigate();
 
     const [photo, setPhoto] = useState(null);
 
-    const {setCompanionInfo} = useContext(contextChats);
+    const CHATS = useContext(contextChats);
 
     useEffect(() => {
         async function showPhoto(path){
@@ -17,16 +17,17 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, topicId}) => {
         };
 
         showPhoto(value.photo_path);
-        setCompanionInfo({'fio': value?.fio, 'photo': photo});
     }, [])
 
     const sendMessage = async () => {
-        if(localStorage.getItem('mail') && topicId != null){
-            if(topicId != true){
-                navigate(`Chats/${value?.id}/${(await topicId)}`);
-            }else{
-                navigate(`Chats/${value?.id}`);
-            }
+        if(localStorage.getItem('mail') && idTopic != null){
+
+            CHATS.idCompanion = value?.id;
+            CHATS.idTopic = idTopic;
+            await CHATS.setChatIDByIdTopic(idTopic);
+
+            navigate(`Chats/${value?.id}`);
+
         }else{
             setActivePop(true);
             setTextPop("Вы не можете писать специалистам, пока не заполните анкету");

@@ -1,29 +1,37 @@
 import { Fragment, useEffect, useState } from "react";
 import MasterProfileCard from './MasterCard';
 import './MasterCard.css'
+import masterController from "../../../controllers/MASTER-controller";
 
-const ListOfMasters = ({listOfMasters, topic, setActivePop, setTextPop, topicId}) => {
-    const [list, setList] = useState(listOfMasters);
+const ListOfMasters = ({topic, setActivePop, setTextPop, idTopic}) => {
+    const [list, setList] = useState([]);
 
     useEffect(() => {
-        var sortedList = [];
+        async function setData(){
 
-        if(list.length > 0){
-            list.forEach(el => {
-                for (var i = 0; i < el.sercicesAndPrice.length; ++i){
-                    if(el.sercicesAndPrice[i][0].toLowerCase().includes(topic.toLowerCase())){
-                        sortedList.push(el);
-                        break;
+            var sortedList = [];
+
+            setList(await masterController.getListOfMasters(0, 30));
+
+            if(list.length > 0){
+                list.forEach(el => {
+                    for (var i = 0; i < el.sercicesAndPrice.length; ++i){
+                        if(el.sercicesAndPrice[i][0].toLowerCase().includes(topic.toLowerCase())){
+                            sortedList.push(el);
+                            break;
+                        }
                     }
-                }
-            });
-
-            if(sortedList.length > 0){
-                setList(sortedList); 
-            }else{
-                //если ничего не нашлось
-            }   
+                });
+    
+                if(sortedList.length > 0){
+                    setList(sortedList); 
+                }else{
+                    //если ничего не нашлось
+                } 
+            }
         }
+
+        setData();
     }, []);
 
     return(<Fragment>
@@ -31,7 +39,7 @@ const ListOfMasters = ({listOfMasters, topic, setActivePop, setTextPop, topicId}
             return(<div className="list-of-masters-wrapper">
                 <MasterProfileCard value={obj} key={key} 
                 setActivePop={setActivePop} setTextPop={setTextPop}
-                topicId={topicId}></MasterProfileCard>
+                idTopic={idTopic}></MasterProfileCard>
             </div>);    
         })}
     </Fragment>);

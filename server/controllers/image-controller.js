@@ -3,7 +3,9 @@ const fs = require('fs');
 class PhotoController{
     async getSinglePhoto(req, res, next){
         try {
-            const path = req.params.path;
+            const { path } = req.body;
+
+            console.log(path);
 
             const full_path_name = `C:\\Users\\denis\\VSCode_projects\\Pochinim.ru\\server\\${path}`;
             var data = null;

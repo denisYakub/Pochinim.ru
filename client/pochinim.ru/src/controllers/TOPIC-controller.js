@@ -51,6 +51,44 @@ class TopicController{
             }
         
     }
+
+    async getPhotosByIdTopic(id_topic){
+
+        const token = localStorage.getItem('token');
+
+        const paths = await (await fetch(`http://localhost:4000/api/topics/images/${id_topic}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers : {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
+        })).json()
+
+        var images = [];
+
+        console.log(paths);
+
+        for(const path of paths){
+
+            const data = await fetch(`http://localhost:4000/api/photos`,{
+            method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ path: path })
+            })
+
+            const photo = await data.blob();
+
+            const obj = URL.createObjectURL(photo);
+
+            images.push(obj)
+        }
+
+        return images;
+    }
     
     async getListOfExistingTopics(){
         const options = ["Сантехник ремонт", "Сантехник ремонт стояка",

@@ -4,17 +4,14 @@ import { contextOrder } from '../../../contexts/contextOrder';
 import ListOfMasters from "../CreateTopic/ListOfMasters";
 import OrderInfo from "./OrderInfo";
 import AlertPopup from '../../Popups/AlarmPopup/AlarmPopup';
-import masterController from '../../../controllers/MASTER-controller';
 import './Order.css';
 import { contextChats } from "../../../contexts/contextChats";
-import chatController from "../../../controllers/Chat-controller";
 import Chat from '../Chats/Chat';
+import topicController from "../../../controllers/TOPIC-controller";
 
 const Order = () =>{
 
     const params = useParams();
-
-    const pev_page = `${params.pev_page}/${params.who}`;
 
     const id_topic = params.id;
 
@@ -22,32 +19,34 @@ const Order = () =>{
 
     const [active, setActive] = useState(false);
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
-
-    const [listOfMasters, setListOfMasters] = useState([]);
     const [photos, setPhotos] = useState([]);
     const [review, setReview] = useState([{}, {}]);
-    const [idCompanion, setIdCompanion] = useState(null);
 
-    const {chats, setChats} = useContext(contextChats);
+    const CHATS = useContext(contextChats);
+    const [chats, setChats] = useState(CHATS.chats);
 
-    const comps = [<OrderInfo order={order}></OrderInfo>,
-                    <ListOfMasters listOfMasters={listOfMasters} topic={order?.topic_name}
+    const comps = [<OrderInfo order={order} photos={photos}></OrderInfo>,
+                    <ListOfMasters topic={order?.topic_name}
                                     setActivePop={setActive} setTextPop={setTextPop}
-                                    topicId={true}></ListOfMasters>,
-                    <Chat idCompanion={idCompanion} idTopic={id_topic}></Chat>];
+                                    idTopic={id_topic}></ListOfMasters>,
+                    <Chat></Chat>];
 
-    const [id, setId] = useState(0);                              
+    const [id, setId] = useState(0);
+    
+    const [tf, setTf] = useState(true);
 
     useEffect(() => {
         async function setData(){
-            setListOfMasters(await masterController.getListOfMasters(0, 30));
-            setChats(await chatController.getChatsUserByIdTopic(id_topic));
-            //setPhotos();
-            //setReview();
+            await CHATS.downloadChatsOfTopic(id_topic);
+            setChats(CHATS.chats);
+            if(tf){
+                setPhotos(await topicController.getPhotosByIdTopic(id_topic));
+            }
         }
         
         setData();
-    }, [])
+        setTf(false);
+    }, [chats])
 
     const masters = () => {
         if(id == 0){
@@ -71,9 +70,9 @@ const Order = () =>{
                             <button className='button-grey'>Помощь</button>
                         </div>
                         <div className="messages-wrapper">
-                            {console.log(chats)}
                             {chats?.map((val, ind) => {
-                                return(<div key={ind} className="message-wrapper" onClick={() => {setId(2);setIdCompanion(val?.id_master)}}>
+                                return(<div key={ind} className="message-wrapper" 
+                                    onClick={() => {setId(2);CHATS.idCompanion = val?.id_master;CHATS.idChat = val?.id_chat}}>
                                     <img src={val?.photo} alt=""></img>
                                     <div> 
                                         <h1>{val?.id_master}</h1>

@@ -12,34 +12,36 @@ class Topic{
     #problem
     #problem_location
     #date
+    #today_date
     #payment
     #details
 
-    constructor(topic_name, fio, phoneNumber, need, problem, problem_location, address, date, payment_option, price_start, price_end, details_text, details_files){
+    constructor(){
         this.#topic_id = null;
-        this.#topic_name = topic_name;
+        this.#topic_name = null;
 
-        this.#fio = fio;
-        this.#phone_number = phoneNumber;
-        this.#address = address;
+        this.#fio = null;
+        this.#phone_number = null;
+        this.#address = null;
         this.#mail = localStorage.getItem('mail');
 
-        this.#need = need;
-        this.#problem = problem;
-        this.#problem_location = problem_location;
-        this.#date = date;
-        this.#payment = {'payment_option': payment_option, 'price_start': price_start, 'price_end': price_end};
+        this.#need = null;
+        this.#problem = null;
+        this.#problem_location = null;
+        this.#date = null;
+        this.#today_date = new Date();
+        this.#payment = {'payment_option': null, 'price_start': null, 'price_end': null};
 
-        this.#details = {'details_text': details_text, 'details_files': details_files};
+        this.#details = {'details_text': null, 'details_files': null};
     }
 
     async saveTopic(){
         try {
             var result;
 
-            if(this.#topic_name != '' && this.#fio != '' && this.#phone_number != '' && this.#need != '' &&
-                this.#problem != '' && this.#address != '' && this.#date != '' && this.#payment.payment_option != '' &&
-                this.#details.details_files != '' && this.#details.details_text != '' && 
+            if(this.#topic_name != null && this.#fio != null && this.#phone_number != null && this.#need != null &&
+                this.#problem != null && this.#address != null && this.#date != null && this.#payment.payment_option != null &&
+                this.#details.details_files != null && this.#details.details_text != null && 
                 localStorage.getItem('mail') != null && localStorage.getItem("token") != null){
 
                     result = await topicController.createNewTopic(
@@ -72,7 +74,7 @@ class Topic{
         return this.#topic_name;
     }
     set topicName(new_topic_name){
-        if(new_topic_name != null && new_topic_name != ''){
+        if(new_topic_name != null){
             this.#topic_name = new_topic_name;
         }else{
             throw Error('Ошибка в setter');
@@ -229,6 +231,6 @@ class Topic{
 
 }
 
-const topic = new Topic('', '', '', '', '', '', '', '', '', '', '', '', '');
+const topic = new Topic();
 
 export default topic;

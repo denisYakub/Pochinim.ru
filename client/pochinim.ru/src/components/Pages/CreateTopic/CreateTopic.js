@@ -1,7 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from "react";
 import { useParams} from "react-router-dom";
 import { contextCreatetopic } from '../../../contexts/contextCreatetopic';
-import { contextLocation } from "../../../contexts/contextLocation";
 import TopicEnter from './phases/TopicEnter';
 import ContactEnter from './phases/ContactEnter';
 import NeedEnter from './phases/NeedEnter';
@@ -14,7 +13,6 @@ import DetailsEnter from './phases/DetailsEnter';
 import AccountEnter from './phases/AccountEnter';
 import ListOfMasters from './ListOfMasters';
 import HelpPage from '../HelpPage/HelpPage';
-import masterController from '../../../controllers/MASTER-controller';
 import Popup from '../../Popups/AlarmPopup/AlarmPopup';
 import './CreateTopic.css';
 
@@ -24,7 +22,6 @@ const CreateTopic = () => {
     const auth = params?.email;
 
     const TOPIC = useContext(contextCreatetopic);
-    const { location } = useContext(contextLocation);
 
     const [activePop, setActivePop] = useState(false);
     const [textPop, setTextPop] = useState("Войдите или зарегестрируйтесь, чтоб создавать темы");
@@ -32,24 +29,21 @@ const CreateTopic = () => {
 
     const [activeStage, setActiveStage] = useState(0);
     const [idLeftButtonsComps, setIdLeftButtonsComps] = useState(2);
-    
-    const [listOfMasters, setListOfMasters] = useState([]);
 
     const phasesComps = [<TopicEnter TOPIC={TOPIC}></TopicEnter>, 
                         <ContactEnter TOPIC={TOPIC}></ContactEnter>, 
                         <NeedEnter TOPIC={TOPIC}></NeedEnter>, 
                         <ProblemEnter TOPIC={TOPIC}></ProblemEnter>,
                         <ProblemLocationEnter TOPIC={TOPIC}></ProblemLocationEnter>, 
-                        <AddressEnter TOPIC={TOPIC} 
-                                        location={location}></AddressEnter>, 
+                        <AddressEnter TOPIC={TOPIC}></AddressEnter>, 
                         <DateEnter TOPIC={TOPIC}></DateEnter>, 
                         <PaymentEnter TOPIC={TOPIC}></PaymentEnter>, 
                         <DetailsEnter TOPIC={TOPIC}></DetailsEnter>, 
                         <AccountEnter TOPIC={TOPIC} hide={hide} setHide={setHide}></AccountEnter>]
 
-    const leftButtonsComps = [<ListOfMasters listOfMasters={listOfMasters} topic={TOPIC.topicName}
+    const leftButtonsComps = [<ListOfMasters topic={TOPIC.topicName}
                                                 setActivePop={setActivePop} setTextPop={setTextPop}
-                                                topicId={TOPIC.topicId}></ListOfMasters>,
+                                                idTopic={TOPIC.topicId}></ListOfMasters>,
                                 <HelpPage></HelpPage>];                                    
     
     useEffect(() => {
@@ -58,13 +52,8 @@ const CreateTopic = () => {
                 setActivePop(true);
             }
         }
-        async function setMasters(){
-            setListOfMasters(await masterController.getListOfMasters(0, 30));
-        }
 
         checkAccess();
-        setMasters();
-
     }, [])
 
     const moveOn = async () => {

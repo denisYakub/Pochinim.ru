@@ -153,12 +153,13 @@ class MasterController{
     }
 
     async getMasterPhotoByPath(path){
-        const data = await fetch(`http://localhost:4000/api/photos/${path}`,{
-            method: "GET",
+        const data = await fetch(`http://localhost:4000/api/photos`,{
+            method: "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({ path: path })
         })
 
         const photo = await data.blob();
