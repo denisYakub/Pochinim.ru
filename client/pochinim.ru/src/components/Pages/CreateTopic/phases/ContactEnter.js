@@ -4,20 +4,19 @@ import InputWithError from '../../../../animations/input-error-field';
 const ContactEnter = ({TOPIC}) => {
     const [fio, setFio] = useState(TOPIC.fio);
     const [phoneNumber, setPhoneNumber] = useState(TOPIC.phoneNumber);
-    const [error, setError] = useState(false);
 
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
     useEffect(()=>{
         try {
             TOPIC.fio = fio;
             TOPIC.phoneNumber = phoneNumber;
         } catch (error) {
-            console.log(error);
-            setFio('');
-            setPhoneNumber('');
-            setError(true);
-            setTimeout(()=>{
-                setError(false);
-            }, 5000);
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message){
+                setError(true);
+            }
         }
     }, [fio, phoneNumber])
     return(<Fragment>
@@ -27,8 +26,12 @@ const ContactEnter = ({TOPIC}) => {
                 <h1>Контактная информация</h1>
             </div>
             <div className="createTopic-phase-inputs">
-                <InputWithError placeholder={"Имя Фамилия"} value={fio} setValue={setFio} error={error}></InputWithError>
-                <InputWithError placeholder={"+7-000-000-00-00"} value={phoneNumber} setValue={setPhoneNumber} error={error}></InputWithError>
+            <InputWithError placeholder={"Имя Фамилия"} value={fio} setValue={setFio} 
+                error={error} setError={setError} errorText={'Не верное значение'}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
+            <InputWithError placeholder={"+7-000-000-00-00"} value={phoneNumber} setValue={setPhoneNumber} 
+                error={error} setError={setError} errorText={'Не верное значение'}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
             </div>
         </div>
 

@@ -34,7 +34,7 @@ const Chats = () => {
     return(<Fragment>
         <div className='page-wrapper'>
             <div className="chats-content">
-                    <div className="messages-wrapper">
+                    <div className="messages-wrapper" style={{width: '333px'}}>
                         {chats?.map((val, ind) => {
                             return(<div key={ind} className="message-wrapper" onClick={() => {CHATS.idCompanion = val?.id_master}}>
                                 <img src={val?.photo} alt=""></img>

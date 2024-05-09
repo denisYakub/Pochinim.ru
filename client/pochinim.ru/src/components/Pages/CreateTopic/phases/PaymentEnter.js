@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import InputWithError from '../../../../animations/input-error-field';
 
 const PaymentEnter = ({TOPIC}) => {
     const [paymentOption, setPaymentOption] = useState(TOPIC.paymentOption);
+    const [localPaymentOption, setLocalPaymentOption] = useState("");
+
     const [paymentPriceStart, setPaymentPriceStart] = useState(TOPIC.paymentPriceStart);
     const [paymentPriceEnd, setPaymentPriceEnd] = useState(TOPIC.paymentPriceEnd);
+
     const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
 
     useEffect(()=>{
         try {
@@ -12,29 +17,27 @@ const PaymentEnter = ({TOPIC}) => {
             TOPIC.paymentPriceStart = paymentPriceStart;
             TOPIC.paymentPriceEnd = paymentPriceEnd;
         } catch (error) {
-            console.log(error);
-            setPaymentOption('');
-            setPaymentPriceStart(0);
-            setPaymentPriceEnd(0);
-            setError(true);
-            setTimeout(()=>{
-                setError(false);
-            }, 5000);
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
         }
         
     },[paymentOption, paymentPriceStart, paymentPriceEnd])
 
-    const inputRadioCheck = (e) => {
-        setPaymentOption(e.value);
+    const inputRadioCheck = (value) => {
+        console.log(value);
+        setPaymentOption(value);
     };
 
-    const isChecked = (index) => {
-        if(paymentOption === index){
+    const isCheckedUserInput = (value) =>{
+        if(value == paymentOption){
             return true;
         }else{
-            return false;
+             return false;
         }
-    };
+    }
 
     return(<div className="createTopic-phase">
         <div className='createTopic-phase-annotation'>
@@ -42,20 +45,26 @@ const PaymentEnter = ({TOPIC}) => {
             <h1>Сколько готовы заплатить за работу?</h1>
         </div>
         <div className="price-input">
-            <input className="text-input-field" type='number' placeholder={paymentPriceStart} onChange={e => setPaymentPriceStart(e.target.value)}></input>
-            <input className="text-input-field" type='number' placeholder={paymentPriceEnd} onChange={e => setPaymentPriceEnd(e.target.value)}></input>
+            <InputWithError placeholder={"от"} value={paymentPriceStart} setValue={setPaymentPriceStart} 
+                error={error} setError={setError} errorText={'Не верное значение'}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
+                inputType="number"></InputWithError>
+            <InputWithError placeholder={"до"} value={paymentPriceEnd} setValue={setPaymentPriceEnd} 
+                error={error} setError={setError} errorText={'Не верное значение'}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
+                inputType="number"></InputWithError>
         </div>
-        <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
-            <div>
-                <input type="radio" value={0} name="check"></input>
+        <div className="options-input" onChange={e => inputRadioCheck(e.target.value)}>
+            <div className="option">
+                <input type='radio' value={0} checked={isCheckedUserInput(0)} name="check"></input>
                 <p>Сделка без риска - Оплата банковской картой с гарантией возврата и компенсацией материального ущерба до 10 000 ₽. Комиссия 11% + 35 ₽. Подробнее</p>
             </div>
-            <div>
-                <input type="radio" value={1} name="check"></input>
+            <div className="option">
+                <input type="radio" value={1} checked={isCheckedUserInput(1)} name="check"></input>
                 <p>Оплата напрямую исполнителю - Без гарантий и компенсаций Починим.ру: вы напрямую договариваетесь с исполнителем об условиях и способе оплаты.</p>
             </div>
-            <div>
-                <input type="radio" value={2} name="check"></input>
+            <div className="option">
+                <input type="radio" value={2} checked={isCheckedUserInput(2)} name="check"></input>
                 <p>Оплата с закрывающими документами - Откликнутся только юридические лица, ИП или самозанятые. Вы платите с расчётного счета компании и получаете закрывающие документы от исполнителя.</p>
             </div>
         </div>

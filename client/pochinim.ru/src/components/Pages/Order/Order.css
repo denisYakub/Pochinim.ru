@@ -1,5 +1,6 @@
 .order-content{
     width: 100%;
+    min-height: 100vh;
     padding: 101px;
     display: flex;
     justify-content: space-between;

@@ -7,16 +7,16 @@ const  NotificationsBlock = ({notification_option}) => {
                 <h1>Уведомления</h1>
                 <p>Уведомления по заказм будут приходить</p>
             </div>
-            <div className="">
-                <div className="radio-button">
+            <div className="options-input">
+                <div className="option">
                     <input type='radio' checked></input>
                     <p>На почту и СМС</p>
                 </div>
-                <div className="radio-button">
+                <div className="option">
                     <input type='radio' checked={false}></input>
                     <p>На почту</p>
                 </div>
-                <div className="radio-button">
+                <div className="option">
                     <input type='radio' checked={false}></input>
                     <p>СМС</p>
                 </div>

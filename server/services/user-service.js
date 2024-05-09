@@ -91,6 +91,7 @@ class UserService{
 
     async refresh(refreshToken){
         try {
+            console.log(refreshToken);
             if(!refreshToken){
                 throw ApiError.UnAuthorizedError();
             }
@@ -131,7 +132,7 @@ class UserService{
     async getFullUserInfo(email){
         try {
             const user = await pool.query(`SELECT accounts.id_account, account_name, account_email, photo_path, registration_date, 
-                                                    gender, phone_number, notification_option, socials
+                                                    gender, phone_number, notification_option, socials, passport_verification
                                             FROM accounts LEFT JOIN accounts_additional_information
                                             ON accounts.id_account = accounts_additional_information.id_account
                                             WHERE account_email = '${email}'`)
@@ -150,7 +151,7 @@ class UserService{
                                         SET ${column_name} = '${new_value}'
                                         WHERE id_account = '${id_account}'`);
 
-            }else if(['photo_path', 'gender', 'phone_number', 'notification_option', 'socials'].includes(column_name)){
+            }else if(['photo_path', 'gender', 'phone_number', 'notification_option', 'socials', 'passport_verification'].includes(column_name)){
                 const nothingToUpdate = (await pool.query(`SELECT COUNT(*) FROM accounts_additional_information
                                                             WHERE id_account = '${id_account}'`)).rows[0].count
                 if(nothingToUpdate == 0){
@@ -166,6 +167,7 @@ class UserService{
             }else{
                 throw ApiError.BadRequest('tabels dont have this column: ', column_name);
             }
+
             return ret;
         } catch (error) {
             throw error;

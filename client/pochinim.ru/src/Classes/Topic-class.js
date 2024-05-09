@@ -18,30 +18,30 @@ class Topic{
 
     constructor(){
         this.#topic_id = null;
-        this.#topic_name = null;
+        this.#topic_name = '';
 
-        this.#fio = null;
-        this.#phone_number = null;
-        this.#address = null;
+        this.#fio = '';
+        this.#phone_number = '';
+        this.#address = '';
         this.#mail = localStorage.getItem('mail');
 
-        this.#need = null;
-        this.#problem = null;
-        this.#problem_location = null;
-        this.#date = null;
+        this.#need = '';
+        this.#problem = '';
+        this.#problem_location = '';
+        this.#date = '';
         this.#today_date = new Date();
-        this.#payment = {'payment_option': null, 'price_start': null, 'price_end': null};
+        this.#payment = {'payment_option': '', 'price_start': '', 'price_end': ''};
 
-        this.#details = {'details_text': null, 'details_files': null};
+        this.#details = {'details_text': '', 'details_files': ''};
     }
 
     async saveTopic(){
         try {
             var result;
 
-            if(this.#topic_name != null && this.#fio != null && this.#phone_number != null && this.#need != null &&
-                this.#problem != null && this.#address != null && this.#date != null && this.#payment.payment_option != null &&
-                this.#details.details_files != null && this.#details.details_text != null && 
+            if(this.#topic_name != '' && this.#fio != '' && this.#phone_number != '' && this.#need != '' &&
+                this.#problem != '' && this.#address != '' && this.#date != '' && this.#payment.payment_option != '' &&
+                this.#details.details_files != '' && this.#details.details_text != '' && 
                 localStorage.getItem('mail') != null && localStorage.getItem("token") != null){
 
                     result = await topicController.createNewTopic(
@@ -67,17 +67,19 @@ class Topic{
         if(new_topic_id != this.#topic_id && new_topic_id != null){
             this.#topic_id = new_topic_id
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
     get topicName(){
         return this.#topic_name;
     }
     set topicName(new_topic_name){
-        if(new_topic_name != null){
-            this.#topic_name = new_topic_name;
+        if(new_topic_name == ''){
+            throw Error('пустое значение');
+        }else if(new_topic_name == '2'){
+            throw Error('неверное значение');
         }else{
-            throw Error('Ошибка в setter');
+            this.#topic_name = new_topic_name;
         }
     }
 
@@ -86,10 +88,10 @@ class Topic{
     }
     
     set fio(new_fio){
-        if(new_fio != null){
+        if(new_fio != ''){
             this.#fio = new_fio;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -98,10 +100,10 @@ class Topic{
     }
 
     set phoneNumber(new_phone_number){
-        if(new_phone_number != null){
+        if(new_phone_number != ''){
             this.#phone_number = new_phone_number;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -110,10 +112,10 @@ class Topic{
     }
 
     set address(new_address){
-        if(new_address != null){
+        if(new_address != ''){
             this.#address = new_address;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -122,10 +124,10 @@ class Topic{
     }
 
     set mail(new_mail){
-        if(new_mail != null){
+        if(new_mail != ''){
             this.#mail = new_mail;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -134,10 +136,10 @@ class Topic{
     }
 
     set need(new_need){
-        if(new_need != null){
+        if(new_need != ''){
             this.#need = new_need;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -146,10 +148,10 @@ class Topic{
     }
 
     set problem(new_problem){
-        if(new_problem != null){
+        if(new_problem != ''){
             this.#problem = new_problem;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -158,10 +160,10 @@ class Topic{
     }
 
     set problemLocation(new_problem_location){
-        if(new_problem_location != null){
+        if(new_problem_location != ''){
             this.#problem_location = new_problem_location;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -170,22 +172,24 @@ class Topic{
     }
 
     set date(new_date){
-        if(new_date != null){
+        if(new_date != ''){
             this.#date = new_date;
+        }else if(new_date == this.#today_date.getFullYear()+'-'+this.#today_date.getMonth()+'-'+this.#today_date.getDate()){
+            throw Error('неверное значение');
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
     get paymentOption(){
-        return this.#payment;
+        return this.#payment.payment_option;
     }
 
     set paymentOption(new_payment_option){
-        if(new_payment_option != null){
+        if(new_payment_option != ''){
             this.#payment.payment_option = new_payment_option;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -194,10 +198,10 @@ class Topic{
     }
 
     set paymentPriceStart(new_price_start){
-        if(new_price_start != null){
+        if(new_price_start != ''){
             this.#payment.price_start = new_price_start;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 
@@ -206,10 +210,10 @@ class Topic{
     }
 
     set paymentPriceEnd(new_price_end){
-        if(new_price_end != null){
+        if(new_price_end != ''){
             this.#payment.price_end = new_price_end;
         }else{
-            throw Error('Ошибка в setter');
+            throw Error('пустое значение');
         }
     }
 

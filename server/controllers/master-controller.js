@@ -70,8 +70,12 @@ class MasterController{
     async refresh(req, res, next){
         try {
             const tokens = await req.headers.cookie;
-            
-            const refreshToken = tokens?.split("; ")[0];
+
+            var refreshToken = tokens;
+
+            if(tokens.includes('; ')){
+                refreshToken = tokens?.split("; ")[0];
+            }
             
             const token = refreshToken?.split("=")[1];
             
@@ -135,6 +139,18 @@ class MasterController{
             return res.json(await data);
         } catch (error) {
             next(error);
+        }
+    }
+
+    async checkEmail(req, res, next){
+        try {
+            const email = req.params.email;
+            const userData = await masterService.checkEmail(email);
+
+            return res.json((await userData));
+
+        } catch (e) {
+            next(e);
         }
     }
 }

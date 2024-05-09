@@ -120,6 +120,23 @@ class MasterService{
             throw error;
         }
     }
+    async checkEmail(email){
+        try {
+            const candidat = await pool.query(`SELECT COUNT(*) FROM masters WHERE master_email = '${email}'`)
+
+            console.log(email);
+            console.log(candidat.rows[0].count );
+
+            if(candidat.rows[0].count == 0){
+                return false;
+            }
+
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 module.exports = new MasterService();

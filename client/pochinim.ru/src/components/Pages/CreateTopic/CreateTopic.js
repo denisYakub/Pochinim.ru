@@ -89,7 +89,7 @@ const CreateTopic = () => {
     
     return(<Fragment>
         <div className= "page-wrapper">
-            <div className={`createTopic-content-${idLeftButtonsComps}`}>
+            <div className={`createTopic-content`}>
                 <div className="createTopic-navigation">
                     <div className="navigation-profile-wrapper">
                         <button className="button-grey" onClick={masters}>Специалисты</button>

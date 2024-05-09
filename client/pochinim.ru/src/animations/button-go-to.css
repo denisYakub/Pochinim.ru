@@ -1,28 +1,19 @@
 .button-go-to{
-    margin-left:11%;
-    padding-left: 10px;
-    border-style: solid;
+    margin-top: 20px;
     float: left;
-    width: fit-content;
-    height: fit-content;
     display: flex;
     align-items: center;
-    gap: 10px;
     justify-content: center;
+    gap: 10px;
+    padding-left: 10px;
     border-radius: 60px;
-    border-color: var(--color-secondary-violet-dies);
+    border: 1px solid var(--color-secondary-violet-dies);
     background: var(--color-secondary-violet-dies);
 }
 
-.button-go-to a{
+.button-go-to p{
     color: var(--color-main-blue);
-
-    /* Text/кнопка */
-    font-family: "SF Pro Display";
     font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 110%; /* 17.6px */
 }
 
 .button-go-to button{

@@ -1,8 +1,32 @@
 import { Link } from 'react-router-dom';
 import InputWithError from '../../../../animations/input-error-field';
 import USERController from '../../../../controllers/USER-controller';
+import { useEffect, useState } from 'react';
 
-const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSingInUp, setErrorInSingInUp, setShowLoader}) =>{ 
+const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, setShowLoader}) =>{ 
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        try {
+            if(email == ''){
+                throw Error('пустое значение')
+            }else if(!email.includes('@')){
+                setErrorMessage('Почта должа быть похожа на ******@email.com');
+                throw Error('неверное значение')
+            }
+        } catch (error) {
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
+        }
+    },[email])
+
+
     const click = async () =>{
         setShowLoader(true);
 
@@ -12,10 +36,10 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
             var code = await USERController.getSendCode(email);
             if(code != false){
                 setEmailCode(code);
-                setErrorInSingInUp(false);
+                setError(false);
                 setPhase(phase + 1);
             }else{
-                setErrorInSingInUp(true);
+                setError(true);
             }
         }
 
@@ -28,7 +52,10 @@ const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, errorInSing
             <p>Нажимая «Далее», вы соглашаетесьс <Link>Правилами сайта</Link></p> 
         </div>
         <div className='sighnInUp-input-with-text'>
-            <InputWithError placeholder={'почта'} value={email} setValue={setEmail} error={errorInSingInUp}></InputWithError>
+            <InputWithError placeholder={'почта'} value={email} setValue={setEmail} 
+                error={error} setError={setError} errorText={errorMessage}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
+                inputType='email'></InputWithError>
             <p>Специалисты не видят вашу почту. Вы сами решите, кому она будет доступена.</p>
         </div>
         <button className="continue-button" onClick={click}>Продолжить</button>

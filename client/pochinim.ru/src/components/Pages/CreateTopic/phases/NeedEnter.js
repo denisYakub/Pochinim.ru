@@ -7,18 +7,19 @@ const optionsOfWork = await topicController.getListOfWork();
 const NeedEnter = ({TOPIC}) => {
     const [localNeed, setLocalNeed] = useState("");
     const [need, setNeed] = useState(TOPIC.need);
+
     const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
 
     useEffect(()=>{
         try {
             TOPIC.need = need;
         } catch (error) {
-            console.log(error);
-            setNeed('');
-            setError(true);
-            setTimeout(()=>{
-                setError(false);
-            }, 5000);
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
         }
         
     },[need])
@@ -59,14 +60,16 @@ const NeedEnter = ({TOPIC}) => {
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}> 
             {optionsOfWork.map((item, index) => {
                 return(
-                <div key={index}>
+                <div key={index} className="option">
                     <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
-            <div>
+            <div className="option-input">
                 <input type="radio" value={localNeed} name="check" checked={isCheckedUserInput()}></input>
-                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalNeed} error={error}></InputWithError>
+                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalNeed} 
+                    error={error} setError={setError} errorText={'Не верное значение'}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
             </div>
         </div>
     </div>)

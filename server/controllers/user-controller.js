@@ -75,8 +75,12 @@ class UserController {
     async refresh(req, res, next){
         try {
             const tokens = await req.headers.cookie;
-            console.log(tokens);
-            const refreshToken = tokens?.split("; ")[1];
+            
+            var refreshToken = tokens;
+
+            if(tokens.includes('; ')){
+                refreshToken = tokens?.split("; ")[1];
+            }
             
             const token = refreshToken?.split("=")[1];
             
@@ -121,14 +125,28 @@ class UserController {
         try {
             const { column_name, new_value, id_account } = req.body;
             
-            const ret = userService.updateColumn(column_name, new_value, id_account)
+            const ret = await userService.updateColumn(column_name, new_value, id_account)
 
             return res.json(ret);
         } catch (e) {
             next(e);
         }
     }
+    async setUserPhoto(req, res, next){
+        try {
 
+            const id_user = req.params.id_user;
+            const file_path = req.file.path;
+
+            const idUser = await userService.getUserIdByMail(id_user);
+
+            const result = await userService.updateColumn('photo_path', file_path, idUser);
+
+            return res.json(result);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new UserController();

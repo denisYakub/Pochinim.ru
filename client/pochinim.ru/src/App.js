@@ -24,6 +24,7 @@ import Chats from './components/Pages/Chats/Chats';
 import TOPIC from './Classes/Topic-class';
 import CHATS from './Classes/Chats-class';
 import WEBSITE from './Classes/WebSite-class';
+import DocumentVerification from './components/Pages/DocumentsVerification/DocumentVerification';
 
 function App(){
 
@@ -34,7 +35,7 @@ function App(){
   },[])
   
   return (
-    <Fragment>
+      <Fragment>
         <BrowserRouter>
           <contextCreatetopic.Provider value={TOPIC}>
           <contextWebsite.Provider value={WEBSITE}>
@@ -47,7 +48,10 @@ function App(){
               <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
               <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
               <Route path='/Search' element={<ListOfTopics  />}/>
-              <Route path='/UserProfile/:email' element={<UserProfile  />}/>
+              <Route path='/UserProfile/:email'>
+                <Route index element={<UserProfile />}/>
+                <Route path='documentVerification/:document' element={<DocumentVerification />}/>
+              </Route>
               <Route path='/CreateTopic/:email'>
                 <Route index element={<CreateTopic  />} />
                 <Route path='Chats/:with' element={<Chats />}/>

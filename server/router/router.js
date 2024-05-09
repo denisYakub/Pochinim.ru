@@ -27,6 +27,9 @@ router.get('/users/check_email/:email',
                 userController.checkEmail);
 router.get('/users/send_code/:email', 
                 userController.sendActivationMail);
+router.put('/users/:id_user',
+                multerMiddleware.single('userPhoto'),
+                userController.setUserPhoto);
 //=================================================
 
 //==================Masters========================
@@ -38,6 +41,8 @@ router.post('/masters/login',
                 masterController.login); 
 router.post('/masters/logout', 
                 masterController.logout);
+router.get('/masters/check_email/:email', 
+                masterController.checkEmail);
 router.get('/masters/:from/:to',
                 masterController.getListOfMastersAndReviews);
 router.get('/masters/:id',

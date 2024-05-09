@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
 import { contextWebsite } from "../../../../contexts/contextWebsite";
+import InputWithError from '../../../../animations/input-error-field';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
@@ -11,14 +12,20 @@ const AddressEnter = ({TOPIC}) => {
     const [center, setCenter] = useState(WEBSITE.currentCoordinates);
     const [address, setAddress] = useState(TOPIC.address);
 
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
+
     useEffect(() => {
         try {
             TOPIC.address = address;
             
             setCenter(WEBSITE.currentCoordinates);
         } catch (error) {
-            console.log(error);
-            setAddress('');
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
         }
     },[address, center])
 
@@ -61,7 +68,10 @@ const AddressEnter = ({TOPIC}) => {
             <p>6/9</p>
             <h1>По какому адресу?</h1>
         </div> 
-        <input className="text-input-field" placeholder={"Город, улица, дом"} onChange={e => setLocation(e.target.value)}></input>
+        {/*<input className="text-input-field" placeholder={"Город, улица, дом"} onChange={e => setLocation(e.target.value)}></input>*/}
+        <InputWithError placeholder={"Город, улица, дом"} value={null} setValue={setLocation} 
+                    error={error} setError={setError} errorText={'Не верное значение'}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
         <div className="createTopic-address-map">
             <p className="createTopic-address">{address}</p>
             <YMaps query={{apikey: key}}>

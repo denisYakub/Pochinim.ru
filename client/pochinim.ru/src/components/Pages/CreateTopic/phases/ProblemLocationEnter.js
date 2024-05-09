@@ -7,18 +7,19 @@ const optionsOfWhereIsProblem = await topicController.getListofWhereIsProblem();
 const ProblemLocationEnter = ({TOPIC}) => {
     const [localProblemLocation, setLocalProblemLocation] = useState("");
     const [problemLocation, setProblemLocation] = useState(TOPIC.problemLocation);
+    
     const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
 
     useEffect(()=>{
         try {
             TOPIC.problemLocation = problemLocation;
         } catch (error) {
-            console.log(error);
-            setProblemLocation('');
-            setError(true);
-            setTimeout(()=>{
-                setError(false);
-            }, 5000);
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
         }
         
     },[problemLocation])
@@ -59,14 +60,16 @@ const ProblemLocationEnter = ({TOPIC}) => {
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             {optionsOfWhereIsProblem.map((item, index) => {
                 return(
-                <div key={index}>
+                <div key={index} className="option">
                     <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
-            <div>
+            <div className="option-input">
                 <input type="radio" value={localProblemLocation} name="check" checked={isCheckedUserInput()}></input>
-                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblemLocation} error={error}></InputWithError>
+                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblemLocation} 
+                    error={error} setError={setError} errorText={'Не верное значение'}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
             </div>
         </div>
     </div>)

@@ -5,7 +5,16 @@ class MasterController{
     }
 
     async checkMasterInBd(email){
-        return false;
+        const data = await fetch(`http://localhost:4000/api/masters/check_email/${email}`,{
+            credentials: 'include',
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+
+        return (await data.json());
     }
 
     async registrate(fio, occupation, workingFrom, location, selectedOptionsLocation, 

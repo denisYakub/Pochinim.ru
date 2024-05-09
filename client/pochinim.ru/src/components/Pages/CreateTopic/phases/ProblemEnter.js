@@ -7,18 +7,19 @@ const optionsOfWhatHappend = await topicController.getListOfWhatHappend();
 const ProblemEnter = ({TOPIC}) => {
     const [localProblem, setLocalProblem] = useState("");
     const [problem, setProblem] = useState(TOPIC.problem);
+
     const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
     
     useEffect(()=>{
         try {
             TOPIC.problem = problem;
         } catch (error) {
-            console.log(error);
-            setProblem('');
-            setError(true);
-            setTimeout(()=>{
-                setError(false);
-            }, 5000);
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
         }
         
     },[problem])
@@ -59,14 +60,16 @@ const ProblemEnter = ({TOPIC}) => {
         <div className="options-input" onChange={e => inputRadioCheck(e.target)}>
             {optionsOfWhatHappend.map((item, index) => {
                 return(
-                <div key={index}>
+                <div key={index} className="option">
                     <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
-            <div>
+            <div className="option-input">
                 <input type="radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
-                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} error={error}></InputWithError>
+                <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} 
+                    error={error} setError={setError} errorText={'Не верное значение'}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
             </div>
         </div>
     </div>)

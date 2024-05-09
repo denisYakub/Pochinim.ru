@@ -1,6 +1,7 @@
 .orders-content{
     display: flex;
     justify-content: center;
+    min-height: 100vh;
 }
 
 .my-orders-not-logged-in{

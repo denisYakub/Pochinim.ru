@@ -1,7 +1,7 @@
 @import'../../../index.css';
-.createTopic-content-0{
+.createTopic-content{
     width: 100%;
-    height: fit-content;
+    min-height: 100vh;
     padding: 101px;
     display: flex;
     box-sizing: border-box;
@@ -13,22 +13,6 @@
     width: 200px;
     align-items: baseline;
     gap: 10px;
-}
-.createTopic-content-1{
-    width: 100%;
-    height: fit-content;
-    padding: 101px;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: space-between;
-}
-.createTopic-content-2{
-    width: 100%;
-    height: 100vh;
-    padding: 101px;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: space-between;
 }
 .createTopic-phases{
     width: 800px;

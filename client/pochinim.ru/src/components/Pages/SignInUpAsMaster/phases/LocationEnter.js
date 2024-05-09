@@ -1,7 +1,8 @@
 import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { contextWebsite } from '../../../../contexts/contextWebsite';
 import Select from 'react-select';
+import InputWithError from '../../../../animations/input-error-field';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
@@ -12,18 +13,40 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
     const [zoom, setZoom] = useState(9);
     const [center, setCenter] = useState(WEBSITE.currentCoordinates);
 
+
     const [placemarkCoords, setPlacemarkCoords] = useState(null);
 
     const ymaps = useRef(null);
     const mapRef = useRef(null);
 
     const hints = ["Выезжаю к клиентам", "Принимаю клиентов у себя"];
+
     const optionList = [
         { value: "b-1", label: "Садовая" },
         { value: "b-2", label: "Сенная площадь" },
         { value: "b-3", label: "Спортивная" },
         { value: "0-1", label: "Спасская" },
       ];
+
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
+  
+    useEffect(() => {
+        try {
+
+            setCenter(WEBSITE.currentCoordinates);
+            
+            if(address == ''){
+                throw Error('пустое значение')
+            }
+        } catch (error) {
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
+        }
+    },[address, center])
 
     const handleWorkingFrom = (value) => {
         setWorkingFrom(value)
@@ -56,9 +79,7 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
             setAddress(newAddress);
 
             const newCity = firstGeoObject.getLocalities()[0]
-            
-            localStorage.setItem('city', newCity);
-            WEBSITE.setUserLocation();
+
         });
     };
 
@@ -80,11 +101,11 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
                 <a>Будем предлагать заказы поблизости.</a>
             </div>
             <div className="options-input" onChange={e => handleWorkingFrom(e.target.value)}>
-                <div>
+                <div className="option">
                     <input type="radio" value={1}></input>
                     <p>Выезжаю к клиентам</p>
                 </div>
-                <div>
+                <div className="option">
                     <input type="radio" value={2}></input>
                     <p>Принимаю клиентов у себя</p>
                 </div>
@@ -104,15 +125,17 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
                 <p>{hints[workingFrom-1]}</p>
             </div>
             {workingFrom==2?
-            <div>
-                <input className="text-input-field" placeholder={"Город, улица, дом"} value={address} onChange={e => setNewAddress(e.target.value)}></input>
+            <div className="signUpMaster-inputs">
+                <InputWithError placeholder={'Город, улица, дом'} value={address} setValue={setNewAddress} 
+                    error={error} setError={setError} errorText={'Ошибка'}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
                 <YMaps query={{apikey: key}}>
                     <Map onClick={handleMapClick} 
                         onLoad={(e) => { ymaps.current = e }}
                         modules={["Placemark", "geocode", "geoObject.addon.balloon"]}
                         instanceRef={mapRef}
                         state={{center: center, zoom: zoom}} 
-                        width={"100%"} height={"267px"}>
+                        width={"650px"} height={"300px"}>
                             {placemarkCoords && (<Placemark geometry = 
                             {placemarkCoords}></Placemark>)}
                     </Map>

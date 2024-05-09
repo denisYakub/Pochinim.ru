@@ -3,13 +3,15 @@ import "../Navigation/Navigation.css"
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { contextWebsite } from '../../contexts/contextWebsite';
 import Select from 'react-select';
+import 'bootstrap/dist/css/bootstrap.css'
+import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 
 const Navbar = () => {
 
     const navigate = useNavigate();
 
-    const [auth, setAuth] = useState(null)
-    const [authMaster, setAuthMaster] = useState(null)
+    const [auth, setAuth] = useState(null);
+    const [authMaster, setAuthMaster] = useState(null);
 
     const WEBSITE = useContext(contextWebsite);
     const [cities, setCities] = useState(WEBSITE.cities);
@@ -30,15 +32,13 @@ const Navbar = () => {
         }
         
         getAuth();
-    },[cities])
+    })
 
     const selectMasterHandler = (val) =>{
         if(val == 1){
 
         }else if(val == 2){
             navigate('/SignUpAsMaster');
-        }else if(val == 3){
-            authMaster?navigate('/'):navigate('/SignInAsMaster');
         }
     };
 
@@ -69,7 +69,7 @@ const Navbar = () => {
             <div className="navigation-orders-forum-masters-search-users">
                 <Link className='link-as-text' to={`/MyOrders/${auth}`}>Мои заказы</Link>
                 <Link className='link-as-text'>Форум</Link>
-                <Select options={[{value: 1, label: 'Специалистам'}, {value: 2, label: 'Регестрация'}, {value: 3, label: `${authMaster?authMaster:'Вход'}`}]}
+                <Select options={[{value: 1, label: 'Специалистам'}, {value: 2, label: 'Регестрация'}]}
                     placeholder='Специалистам'
                     onChange={e => selectMasterHandler(e.value)}
                     styles={{
@@ -87,10 +87,59 @@ const Navbar = () => {
                 </Select>
                 <input className='input-small'></input>
                 <div className='users'>
-                    {auth? 
-                        <Link className='link-blue' to={`/UserProfile/${auth}`}>{auth}</Link>
-                    : 
-                        <Link className='link-blue' to={'/SignInUp'}>Войти</Link>}
+                    <Dropdown as={ButtonGroup}>
+                        <Dropdown.Toggle 
+                            style={{
+                                border: '1px solid var(--color-secondary-grey-dies)',
+                                background: 'var(--color-secondary-grey-dies)',
+                                borderRadius: '50px',
+                                color: '#1C1C1C',
+                            }}>
+                            {auth?auth:'Войти'}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            {auth?<Dropdown.Item href={`/UserProfile/${auth}`} 
+                                style={{marginTop: '5px'}}>
+                                {auth}
+                            </Dropdown.Item>
+                            :<Dropdown.Item href={`/SignInUp`} 
+                                style={{marginTop: '5px'}}>
+                                    Войти
+                            </Dropdown.Item>}
+                            <Dropdown.Item href='' 
+                                style={{marginTop: '5px'}}>
+                                Профиль и настройки
+                            </Dropdown.Item>
+                            <Dropdown.Item href='' 
+                                style={{marginTop: '5px'}}>
+                                Помощь
+                            </Dropdown.Item>
+                            <Dropdown.Divider></Dropdown.Divider>
+                            {authMaster?<Button href='/'
+                            style={{
+                                display: 'flex',
+                                margin: '10px 20px',
+                                border: '1px solid #EBF0FF',
+                                background: '#EBF0FF',
+                                borderRadius: '50px',
+                                color: '#1C1C1C'
+                            }}>
+                                {authMaster}
+                            </Button>
+                            :<Button href='/SignInAsMaster' 
+                            style={{
+                                display: 'flex',
+                                margin: '10px 20px',
+                                border: '1px solid #EBF0FF',
+                                background: '#EBF0FF',
+                                borderRadius: '50px',
+                                color: '#1C1C1C'
+                            }}>
+                                Войти как специалист
+                            </Button>}
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
             </div>
         </div>

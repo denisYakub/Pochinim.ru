@@ -1,64 +1,80 @@
-import {motion, useAnimate} from 'framer-motion'
+import {motion, useAnimation} from 'framer-motion'
 import { useEffect, useState } from "react";
-import mark_orange from '../img/exclamation-mark-orange-img';
-import mark_red from '../img/exclamation-mark-red-img';
+import mark_orange from '../img/exclamation-mark-orange-img.png';
+import mark_red from '../img/exclamation-mark-red-img.png';
+import './input-error-field.css';
 
-const InputWithError = ({placeholder, value, setValue, error, warning, mistakeText}) => {
+const InputWithError = ({placeholder, value, setValue, 
+                            error, setError, errorText, 
+                            warning, setWarning, warningText,
+                            inputType = 'text'}) => {
     
-    const [errorScope, errorAnimate] = useAnimate();
-    const [errorRed, animateErrorRed] = useAnimate();
-
-    const [error_hint, set_error_hint] = useAnimate();
-    const [error_border, set_error_border] = useAnimate();
-    const [mark, setMark] = useState(mark_red );
+    const animate_hint = useAnimation();
+    const animate_border = useAnimation();
+    const [mark, setMark] = useState(mark_orange);
+    const [text, setText] = useState(warningText);
    
     useEffect(() => {
-        /*if(error){
-            highlightErrorInput("#1C1C1C", errorRed, animateErrorRed);
-        }*/
-        if(error){
-
-        }
-        if(warning){
-            
+        try {
+            async function showError(){
+                await animate_border.start({border: '1px solid #EF0000'});
+                await animate_hint.start({scale: 1});
+            }
+        
+            async function showWarning(){
+                await animate_border.start({border: '1px solid #F48400'});
+                await animate_hint.start({scale: 1});
+            }
+        
+            async function unShow(){
+                await animate_border.start({border: '1px solid var(--color-secondary-grey-searchline)'});
+                await animate_hint.start({scale: 0});
+            }
+    
+            if(error){
+                setMark(mark_red);
+                setText(errorText);
+                showError();
+                setTimeout(() => {
+                    //unShow();
+                    setError();
+                }, 10000);
+            }
+            if(warning){
+                setMark(mark_orange);
+                setText(warningText);
+                showWarning();
+                setTimeout(() => {
+                    //unShow();
+                    setWarning(false);
+                }, 2000);
+            }
+            if(!warning && !error){
+                unShow();
+            }
+        } catch (error) {
+            console.log(error.message);
         }
     },[error, warning])
-
-    const showErrorHint = async (scale, errorScope, errorAnimate) => {
-        await errorAnimate(errorScope.current, {scale: scale});
-    }
-
-    const highlightErrorInput = async (baseColour, errorRed, animateErrorRed) => {
-        await animateErrorRed(errorRed.current, {color: "#EF0000"});
-        await animateErrorRed(errorRed.current, {color: baseColour});
-    }
  
-    return(<div className="input-with-error-wrapper">
-        <motion.input placeholder={placeholder} value={value}
+    return(<motion.div className="input-with-error-wrapper">
+        <motion.input className='input-error-field'
+            type={inputType}
+            placeholder={placeholder} value={value}
             onChange={e => setValue(e.target.value)}
-            ref={error_border}></motion.input>
+            animate={animate_border}
+            initial={{
+                border: '1px solid var(--color-secondary-grey-searchline)',
+            }}></motion.input>
         <motion.div className='mistake-hint'
-            ref={error_hint}>
+            animate={animate_hint}
+            initial={{
+                scale: 0,
+            }}>
             <img src={mark} alt=''></img>
-            <p>{mistakeText}</p>
+            <p>{text}</p>
         </motion.div>
-        {/*<div className="input-with-error">
-            <input placeholder={placeholder} value={value} ref={errorRed} onChange={e => setValue(e.target.value)}></input>
-            {error?
-                <div className="error-sign"
-                    onMouseEnter={() => showErrorHint(1, errorScope, errorAnimate)}
-                    onMouseLeave={() => showErrorHint(0, errorScope, errorAnimate)}>
-                </div>
-            : 
-                <></>}
-        </div>
-        <motion.div className='error-message' ref={errorScope} initial={{scale: 0, position: "absolute", 
-            width: "fit-content", height: "fit-content", display: "flex", justifyContent: 'center', alignItems: "center"}}>
-            <p>
-                Вы тут ошиблись!
-            </p>
-            </motion.div>*/}
-    </div>);
+    </motion.div>);
 }
 
 export default InputWithError;

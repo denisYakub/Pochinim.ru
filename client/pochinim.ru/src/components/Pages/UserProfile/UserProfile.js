@@ -24,7 +24,7 @@ const UserProfile = () => {
             setData();
             setReload(false);
         }
-    },[navigate, reload]);
+    },[navigate, reload, user]);
 
     return(<Fragment>
             <div className="user-profile">
@@ -40,7 +40,8 @@ const UserProfile = () => {
                     </div>
                     <div className='profile-info'>
                         <MainInfoBlock photo_path={user?.photo_path} name={user?.account_name} 
-                                            registration_date={user?.registration_date}></MainInfoBlock>
+                                            registration_date={user?.registration_date} 
+                                            passportConf={user?.passport_verification}></MainInfoBlock>
                         <PersonalDataBlock id={user?.id_account} name={user?.account_name} gender={user?.gender} 
                                             email={user?.account_email} phone_number={user?.phone_number}
                                             setReloadPage={setReload}></PersonalDataBlock>

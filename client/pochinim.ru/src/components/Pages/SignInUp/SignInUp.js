@@ -17,25 +17,21 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("")
 
-    const [errorInSingInUp, setErrorInSingInUp] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
     const comps = [<EmailPhase phase={phase} setPhase={setPhase} 
                                 email={email} setEmail={setEmail} 
                                 setEmailCode={setEmailCode}
-                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}
                                 setShowLoader={setShowLoader}></EmailPhase>, 
                     <CodePhase phase={phase} setPhase={setPhase} 
                                 code={inputCode} setCode={setInputCode} 
                                 emailCode={emailCode}
-                                email={email}
-                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></CodePhase>,
+                                email={email}></CodePhase>,
                     <PasswordPhase phase={phase} setPhase={setPhase} 
                                 password={password} setPassword={setPassword}
                                 name={name} setName={setName}
                                 email={email}
-                                emailCode={emailCode}
-                                errorInSingInUp={errorInSingInUp} setErrorInSingInUp={setErrorInSingInUp}></PasswordPhase>,
+                                emailCode={emailCode}></PasswordPhase>,
                     <WelcomePhase phase={phase} setPhase={setPhase}></WelcomePhase>];
 
     const navigate = useNavigate();

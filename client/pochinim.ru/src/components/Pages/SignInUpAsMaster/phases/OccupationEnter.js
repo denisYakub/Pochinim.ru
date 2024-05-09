@@ -1,4 +1,23 @@
+import { useEffect, useState } from 'react';
+import InputWithError from '../../../../animations/input-error-field';
+
 const MasterOccupationEnter = ({occupation, setOccupation, step, setStep}) => {
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
+
+    useEffect(() => {
+        try {
+            if(occupation == ''){
+                throw Error('пустое значение')
+            }
+        } catch (error) {
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
+        }
+    },[occupation])
 
     const activateHint = (value) => {
         setOccupation(value);
@@ -16,7 +35,9 @@ const MasterOccupationEnter = ({occupation, setOccupation, step, setStep}) => {
             <a>Укажите все наши специальность — так подходящий заказов будет больше.</a>
         </div>
         <div className="signUpMaster-inputs">
-            <input placeholder="Род деятельности" value={occupation} onChange={e => setOccupation(e.target.value)} className="text-input-field"></input>
+            <InputWithError placeholder={'Род деятельности'} value={occupation} setValue={setOccupation} 
+                error={error} setError={setError} errorText={'Ошибка'}
+                warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
             <div className="button-hints">
                 <button className="hint" onClick={() => activateHint("Ремонт компьтеров")}>Ремонт компьтеров</button>
                 <button className="hint" onClick={() => activateHint("Ремонт стиральных машин")}>Ремонт стиральных машин</button>

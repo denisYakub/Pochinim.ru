@@ -14,9 +14,11 @@
     flex-direction: column;
     align-items: center;
 }
-
 .signUpMaster-inputs{
-    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    max-width: 650px;
+    gap: 20px;
 }
 
 .final-address{

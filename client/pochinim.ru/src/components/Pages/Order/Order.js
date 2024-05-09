@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { contextOrder } from '../../../contexts/contextOrder';
 import ListOfMasters from "../CreateTopic/ListOfMasters";
 import OrderInfo from "./OrderInfo";
@@ -11,9 +11,12 @@ import topicController from "../../../controllers/TOPIC-controller";
 
 const Order = () =>{
 
+    const navigate = useNavigate();
+
     const params = useParams();
 
     const id_topic = params.id;
+    const email = params.email;
 
     const { order, setOrder } = useContext(contextOrder);
 
@@ -119,7 +122,7 @@ const Order = () =>{
                             </div>}
                     </div>
                 </div>
-            :<></>}
+            :navigate(`/MyOrders/${email}`)};
         </div>
         <AlertPopup active={active} setActive={setActive} children={textPop}></AlertPopup>
     </Fragment>)

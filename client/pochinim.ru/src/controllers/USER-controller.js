@@ -94,6 +94,8 @@ class UserController{
 
             const ret = await data.json();
             
+            console.log(ret?.accessToken);
+
             localStorage.setItem('token', ret.accessToken);
 
             if(ret?.message){
@@ -191,6 +193,34 @@ class UserController{
         }
         return data;
 
+    }
+
+    async saveUserPhoto(photo){
+        const file = new FormData();
+        file.append('userPhoto', photo);
+        const result = await fetch(`http://localhost:4000/api/users/${localStorage.getItem('mail')}`, {
+            method: 'PUT',
+            body: file
+        })
+
+        return result;
+    }
+    
+    async getUserPhoto(path){
+        const data = await fetch(`http://localhost:4000/api/photos`,{
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ path: path })
+        })
+
+        const photo = await data.blob();
+
+        const obj = URL.createObjectURL(photo);
+
+        return obj;
     }
 }
 

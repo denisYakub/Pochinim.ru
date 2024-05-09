@@ -1,17 +1,22 @@
 const multer = require('multer');
 const fs = require('fs');
+const userService = require('../services/user-service');
 
 const storage = multer.diskStorage({
-    destination(req, file, cd){
+    async destination(req, file, cd){
         var dir;
         switch (file.fieldname) {
             case 'masterPhoto':
-                const id_master = req.params?.id_master;
+                const id_master = req.params.id_master;
                 dir = `images/mastersPhoto/${id_master}`;
                 break;
             case 'topicMainPhotos':
-                const id_topic = req.params?.id_topic;
+                const id_topic = req.params.id_topic;
                 dir = `images/topicsMainPhotos/${id_topic}`;
+                break;
+            case 'userPhoto':
+                const id_user = await userService.getUserIdByMail(req.params.id_user);
+                dir = `images/userPhotos/${id_user}`;
                 break;
             default:
                 break;

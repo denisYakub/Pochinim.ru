@@ -1,5 +1,5 @@
 class WebsiteController{
-    async getReviews(){
+    getReviews(){
         const review = {
             review: {
               topic: "Чистка ноутбука, замена термопасты",
@@ -18,11 +18,11 @@ class WebsiteController{
             return [review, review, review, review, review, review, review, review, review, review, review, review];
     }
     
-    async getHints(){
+    getHints(){
         return ["Прорволо трубу", "Сломался кондиционер", "Починить телефон"];
     }
     
-    async getServices(){
+    getServices(){
         const service = {
             mainBrunch: {
                 name: "Электроника",

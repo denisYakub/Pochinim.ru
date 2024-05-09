@@ -2,8 +2,8 @@ import {React, Fragment} from "react";
 import '../Footer/Footer.css'
 const Footer = () => {
     return(<Fragment>
-        <div className="footer">
-        <div className="inner-footer">
+        <div className="page-wrapper">
+        <div className="footer-content">
             <div className="leftPart">
                 <a className="logo">
                 починим.ру
