@@ -25,6 +25,7 @@ import TOPIC from './Classes/Topic-class';
 import CHATS from './Classes/Chats-class';
 import WEBSITE from './Classes/WebSite-class';
 import DocumentVerification from './components/Pages/DocumentsVerification/DocumentVerification';
+import ErrorHandler from './components/ErrorHandler/ErrorHandler';
 
 function App(){
 
@@ -42,30 +43,32 @@ function App(){
           <contextOrder.Provider value={{order, setOrder}}>    
           <contextChats.Provider value={CHATS}>
             <Navbar />
-            <Routes>
-              <Route path="/" element={<MainPage  />}/>
-              <Route path='/SignInUp' element={<SignInUp />}/>
-              <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
-              <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
-              <Route path='/Search' element={<ListOfTopics  />}/>
-              <Route path='/UserProfile/:email'>
-                <Route index element={<UserProfile />}/>
-                <Route path='documentVerification/:document' element={<DocumentVerification />}/>
-              </Route>
-              <Route path='/CreateTopic/:email'>
-                <Route index element={<CreateTopic  />} />
-                <Route path='Chats/:with' element={<Chats />}/>
-              </Route>
-              <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
-              <Route path='/HelpPage' element={<HelpPage />}/>
-              <Route path='/MyOrders/:email'>
-                <Route index element={<MyOrders />} />
-                <Route path='Order/:id'>
-                  <Route index element={<Order />} />
+            <ErrorHandler> 
+              <Routes>
+                <Route path="/" element={<MainPage  />}/>
+                <Route path='/SignInUp' element={<SignInUp />}/>
+                <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
+                <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
+                <Route path='/Search' element={<ListOfTopics  />}/>
+                <Route path='/UserProfile/:email'>
+                  <Route index element={<UserProfile />}/>
+                  <Route path='documentVerification/:document' element={<DocumentVerification />}/>
+                </Route>
+                <Route path='/CreateTopic/:email'>
+                  <Route index element={<CreateTopic  />} />
                   <Route path='Chats/:with' element={<Chats />}/>
                 </Route>
-              </Route>
-            </Routes>
+                <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
+                <Route path='/HelpPage' element={<HelpPage />}/>
+                <Route path='/MyOrders/:email'>
+                  <Route index element={<MyOrders />} />
+                  <Route path='Order/:id'>
+                    <Route index element={<Order />} />
+                    <Route path='Chats/:with' element={<Chats />}/>
+                  </Route>
+                </Route>
+              </Routes>
+            </ErrorHandler>
           </contextChats.Provider>                              
           </contextOrder.Provider> 
           </contextWebsite.Provider> 

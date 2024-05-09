@@ -1,0 +1,21 @@
+@import '../../index.css';
+
+.error-handler-content{
+    padding: 101px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.error-handler-content h1{
+    color: var(--color-main-blue);
+    font-size: 400px;
+}
+
+.error-handler-content div{
+    display: flex;
+    gap: 8px;
+}

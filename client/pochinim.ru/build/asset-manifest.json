@@ -1,37 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.0fa1c9ec.css",
-    "main.js": "/static/js/main.11f1324c.js",
-    "static/media/SF-Pro-Text-Bold.otf": "/static/media/SF-Pro-Text-Bold.9ef3e7915275d9c15bbb.otf",
-    "static/media/SF-Pro-Display-Semibold.otf": "/static/media/SF-Pro-Display-Semibold.037dc63930459813f575.otf",
-    "static/media/SF-Pro-Display-Heavy.otf": "/static/media/SF-Pro-Display-Heavy.cfa3bd7b4cd82b11760b.otf",
-    "static/media/SF-Pro-Display-Medium.otf": "/static/media/SF-Pro-Display-Medium.b85d841dacb040b84951.otf",
-    "static/media/SF-Pro-Display-Bold.otf": "/static/media/SF-Pro-Display-Bold.b1f4d2c69fa808ebca12.otf",
-    "static/media/SF-Pro-Display-Black.otf": "/static/media/SF-Pro-Display-Black.9f6bb018ca3e8b89e9da.otf",
-    "static/media/SF-Pro-Display-Light.otf": "/static/media/SF-Pro-Display-Light.5a47a04ca76b10e69ca3.otf",
-    "static/media/SF-Pro-Display-Thin.otf": "/static/media/SF-Pro-Display-Thin.118dea390f52cf393735.otf",
-    "static/media/SF-Pro-Display-Ultralight.otf": "/static/media/SF-Pro-Display-Ultralight.08684652aee5807a63d9.otf",
-    "static/media/SF-Pro-Display-Regular.otf": "/static/media/SF-Pro-Display-Regular.d1f5e6e16dd4f75c3950.otf",
-    "static/media/SF-Pro-Text-BoldItalic.otf": "/static/media/SF-Pro-Text-BoldItalic.e8ac20c406bc23657b72.otf",
-    "static/media/SF-Pro-Display-MediumItalic.otf": "/static/media/SF-Pro-Display-MediumItalic.96038c89a401495b43e6.otf",
-    "static/media/SF-Pro-Display-SemiboldItalic.otf": "/static/media/SF-Pro-Display-SemiboldItalic.83c857f3c60b41485937.otf",
-    "static/media/SF-Pro-Display-BoldItalic.otf": "/static/media/SF-Pro-Display-BoldItalic.9ef8d09009e261609c55.otf",
-    "static/media/SF-Pro-Display-HeavyItalic.otf": "/static/media/SF-Pro-Display-HeavyItalic.4e2238d8a1afd9136259.otf",
-    "static/media/SF-Pro-Display-LightItalic.otf": "/static/media/SF-Pro-Display-LightItalic.8dbfd26d5a831ca710e0.otf",
-    "static/media/SF-Pro-Display-ThinItalic.otf": "/static/media/SF-Pro-Display-ThinItalic.3d2597acea660678af19.otf",
-    "static/media/SF-Pro-Display-UltralightItalic.otf": "/static/media/SF-Pro-Display-UltralightItalic.b90d5d0f41170f11b87e.otf",
-    "static/media/SF-Pro-Display-RegularItalic.otf": "/static/media/SF-Pro-Display-RegularItalic.55118ef4e17d67dde923.otf",
-    "static/media/SF-Pro-Display-BlackItalic.otf": "/static/media/SF-Pro-Display-BlackItalic.bf4f55c98ce6b6478da6.otf",
+    "main.css": "/static/css/main.8f077d35.css",
+    "main.js": "/static/js/main.06a20a32.js",
     "static/media/load.png": "/static/media/load.ece4ee9a2c7ea8f16e83.png",
     "static/media/congrats-img.png": "/static/media/congrats-img.a10fc8d6be6ade65d57f.png",
     "static/media/ARROW 1.png": "/static/media/ARROW 1.8d9918adaf9f890e0ba2.png",
     "static/media/PM13_4.png": "/static/media/PM13_4.754f0ac96c9cff9ae7c1.png",
     "index.html": "/index.html",
-    "main.0fa1c9ec.css.map": "/static/css/main.0fa1c9ec.css.map",
-    "main.11f1324c.js.map": "/static/js/main.11f1324c.js.map"
+    "main.8f077d35.css.map": "/static/css/main.8f077d35.css.map",
+    "main.06a20a32.js.map": "/static/js/main.06a20a32.js.map"
   },
   "entrypoints": [
-    "static/css/main.0fa1c9ec.css",
-    "static/js/main.11f1324c.js"
+    "static/css/main.8f077d35.css",
+    "static/js/main.06a20a32.js"
   ]
 }
