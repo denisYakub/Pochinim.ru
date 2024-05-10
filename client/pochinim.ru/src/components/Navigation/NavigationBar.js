@@ -116,7 +116,7 @@ const Navbar = () => {
                                 Помощь
                             </Dropdown.Item>
                             <Dropdown.Divider></Dropdown.Divider>
-                            {authMaster?<Button href='/'
+                            {authMaster?<Button href={`/MasterProfile/${authMaster}`}
                             style={{
                                 display: 'flex',
                                 margin: '10px 20px',

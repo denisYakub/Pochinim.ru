@@ -4,6 +4,8 @@ import { contextCreatetopic } from './contexts/contextCreatetopic';
 import { contextWebsite } from './contexts/contextWebsite';
 import { contextOrder } from './contexts/contextOrder';
 import { contextChats } from './contexts/contextChats';
+import { contextMaster } from './contexts/contextMaster';
+import { contextUser } from './contexts/contextUser';
 
 import SignInUp from './components/Pages/SignInUp/SignInUp';
 import Navbar from './components/Navigation/NavigationBar';
@@ -26,6 +28,8 @@ import CHATS from './Classes/Chats-class';
 import WEBSITE from './Classes/WebSite-class';
 import DocumentVerification from './components/Pages/DocumentsVerification/DocumentVerification';
 import ErrorHandler from './components/ErrorHandler/ErrorHandler';
+import USER from './Classes/User-class';
+import MASTER from './Classes/Master-class';
 
 function App(){
 
@@ -42,6 +46,8 @@ function App(){
           <contextWebsite.Provider value={WEBSITE}>
           <contextOrder.Provider value={{order, setOrder}}>    
           <contextChats.Provider value={CHATS}>
+          <contextUser.Provider value={USER}>
+          <contextMaster.Provider value={MASTER}>
             <Navbar />
             <ErrorHandler> 
               <Routes>
@@ -50,16 +56,25 @@ function App(){
                 <Route path='/SignUpAsMaster' element={<SignUpAsMaster />}/>
                 <Route path='/SignInAsMaster' element={<SignInAsMaster />}/>
                 <Route path='/Search' element={<ListOfTopics  />}/>
+
                 <Route path='/UserProfile/:email'>
                   <Route index element={<UserProfile />}/>
                   <Route path='documentVerification/:document' element={<DocumentVerification />}/>
                 </Route>
+
+                <Route path='/MasterProfile/:email'>
+                  <Route index element={<MasterProfile />}/>
+                  <Route path='documentVerification/:document' element={<DocumentVerification />}/>
+                </Route>
+
                 <Route path='/CreateTopic/:email'>
                   <Route index element={<CreateTopic  />} />
                   <Route path='Chats/:with' element={<Chats />}/>
                 </Route>
+
                 <Route path='/:pev_page/MasterProfile/:id' element={<MasterProfile />}/>
                 <Route path='/HelpPage' element={<HelpPage />}/>
+
                 <Route path='/MyOrders/:email'>
                   <Route index element={<MyOrders />} />
                   <Route path='Order/:id'>
@@ -67,8 +82,11 @@ function App(){
                     <Route path='Chats/:with' element={<Chats />}/>
                   </Route>
                 </Route>
+                
               </Routes>
             </ErrorHandler>
+          </contextMaster.Provider>
+          </contextUser.Provider>
           </contextChats.Provider>                              
           </contextOrder.Provider> 
           </contextWebsite.Provider> 

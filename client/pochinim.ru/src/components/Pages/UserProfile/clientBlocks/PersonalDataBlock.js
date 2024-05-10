@@ -10,12 +10,20 @@ const PersonalDataBlock = ({id, name, gender, email, phone_number, setReloadPage
     const [children, setChildren] = useState(<></>); 
 
     const update = (head, field, currentValue) =>{
-        setChildren(<div className='children-popup'>
-            <h1 className="edit-popup-h">{head}</h1>
-            <input className="edit-popup-input" placeholder={currentValue} onChange={e => setText(e.target.value)}></input>
-        </div>);
         if(field == 'account_email'){
-            
+            setChildren(
+                <div className='children-popup'>
+                    <h1 className="edit-popup-h">{head}</h1>
+                    <p>Пока нельзя</p>
+                </div>
+            );
+        }else{
+            setChildren(
+                <div className='children-popup'>
+                    <h1 className="edit-popup-h">{head}</h1>
+                    <input className="edit-popup-input" placeholder={currentValue} onChange={e => setText(e.target.value)}></input>
+                </div>
+            );
         }
         setField(field);
         setActive(true);
