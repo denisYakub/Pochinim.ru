@@ -3,47 +3,36 @@ import InputWithError from '../../../../animations/input-error-field';
 import USERController from '../../../../controllers/USER-controller';
 import { useEffect, useState } from 'react';
 
-const EmailPhase = ({phase, setPhase, email, setEmail, setEmailCode, setShowLoader}) =>{ 
+const EmailPhase = ({phase, setPhase, setShowLoader, USER}) =>{ 
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [warning, setWarning] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState('');
-
-    useEffect(() => {
-        try {
-            if(email == ''){
-                throw Error('пустое значение')
-            }else if(!email.includes('@')){
-                setErrorMessage('Почта должа быть похожа на ******@email.com');
-                throw Error('неверное значение')
-            }
-        } catch (error) {
-            if(error.message == 'пустое значение'){
-                setWarning(true);
-            }else if(error.message == 'неверное значение'){
-                setError(true);
-            }
-        }
-    },[email])
-
+    const [email, setEmail] = useState(USER.email);
 
     const click = async () =>{
-        setShowLoader(true);
-
-        if(await USERController.checkUserEmailInBd(email)){
-            setPhase(phase + 2);
-        }else{
-            var code = await USERController.getSendCode(email);
-            if(code != false){
-                setEmailCode(code);
-                setError(false);
-                setPhase(phase + 1);
-            }else{
+        try {
+            setShowLoader(true);
+            USER.email = email;
+            USER.sendCode();
+            setPhase(phase + 1);
+            setShowLoader(false);
+        } catch (error) {
+            if(error.message = 'Пользователь существует'){
+                setPhase(phase + 2);
+                setShowLoader(false);
+            }else if(error.message = 'Пустое значение'){
+                setWarning(true);
+                setShowLoader(false);
+            }else if(error.message = 'Не почта'){
+                setErrorMessage('Почта должа быть похожа на ******@email.com');
                 setError(true);
+                setShowLoader(false);
+            }else{
+                setShowLoader(false);
+                throw new Error(error.message);
             }
         }
-
-        setShowLoader(false);
     };
 
     return(<div className="phases-wrapper">

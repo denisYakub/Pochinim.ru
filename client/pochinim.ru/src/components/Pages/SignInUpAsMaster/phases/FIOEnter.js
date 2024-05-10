@@ -1,23 +1,13 @@
 import { useState, useEffect } from "react";
 
-const MasterFIOEnter = ({fio, setFio, step, setStep}) => {
+const MasterFIOEnter = ({step, setStep, MASTER}) => {
+
+    const [fio, setFio] = useState(MASTER.fio)
 
     const [secondName, setSecondName] = useState(true);
 
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
-
-    useEffect(() => {
-        try {
-
-        } catch (error) {
-            if(error.message == 'пустое значение'){
-                setWarning(true);
-            }else if(error.message == 'неверное значение'){
-                setError(true);
-            }
-        }
-    },[fio])
 
     const setNoSecondName = (value) => {
         setSecondName(!secondName);
@@ -36,8 +26,13 @@ const MasterFIOEnter = ({fio, setFio, step, setStep}) => {
     }
 
     const click = async () =>{
-        if(fio[0] != "" && fio[1] != ""){
+        try {
+            MASTER.fio = fio;
             setStep(step + 1);
+        } catch (error) {
+            if(error.message == 'Пустое значение'){
+                setWarning(true);
+            }
         }
     }
     

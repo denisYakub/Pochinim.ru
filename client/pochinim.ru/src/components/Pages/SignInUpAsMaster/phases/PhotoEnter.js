@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import defaultPhoto from '../../../../img/default-user-img.png'
 
-const MasterPhotoEnter = ({photo, setPhoto, FIO, step, setStep}) => {
+const MasterPhotoEnter = ({step, setStep, MASTER}) => {
+
+    const [photo, setPhoto] = useState(MASTER.photo);
 
     const [image, setImage] = useState(photo?URL.createObjectURL(photo):defaultPhoto);
 
@@ -10,9 +12,16 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO, step, setStep}) => {
         setImage(URL.createObjectURL(value));
     }
 
-    const click = async () =>{
-        if(photo != null){
+    const click = async () => {
+        try {
+            MASTER.photo = photo;
             setStep(step + 1);
+        } catch (error) {
+            if(error.message == 'Пустое значение'){
+
+            }else{
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -24,7 +33,7 @@ const MasterPhotoEnter = ({photo, setPhoto, FIO, step, setStep}) => {
         <div className="photo-choose-block">
             <div className="photo-choose-input" onClick={() => document.querySelector(".photo-input-field").click()}>
                 <img src={image} alt="photo"></img>
-                <h1>{FIO[0]} {FIO[1]}</h1>
+                <h1>{MASTER.fio[0]} {MASTER.fio[1]}</h1>
                 <p>Загрузить фото или селфи</p>
                 <input type="file" accept=".jpg,.jpeg,.png" multiple={false} 
                     className="photo-input-field" hidden={true} 

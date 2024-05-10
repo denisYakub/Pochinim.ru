@@ -4,51 +4,55 @@ import masterController from '../../../../controllers/MASTER-controller';
 import userController from '../../../../controllers/USER-controller';
 import InputWithError from '../../../../animations/input-error-field';
 
-const MasterEmailEnter = ({email, setEmail, codeConf, setCodeConf, code, setCode, sendCode, setSendCode, step, setStep}) => {
+const MasterEmailEnter = ({step, setStep, MASTER}) => {
 
     const [showLoader, setShowLoader] = useState(false);
 
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('Ошиюка');
+    const [errorMessage, setErrorMessage] = useState('Ошибка');
 
-    useEffect(() => {
-        try {
-            if(email == ''){
-                throw Error('пустое значение')
-            }else if(!email.includes('@')){
-                setErrorMessage('Почта должа быть похожа на ******@email.com');
-                throw Error('неверное значение')
-            }
-        } catch (error) {
-            if(error.message == 'пустое значение'){
-                setWarning(true);
-            }else if(error.message == 'неверное значение'){
-                setError(true);
-            }
-        }
-    },[email])
+    const [email, setEmail] = useState(MASTER.email);
+    const [code, setCode] = useState(MASTER.code);
 
     const sendNewCode = async () => {
-        if(email != "" && !(await masterController.checkMasterInBd(email))){
+        try {
+            MASTER.email = email;
             setShowLoader(true);
-            const b = await userController.getSendCode(email);
-            setSendCode(b);
-            setCodeConf(true);
-
+            MASTER.sendCode();
             setShowLoader(false);
-        }else{
-            setError(true);
-            setErrorMessage('Вы уже регестрировались поробуйте войти');
+        } catch (error) {
+            if(error.message == 'Не почта'){
+                setShowLoader(false);
+                setError(true);
+                setErrorMessage('Почта должна оканчиваться на: ****@email.com');
+            }else if(error.message == 'Пустое значение'){
+                setShowLoader(false);
+                setWarning(true);
+            }else if(error.message == 'Аккаунт существует'){
+                setShowLoader(false);
+                setError(true);
+                setErrorMessage('Вы уже регестрировались поробуйте войти');
+            }else{
+                setShowLoader(false);
+                throw new Error(error.message);
+            }
         }
     }
 
     const click = async () =>{
-        if(email != "" && code == sendCode){
+        try {
+            MASTER.code = code;
             setStep(step + 1);
-        }else{
-            setError(true);
-            setErrorMessage('Код введен не верный');
+        } catch (error) {
+            if(error.message == 'Пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'Не верный код'){
+                setError(true);
+                setErrorMessage('Код введен не верный');
+            }{
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -57,7 +61,7 @@ const MasterEmailEnter = ({email, setEmail, codeConf, setCodeConf, code, setCode
             error={error} setError={setError} errorText={errorMessage}
             warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
             inputType='email'></InputWithError>
-        {codeConf?
+        {MASTER.codeSend()?
         <InputWithError placeholder={'код'} value={code} setValue={setCode} 
             error={error} setError={setError} errorText={errorMessage}
             warning={warning} setWarning={setWarning} warningText={'Заполните поле'}

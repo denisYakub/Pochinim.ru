@@ -6,7 +6,11 @@ import InputWithError from '../../../../animations/input-error-field';
 
 const key = "52112b4d-5217-4897-8975-50bb62c674a6";
 
-const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, selectedOptionsLocation, setSelectedOptionsLocation, step, setStep}) => {
+const MasterLocationEnter = ({step, setStep, MASTER}) => {
+
+    const [workingFrom, setWorkingFrom] = useState(MASTER.workingFrom);
+    const [address, setAddress] = useState(MASTER.address);
+    const [selectedOptionsLocation, setSelectedOptionsLocation] = useState(MASTER.selectedOptionsLocation);
 
     const WEBSITE = useContext(contextWebsite);
 
@@ -36,9 +40,6 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
 
             setCenter(WEBSITE.currentCoordinates);
             
-            if(address == ''){
-                throw Error('пустое значение')
-            }
         } catch (error) {
             if(error.message == 'пустое значение'){
                 setWarning(true);
@@ -88,8 +89,19 @@ const MasterLocationEnter = ({workingFrom, setWorkingFrom, address, setAddress, 
     }
 
     const click = async () =>{
-        if(workingFrom != 0 && (address != ""|| selectedOptionsLocation != null)){
+        try {
+            MASTER.workingFrom = workingFrom;
+            if(workingFrom == 1){
+
+                MASTER.selectedOptionsLocation = selectedOptionsLocation;
+            }else{
+                MASTER.address = address;
+            }
             setStep(step + 1);
+        } catch (error) {
+            if(error.message == 'Пустое значение'){
+                setWarning(true);
+            }
         }
     }
 

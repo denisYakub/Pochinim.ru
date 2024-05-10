@@ -1,31 +1,24 @@
 import { useEffect, useState } from 'react';
 import InputWithError from '../../../../animations/input-error-field';
 
-const MasterOccupationEnter = ({occupation, setOccupation, step, setStep}) => {
+const MasterOccupationEnter = ({step, setStep, MASTER}) => {
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
 
-    useEffect(() => {
-        try {
-            if(occupation == ''){
-                throw Error('пустое значение')
-            }
-        } catch (error) {
-            if(error.message == 'пустое значение'){
-                setWarning(true);
-            }else if(error.message == 'неверное значение'){
-                setError(true);
-            }
-        }
-    },[occupation])
+    const [occupation, setOccupation] = useState(MASTER.occupation);
 
     const activateHint = (value) => {
         setOccupation(value);
     }
 
     const click = async () =>{
-        if(occupation != ""){
+        try {
+            MASTER.occupation = occupation;
             setStep(step + 1);
+        } catch (error) {
+            if(error.message == 'Пустое значение'){
+                setWarning(true);
+            }
         }
     }
 

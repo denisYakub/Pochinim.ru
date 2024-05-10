@@ -1,7 +1,27 @@
-const MasterPasswordEnter = ({password, setPassword, step, setStep}) => {
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { contextWebsite } from "../../../../contexts/contextWebsite";
+
+const MasterPasswordEnter = ({step, setStep, MASTER}) => {
+
+    const navigate = useNavigate();
+    const WEBSITE = useContext(contextWebsite);
+
+    const [password, setPassword] = useState(MASTER.password);
 
     const click = async () =>{
-        if(password != ""){
+        try {
+            MASTER.password = password;
+            MASTER.registrateMaster(WEBSITE.currentCity());
+            navigate('/');
+        } catch (error) {
+            if(['Пустое значение', 'Пароль меньше 8 символов',
+            'Пароль дожен включать 1 цифру', 'Пароль дожен включать 1 букву'
+            ].includes(error.message)){
+
+            }else{
+                throw new Error(error.message);
+            }
         }
     }
 
