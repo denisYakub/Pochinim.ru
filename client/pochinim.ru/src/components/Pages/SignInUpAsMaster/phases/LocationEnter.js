@@ -106,7 +106,7 @@ const MasterLocationEnter = ({step, setStep, MASTER}) => {
     }
 
     return(<div className="phases-wrapper">
-        {workingFrom==0?
+        {workingFrom == null?
         <div style={{display: 'flex', flexDirection: 'column', gap: '40px'}}>
             <div className="signUpMaster-annotation">
                 <h1>Где работаете?</h1>

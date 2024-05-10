@@ -13,8 +13,8 @@ class User{
         this.#name = null;
     }
 
-    async #checkEmailInBD(email){
-        return (await userController.checkUserEmailInBd(email));
+    async checkEmailInBD(email){
+        return (await userController.checkUserEmailInBd(email))
     }
 
     async sendCode(){
@@ -53,13 +53,11 @@ class User{
         }
     }
 
-    set email(new_email){
+    set email (new_email){
         if(new_email == ' ' || new_email == '' || new_email == null){
             throw Error('Пустое значение')
         }else if(!new_email.includes('@')){
             throw new Error('Не почта');
-        }else if(this.#checkEmailInBD(new_email)){
-            throw new Error('Пользователь существует');
         }else{
             this.#email = new_email;
         }
@@ -76,7 +74,7 @@ class User{
             throw new Error('Пароль меньше 8 символов')
         }else if(!/\d/.test(new_password)){
             throw new Error('Пароль дожен включать 1 цифру')
-        }else if(/^\d+$/.test(str)){
+        }else if(/^\d+$/.test(new_password)){
             throw new Error('Пароль дожен включать 1 букву')
         }else{
             this.#password = new_password;

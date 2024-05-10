@@ -14,14 +14,16 @@ const EmailPhase = ({phase, setPhase, setShowLoader, USER}) =>{
         try {
             setShowLoader(true);
             USER.email = email;
-            USER.sendCode();
-            setPhase(phase + 1);
-            setShowLoader(false);
-        } catch (error) {
-            if(error.message = 'Пользователь существует'){
-                setPhase(phase + 2);
+            if(await USER.checkEmailInBD(email)){
                 setShowLoader(false);
-            }else if(error.message = 'Пустое значение'){
+                setPhase(phase + 2);
+            }else{
+                USER.sendCode();
+                setShowLoader(false);
+                setPhase(phase + 1);
+            }
+        } catch(error) {
+            if(error.message = 'Пустое значение'){
                 setWarning(true);
                 setShowLoader(false);
             }else if(error.message = 'Не почта'){

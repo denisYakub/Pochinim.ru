@@ -15,11 +15,14 @@ const MasterEmailEnter = ({step, setStep, MASTER}) => {
     const [email, setEmail] = useState(MASTER.email);
     const [code, setCode] = useState(MASTER.code);
 
+    const [codeSend, setCodeSend] = useState(false);
+
     const sendNewCode = async () => {
         try {
             MASTER.email = email;
             setShowLoader(true);
             MASTER.sendCode();
+            setCodeSend(await MASTER.codeSend());
             setShowLoader(false);
         } catch (error) {
             if(error.message == 'Не почта'){
@@ -61,7 +64,7 @@ const MasterEmailEnter = ({step, setStep, MASTER}) => {
             error={error} setError={setError} errorText={errorMessage}
             warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
             inputType='email'></InputWithError>
-        {MASTER.codeSend()?
+        {codeSend?
         <InputWithError placeholder={'код'} value={code} setValue={setCode} 
             error={error} setError={setError} errorText={errorMessage}
             warning={warning} setWarning={setWarning} warningText={'Заполните поле'}

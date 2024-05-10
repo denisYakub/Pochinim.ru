@@ -13,7 +13,7 @@ class Master{
     #password;
 
     constructor(){
-        this.#fio = [];
+        this.#fio = [null, null, null];
         this.#occupation = null;
         this.#working_from = null;
         this.#address = null;
@@ -33,7 +33,7 @@ class Master{
             this.#code = await userController.getSendCode(this.#email);
         }
     }
-
+    
     #compareCodes(code){
         if(this.#code == code && this.#code != null){
             return true;
@@ -68,7 +68,7 @@ class Master{
     }
 
     set fio(new_fio){
-        if(new_fio[0] != "" && new_fio[1] != ""){
+        if(new_fio[0] != null && new_fio[1] != null){
             this.#fio = new_fio;
         }else{
             throw new Error('Пустое значение')
@@ -80,7 +80,7 @@ class Master{
     }
 
     set occupation(new_occupation){
-        if(new_occupation != ""){
+        if(new_occupation != null){
             this.#occupation = new_occupation;
         }else{
             throw new Error('Пустое значение')
@@ -104,7 +104,7 @@ class Master{
     }
 
     set address(new_address){
-        if(new_address != ''){
+        if(new_address != null){
             this.#address = new_address;
         }else{
             throw new Error('Пустое значение')
@@ -115,8 +115,8 @@ class Master{
         return this.#selected_options_location;
     }
 
-    set selectedOptionsLocation(selected_options_location){
-        if(selected_options_location != null){
+    set selectedOptionsLocation(new_selected_options_location){
+        if(new_selected_options_location != null){
             this.#selected_options_location = new_selected_options_location;
         }else{
             throw new Error('Пустое значение')
@@ -128,11 +128,11 @@ class Master{
     }
 
     set email(new_email){
-        if(!new_email.includes('@')){
-            throw new Error('Не почта');
-        }else if(new_email == ''){
+        if(new_email == null){
             throw new Error('Пустое значение');
-        }else{
+        }else if(!new_email.includes('@')){
+            throw new Error('Не почта');
+        }else {
             this.#email = new_email;
         }
     }
@@ -140,9 +140,9 @@ class Master{
     get code(){
         return this.#code;
     }
-
+    
     set code(new_code){
-        if(new_code == ''){
+        if(new_code == null){
             throw new Error('Пустое значение');
         }if(this.#compareCodes(new_code)){
             throw new Error('Не верный код');
@@ -168,13 +168,13 @@ class Master{
     }
 
     set password(new_password){
-        if(new_password == null || new_password == '' || new_password == ' '){
+        if(new_password == null){
             throw new Error('Пустое значение')
         }else if(new_password.length < 8){
-            throw new Error('Пароль меньше 8 символов')
+            throw new Error('Пароль меньше 8 символов') 
         }else if(!/\d/.test(new_password)){
             throw new Error('Пароль дожен включать 1 цифру')
-        }else if(/^\d+$/.test(str)){
+        }else if(/^\d+$/.test(new_password)){
             throw new Error('Пароль дожен включать 1 букву')
         }else{
             this.#password = new_password;

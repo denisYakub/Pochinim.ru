@@ -15,9 +15,8 @@ const PasswordPhase = ({phase, setPhase, USER}) =>{
     const click = async() =>{
         try {
             USER.password = password;
-            USER.name = name;
-
             if(needToReg){
+                USER.name = name;
                 USER.registrateUser();
                 setPhase(phase + 1);
             }else{

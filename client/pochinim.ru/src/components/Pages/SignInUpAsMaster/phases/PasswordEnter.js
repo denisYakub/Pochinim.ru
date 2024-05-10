@@ -12,7 +12,7 @@ const MasterPasswordEnter = ({step, setStep, MASTER}) => {
     const click = async () =>{
         try {
             MASTER.password = password;
-            MASTER.registrateMaster(WEBSITE.currentCity());
+            MASTER.registrateMaster(WEBSITE.currentCity);
             navigate('/');
         } catch (error) {
             if(['Пустое значение', 'Пароль меньше 8 символов',
