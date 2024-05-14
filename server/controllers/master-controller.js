@@ -153,6 +153,18 @@ class MasterController{
             next(e);
         }
     }
+
+    async updateMasterField(req, res, next){
+        try {
+            const {field, new_value, id_master} = await req.body;
+
+            const data = await masterService.upDateField(field, new_value, id_master);
+
+            return res.json(await data);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new MasterController();

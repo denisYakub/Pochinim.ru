@@ -1,10 +1,70 @@
 @import'../../../index.css';
-.master-profile{
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 0 auto;
+
+.master-profile-wrapper{
+    padding: 101px;
     display: flex;
+    justify-content: space-between;
+}
+
+.main-info-block{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border: solid 1px; 
+    border-color: var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
+    padding-bottom: 15px;
+}
+
+.main-info-name-date{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.main-info-documents{
+    display: flex;
+    gap: 30px;
+}
+
+.main-info-documents-block{
+    display: flex;
+    align-content: center;
+    gap: 8px;
+}
+.main-info-documents-block img{
+    width: fit-content;
+    height: fit-content;
+}
+.main-info-documents-block p{
+    width: fit-content;
+    height: fit-content;
+}
+
+.achievements-list{
+    display: flex;
+    gap: 20px;
     justify-content: center;
-    background: var(--color-main-wihite);
-    box-sizing: border-box;
+    align-items: center;
+}
+
+.achievement{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sercices-prices{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.sercices-prices div{
+    display: flex;
+    justify-content: space-between;
+    border: 1px dotted; 
+    border-color: var(--color-secondary-grey05) var(--color-secondary-grey05) var(--color-secondary-grey15) var(--color-secondary-grey05);
 }

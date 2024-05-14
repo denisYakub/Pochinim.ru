@@ -46,6 +46,7 @@ class MasterController{
 
         localStorage.setItem('token-master', master?.accessToken);
         localStorage.setItem('mail-master', master?.email);
+        localStorage.setItem('id-master', master?.id_master);
 
         const file = new FormData();
         file.append('masterPhoto', photo);
@@ -78,7 +79,8 @@ class MasterController{
 
         localStorage.setItem('token-master', ret?.accessToken);
         localStorage.setItem('mail-master', email);
-        
+        localStorage.setItem('mail-master', ret?.id_master);
+
         if(ret?.message){
             return false;
         }
@@ -174,8 +176,26 @@ class MasterController{
         const photo = await data.blob();
 
         const obj = URL.createObjectURL(photo);
-
+        
         return obj;
+    }
+
+    async updateMasterField(field, new_value, id_master){
+
+        const body = {field: field, new_value: new_value, id_master: id_master};
+
+        const result = await fetch(`http://localhost:4000/api/masters`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token-master')}`
+            },
+            body: JSON.stringify(body)
+        })
+
+        return result;
     }
 };
 

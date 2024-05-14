@@ -73,6 +73,14 @@ class TopicService{
             throw error;
         }
     }
+
+    async getTopics(){
+        try {
+            return (await pool.query(`SELECT * FROM topics`)).rows
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new TopicService();

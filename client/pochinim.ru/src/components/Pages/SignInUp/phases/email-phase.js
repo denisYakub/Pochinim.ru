@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import InputWithError from '../../../../animations/input-error-field';
-import USERController from '../../../../controllers/USER-controller';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const EmailPhase = ({phase, setPhase, setShowLoader, USER}) =>{ 
     const [error, setError] = useState(false);
@@ -23,13 +22,13 @@ const EmailPhase = ({phase, setPhase, setShowLoader, USER}) =>{
                 setPhase(phase + 1);
             }
         } catch(error) {
-            if(error.message = 'Пустое значение'){
+            if(error.message == 'Пустое значение'){
+                setShowLoader(false);
                 setWarning(true);
-                setShowLoader(false);
-            }else if(error.message = 'Не почта'){
+            }else if(error.message == 'Не почта'){
                 setErrorMessage('Почта должа быть похожа на ******@email.com');
-                setError(true);
                 setShowLoader(false);
+                setError(true);
             }else{
                 setShowLoader(false);
                 throw new Error(error.message);

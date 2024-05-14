@@ -67,6 +67,27 @@ class TopicController{
             next(error);
         }
     }
+
+    async getAllTopics(req, res, next){
+        try {
+            const topics = await topicService.getTopics();
+
+            var data = [];
+
+            for(const val of topics){
+                
+                const paths = await topicService.getPathsOfTopicFiles(val.id_topic);
+
+                val.photo_paths = paths;
+
+                data.push(val);
+            }
+
+            return res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new TopicController();

@@ -14,12 +14,12 @@ import MainPage from './components/Pages/MainPage/MainpageList';
 import Footer from './components/Footer/Footer';
 import UserProfile from './components/Pages/UserProfile/UserProfile';
 import CreateTopic from './components/Pages/CreateTopic/CreateTopic';
-import SignUpAsMaster from './components/Pages/SignInUpAsMaster/SignUpAsMaster/SignUpAsMaster';
+import SignUpAsMaster from './components/Pages/SignUpAsMaster/SignUpAsMaster';
 import HelpPage from './components/Pages/HelpPage/HelpPage';
 import MasterProfile from './components/Pages/MasterProfile/MasterProfile';
 import MyOrders from './components/Pages/UserOrders/UserOrders';
 import Order from './components/Pages/Order/Order';
-import SignInAsMaster from './components/Pages/SignInUpAsMaster/SignInAsMaster/SignInAsMaster';
+import SignInAsMaster from './components/Pages/SignInAsMaster/SignInAsMaster';
 
 import './components/UI-KIT/uiKit.css';
 import Chats from './components/Pages/Chats/Chats';
@@ -30,6 +30,8 @@ import DocumentVerification from './components/Pages/DocumentsVerification/Docum
 import ErrorHandler from './components/ErrorHandler/ErrorHandler';
 import USER from './Classes/User-class';
 import MASTER from './Classes/Master-class';
+import MasterOrdersSearch from './components/Pages/MasterOrders/MasterOrdersSearch';
+import NewOrderForMaster from './components/Pages/MasterOrders/NewOrderForMaster';
 
 function App(){
 
@@ -81,6 +83,11 @@ function App(){
                     <Route index element={<Order />} />
                     <Route path='Chats/:with' element={<Chats />}/>
                   </Route>
+                </Route>
+
+                <Route path='/SearchOrdersForMasters'>
+                  <Route index element={<MasterOrdersSearch />}></Route>
+                  <Route path='NewOrder/:id_order' element={<NewOrderForMaster />}></Route>
                 </Route>
                 
               </Routes>

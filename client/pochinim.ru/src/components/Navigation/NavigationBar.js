@@ -39,6 +39,8 @@ const Navbar = () => {
 
         }else if(val == 2){
             navigate('/SignUpAsMaster');
+        }else if(val == 3){
+            navigate('/SearchOrdersForMasters');
         }
     };
 
@@ -69,7 +71,7 @@ const Navbar = () => {
             <div className="navigation-orders-forum-masters-search-users">
                 <Link className='link-as-text' to={`/MyOrders/${auth}`}>Мои заказы</Link>
                 <Link className='link-as-text'>Форум</Link>
-                <Select options={[{value: 1, label: 'Специалистам'}, {value: 2, label: 'Регестрация'}]}
+                <Select options={[{value: 1, label: 'Специалистам'}, {value: 2, label: 'Регестрация'}, {value: 3, label: 'Выбрать заказ'}]}
                     placeholder='Специалистам'
                     onChange={e => selectMasterHandler(e.value)}
                     styles={{

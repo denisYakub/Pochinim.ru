@@ -1,0 +1,10 @@
+@import'../../../index.css';
+
+.signin-as-master-content{
+    width: 100%;
+    height: 100vh;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+}

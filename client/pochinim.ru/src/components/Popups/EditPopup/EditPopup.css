@@ -87,3 +87,66 @@
     color: var(--color-main-wihite);
     font-size: 20px;
 }
+
+.edit-popup-list-of-sercices-prices{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: baseline;
+    width: 100%;
+    height: fit-content;
+}
+
+.edit-popup-sercice-price{
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    border: 1px dotted; 
+    border-color: var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
+}
+
+.edit-popup-sercice-price input{
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary-grey10);
+    background: var(--color-secondary-grey05);
+}
+
+.edit-popup-sercice-price-checkbox{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-popup-sercice-price-checkbox p{
+    font-size: 20px;
+}
+
+.edit-popup-sercice-price-checkbox input[type='checkbox']{
+    width: 30px;
+    height: 30px;
+}
+
+.edit-popup-add-sercice-price{
+    display: flex;
+    justify-content: space-between;
+    border: 1px dotted;
+    border-color:  var(--color-main-wihite) var(--color-main-wihite) var(--color-secondary-grey30) var(--color-main-wihite);
+}
+
+.edit-popup-add-sercice-price input[type='text']{
+    width: fit-content;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary-grey10);
+    background: var(--color-secondary-grey05);
+}
+
+.edit-popup-add-sercice-price input[type='number']{
+    width: fit-content;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary-grey10);
+    background: var(--color-secondary-grey05);
+}

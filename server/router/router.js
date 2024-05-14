@@ -35,6 +35,8 @@ router.put('/users/:id_user',
 //==================Masters========================
 router.post('/masters',
             masterController.registration);
+router.put('/masters',
+            masterController.updateMasterField);       
 router.get('/refresh-master', 
                 masterController.refresh);
 router.post('/masters/login', 
@@ -56,11 +58,12 @@ router.put('/masters/:id_master',
 router.post('/topics',
                 authMiddleware,
                 topicController.createTopic);
+router.get('/topics',
+                topicController.getAllTopics);            
 router.put('/topics/:id_topic',
                 multerMiddleware.any('topicMainPhotos'),
                 topicController.saveFileForTopic);
 router.get('/topics/images/:id_topic',
-                authMiddleware,
                 topicController.getPathsOfTopicImgs);
 router.get('/topics/:email',
                 authMiddleware,

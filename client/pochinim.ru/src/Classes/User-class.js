@@ -54,7 +54,7 @@ class User{
     }
 
     set email (new_email){
-        if(new_email == ' ' || new_email == '' || new_email == null){
+        if(new_email == null){
             throw Error('Пустое значение')
         }else if(!new_email.includes('@')){
             throw new Error('Не почта');

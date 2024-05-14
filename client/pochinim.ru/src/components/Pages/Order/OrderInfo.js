@@ -19,7 +19,7 @@ const OrderInfo = ({order, photos}) => {
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Детали</p>
+                    <p>Ключевые детали</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.problem}</p>
@@ -27,21 +27,21 @@ const OrderInfo = ({order, photos}) => {
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Информация об объекте</p>
+                    <p>Место поломки</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.problem_location}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Удобные дни и время</p>
+                    <p>Когда</p>
                     <div className='edit-button'></div>
                 </div>
-                <p>{order?.date}</p>
+                <p>{order?.date.split('T')[0]}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Стоимость услуги</p>
+                    <p>Цена</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>от {order?.price_start} до {order?.price_end}</p>
@@ -55,14 +55,14 @@ const OrderInfo = ({order, photos}) => {
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Куда вам удобно приехать?</p>
+                    <p>Адрес</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.address}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>
-                    <p>Дополнения и пожелания</p>
+                    <p>Описание</p>
                     <div className='edit-button'></div>
                 </div>
                 <p>{order?.details}</p>

@@ -1,0 +1,240 @@
+@import'../../../index.css';
+
+.master-orders-search-content{
+    padding: 101px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.master-orders-search{
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.master-orders-search-filer-meeting{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.master-orders-search-filer-meeting h1{
+    font-size: 24px;
+}
+
+.master-orders-search-filer-meeting-choose{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.master-orders-search-filer-price{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 15px;
+}
+
+.master-orders-search-filer-price h1{
+    font-size: 24px;
+}
+
+.master-orders-search-filer-price-inputs{
+    display: flex;
+    gap: 20px;
+}
+
+.master-orders-search-filer-location{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 15px;
+}
+.master-orders-search-filer-location h1{
+    font-size: 24px;
+}
+.master-orders-search-filer-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.master-orders-search input{
+    background: url('../../../img/search.png') no-repeat left var(--color-secondary-grey-dies);
+}
+
+.master-orders-list{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 100%;
+}
+
+.master-orders-interactive{
+    display: flex;
+    gap: 21px;
+    margin-bottom: 35px;
+}
+
+.master-orders-interactive div{
+    width: 156px;
+    height: 156px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-secondary-violet-dies);
+    border: 1px solid var(--color-secondary-violet-dies);
+    position: relative;
+}
+
+.master-orders-interactive div p{
+    max-width: 105px;
+    color: var(--color-main-blue);
+    font-size: 14px;
+    margin: 11px;
+}
+
+.master-orders-interactive div img{
+    align-self: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: absolute;
+    max-height: 100px;
+    max-width: 156px;
+    bottom: 0;
+    left: 0;
+}
+
+.master-orders-search-buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-right: 101px;
+    padding-top: 51px;
+}
+
+.master-order-preview-content{
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+    border-color: var(--color-secondary-grey15) var(--color-main-wihite) var(--color-secondary-grey15) var(--color-main-wihite);
+    opacity: 1;
+    &:hover{
+        opacity: 0.7;
+    }
+    &:active{
+        opacity: 0.9;
+    }
+}
+
+.master-order-preview-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.master-order-preview-info-text{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+}
+
+.master-order-preview-info-date-adress{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.master-order-preview-info-date-adress div{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.master-order-preview-imgs{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+}
+.master-order-preview-img-0{
+    right: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-self: center;
+    width: 177px;
+    height: 232px;
+    margin-right: 0px;
+}
+.master-order-preview-img-1{
+    right: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-self: center;
+    width: 177px;
+    height: 232px;
+    margin-right: -88.5px;
+}
+.master-order-preview-img-2{
+    right: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-self: center;
+    width: 177px;
+    height: 232px;
+    margin-right: -147.5px;
+}
+.master-order-preview-img-3{
+    right: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-self: center;
+    width: 177px;
+    height: 232px;
+    margin-right: -147.5px;
+}
+
+.new-order-for-master-content{
+    padding: 101px;
+    min-height: 100vh;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.new-order-for-master-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    align-items: center;
+}
+
+.new-order-for-master-info-doc{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: baseline;
+    max-width: 300px;
+}
+
+.new-order-for-master-info-doc h1{
+    font-size: 28px;
+}
+
+.new-order-for-master-info-doc p{
+    font-size: 16px;
+}
+
+.new-order-for-master-info-doc img{
+    background-color: var(--color-secondary-violet-dies);
+    border: 1px solid var(--color-secondary-violet-dies);
+}

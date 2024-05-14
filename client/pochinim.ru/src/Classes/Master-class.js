@@ -12,16 +12,47 @@ class Master{
     #code;
     #password;
 
+    #registration_date;
+
+    #about_me;
+    #gender;
+    #phone_number
+    #documents;
+    #education;
+    #experience;
+    #sercices_price
+    #city;
+
+    #reviews;
+    #reviews_count;
+    #reviews_stars;
+
+
     constructor(){
-        this.#fio = [null, null, null];
+        this.#fio = 'null, null, null';
         this.#occupation = null;
         this.#working_from = null;
         this.#address = null;
-        this.#selected_options_location = null;
+        this.#selected_options_location = [];
         this.#photo = null;
         this.#email = null;
         this.#code = null;
         this.#password = null;
+
+        this.#registration_date = null;
+
+        this.#about_me = null;
+        this.#gender = null;
+        this.#phone_number = null;
+        this.#documents = [];
+        this.#education = [];
+        this.#experience = [];
+        this.#sercices_price = [];
+        this.#city = null;
+
+        this.#reviews = [];
+        this.#reviews_count = null;
+        this.#reviews_stars = null;
     }
 
     async sendCode(){
@@ -58,8 +89,60 @@ class Master{
             const result = await masterController.registrate(this.#fio, this.#occupation, this.#working_from,
                 this.#address, this.#selected_options_location, this.#email, this.#photo, this.#password, city
             );
+            console.log(await result.json());
         }else{
             throw new Error('Пустое значение');
+        }
+    }
+
+    async logInMaster(){    
+        if(this.#email == null || this.password == null){
+            throw new Error('Пустое значение');
+        }else if(!await masterController.checkMasterInBd(this.#email)){
+            throw new Error('Аккаунт не существует');
+        }else{
+            const result = await masterController.logInMaster(this.#email, this.password);
+            console.log(await result.json());
+        }
+    }
+
+    async setAllMasterDataById(id_master){
+        const result_master = await masterController.getWholeInfById(id_master);
+        //const result_reviews = await masterController.getReviewsById(id_master);
+        
+        this.#email = result_master.master_email;
+
+        this.#fio = result_master.fio;
+        this.#occupation = result_master.occupation;
+        this.#photo = await masterController.getMasterPhotoByPath(result_master.master_photo_path);
+
+        if(result_master.working_from == 1){
+            this.#selected_options_location = result_master.selected_options_of_location;
+        }else if(result_master.working_from == 2){
+            this.#address = result_master.location
+        }
+
+        this.#about_me = result_master.about_me;
+        this.#documents = result_master.documents;
+        this.#education = result_master.education;
+        this.#experience = result_master.experience;
+        this.#sercices_price = result_master.sercices_price;
+        this.#city = result_master.city;
+
+        this.#reviews = result_master.reviews;
+        this.#reviews_count = result_master.reviewsCount;
+        this.#reviews_stars = result_master.stars;
+
+        return true;
+    }
+
+    async updateMasterField(fieldToUpdate, newValue){
+        const fixedNewValue = (JSON.stringify(newValue).split('[').join('{')).split(']').join('}');
+        
+        var result = await masterController.updateMasterField(fieldToUpdate, fixedNewValue, localStorage.getItem('id-master'));
+        if(result?.status == 401){
+            //await masterController.refreshMasterTokens();
+            result = await masterController.updateMasterField(fieldToUpdate, fixedNewValue, localStorage.getItem('id-master'));
         }
     }
 
@@ -179,6 +262,54 @@ class Master{
         }else{
             this.#password = new_password;
         }
+    }
+
+    get registrationDate(){
+        return this.#registration_date;
+    }
+
+    get aboutMe(){
+        return this.#about_me;
+    }
+
+    get gender(){
+        return this.#gender;
+    }
+
+    get phoneNumber(){
+        return this.#phone_number;
+    }
+
+    get documents(){
+        return this.#documents;
+    }
+
+    get education(){
+        return this.#education;
+    }
+
+    get experience(){
+        return this.#experience;
+    }
+
+    get sercicesPrice(){
+        return this.#sercices_price;
+    }
+
+    get reviews(){
+        return this.#reviews;
+    }
+
+    get reviewsStars(){
+        return this.#reviews_stars;
+    }
+
+    get reviewsCount(){
+        return this.#reviews_count;
+    }
+
+    get city(){
+        return this.#city;
     }
 }
 

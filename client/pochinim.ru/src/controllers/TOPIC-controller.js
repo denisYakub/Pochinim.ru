@@ -67,12 +67,10 @@ class TopicController{
 
         var images = [];
 
-        console.log(paths);
-
         for(const path of paths){
 
             const data = await fetch(`http://localhost:4000/api/photos`,{
-            method: "POST",
+                method: "POST",
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
@@ -88,6 +86,17 @@ class TopicController{
         }
 
         return images;
+    }
+
+    async getAllTopicsForMaster(){
+        const result = await fetch(`http://localhost:4000/api/topics`,{
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+            },
+        })
+
+        return await result.json();
     }
     
     async getListOfExistingTopics(){

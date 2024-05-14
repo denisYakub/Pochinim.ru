@@ -32,6 +32,7 @@ class UserController{
 
         localStorage.setItem('token', ret.accessToken);
         localStorage.setItem('mail', email);
+        localStorage.setItem('id', ret.account_id);
 
         if(ret?.message){
             return false;
@@ -74,6 +75,7 @@ class UserController{
 
         localStorage.setItem('token', ret?.accessToken);
         localStorage.setItem('mail', email);
+        localStorage.setItem('id', ret?.account_id);
         
         if(ret?.message){
             return false;

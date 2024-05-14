@@ -58,7 +58,7 @@ class MasterService{
                 throw ApiError.BadRequest(`Пользователь с почтой ${email} не найден!`);
             };
     
-            const isPasswordsEquals = (await crypto.MD5(password) == candidat.rows[0].account_password);
+            const isPasswordsEquals = (await crypto.MD5(password) == await (candidat.rows[0].master_password));
 
             if(!isPasswordsEquals){
                 throw ApiError.BadRequest(`Неверный пароль!`);
@@ -102,8 +102,7 @@ class MasterService{
     }
     async getMasterInfo(id){
         try {
-            const listofMasters = await pool.query(`SELECT masters.id_master AS id_master, fio, occupation, location, master_photo_path, 
-                                                    about_me, experience, education, sercices_price
+            const listofMasters = await pool.query(`SELECT *
                                                         FROM masters LEFT JOIN masters_additional_information 
                                                             ON masters.id_master = masters_additional_information.id_master
                                                                 WHERE masters.id_master = '${id}'`);
@@ -136,7 +135,40 @@ class MasterService{
             throw error;
         }
     }
+    async upDateField(column_name, new_value, id_master){
+        try {
+            console.log(new_value);
+            var ret;
+            if(['master_email', 'master_password', 'fio', 'occupation',
+                'working_from', 'location', 'master_photo_path', 'city',
+                'selected_options_of_location'
+            ].includes(column_name)){
+                ret = await pool.query(`UPDATE masters
+                                            SET ${column_name} = '${new_value}'
+                                            WHERE id_master = '${id_master}'`);
+            }else if(['about_me', 'experience', 
+                    'education', 'sercices_price',
+                    ].includes(column_name)){
 
+                const nothingToUpdate = (await pool.query(`SELECT COUNT(*) FROM masters_additional_information
+                                                                WHERE id_master = '${id_master}'`)).rows[0].count
+                if(nothingToUpdate == 0){
+                    ret = await pool.query(`INSERT INTO masters_additional_information 
+                                                    (id_master, ${column_name}) 
+                                                        VALUES 
+                                                    ('${id_master}', '${new_value}')`);
+                }else{
+                    ret = await pool.query(`UPDATE masters_additional_information
+                                                SET ${column_name} = '${new_value}'
+                                                WHERE id_master = '${id_master}'`);
+                }
+            }else{
+                throw ApiError.BadRequest('tabels dont have this column: ', column_name);
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = new MasterService();

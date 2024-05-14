@@ -61,9 +61,9 @@ const PersonalDataBlock = ({id, name, gender, email, phone_number, setReloadPage
                 <p>{phone_number}</p>
             </div>
         </div>
-        <EditPopup active={active} setActive={setActive} 
-        children={children} updateFunction={userController.updateUserField}
-        fieldToUpdate={field} newValue={text} idUser={id} setReloadPage={setReloadPage}></EditPopup>
+        {/*<EditPopup active={active} setActive={setActive} 
+            children={children} updateFunction={userController.updateUserField}
+    fieldToUpdate={field} newValue={text} idUser={id} setReloadPage={setReloadPage}></EditPopup>*/}
     </Fragment>);
 }
 
