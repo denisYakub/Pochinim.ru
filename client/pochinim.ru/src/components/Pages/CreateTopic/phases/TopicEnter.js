@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import InputWithError from '../../../../animations/input-error-field';
+import  Select from 'react-select';
 
 const TopicEnter = ({TOPIC}) => {
     const [topic_name, setTopic_name] = useState(TOPIC.topicName);
@@ -47,6 +48,8 @@ const TopicEnter = ({TOPIC}) => {
                 Дистанционно
                 </button>
             </div>
+            <Select options={TOPIC.assistence_hints}
+                    onChange={e => sessionStorage.setItem('create_topic_theme', e.value)}></Select>
         </div>
     </div>)
 }

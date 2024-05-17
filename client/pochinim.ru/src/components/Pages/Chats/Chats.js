@@ -108,6 +108,9 @@ const Chats = () => {
                         <button className="button-grey" onClick={() => enter()}>отправить</button>
                     </div>
                 </div>
+                <div className="notes">
+
+                </div>
             </div>
         </div>
     </Fragment>);

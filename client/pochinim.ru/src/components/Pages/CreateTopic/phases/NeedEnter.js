@@ -11,6 +11,8 @@ const NeedEnter = ({TOPIC}) => {
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
 
+    console.log(sessionStorage.getItem('create_topic_theme'));
+
     useEffect(()=>{
         try {
             TOPIC.need = need;
