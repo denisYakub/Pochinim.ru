@@ -9,7 +9,11 @@ const path = require('path');
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-app.use(cors({origin: "http://localhost:3000", credentials: true}));
+app.use(cors({
+    origin: "http://localhost:3000", 
+    credentials: true,
+    exposedHeaders: ['ETag'],
+}));
 app.use(express.json()); 
 //===========================
 app.use('/images', express.static(path.join(__dirname, 'images')));

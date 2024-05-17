@@ -12,7 +12,6 @@ const ListOfMasters = ({topic, setActivePop, setTextPop, idTopic}) => {
             var sortedList = [];
 
             setList(await masterController.getListOfMasters(0, 30));
-            console.log(list);
 
             if(list.length > 0){
                 list.forEach(el => {
@@ -37,8 +36,8 @@ const ListOfMasters = ({topic, setActivePop, setTextPop, idTopic}) => {
 
     return(<Fragment>
         {list?.map((obj, key) => {
-            return(<div className="list-of-masters-wrapper">
-                <MasterProfileCard value={obj} key={key} 
+            return(<div className="list-of-masters-wrapper" key={key}>
+                <MasterProfileCard value={obj}
                 setActivePop={setActivePop} setTextPop={setTextPop}
                 idTopic={idTopic}></MasterProfileCard>
             </div>);    

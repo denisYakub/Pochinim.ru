@@ -28,15 +28,12 @@ class TokenService{
     }
 
     async saveToken(account_id, refreshToken, tabel = 'account'){
-            console.log(account_id);
             const tokenData = await pool.query(`SELECT Count(*) FROM ${tabel}s_tokens 
                                                 WHERE id_${tabel} = ${account_id}`)
             if(tokenData.rows[0].count > 0){
                 await pool.query(`UPDATE ${tabel}s_tokens SET token = '${refreshToken}' 
                                     WHERE id_${tabel} = ${account_id}`)
             }else{
-                console.log(refreshToken);
-                console.log(account_id);
                 await pool.query(`INSERT INTO ${tabel}s_tokens (id_${tabel}, token) 
                                 VALUES (${account_id}, '${refreshToken}')`);
             }
@@ -59,7 +56,8 @@ class TokenService{
                 resolve(claims.payload);
               })
               .catch(err => {
-                console.log(`could not verify jwt ${err}`);
+                const date = new Date();
+                console.log(`${date.getDate()}:${date.getTime()}:could not verify jwt ${err}`);
                 reject('invalid token');
               })
         })
@@ -73,7 +71,7 @@ class TokenService{
                 resolve(claims.payload);
               })
               .catch(err => {
-                console.log(`could not verify jwt ${err}`);
+                console.log(`${date.getDate()}:${date.getTime()}:could not verify jwt ${err}`);
                 reject('invalid token');
               })
         })

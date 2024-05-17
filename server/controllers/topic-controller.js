@@ -4,14 +4,11 @@ const topicService = require("../services/topic-service");
 class TopicController{
     async createTopic(req, res, next){
         try {
-            console.log(req.body);
             const {topicName, fio, phoneNumber,
             need, problem, problemLocation,
             address, date, payment, priceStart, priceEnd,
             detailsTxt, 
             mail} = req.body;
-
-            console.log(priceStart, priceEnd);
 
             const data = topicService.createNewTopic(topicName, fio, phoneNumber,
                                                             need, problem, problemLocation,
@@ -70,7 +67,7 @@ class TopicController{
 
     async getAllTopics(req, res, next){
         try {
-            const topics = await topicService.getTopics();
+            const topics = await topicService.getTopicsAvailable();
 
             var data = [];
 
@@ -84,6 +81,22 @@ class TopicController{
             }
 
             return res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getTopicById(req, res, next){
+        try {
+            const id_topic = req.params.id_topic;
+
+            const result = await topicService.getListOfTopicsByTopicId(id_topic);
+
+            const paths = await topicService.getPathsOfTopicFiles(id_topic);
+
+            result.photo_paths = paths;
+
+            return res.json(result);
         } catch (error) {
             next(error);
         }

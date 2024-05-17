@@ -74,9 +74,17 @@ class TopicService{
         }
     }
 
-    async getTopics(){
+    async getTopicsAvailable(){
         try {
-            return (await pool.query(`SELECT * FROM topics`)).rows
+            return (await pool.query(`SELECT * FROM topics WHERE status = 'активен'`)).rows
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getListOfTopicsByTopicId(id_topic){
+        try {
+            return (await pool.query(`SELECT * FROM topics WHERE id_topic = ${id_topic}`)).rows[0];
         } catch (error) {
             throw error;
         }

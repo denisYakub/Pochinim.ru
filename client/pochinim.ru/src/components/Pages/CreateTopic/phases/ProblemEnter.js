@@ -61,12 +61,12 @@ const ProblemEnter = ({TOPIC}) => {
             {optionsOfWhatHappend.map((item, index) => {
                 return(
                 <div key={index} className="option">
-                    <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
+                    <input type="radio" value={item} name="check" defaultChecked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
             <div className="option-input">
-                <input type="radio" value={localProblem} name="check" checked={isCheckedUserInput()}></input>
+                <input type="radio" value={localProblem} name="check" defaultChecked={isCheckedUserInput()}></input>
                 <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalProblem} 
                     error={error} setError={setError} errorText={'Не верное значение'}
                     warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>

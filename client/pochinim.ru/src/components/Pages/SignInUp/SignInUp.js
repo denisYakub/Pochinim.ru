@@ -30,7 +30,12 @@ const SignIn = () => {
 
     const movePhaseBack = () => {
         const prevPhase = phase - 1;
-        if(prevPhase >= 0){
+
+        if(prevPhase == 1 && USER.code == null){
+            setPhase(0);
+        }else if(prevPhase == 2){
+            navigate('/');
+        }else if(prevPhase >= 0){
             setPhase(prevPhase);
         }
     }

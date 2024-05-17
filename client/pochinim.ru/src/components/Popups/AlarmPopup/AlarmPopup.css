@@ -1,14 +1,14 @@
 @import'../../../index.css';
 .Popup{
     position: fixed;
-    top: -5%;
-    width: 1039px;
+    width: 1339px;
     height: fit-content;
     display: flex;
     align-items: center;
     justify-content:space-around;
-    padding: 10px;
+    padding: 20px;
     margin: 5% auto; /* Only centers horizontally not vertically! */
+    top: 0;
     left: 0;
     right: 0;
     background-color: var(--color-main-wihite);
@@ -20,17 +20,20 @@
 
 .info-popup{
     display: flex;
+    flex-direction: row;
     gap: 10px;
     align-items: center;
-    justify-content:space-around;
     width: fit-content;
     height: fit-content;
+    width: fit-content;
 }
-
+.info-popup p{
+    font-size: 24px;
+}
 .icon-popup{
-    width: 23px;
-    height: 23px;
-    background: url("../../../img/icons.png") no-repeat center;
+    width: 33px;
+    height: 33px;
+    background: url("../../../img/icons.png") no-repeat;
 }
 
 .Popup button{

@@ -14,6 +14,8 @@ const ContactEnter = ({TOPIC}) => {
         } catch (error) {
             if(error.message == 'пустое значение'){
                 setWarning(true);
+            }else if(error.message == 'телефон должен иметь ввид: +79*********'){
+                setError(true);
             }else if(error.message){
                 setError(true);
             }

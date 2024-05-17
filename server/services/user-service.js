@@ -91,7 +91,6 @@ class UserService{
 
     async refresh(refreshToken){
         try {
-            console.log(refreshToken);
             if(!refreshToken){
                 throw ApiError.UnAuthorizedError();
             }
@@ -106,7 +105,6 @@ class UserService{
             if(!tokenFromBD){
                 throw ApiError.UnAuthorizedError();
             }
-            console.log(refreshToken);
             const account_id = await pool.query(`SELECT id_account FROM accounts_tokens WHERE token = '${refreshToken}'`);
             
             const account_id_on_return = await account_id.rows[0].id_account;

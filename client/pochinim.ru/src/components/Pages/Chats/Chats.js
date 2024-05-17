@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import './Chats.css';
 import { contextChats } from "../../../contexts/contextChats";
 import DotsImg from '../../../img/3-bots-img.png';
+import ChatPreview from "./ChatPreviewUser";
 
 const Chats = () => {
 
@@ -17,34 +18,46 @@ const Chats = () => {
 
     useEffect(()=>{
         async function getData(){
-            await CHATS.downloadChatsOfTopic(CHATS.idTopic);
+            await CHATS.downloadChatsOfTopic(CHATS.idTopic, params.email);
             setChats(CHATS.chats);
             await CHATS.downloadMessagesOfChat();
             setMessages(CHATS.messages);
         };
 
         getData();
+        console.log(chats);
     }, [chats]);
 
     const enter = async () => {
-        CHATS.sendMessage(message);
+        CHATS.sendMessage(message, params.email);
         setMessage('');
     }
-
+ 
     return(<Fragment>
         <div className='page-wrapper'>
             <div className="chats-content">
-                    <div className="messages-wrapper" style={{width: '333px'}}>
-                        {chats?.map((val, ind) => {
-                            return(<div key={ind} className="message-wrapper" onClick={() => {CHATS.idCompanion = val?.id_master}}>
-                                <img src={val?.photo} alt=""></img>
-                                <div> 
-                                    <h1>{val?.id_master}</h1>
-                                    <p>{val?.text_of_last_message}</p>
-                                </div>
-                            </div>);
-                        })}
-                    </div>
+                <div className="messages-wrapper" style={{width: '333px'}}>
+                    {chats.map((val, ind) => {
+                        return(<div key={ind} className="message-wrapper"
+                                style={{opacity: CHATS.idChat==val.id_chat?'1':'0.7'}}
+                                onClick={() => {
+
+                                    CHATS.idChat=val.id_chat
+
+                                    if(CHATS.idCompanion==val.id_master){
+                                        CHATS.idCompanion=val.id_user;
+                                    }else{
+                                        CHATS.idCompanion=val.id_master;
+                                    }
+                                }}>
+                            <img src={val?.photo} alt=""></img>
+                            <div>
+                                <h1>{CHATS.idCompanion==val.id_master?val.id_master:val.id_user}</h1>
+                                <p>{val?.text_of_last_message}</p>
+                            </div>
+                        </div>);
+                    })}
+                </div>
                 <div className="opened-chat">
                     <div className="chat-head">
                         <div>

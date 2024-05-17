@@ -85,9 +85,12 @@ function App(){
                   </Route>
                 </Route>
 
-                <Route path='/SearchOrdersForMasters'>
+                <Route path='/SearchOrdersForMasters/:email'>
                   <Route index element={<MasterOrdersSearch />}></Route>
-                  <Route path='NewOrder/:id_order' element={<NewOrderForMaster />}></Route>
+                  <Route path='NewOrder/:id_order'>
+                    <Route index element={<NewOrderForMaster />} ></Route>
+                    <Route path='Chats/:with' element={<Chats />}></Route>
+                  </Route>
                 </Route>
                 
               </Routes>

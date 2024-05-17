@@ -1,4 +1,6 @@
 import {makeAutoObservable} from "mobx"
+import chatController from "./Chat-controller";
+import topicController from "./TOPIC-controller";
 class MasterController{
     constructor(){
         makeAutoObservable(this);
@@ -196,6 +198,33 @@ class MasterController{
         })
 
         return result;
+    }
+
+    async getMastersTopicsAndChats(id_master){
+        const chats = await chatController.getChatsMaster(id_master);
+        
+        var result = [];
+
+        for(const chat of chats){
+            result.push({order: (await topicController.getTopicById(chat.id_topic)), chat: chat})
+        }
+
+        return result;
+    }
+
+    async getMastersPhotoById(id_master){
+        const data = await fetch(`http://localhost:4000/api/photos/masters/${id_master}`,{
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+            }
+        });
+
+        const photo = await data.blob();
+
+        const obj = URL.createObjectURL(photo);
+
+        return obj;
     }
 };
 

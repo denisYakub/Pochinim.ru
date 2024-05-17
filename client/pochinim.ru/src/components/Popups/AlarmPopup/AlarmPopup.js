@@ -5,6 +5,9 @@ const Popup = ({active, setActive, children}) =>{
     const [scope, animate] = useAnimate();
 
     const close = async () => {
+        if(!localStorage.getItem('cookies')){
+            localStorage.setItem('cookies', true);
+        }
         await animate(scope.current, {scale:0});
         setActive(false);
     }

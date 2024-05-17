@@ -1,6 +1,7 @@
 const chatService = require("../services/chat-service");
 const userService = require("../services/user-service");
 const userController = require("./user-controller");
+const etag = require('etag');
 
 class ChatController{
     /*async sendMessageUser(req, res, next){
@@ -30,11 +31,9 @@ class ChatController{
     async getChat(req, res, next){
         try {
 
-            const { id_user, id_master, id_topic } = req.body;
-            
-            const idUser = await userService.getUserIdByMail(id_user);
+            const { id_user, id_master, id_topic, message_text } = req.body;
 
-            const result = await chatService.getChatID(idUser, id_master, id_topic);
+            const result = await chatService.getChatID(id_user, id_master, id_topic, message_text);
 
             return res.json(result);
         } catch (error) {
@@ -57,9 +56,26 @@ class ChatController{
         try {
             const id_chat = req.params.id_chat;
 
-            const result = await chatService.getMessagesByIdChat(id_chat);
+            const ifMatch = req.headers['if-match'];
 
-            return res.json(result)
+            const resource = await chatService.getMessagesByIdChat(id_chat);
+
+            const resourceEtag = etag(JSON.stringify(resource));
+
+            if (resource) {
+
+                if(ifMatch && ifMatch === resourceEtag){
+
+                    return res.status(303).send('Precondition Failed')
+
+                }else{
+                    
+                    res.setHeader('ETag', resourceEtag);
+
+                    return res.json(resource);
+
+                }
+            }
         } catch (error) {
             next(error);
         }
@@ -71,6 +87,18 @@ class ChatController{
             const {text, sender_email} = req.body;
 
             const result = await chatService.sendMessageByIdChat(id_chat, text, sender_email);
+
+            return res.json(result)
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getChatsMaster(req, res, next){
+        try {
+            const id_master = req.params.id_sender;
+
+            const result = await chatService.getChatByIdMaster(id_master);
 
             return res.json(result)
         } catch (error) {

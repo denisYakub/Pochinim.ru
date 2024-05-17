@@ -4,7 +4,7 @@ import topicController from "../../../controllers/TOPIC-controller";
 import Clock from '../../../img/clock-img.png';
 import { useNavigate } from "react-router-dom";
 
-const OrderPreviewForMaster = ({TOPIC}) => {
+const OrderPreviewForMaster = ({TOPIC, chat = null}) => {
 
     const [imgs, setImgs] = useState([]);
 
@@ -21,7 +21,7 @@ const OrderPreviewForMaster = ({TOPIC}) => {
     },[imgs])
 
     return(<Fragment>
-        <div className='master-order-preview-content' onClick={() => {navigate(`NewOrder/${TOPIC.id_topic}`, {state: {TOPIC, imgs}});}}>
+        <div className='master-order-preview-content' onClick={() => {navigate(`NewOrder/${TOPIC.id_topic}`, {state: {TOPIC, imgs, chat}});}}>
             <div className="master-order-preview-info">
                 <div className="master-order-preview-info-text">
                     <h1>{TOPIC.topic_name}</h1>

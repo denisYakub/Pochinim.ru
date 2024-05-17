@@ -123,9 +123,6 @@ class MasterService{
         try {
             const candidat = await pool.query(`SELECT COUNT(*) FROM masters WHERE master_email = '${email}'`)
 
-            console.log(email);
-            console.log(candidat.rows[0].count );
-
             if(candidat.rows[0].count == 0){
                 return false;
             }
@@ -137,7 +134,6 @@ class MasterService{
     }
     async upDateField(column_name, new_value, id_master){
         try {
-            console.log(new_value);
             var ret;
             if(['master_email', 'master_password', 'fio', 'occupation',
                 'working_from', 'location', 'master_photo_path', 'city',

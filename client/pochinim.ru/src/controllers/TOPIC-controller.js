@@ -98,6 +98,17 @@ class TopicController{
 
         return await result.json();
     }
+
+    async getTopicById(id_topic){
+        const result = await fetch(`http://localhost:4000/api/topics/by/${id_topic}`,{
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+            },
+        })
+
+        return await result.json();
+    }
     
     async getListOfExistingTopics(){
         const options = ["Сантехник ремонт", "Сантехник ремонт стояка",

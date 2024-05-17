@@ -56,15 +56,15 @@ const PaymentEnter = ({TOPIC}) => {
         </div>
         <div className="options-input" onChange={e => inputRadioCheck(e.target.value)}>
             <div className="option">
-                <input type='radio' value={0} checked={isCheckedUserInput(0)} name="check"></input>
+                <input type='radio' value={0} defaultChecked={isCheckedUserInput(0)} name="check"></input>
                 <p>Сделка без риска - Оплата банковской картой с гарантией возврата и компенсацией материального ущерба до 10 000 ₽. Комиссия 11% + 35 ₽. Подробнее</p>
             </div>
             <div className="option">
-                <input type="radio" value={1} checked={isCheckedUserInput(1)} name="check"></input>
+                <input type="radio" value={1} defaultChecked={isCheckedUserInput(1)} name="check"></input>
                 <p>Оплата напрямую исполнителю - Без гарантий и компенсаций Починим.ру: вы напрямую договариваетесь с исполнителем об условиях и способе оплаты.</p>
             </div>
             <div className="option">
-                <input type="radio" value={2} checked={isCheckedUserInput(2)} name="check"></input>
+                <input type="radio" value={2} defaultChecked={isCheckedUserInput(2)} name="check"></input>
                 <p>Оплата с закрывающими документами - Откликнутся только юридические лица, ИП или самозанятые. Вы платите с расчётного счета компании и получаете закрывающие документы от исполнителя.</p>
             </div>
         </div>

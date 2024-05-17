@@ -39,17 +39,15 @@ class ChatController{
         }
     }*/
 
-    async getChatID(id_user, id_master, id_topic){
+    async getChatID(id_user, id_master, id_topic, message_text = 'Пока тут пусто'){
 
-        const body = { 'id_user': id_user, 'id_master': id_master, 'id_topic': id_topic };
+        const body = { 'id_user': id_user, 'id_master': id_master, 'id_topic': id_topic, 'message_text': message_text };
 
         const result = await fetch(`http://localhost:4000/api/chats`, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(body)
         });
@@ -57,7 +55,7 @@ class ChatController{
         if(result.ok){
             return result.json();
         }else{
-            console.log('pls refresh');
+            console.log('pls refresh', result);
         } 
     }
     async getMessages(id_chat){
@@ -66,18 +64,20 @@ class ChatController{
             credentials: 'include',
             headers: {
                 "Accept": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'If-Match': sessionStorage.getItem(`messages-${id_chat}`)
             }
         });
            
         if(result.ok){
+            sessionStorage.setItem(`messages-${id_chat}`, result.headers.get('ETag'));
             return result.json();
         }else{
-            console.log('pls refresh');
+            return result;
         } 
     }
-    async sendMessage(text, id_chat){
-        const body = {'text': text, 'sender_email': localStorage.getItem('mail')};
+    async sendMessage(text, id_chat, sender_email){
+        const body = {'text': text, 'sender_email': sender_email};
 
         const result = await fetch(`http://localhost:4000/api/messages/${id_chat}`,{
             method: "POST",
@@ -104,6 +104,20 @@ class ChatController{
             headers: {
                 "Accept": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+           
+        if(result.ok){
+            return result.json();
+        }else{
+            console.log('pls refresh');
+        }
+    }
+    async getChatsMaster(id_master){
+        const result = await fetch(`http://localhost:4000/api/chats/masters/${id_master}`,{
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
             }
         });
            

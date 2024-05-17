@@ -8,6 +8,7 @@ import './Order.css';
 import { contextChats } from "../../../contexts/contextChats";
 import Chat from '../Chats/Chat';
 import topicController from "../../../controllers/TOPIC-controller";
+import ChatPreview from "../Chats/ChatPreviewMaster";
 
 const Order = () =>{
 
@@ -40,7 +41,7 @@ const Order = () =>{
 
     useEffect(() => {
         async function setData(){
-            await CHATS.downloadChatsOfTopic(id_topic);
+            await CHATS.downloadChatsOfTopic(id_topic, params.email);
             setChats(CHATS.chats);
             if(tf){
                 setPhotos(await topicController.getPhotosByIdTopic(id_topic));
@@ -63,6 +64,12 @@ const Order = () =>{
         }
     }
 
+    const onClick = (value, masterInfo) => {//Добавить передачу инфы о мастере===========================================================================
+        setId(2);
+        CHATS.idCompanion = value?.id_master;
+        CHATS.idChat = value?.id_chat
+    }
+
     return(<Fragment>
         <div className="page-wrapper">
             {order?.status == 'активен'?
@@ -74,14 +81,7 @@ const Order = () =>{
                         </div>
                         <div className="messages-wrapper">
                             {chats?.map((val, ind) => {
-                                return(<div key={ind} className="message-wrapper" 
-                                    onClick={() => {setId(2);CHATS.idCompanion = val?.id_master;CHATS.idChat = val?.id_chat}}>
-                                    <img src={val?.photo} alt=""></img>
-                                    <div> 
-                                        <h1>{val?.id_master}</h1>
-                                        <p>{val?.text_of_last_message}</p>
-                                    </div>
-                                </div>);
+                                return(<ChatPreview key={ind} value={val} onClick={onClick}></ChatPreview>);
                             })}
                         </div>
                     </div>

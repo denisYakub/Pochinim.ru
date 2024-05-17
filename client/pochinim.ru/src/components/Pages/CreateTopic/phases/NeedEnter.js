@@ -61,12 +61,12 @@ const NeedEnter = ({TOPIC}) => {
             {optionsOfWork.map((item, index) => {
                 return(
                 <div key={index} className="option">
-                    <input type="radio" value={item} name="check" checked={isChecked(index)}></input>
+                    <input type="radio" value={item} name="check" defaultChecked={isChecked(index)}></input>
                     <p>{item}</p>
                 </div>);
             })}
             <div className="option-input">
-                <input type="radio" value={localNeed} name="check" checked={isCheckedUserInput()}></input>
+                <input type="radio" value={localNeed} name="check" defaultChecked={isCheckedUserInput()}></input>
                 <InputWithError placeholder={"Ваш вариант"} value={setValue()} setValue={setLocalNeed} 
                     error={error} setError={setError} errorText={'Не верное значение'}
                     warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>

@@ -40,7 +40,7 @@ const Navbar = () => {
         }else if(val == 2){
             navigate('/SignUpAsMaster');
         }else if(val == 3){
-            navigate('/SearchOrdersForMasters');
+            navigate(`/SearchOrdersForMasters/${localStorage.getItem('mail-master')}`);
         }
     };
 

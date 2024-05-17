@@ -44,13 +44,17 @@ class User{
     async logInUser(){
         if(this.#email != null && this.#password != null){
             const result = await userController.logInUser(this.#email, this.#password);
+            return result;
         }
+        return false;
     }
 
     async registrateUser(){
         if(this.#email != null && this.#password != null && this.#name != null){
             const result = await userController.registrate(this.#email, this.#name, this.#password);
+            return result;
         }
+        return false;
     }
 
     set email (new_email){
@@ -95,6 +99,10 @@ class User{
 
     get name(){
         return this.#name;
+    }
+
+    get code(){
+        return this.#code;
     }
 }
 

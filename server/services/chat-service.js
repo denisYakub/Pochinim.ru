@@ -69,7 +69,7 @@ class ChatService{
             throw error;
         }
     }*/
-    async getChatID(id_user, id_master, id_topic){
+    async getChatID(id_user, id_master, id_topic, message_text){
         try {
             const chat_exists = (await pool.query(`SELECT COUNT(*) FROM chats
                                 WHERE id_user = '${id_user}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].count;
@@ -80,7 +80,7 @@ class ChatService{
                 id_chat = (await pool.query(`SELECT id_chat FROM chats
                             WHERE id_user = '${id_user}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
             }else{
-                id_chat = this.createChat(id_user, id_master, 'Пока тут пусто', id_topic)
+                id_chat = this.createChat(id_user, id_master, message_text, id_topic)
             }
             
             return id_chat;
@@ -93,10 +93,10 @@ class ChatService{
             const today = new Date();
 
             await pool.query(`INSERT INTO chats 
-                                (text_of_last_message, id_user, id_master, date, id_topic) 
+                                (text_of_last_message, id_user, id_master, date, id_topic, status) 
                                         VALUES 
                                 ('${message_text}', '${id_account}', '${id_master}', 
-                                '${today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()}', '${id_topic}')`);
+                                '${today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()}', '${id_topic}', 'свободно')`);
 
             return (await pool.query(`SELECT id_chat FROM chats 
                         WHERE id_user = '${id_account}' AND id_master = '${id_master}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
@@ -108,7 +108,7 @@ class ChatService{
         try {
             const id_user = await userService.getUserIdByMail(sender_email);
 
-            return (await pool.query(`SELECT * FROM chats WHERE id_user = '${id_user}' AND id_topic = '${id_topic}'`)).rows;            
+            return(await pool.query(`SELECT * FROM chats WHERE id_user = '${id_user}' AND id_topic = '${id_topic}'`)).rows;                 
         } catch (error) {
             throw error;
         }
@@ -134,6 +134,13 @@ class ChatService{
                                 text_of_last_message = '${text}' WHERE id_chat = '${id_chat}'`)
 
             return;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async getChatByIdMaster(id_master){
+        try {
+            return (await pool.query(`SELECT * FROM chats WHERE id_master = ${id_master}`)).rows;
         } catch (error) {
             throw error;
         }

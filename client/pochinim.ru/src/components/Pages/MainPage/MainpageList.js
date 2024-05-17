@@ -53,7 +53,7 @@ const MainPAge = () => {
     const cookies = <Popup active={active} setActive={setActive}>{mainPageText.cokies}</Popup>;
     
     useEffect(() => {
-        localStorage.getItem('token')?setActive(false):setActive(true);
+        localStorage.getItem('cookies')?setActive(false):setActive(true);
         setWidthSteps(carouselSteps.current.scrollWidth-carouselSteps.current.offsetWidth);
         setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
         if(isInView_2){

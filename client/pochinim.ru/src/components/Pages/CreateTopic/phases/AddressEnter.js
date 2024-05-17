@@ -69,7 +69,7 @@ const AddressEnter = ({TOPIC}) => {
             <h1>По какому адресу?</h1>
         </div> 
         {/*<input className="text-input-field" placeholder={"Город, улица, дом"} onChange={e => setLocation(e.target.value)}></input>*/}
-        <InputWithError placeholder={"Город, улица, дом"} value={null} setValue={setLocation} 
+        <InputWithError placeholder={"Город, улица, дом"} value={''} setValue={setLocation} 
                     error={error} setError={setError} errorText={'Не верное значение'}
                     warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
         <div className="createTopic-address-map">

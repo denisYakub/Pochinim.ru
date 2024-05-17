@@ -15,13 +15,16 @@ const PasswordPhase = ({phase, setPhase, USER}) =>{
     const click = async() =>{
         try {
             USER.password = password;
-            if(needToReg){
-                USER.name = name;
-                USER.registrateUser();
+
+            if(needToReg){USER.name = name};
+
+            if(needToReg && await USER.registrateUser()){
+                setPhase(phase + 1);
+            }else if(await USER.logInUser()){
                 setPhase(phase + 1);
             }else{
-                USER.logInUser();
-                setPhase(phase + 1);
+                setError(true);
+                setErrorMessage('Неверный пароль');
             }
         } catch (error) {
             if(error.message == 'Пустое значение'){
@@ -51,12 +54,14 @@ const PasswordPhase = ({phase, setPhase, USER}) =>{
                 inputType='password'></InputWithError>
         {needToReg?
             <div className="sighnInUp-input-with-text">
-                <input type="text" placeholder={'Имя'} className='text-input-field'
-                        value={name} onChange={e => setName(e.target.value)}></input>
+                <InputWithError placeholder={'Имя'} value={name} setValue={setName}
+                    error={error} setError={setError} errorText={errorMessage}
+                    warning={warning} setWarning={setWarning} warningText={'Заполните поле'}
+                    inputType='text'></InputWithError>
                 <p>Специалисты будут видеть вас под этим именем</p>
             </div>
         :
-            <></>}
+            null}
         <button className="continue-button" onClick={click}>
         Продолжить
         </button>

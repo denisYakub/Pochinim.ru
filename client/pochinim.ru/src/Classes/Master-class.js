@@ -1,3 +1,4 @@
+import chatController from "../controllers/Chat-controller";
 import masterController from "../controllers/MASTER-controller";
 import userController from "../controllers/USER-controller";
 
@@ -144,6 +145,16 @@ class Master{
             //await masterController.refreshMasterTokens();
             result = await masterController.updateMasterField(fieldToUpdate, fixedNewValue, localStorage.getItem('id-master'));
         }
+    }
+
+    async responseOrder(id_topic, id_user){
+        const result = await chatController.getChatID(id_user, localStorage.getItem('id-master'), id_topic, 'Мастер готов взяться за работу');
+        console.log(result);
+    }
+
+    async getMastersOrders(){
+        const result = await masterController.getMastersTopicsAndChats(localStorage.getItem('id-master'));
+        return result;
     }
 
     get fio(){

@@ -26,8 +26,8 @@ const CodePhase = ({phase, setPhase, USER}) =>{
             <p>Код отправили на почту {USER.email}</p>
         </div>
         <div style={{display:'flex', flexDirection: 'column'}}>
-            <button className='code-timer-button'>1:30</button>
-            <Link className='link-black'>Изменить почту</Link>
+            <button className='code-timer-button' hidden>1:30</button>
+            <Link className='link-black' hidden>Изменить почту</Link>
         </div>
         <div className="sighnInUp-input-with-text">
             <InputWithError placeholder={'код'} value={code} setValue={setCode} 
@@ -36,7 +36,7 @@ const CodePhase = ({phase, setPhase, USER}) =>{
                 inputType='number'></InputWithError>
         </div>
         <button className="continue-button" onClick={click}>Продолжить</button>
-        <Link className='link-black'>Отправить повторное сообщение</Link>
+        <Link className='link-black' onClick={() => {USER.sendCode()}}>Отправить повторное сообщение</Link>
     </div>);
 }
 

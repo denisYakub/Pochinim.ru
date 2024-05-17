@@ -30,14 +30,14 @@ class UserController{
 
         const ret = await data.json();
 
-        localStorage.setItem('token', ret.accessToken);
-        localStorage.setItem('mail', email);
-        localStorage.setItem('id', ret.account_id);
-
-        if(ret?.message){
-            return false;
+        if(!ret.message){
+            localStorage.setItem('token', ret.accessToken);
+            localStorage.setItem('mail', email);
+            localStorage.setItem('id', ret.account_id);
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     async getSendCode(email){
@@ -72,15 +72,15 @@ class UserController{
         });
 
         const ret = await data.json();
-
-        localStorage.setItem('token', ret?.accessToken);
-        localStorage.setItem('mail', email);
-        localStorage.setItem('id', ret?.account_id);
         
-        if(ret?.message){
-            return false;
+        if(!ret.message){
+            localStorage.setItem('token', ret?.accessToken);
+            localStorage.setItem('mail', email);
+            localStorage.setItem('id', ret?.account_id);
+            return true;
         }
-        return true;
+        
+        return false;
     }
 
     async refreshUserTokens(){

@@ -16,22 +16,35 @@ class Chat{
 
     async setChatIDByIdTopic(id_topic){
         if( id_topic != null && this.#id_companion != null){
-            this.#id_chat = await chatController.getChatID(localStorage.getItem('mail'), this.#id_companion, id_topic);
+            this.#id_chat = await chatController.getChatID(localStorage.getItem('id'), this.#id_companion, id_topic);
         }
     }
 
-    async downloadChatsOfTopic(id_topic){
-        this.#chats = await chatController.getChatsUserByIdTopic(id_topic);
+    async downloadChatsOfTopic(id_topic, email){
+        if(email == localStorage.getItem('mail')){
+            this.#chats = await chatController.getChatsUserByIdTopic(id_topic);
+        }else{
+            this.#chats = await chatController.getChatsMaster(localStorage.getItem('id-master'));
+        }
     }
 
     async downloadMessagesOfChat(){
-        if(this.#id_chat != null)
-            this.#messages = await chatController.getMessages(this.#id_chat);
+        if(this.#id_chat != null){
+            const respond = await chatController.getMessages(this.#id_chat);
+            if(!respond.status){
+                this.#messages = respond;
+                console.log(respond);
+            }else if(respond.status == 303){
+                console.log('copy');
+            }else{
+                throw new Error('Говнокод')
+            }
+        }
     }
 
-    async sendMessage(text){
+    async sendMessage(text, sender_email){
         if(text != '' && this.#id_chat != null){
-            await chatController.sendMessage(text, this.#id_chat);
+            await chatController.sendMessage(text, this.#id_chat, sender_email);
         }
     } 
 
