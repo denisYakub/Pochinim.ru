@@ -127,13 +127,13 @@ class UserService{
             throw error;
         }
     }
-    async getFullUserInfo(email){
+    async getFullUserInfo(id_user){
         try {
             const user = await pool.query(`SELECT accounts.id_account, account_name, account_email, photo_path, registration_date, 
                                                     gender, phone_number, notification_option, socials, passport_verification
                                             FROM accounts LEFT JOIN accounts_additional_information
                                             ON accounts.id_account = accounts_additional_information.id_account
-                                            WHERE account_email = '${email}'`)
+                                            WHERE accounts.id_account = '${id_user}'`)
 
             return user.rows[0];
         } catch (error) {

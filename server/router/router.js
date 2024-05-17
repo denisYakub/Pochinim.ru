@@ -14,7 +14,7 @@ router.post('/users',
 router.put('/users',
                 authMiddleware,
                 userController.updateUserInfo)
-router.get('/users/:email',
+router.get('/users/:id_user',
                 authMiddleware,
                 userController.getUserInfo);
 router.post('/users/login', 

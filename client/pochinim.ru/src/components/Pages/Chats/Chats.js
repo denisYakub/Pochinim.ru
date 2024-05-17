@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import './Chats.css';
 import { contextChats } from "../../../contexts/contextChats";
 import DotsImg from '../../../img/3-bots-img.png';
-import ChatPreview from "./ChatPreviewUser";
+import ChaPreviewDinamic from "./ChatpreviewDinamic";
 
 const Chats = () => {
 
@@ -32,12 +32,29 @@ const Chats = () => {
         CHATS.sendMessage(message, params.email);
         setMessage('');
     }
+
+    const onClick = (val) => {
+        CHATS.idChat=val.id_chat
+
+        if(CHATS.idCompanion==val.id_master){
+            CHATS.idCompanion=val.id_user;
+        }else{
+            CHATS.idCompanion=val.id_master;
+        }
+    }
  
     return(<Fragment>
         <div className='page-wrapper'>
             <div className="chats-content">
                 <div className="messages-wrapper" style={{width: '333px'}}>
                     {chats.map((val, ind) => {
+                        return(<ChaPreviewDinamic key={ind} value={val} 
+                                opacity={CHATS.idChat==val.id_chat?'1':'0.7'}
+                                onClick={onClick}
+                                idCompanion={CHATS.idCompanion}>
+                            </ChaPreviewDinamic>)
+                    })}
+                    {/*chats.map((val, ind) => {
                         return(<div key={ind} className="message-wrapper"
                                 style={{opacity: CHATS.idChat==val.id_chat?'1':'0.7'}}
                                 onClick={() => {
@@ -56,7 +73,7 @@ const Chats = () => {
                                 <p>{val?.text_of_last_message}</p>
                             </div>
                         </div>);
-                    })}
+                    })*/}
                 </div>
                 <div className="opened-chat">
                     <div className="chat-head">

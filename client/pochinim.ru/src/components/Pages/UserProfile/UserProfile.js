@@ -18,7 +18,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         async function setData(){
-            setUser(await USERController.getUserInfo(localStorage.getItem('mail')));
+            setUser(await USERController.getUserInfo(localStorage.getItem('id')));
         }
         if(reload){
             setData();

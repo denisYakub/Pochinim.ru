@@ -130,8 +130,8 @@ class UserController{
         return true;
     }
 
-    async getUserInfo(email, secondCall = true){
-        var data = await fetch(`http://localhost:4000/api/users/${email}`, {
+    async getUserInfo(id_user, secondCall = true){
+        var data = await fetch(`http://localhost:4000/api/users/${id_user}`, {
             credentials: "include",
             method: "GET", 
             headers : {
@@ -143,7 +143,7 @@ class UserController{
 
         if(data.status == 401 && secondCall){
             await userController.refreshUserTokens();
-            data = await userController.getUserInfo(email, false);
+            data = await userController.getUserInfo(id_user, false);
         }
 
         if(secondCall){

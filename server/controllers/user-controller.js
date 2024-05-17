@@ -112,9 +112,9 @@ class UserController {
     async getUserInfo(req, res, next){
         try {
             
-            const email = req.params.email;
+            const id_user = req.params.id_user;
             
-            const userInfo = await userService.getFullUserInfo(email);
+            const userInfo = await userService.getFullUserInfo(id_user);
             
             return res.json(userInfo);
         } catch (e) {
