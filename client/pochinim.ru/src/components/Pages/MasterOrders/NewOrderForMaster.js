@@ -5,6 +5,7 @@ import './MasterOrdersSearch.css';
 import BlankImg from '../../../img/blank-img.png';
 import {contextMaster} from '../../../contexts/contextMaster';
 import {contextChats} from '../../../contexts/contextChats';
+import userController from "../../../controllers/USER-controller";
 
 const NewOrderForMaster = () => {
 
@@ -16,18 +17,22 @@ const NewOrderForMaster = () => {
     const CHATS = useContext(contextChats);
 
     const [hide, setHide] = useState(false);
-
+    //===================================================================
     const openChats = async () => {
         if(data.state.chat.status.includes('свободно')){
             CHATS.idCompanion = data.state.chat.id_user
             CHATS.idTopic = data.state.TOPIC.id_topic
             CHATS.idChat = data.state.chat.id_chat;
-            navigate(`Chats/${data.state.chat.id_user}`)
+            CHATS.userId = localStorage.getItem('id-master');
+            CHATS.companionInfo = await userController.getUserInfo(data.state.TOPIC.id_account);
+            navigate(`Chats/${data.state.chat.id_user}`, {state: {email: 'mail'}})
         }
     }   
-
+    //===================================================================
     useEffect(() => {
         const id = sessionStorage.getItem(`respond-${localStorage.getItem('id-master')}`)
+
+        sessionStorage.clear();
 
         if(id == data.state.TOPIC.id_topic){
             setHide(true);

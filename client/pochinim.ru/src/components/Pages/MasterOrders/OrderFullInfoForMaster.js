@@ -2,9 +2,6 @@ import { Fragment } from "react";
 import '../Order/Order.css'
 
 const OrderFullInfoForMaster = ({order, photos}) => {
-
-
-
     return(<Fragment>
         <div className="phases-wrapper">
             <div className="order-head">
@@ -55,7 +52,7 @@ const OrderFullInfoForMaster = ({order, photos}) => {
                 <div className='edit-wrapper-button'>
                     <p>Цена</p>
                 </div>
-                <p>от {order?.price_start} до {order?.price_end}</p>
+                <p>от {order?.price_start_end[0]} до {order?.price_start_end[1]}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>

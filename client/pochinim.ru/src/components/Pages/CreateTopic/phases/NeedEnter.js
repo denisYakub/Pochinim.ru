@@ -2,16 +2,15 @@ import { useState, useEffect } from "react"
 import topicController from '../../../../controllers/TOPIC-controller';
 import InputWithError from '../../../../animations/input-error-field';
 
-const optionsOfWork = await topicController.getListOfWork();
-
 const NeedEnter = ({TOPIC}) => {
+
+    const [optionsOfWork, ] = useState(JSON.parse(sessionStorage.getItem('create_topic_theme'))?.need_hints);
+
     const [localNeed, setLocalNeed] = useState("");
     const [need, setNeed] = useState(TOPIC.need);
 
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
-
-    console.log(sessionStorage.getItem('create_topic_theme'));
 
     useEffect(()=>{
         try {

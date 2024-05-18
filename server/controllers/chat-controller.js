@@ -44,10 +44,27 @@ class ChatController{
         try {
             const sender_email = req.params.id_sender;
             const id_topic = req.params.id_topic;
+
+            const ifMatch = req.headers['if-match'];
             
-            const result = await chatService.getUserChatsByIdTopic(sender_email, id_topic);
-            
-            return res.json(result);
+            const resource = await chatService.getUserChatsByIdTopic(sender_email, id_topic);
+
+            const resourceEtag = etag(JSON.stringify(resource));
+
+            if (resource) {
+
+                if(ifMatch && ifMatch === resourceEtag){
+
+                    return res.status(303).send('Precondition Failed')
+
+                }else{
+                    
+                    res.setHeader('ETag', resourceEtag);
+
+                    return res.json(resource);
+
+                }
+            }
         } catch (error) {
             next(error);
         }
@@ -98,9 +115,27 @@ class ChatController{
         try {
             const id_master = req.params.id_sender;
 
-            const result = await chatService.getChatByIdMaster(id_master);
+            const ifMatch = req.headers['if-match'];
+            
+            const resource = await chatService.getChatByIdMaster(id_master);
 
-            return res.json(result)
+            const resourceEtag = etag(JSON.stringify(resource));
+
+            if (resource) {
+
+                if(ifMatch && ifMatch === resourceEtag){
+
+                    return res.status(303).send('Precondition Failed')
+
+                }else{
+                    
+                    res.setHeader('ETag', resourceEtag);
+
+                    return res.json(resource);
+
+                }
+            }
+
         } catch (error) {
             next(error);
         }

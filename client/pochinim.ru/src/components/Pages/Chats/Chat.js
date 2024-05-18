@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import './Chats.css';
 import { contextChats } from "../../../contexts/contextChats";
 import DotsImg from '../../../img/3-bots-img.png';
+import masterController from '../../../controllers/MASTER-controller';
+import defaultPhoto from '../../../img/default-user-img.png';
 
-const Chats = () => {
+const Chats = ({master}) => {
 
     const params = useParams();
 
@@ -12,25 +14,53 @@ const Chats = () => {
     const [messages, setMessages] = useState(CHATS.messages);
     const [message, setMessage] = useState('');
 
+    const [photo, setPhoto] = useState(null);
+    const [companion, setCompanion] = useState({});
+
     useEffect(() => {
         async function getData(){
             await CHATS.downloadMessagesOfChat();
             setMessages(CHATS.messages);
         };
-        
+
+        sessionStorage.clear();
+
         getData();
     }, [messages]);
 
+    useEffect(() => {
+        async function setData(){
+            setCompanion(master[0]);
+            setPhoto(master[1]);
+        }
+
+        setData();
+
+    }, [master])
+
     const enter = async () => {
-        CHATS.sendMessage(message);
+        CHATS.sendMessage(message, localStorage.getItem('mail'));
         setMessage('');
     }
 
     return(<Fragment>
                 <div className="opened-chat">
                     <div className="chat-head">
-                        <div>
-                            {CHATS.idCompanion}
+                        <div className="chat-head-companion">
+                            <img src={photo} alt=""></img>
+                            <div>
+                                <h1>{companion.fio?.split(',')[0]} {companion.fio?.split(',')[1]?.split(',')[0]}</h1>
+                                <div className="master-stats">
+                                    <div className="master-stat">
+                                        <div className="star-icon"></div>
+                                        <p>{companion.stars}</p>
+                                    </div>
+                                    <div className="master-stat">
+                                        <div className="review-icon"></div>
+                                        <p>{companion.reviewsCount}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <img src={DotsImg} alt=""></img>
                     </div>
@@ -42,7 +72,6 @@ const Chats = () => {
                                         {val?.message.split(' ')?.map((v, i) => {
                                             return(<p>{v}</p>);
                                         })}
-                                        {/*<p>{val?.date}</p>*/}
                                     </div>
                                 </div>);
                             }else{
@@ -50,7 +79,6 @@ const Chats = () => {
                                         {val?.message.split(' ')?.map((v, i) => {
                                             return(<p>{v}</p>);
                                         })}
-                                        {/*<p>{val?.date}</p>*/}
                                     </div>);
                             }
                         })}

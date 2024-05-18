@@ -29,11 +29,13 @@ const Order = () =>{
     const CHATS = useContext(contextChats);
     const [chats, setChats] = useState(CHATS.chats);
 
+    const [master, setMaster] = useState([]);
+
     const comps = [<OrderInfo order={order} photos={photos}></OrderInfo>,
                     <ListOfMasters topic={order?.topic_name}
                                     setActivePop={setActive} setTextPop={setTextPop}
                                     idTopic={id_topic}></ListOfMasters>,
-                    <Chat></Chat>];
+                    <Chat master={master}></Chat>];
 
     const [id, setId] = useState(0);
     
@@ -47,6 +49,8 @@ const Order = () =>{
                 setPhotos(await topicController.getPhotosByIdTopic(id_topic));
             }
         }
+
+        sessionStorage.clear();
         
         setData();
         setTf(false);
@@ -64,8 +68,9 @@ const Order = () =>{
         }
     }
 
-    const onClick = (value, masterInfo) => {//Добавить передачу инфы о мастере===========================================================================
+    const onClick = (value, masterInfo, masterPhoto) => {
         setId(2);
+        setMaster([masterInfo, masterPhoto]);
         CHATS.idCompanion = value?.id_master;
         CHATS.idChat = value?.id_chat
     }

@@ -18,22 +18,24 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
 
         showPhoto(value.photo_path);
     }, [])
-
+    //===================================================================
     const sendMessage = async () => {
         if(localStorage.getItem('mail') && idTopic != null){
 
             CHATS.idCompanion = value?.id;
             CHATS.idTopic = idTopic;
+            CHATS.companionInfo = value;
+            CHATS.userId = localStorage.getItem('id');
             await CHATS.setChatIDByIdTopic(idTopic);
 
-            navigate(`Chats/${value?.id}`);
+            navigate(`Chats/${value?.id}`, {state: {email: localStorage.getItem('mail')}});
 
         }else{
             setActivePop(true);
             setTextPop("Вы не можете писать специалистам, пока не заполните анкету");
         }
     }
-
+    //===================================================================
     const offerTopic = () => {
         setActivePop(true);
         setTextPop("Вы не можете предлагать специалистам, пока не заполните анкету");
@@ -105,8 +107,16 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                 <div className="experiences-educations-master">
                     <div className="master-h">Образование и опыт</div>
                     <div className="experience-education-master">
-                        <p>{value?.experience[0]}</p>
-                        <p>{value?.education[0]}</p>
+                        {value.experience?.map((val, ind) => {
+                            if(ind == 0){
+                                return(<p key={ind}>{val}</p>)                  
+                            }
+                        })}
+                        {value.education?.map((val, ind) => {
+                            if(ind == 0){
+                                return(<p key={ind}>{val}</p>)  
+                            }
+                        })}
                         <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
                             Все({value?.experience?.length+value?.education?.length} шт)
                         </Link>
@@ -115,18 +125,21 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                 <div className="sercices-price-master">
                     <div className="master-h">Услуги и цены</div>
                     <div className="list-of-sercices-prices-master">
-                        <div className="services-prices" style={{marginTop: '10px'}}>
-                            <p>{value?.sercicesAndPrice[0][0]}</p>
-                            <p>{value?.sercicesAndPrice[0][1]}</p>
-                        </div>
-                        <div className="services-prices">
-                            <p>{value?.sercicesAndPrice[1][0]}</p>
-                            <p>{value?.sercicesAndPrice[1][1]}</p>
-                        </div>
-                        <div className="services-prices">
-                            <p>{value?.sercicesAndPrice[2][0]}</p>
-                            <p>{value?.sercicesAndPrice[2][1]}</p>
-                        </div>
+                        {value.sercicesAndPrice?.map((val, ind) => {
+                            if(ind < 3){
+                                if(ind == 0){
+                                    return(<div className="services-prices" style={{marginTop: '10px'}}>
+                                            <p>{val[0]}</p>
+                                            <p>{val[1]}</p>
+                                        </div>);
+                                }else{
+                                    return(<div className="services-prices">
+                                        <p>{val[0]}</p>
+                                        <p>{val[1]}</p>
+                                    </div>);
+                                }
+                            }
+                        })}
                         <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
                             Все({value?.sercicesAndPrice?.length} шт)
                         </Link>
@@ -162,7 +175,7 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                     </div>
                     <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
                         Все({value?.reviews?.length} шт)
-                        </Link>
+                    </Link>
                 </div>
             </div>
             <div className="master-action-card">

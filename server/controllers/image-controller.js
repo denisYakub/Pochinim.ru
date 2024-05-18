@@ -15,7 +15,7 @@ class PhotoController{
             }else{
                 data = 'no';
             }
-    
+
             return res.json(data);
         } catch (error) {
             next(error);

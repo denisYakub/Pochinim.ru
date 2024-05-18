@@ -35,6 +35,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop, idTopic}) => {
     }, []);
 
     return(<Fragment>
+        <div className="list-of-master">
         {list?.map((obj, key) => {
             return(<div className="list-of-masters-wrapper" key={key}>
                 <MasterProfileCard value={obj}
@@ -42,6 +43,7 @@ const ListOfMasters = ({topic, setActivePop, setTextPop, idTopic}) => {
                 idTopic={idTopic}></MasterProfileCard>
             </div>);    
         })}
+        </div>
     </Fragment>);
 }
 

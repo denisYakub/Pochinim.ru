@@ -31,7 +31,7 @@ const MasterProfile = () => {
             setData();
             setReloadPage(false);
         }
-    },[reloadPage])
+    })
 
     return(<Fragment>
         <div className='page-wrapper'>

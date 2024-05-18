@@ -19,6 +19,8 @@ const OldOrdersSearch = () => {
             setOrders(await MASTER.getMastersOrders());
         }
 
+        sessionStorage.clear();
+
         if(orders.length == 0){
             setData();
         }

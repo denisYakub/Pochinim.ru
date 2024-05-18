@@ -57,13 +57,19 @@ const CreateTopic = () => {
     }, [])
 
     const moveOn = async () => {
-        if(activeStage + 1 <= 9)
+        if(activeStage + 1 == 2  && !sessionStorage.getItem('create_topic_theme')){
+            setActiveStage(5);
+        }else if(activeStage + 1 <= 9){
             setActiveStage(activeStage + 1);
+        }
     }
 
     const moveBack = () => {
-        if(activeStage - 1 >= 0)
+        if(activeStage - 1 == 4  && !sessionStorage.getItem('create_topic_theme')){
+            setActiveStage(1);
+        }else if(activeStage - 1 >= 0){
             setActiveStage(activeStage - 1);
+        }
     }
 
     const help = () => {

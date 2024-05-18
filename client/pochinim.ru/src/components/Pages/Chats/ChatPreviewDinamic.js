@@ -1,40 +1,46 @@
 import { Fragment, useEffect, useState } from "react"
 import masterController from '../../../controllers/MASTER-controller';
 import userController from "../../../controllers/USER-controller";
+import defaultPhoto from '../../../img/default-user-img.png';
 
-const ChaPreviewDinamic = ({value, opacity, onClick, idCompanion}) => {
+const ChatPreviewDinamic = ({chat, opacity, id_user, onClick}) => {
 
     const [photo, setPhoto] = useState(null);
-    const [master, setMaster] = useState({});
-    const [user, setUser] = useState({});
+    const [companion, setCompanion] = useState({});
 
     useEffect(() => {
         async function setData(){
-            if(idCompanion == value.id_master){
-                setUser(await userController.getUserInfo(value.id_user));
-                setPhoto(await userController.getUserPhoto(user.photo_path));
+            if(id_user == chat.id_user){
+                setCompanion(await masterController.getWholeInfById(chat.id_master));
+                if(companion.master_photo_path == null){
+                    setPhoto(defaultPhoto);
+                }else{
+                    setPhoto(await masterController.getMasterPhotoByPath(companion.master_photo_path));
+                }
             }else{
-                setMaster(await masterController.getWholeInfById(value.id_master));
-                setPhoto(await masterController.getMasterPhotoByPath(master.master_photo_path));
+                setCompanion(await userController.getUserInfo(chat.id_user))
+                if(companion.photo_path == null){
+                    setPhoto(defaultPhoto);
+                }else{
+                    setPhoto(await userController.getUserPhoto(companion.photo_path));
+                }
             }
         }
 
-        if(photo == null){
-            setData();
-        }
+        setData();
     }, [photo])
 
     return(<Fragment>
         <div className="message-wrapper"
             style={{opacity: opacity}}
-            onClick={() => onClick()}>
-                <img src={photo} alt=""></img>
+            onClick={() => onClick(photo, companion, chat.id_chat)}>
+                <img src={photo} alt=''></img>
                 <div>
-                    <h1>{idCompanion==value.id_master?value.id_master:value.id_user}</h1>
-                    <p>{value?.text_of_last_message}</p>
+                    <h1>{companion.fio}{companion.account_name}</h1>
+                    <p>{chat.text_of_last_message}</p>
                 </div>
         </div>
     </Fragment>)
 }
 
-export default ChaPreviewDinamic;
+export default ChatPreviewDinamic;

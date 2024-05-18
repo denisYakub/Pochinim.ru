@@ -47,7 +47,7 @@ const EditSercicesPricesListPopup = ({active, setActive, updateFunction, fieldTo
 
         setChecked(false);
 
-        if(value.length > 0 ){
+        if(value?.length > 0 ){
             setNewListOfSercicesAndPrice(value);
         }
         

@@ -1,44 +1,4 @@
 class ChatController{
-    /*async sendMessageUser(text, id_companion, id_topic){
-        const body = {'email_sender': localStorage.getItem('mail'),
-         'message_text': text, 'id_companion': id_companion, 'id_topic': id_topic
-        };
-
-        const result = await fetch(`http://localhost:4000/api/chats/users`,{
-            method: "POST",
-            credentials: 'include',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(body)
-        });
-
-        if(result.ok){
-
-        }else{
-            console.log('pls refresh');
-        }
-    }*/
-
-    /*async getMessagesUser(id_topic, id_companion){
-        const result = await fetch(`http://localhost:4000/api/chats/users/${localStorage.getItem('mail')}/${id_topic}/${id_companion}`,{
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                "Accept": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-           
-        if(result.ok){
-            return result.json();
-        }else{
-            console.log('pls refresh');
-        }
-    }*/
-
     async getChatID(id_user, id_master, id_topic, message_text = 'Пока тут пусто'){
 
         const body = { 'id_user': id_user, 'id_master': id_master, 'id_topic': id_topic, 'message_text': message_text };
@@ -103,29 +63,34 @@ class ChatController{
             credentials: 'include',
             headers: {
                 "Accept": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'If-Match': sessionStorage.getItem(`chats-user-${id_topic}`)
             }
         });
            
         if(result.ok){
+            sessionStorage.setItem(`chats-user-${id_topic}`, result.headers.get('ETag'));
             return result.json();
         }else{
-            console.log('pls refresh');
-        }
+            return result;
+        } 
     }
     async getChatsMaster(id_master){
         const result = await fetch(`http://localhost:4000/api/chats/masters/${id_master}`,{
             method: 'GET',
+            credentials: 'include',
             headers: {
                 "Accept": "application/json",
+                'If-Match': sessionStorage.getItem(`chats-master-${id_master}`)
             }
         });
            
         if(result.ok){
+            sessionStorage.setItem(`chats-master-${id_master}`, result.headers.get('ETag'));
             return result.json();
         }else{
-            console.log('pls refresh');
-        }
+            return result;
+        } 
     }
 }
 

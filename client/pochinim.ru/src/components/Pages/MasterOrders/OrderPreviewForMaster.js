@@ -32,6 +32,7 @@ const OrderPreviewForMaster = ({TOPIC, chat = null}) => {
                         <img src={Clock} alt=""></img>
                         <data>{TOPIC.date?.split('T')[0]}</data>
                     </div>
+                    <p>от {TOPIC.price_start_end[0]} до {TOPIC.price_start_end[1]}</p>
                     <div className="button-hints">
                         <button>{TOPIC.address}</button>
                     </div>

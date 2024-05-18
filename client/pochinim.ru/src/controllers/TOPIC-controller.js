@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx";
-import userController from "./USER-controller";
 class TopicController{
 
     constructor(){
@@ -7,18 +6,14 @@ class TopicController{
     }
     async createNewTopic(topic_name, fio, phoneNumber, need,
             problem, problem_location, address, date,
-            {payment_option, priceStart, priceEnd}, {details_text, details_files}, 
+            {payment_option, price_start, price_end}, {details_text, details_files}, 
             mail, token
         ){
-            console.log(topic_name, fio, phoneNumber, need,
-                problem, problem_location, address, date,
-                {payment_option, priceStart, priceEnd}, {details_text, details_files}, 
-                mail, token);
 
             const body = {"topicName": topic_name, "fio": fio, "phoneNumber": phoneNumber,
                             "need": need, "problem": problem, "problemLocation": problem_location,
                             "address": address, "date": date, "payment":payment_option, 
-                            "priceStart": priceStart, "priceEnd": priceEnd,
+                            "priceStart": price_start, "priceEnd": price_end,
                             "detailsTxt":  details_text, "mail": mail};
 
             const resultFromServer = await (await fetch(`http://localhost:4000/api/topics`,{

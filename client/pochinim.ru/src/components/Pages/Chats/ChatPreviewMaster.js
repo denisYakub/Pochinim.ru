@@ -10,19 +10,17 @@ const ChatPreview = ({value, onClick}) => {
     useEffect(() => {
         async function setData(){
             setMaster(await masterController.getWholeInfById(value.id_master));
-            console.log(master);
             setPhoto(await masterController.getMasterPhotoByPath(master.master_photo_path));
         }
 
         if(photo == null){
             setData();
-            console.log(photo);
         }
     })
 
     return(<Fragment>
         <div className="message-wrapper" 
-            onClick={() => onClick(value, master)}>
+            onClick={() => onClick(value, master, photo)}>
             <img src={photo} alt=""></img>
             <div> 
                 <h1>{master.fio?.split(',')[0]}</h1>

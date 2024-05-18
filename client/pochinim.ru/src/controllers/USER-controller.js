@@ -1,5 +1,4 @@
 import { json } from "react-router-dom";
-
 class UserController{
 
     async checkUserEmailInBd(email){
@@ -223,6 +222,7 @@ class UserController{
         const obj = URL.createObjectURL(photo);
 
         return obj;
+        
     }
 }
 

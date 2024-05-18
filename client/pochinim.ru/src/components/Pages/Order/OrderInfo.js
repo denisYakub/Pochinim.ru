@@ -44,7 +44,7 @@ const OrderInfo = ({order, photos}) => {
                     <p>Цена</p>
                     <div className='edit-button'></div>
                 </div>
-                <p>от {order?.price_start} до {order?.price_end}</p>
+                <p>от {order?.price_start_end[0]} до {order?.price_start_end[1]}</p>
             </div>
             <div className="order-info-block">
                 <div className='edit-wrapper-button'>

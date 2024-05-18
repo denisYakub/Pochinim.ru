@@ -30,7 +30,7 @@ class Master{
 
 
     constructor(){
-        this.#fio = 'null, null, null';
+        this.#fio = ['', '', ''];
         this.#occupation = null;
         this.#working_from = null;
         this.#address = null;
@@ -110,6 +110,8 @@ class Master{
     async setAllMasterDataById(id_master){
         const result_master = await masterController.getWholeInfById(id_master);
         //const result_reviews = await masterController.getReviewsById(id_master);
+
+        console.log(result_master);
         
         this.#email = result_master.master_email;
 
@@ -158,7 +160,7 @@ class Master{
     }
 
     get fio(){
-        return this.#fio;
+        return this.#fio.toString();
     }
 
     set fio(new_fio){

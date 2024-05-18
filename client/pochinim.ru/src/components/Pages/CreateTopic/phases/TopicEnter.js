@@ -31,9 +31,27 @@ const TopicEnter = ({TOPIC}) => {
             <h1>Как назвать задачу?</h1>
         </div>
         <div className='createTopic-phase-inputs'>
+            <div style={{display: 'flex', gap: '10px', alignItems: 'baseline'}}>
             <InputWithError placeholder={"Сантехника"} value={topic_name} setValue={setTopic_name} 
                 error={error} setError={setError} errorText={'Не верное значение'}
                 warning={warning} setWarning={setWarning} warningText={'Заполните поле'}></InputWithError>
+            <Select options={TOPIC.assistenceHints}
+                onChange={e => sessionStorage.setItem('create_topic_theme', JSON.stringify(e.value))}
+                placeholder={
+                    sessionStorage.getItem('create_topic_theme')?
+                    JSON.parse(sessionStorage.getItem('create_topic_theme'))?.topic
+                    :'Выбирите категорию'
+                }
+                styles={{
+                    control: (base) => ({
+                        ...base,
+                        marginTop: '20px',
+                        width: '220px',
+                        borderRadius: '20px'
+                    }),
+                }}>
+            </Select>
+            </div>
             <div className="button-hints">
                 <button className="hint" onClick={() => activateHint("Сантехника")}>
                 Сантехник
@@ -48,8 +66,7 @@ const TopicEnter = ({TOPIC}) => {
                 Дистанционно
                 </button>
             </div>
-            <Select options={TOPIC.assistence_hints}
-                    onChange={e => sessionStorage.setItem('create_topic_theme', e.value)}></Select>
+            
         </div>
     </div>)
 }

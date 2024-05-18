@@ -6,12 +6,18 @@ class Chat{
     #chats
     #messages
     #id_topic
+    #id_user
+
+    #companion_info;
+
     constructor(){
         this.#id_companion = null;
+        this.#id_user = null;
         this.#chats = [];
         this.#id_chat = null;
         this.#messages = [];
         this.#id_topic = null;
+        this.#companion_info = {};
     }
 
     async setChatIDByIdTopic(id_topic){
@@ -22,9 +28,23 @@ class Chat{
 
     async downloadChatsOfTopic(id_topic, email){
         if(email == localStorage.getItem('mail')){
-            this.#chats = await chatController.getChatsUserByIdTopic(id_topic);
+            const respond = await chatController.getChatsUserByIdTopic(id_topic);
+            if(!respond.status){
+                this.#chats = respond;
+            }else if(respond.status == 303){
+                console.log('copy');
+            }else{
+                throw new Error('Говнокод')
+            }
         }else{
-            this.#chats = await chatController.getChatsMaster(localStorage.getItem('id-master'));
+            const respond = await chatController.getChatsMaster(localStorage.getItem('id-master'));
+            if(!respond.status){
+                this.#chats = respond;
+            }else if(respond.status == 303){
+                console.log('copy');
+            }else{
+                throw new Error('Говнокод')
+            }
         }
     }
 
@@ -33,7 +53,6 @@ class Chat{
             const respond = await chatController.getMessages(this.#id_chat);
             if(!respond.status){
                 this.#messages = respond;
-                console.log(respond);
             }else if(respond.status == 303){
                 console.log('copy');
             }else{
@@ -77,6 +96,22 @@ class Chat{
         if(new_id_topic != null){
             this.#id_topic = new_id_topic;
         }
+    }
+
+    set companionInfo(new_companion_info){
+        this.#companion_info = new_companion_info;
+    }
+
+    get companionInfo(){
+        return this.#companion_info;
+    }
+
+    set userId(new_id_user){
+        this.#id_user = new_id_user;
+    }
+
+    get userId(){
+        return this.#id_user;
     }
 }
 

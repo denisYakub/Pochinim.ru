@@ -11,10 +11,34 @@ const PaymentEnter = ({TOPIC}) => {
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         try {
             TOPIC.paymentOption = paymentOption;
+        } catch (error) {
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
+        }
+        
+    },[paymentOption])
+
+    useEffect(() => {
+        try {
             TOPIC.paymentPriceStart = paymentPriceStart;
+        } catch (error) {
+            if(error.message == 'пустое значение'){
+                setWarning(true);
+            }else if(error.message == 'неверное значение'){
+                setError(true);
+            }
+        }
+        
+    },[paymentPriceStart])
+
+    useEffect(() => {
+        try {
             TOPIC.paymentPriceEnd = paymentPriceEnd;
         } catch (error) {
             if(error.message == 'пустое значение'){
@@ -24,7 +48,7 @@ const PaymentEnter = ({TOPIC}) => {
             }
         }
         
-    },[paymentOption, paymentPriceStart, paymentPriceEnd])
+    },[paymentPriceEnd])
 
     const inputRadioCheck = (value) => {
         console.log(value);

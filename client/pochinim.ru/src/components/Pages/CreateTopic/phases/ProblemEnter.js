@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import topicController from '../../../../controllers/TOPIC-controller';
 import InputWithError from '../../../../animations/input-error-field';
 
-const optionsOfWhatHappend = await topicController.getListOfWhatHappend();
-
 const ProblemEnter = ({TOPIC}) => {
+
+    const [optionsOfWhatHappend, ] = useState(JSON.parse(sessionStorage.getItem('create_topic_theme'))?.problem_hints);
+
     const [localProblem, setLocalProblem] = useState("");
     const [problem, setProblem] = useState(TOPIC.problem);
 

@@ -229,3 +229,8 @@
     display: flex;
     gap: 20px;
 }
+
+.list-of-master{
+    display: flex;
+    flex-direction: column;
+}
