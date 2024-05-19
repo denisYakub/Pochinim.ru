@@ -54,7 +54,7 @@ const NewOrderForMaster = () => {
                             <div style={{opacity: '0.7'}}>
                                 <h1>Чат с клиентом</h1>
                                 <p>{data.state.chat.text_of_last_message}</p>
-                                <p>Пока клиент определился с мастером, возможно к вам еще вернеться</p>
+                                <h1>Вы выполнили этот заказ</h1>
                             </div>}
                     </div>
                 :

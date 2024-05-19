@@ -104,6 +104,33 @@ class TopicController{
 
         return await result.json();
     }
+
+    async closeTopic(id_topic, token){
+        const respond = await fetch(`http://localhost:4000/api/topics/close/${id_topic}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+        })
+    }
+
+    async finalizeTopic(stars, head, comment, finalPrice, idMaster, idClient, id_topic, token){
+
+        const body = {stars: stars, head:head, comment: comment, finalPrice: finalPrice, idMaster: idMaster, idClient: idClient}
+        
+        const respond = await fetch(`http://localhost:4000/api/topics/finalize/${id_topic}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(body)
+        })
+    }
     
     async getListOfExistingTopics(){
         const options = ["Сантехник ремонт", "Сантехник ремонт стояка",

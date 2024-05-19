@@ -38,6 +38,44 @@ class MasterService{
             throw error
         }
     }
+    async refresh(refreshToken){
+        try {
+            if(!refreshToken){
+                throw ApiError.UnAuthorizedError();
+            }
+    
+            await TokenService.validateRefreshToken(refreshToken).catch(reas =>{
+                throw ApiError.UnAuthorizedError("validateRefreshToken");
+            })
+            
+    
+            const tokenFromBD = await TokenService.findToken(refreshToken, 'master');
+    
+            if(!tokenFromBD){
+                throw ApiError.UnAuthorizedError();
+            }
+            const id_master = await pool.query(`SELECT id_master FROM masters_tokens WHERE token = '${refreshToken}'`);
+            
+            const id_master_on_return = await id_master.rows[0].id_master;
+            
+            const email = await pool.query(`SELECT master_email, fio FROM masters WHERE id_master = '${id_master_on_return}'`);
+            
+            const master_fio_on_return = email.rows[0].fio;
+
+            const tokens = await TokenService.generateToken(email.rows[0].master_email);
+    
+            await TokenService.saveToken(id_master.rows[0].id_master, (await tokens.refreshToken), 'master');
+    
+            return {
+                "refreshToken": (await tokens.refreshToken), 
+                "accessToken": (await tokens.accessToken),
+                "id_master": id_master_on_return,
+                "login": master_fio_on_return
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
     async saveMasterPhoto(id_master, file_path){
         try {
             

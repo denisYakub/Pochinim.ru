@@ -109,24 +109,22 @@ class UserController{
     }
 
     async logOutUser(){
-        const data = await fetch(`http://localhost:4000/api/users/logout`,{
+        const data = await fetch('http://localhost:4000/api/users/logout', {
+            method: "POST",
             credentials: 'include',
-            method: "GET",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         });
 
-        const ret = await data.json();
-
-        localStorage.removeItem('token');
-        localStorage.removeItem('mail');
-
-        if(ret?.message){
-            return false;
+        if(data.ok){
+            localStorage.removeItem('token');
+            localStorage.removeItem('mail');
+            localStorage.removeItem('id');
+        }else{
+            console.log(data.message);
         }
-        return true;
     }
 
     async getUserInfo(id_user, secondCall = true){

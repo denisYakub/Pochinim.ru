@@ -10,11 +10,14 @@ import AddressesBlock from './MasterBlocks/AddressesBlock';
 import SercicesAndPriceBlock from './MasterBlocks/SercicesAndPriceBlock';
 import ActionBlock from './MasterBlocks/ActionBlock';
 import AchievementsBlock from './MasterBlocks/AchievementsBlock';
+import ReviewsBlock from './MasterBlocks/ReviewsBlock';
 
 const MasterProfile = () => {
 
     const params = useParams();
     const prev_page = params.pev_page;
+    const email_master = params.email;
+    const id_master = params.id;
 
     const MASTER = useContext(contextMaster);
  
@@ -24,7 +27,11 @@ const MasterProfile = () => {
 
     useEffect(() => {
         async function setData(){
-            setMasterInf(await MASTER.setAllMasterDataById(localStorage.getItem('id-master')))
+            if(id_master){
+                setMasterInf(await MASTER.setAllMasterDataById(id_master));
+            }else if(email_master){
+                setMasterInf(await MASTER.setAllMasterDataById(localStorage.getItem('id-master')));
+            }
         };
 
         if(reloadPage){
@@ -62,6 +69,7 @@ const MasterProfile = () => {
                     <AddressesBlock MASTER={MASTER} setReloadPage={setReloadPage}></AddressesBlock>
                     <SercicesAndPriceBlock MASTER={MASTER} setReloadPage={setReloadPage}></SercicesAndPriceBlock>
                     {useParams().pev_page?null:<ActionBlock></ActionBlock>}
+                    {useParams().pev_page?<ReviewsBlock MASTER={MASTER}></ReviewsBlock>:null}
                 </div>
             </div>
         </div>

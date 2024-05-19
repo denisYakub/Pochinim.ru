@@ -81,7 +81,7 @@ class MasterController{
 
         localStorage.setItem('token-master', ret?.accessToken);
         localStorage.setItem('mail-master', email);
-        localStorage.setItem('mail-master', ret?.id_master);
+        localStorage.setItem('id-master', ret?.id_master);
 
         if(ret?.message){
             return false;
@@ -103,6 +103,7 @@ class MasterController{
 
         localStorage.removeItem('token-master');
         localStorage.removeItem('mail-master');
+        localStorage.removeItem('id-master');
 
         if(ret?.message){
             return false;
@@ -123,6 +124,8 @@ class MasterController{
 
             const ret = await data.json();
 
+            console.log(ret);
+
             localStorage.setItem('token-master', ret?.accessToken);
 
             if(ret?.message){
@@ -142,9 +145,11 @@ class MasterController{
     async getWholeInfById(id){
         const data = await fetch(`http://localhost:4000/api/masters/${id}`,{
             method: "GET",
+            credentials: 'include',
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token-master')}`
             }
         });
 

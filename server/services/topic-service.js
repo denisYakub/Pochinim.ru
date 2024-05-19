@@ -89,6 +89,19 @@ class TopicService{
             throw error;
         }
     }
+    
+    async upDateTopicStatus(id_topic, status){
+        try {
+            
+            await pool.query(`UPDATE topics
+                                SET status = '${status}'
+                                    WHERE id_topic = ${id_topic}`);
+
+            return true;
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = new TopicService();

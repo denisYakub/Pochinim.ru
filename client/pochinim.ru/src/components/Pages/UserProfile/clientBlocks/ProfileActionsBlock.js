@@ -8,7 +8,7 @@ const ProfileActionsBlock = () => {
 
     const logout = async () => {
         await USERController.logOutUser();
-        navigate('/')
+        navigate('/');
     };
 
     return (<Fragment>

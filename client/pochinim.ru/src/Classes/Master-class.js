@@ -103,39 +103,48 @@ class Master{
             throw new Error('Аккаунт не существует');
         }else{
             const result = await masterController.logInMaster(this.#email, this.password);
-            console.log(await result.json());
+            console.log(result);
         }
     }
 
     async setAllMasterDataById(id_master){
-        const result_master = await masterController.getWholeInfById(id_master);
+        var result_master = await masterController.getWholeInfById(id_master);
         //const result_reviews = await masterController.getReviewsById(id_master);
 
-        console.log(result_master);
-        
+        if(result_master.message){
+            await masterController.refreshMasterTokens();
+        }
+
+        result_master = await masterController.getWholeInfById(id_master);
+
+        if(result_master.message){
+            console.log(result_master.message);
+            return {};
+        }
+
         this.#email = result_master.master_email;
 
         this.#fio = result_master.fio;
         this.#occupation = result_master.occupation;
         this.#photo = await masterController.getMasterPhotoByPath(result_master.master_photo_path);
-
+    
         if(result_master.working_from == 1){
             this.#selected_options_location = result_master.selected_options_of_location;
         }else if(result_master.working_from == 2){
             this.#address = result_master.location
         }
-
+    
         this.#about_me = result_master.about_me;
         this.#documents = result_master.documents;
         this.#education = result_master.education;
         this.#experience = result_master.experience;
         this.#sercices_price = result_master.sercices_price;
         this.#city = result_master.city;
-
+    
         this.#reviews = result_master.reviews;
         this.#reviews_count = result_master.reviewsCount;
         this.#reviews_stars = result_master.stars;
-
+    
         return true;
     }
 

@@ -1,0 +1,147 @@
+@import'../../../index.css';
+
+.change-order-status{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: var(--color-secondary-grey50);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.change-order-status-client{
+    position: fixed;
+    max-width: 800px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    gap: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: var(--color-main-wihite);
+    border-color: var(--color-main-wihite);
+    border-radius: 20px;
+    box-shadow: 0px 4px 39px 2px rgba(28, 28, 28, 0.10);
+}
+
+.change-order-status-master{
+    position: fixed;
+    max-width: 800px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: var(--color-main-wihite);
+    border-color: var(--color-main-wihite);
+    border-radius: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 39px 2px rgba(28, 28, 28, 0.10);
+}
+
+.close-button{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-button img {
+    width: 45px;
+    height: 44px;
+    border-radius: 22px;
+    background: var(--color-secondary-grey15);
+    opacity: 1;
+    
+    &:hover{
+        opacity: 0.7;
+    }
+}
+.close-button h1{
+    font-size: 20px;
+}
+
+.change-order-status-masters{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.change-order-status-masters div{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.change-order-status-masters div img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.change-order-status-masters div p {
+    font-size: 20px;
+}
+
+.change-order-status-rate-master{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.change-order-status-rate-master h1{
+    font-size: 40px;
+}
+
+.change-order-status-rate-stars{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+}
+
+.change-order-status-leave-comment{
+    width:  100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.change-order-status-leave-comment textarea{
+    width:  100%;
+    height: 275px;
+    resize: none;
+    border-style: solid;
+    background-color: var(--color-secondary-grey-searchline);
+    border-color: var(--color-secondary-grey-searchline);
+    border-radius: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.change-order-status-final-price{
+    width:  100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.change-order-status-final-price h2{
+    margin: 0;
+    font-size: 28px;
+}

@@ -5,6 +5,27 @@
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    opacity: 1;
+}
+
+.order-content-отменен{
+    width: 100%;
+    min-height: 100vh;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.order-content-завершен{
+    width: 100%;
+    min-height: 100vh;
+    padding: 101px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    opacity: 0.7;
 }
 
 .order-navigation{
@@ -115,6 +136,12 @@
     align-items: baseline;
     padding-top: 20px;
     padding-bottom: 20px;
+    opacity: 1;
+    cursor: pointer;
+
+    &:hover{
+        opacity: 0.7;
+    }
 }
 
 .order-preview-info{
@@ -136,6 +163,11 @@
     border-radius: 39px;
     background: var(--color-secondary-green);
     border: 1px solid var(--color-secondary-green);
+    opacity: 1;
+
+    &:hover{
+        opacity: 0.7;
+    }
 }
 
 .order-preview-status-отменен{

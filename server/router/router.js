@@ -20,7 +20,7 @@ router.get('/users/:id_user',
 router.post('/users/login', 
                 userController.logIn);
 router.post('/users/logout', 
-                userController.logOut);
+                userController.logout);
 router.get('/refresh', 
                 userController.refresh);
 router.get('/users/check_email/:email', 
@@ -41,13 +41,14 @@ router.get('/refresh-master',
                 masterController.refresh);
 router.post('/masters/login', 
                 masterController.login); 
-router.post('/masters/logout', 
+router.get('/masters/logout', 
                 masterController.logout);
 router.get('/masters/check_email/:email', 
                 masterController.checkEmail);
 router.get('/masters/:from/:to',
                 masterController.getListOfMastersAndReviews);
 router.get('/masters/:id',
+                authMiddleware,
                 masterController.getMasterFullInfo);
 router.put('/masters/:id_master',
                 multerMiddleware.single('masterPhoto'),
@@ -70,6 +71,12 @@ router.get('/topics/images/:id_topic',
 router.get('/topics/:email',
                 authMiddleware,
                 topicController.getAllUsersTopics);
+router.post('/topics/close/:id_topic',
+                authMiddleware,
+                topicController.closeTopic);
+router.post('/topics/finalize/:id_topic',
+                authMiddleware,
+                topicController.finalizeTopic);
 //=================================================
 
 //==================Photos=========================

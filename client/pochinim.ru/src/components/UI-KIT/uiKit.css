@@ -160,6 +160,12 @@
     align-items: center;
     gap: 5px;
 }
+
+.review-stars img{
+    width: 10px;
+    height: 10px;
+}
+
 .review-date{
     color: var(--color-secondary-grey30);
 }

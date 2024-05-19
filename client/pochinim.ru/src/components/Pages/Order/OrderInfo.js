@@ -1,6 +1,13 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import ChangeOrderStatus from "../../Popups/ChangeOrderStatus/ChangeOrderStatus";
 
 const OrderInfo = ({order, photos}) => {
+
+    const navigate = useNavigate();
+
+    const [active, setActive] = useState(false);
+
     return (<Fragment>
         <div className="phases-wrapper">
             <div className="order-head">
@@ -14,7 +21,13 @@ const OrderInfo = ({order, photos}) => {
                         <p style={{color: '#1C1C1C4D'}}>Создан</p>
                         <p>{order?.date.split('T')[0]}</p>
                     </div>
-                    <button className={`order-preview-status-${order?.status}`}>Заказ {order?.status}</button>
+                    <button className={`order-preview-status-${order?.status}`}
+                        onClick={() => {
+                            if(order?.status=='активен'){
+                                setActive(true)
+                            }
+                        }}
+                    >Изменить</button>
                 </div>
             </div>
             <div className="order-info-block">
@@ -86,6 +99,11 @@ const OrderInfo = ({order, photos}) => {
                 <p>{order?.id_account}</p>
             </div>
         </div>
+        <ChangeOrderStatus 
+            active={active} setActive={setActive}
+            who={'client'} id_order={order?.id_topic}
+            id_client={order?.id_account} head={order?.topic_name}
+        ></ChangeOrderStatus>
     </Fragment>)
 }
 

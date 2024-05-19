@@ -50,18 +50,27 @@ class MasterController{
     }
     async logout(req, res, next){
         try {
-            //const refreshToken = await req.headers.cookie;
-            //const tokenRf = refreshToken.split("=")[1];
             const tokens = await req.headers.cookie;
             
-            const refreshToken = tokens?.split("; ")[0];
-            
-            const tokenRf = refreshToken?.split("=")[1];
+            var refreshToken = tokens;
 
-            const token = await masterService.logOut(tokenRf);
+            if(tokens.includes('; ')){
+                const part_1 = tokens?.split("; ")[0]
+                const part_2 = tokens?.split("; ")[1]
+
+                if(part_1.includes('refreshToken-master')){
+                    refreshToken = part_1;
+                }else{
+                    refreshToken = part_2;
+                }
+            }
+            
+            const token = refreshToken?.split("=")[1];
+
+            const masterData = await masterService.logOut(token);
             res.clearCookie('refreshToken-master');
 
-            return res.json((await token));
+            return res.json((await masterData));
         } catch (e) {
             next(e);
         }
@@ -70,17 +79,24 @@ class MasterController{
     async refresh(req, res, next){
         try {
             const tokens = await req.headers.cookie;
-
+            
             var refreshToken = tokens;
 
             if(tokens.includes('; ')){
-                refreshToken = tokens?.split("; ")[0];
+                const part_1 = tokens?.split("; ")[0]
+                const part_2 = tokens?.split("; ")[1]
+
+                if(part_1.includes('refreshToken-master')){
+                    refreshToken = part_1;
+                }else{
+                    refreshToken = part_2;
+                }
             }
             
             const token = refreshToken?.split("=")[1];
             
             const userData = await masterService.refresh(token);
-            
+
             res.cookie('refreshToken-master', (await userData).refreshToken, 
                         {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 

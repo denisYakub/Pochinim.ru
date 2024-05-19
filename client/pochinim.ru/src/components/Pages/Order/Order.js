@@ -93,39 +93,12 @@ const Order = () =>{
                     {comps[id]}
                 </div>
             :order?.status == 'отменен'?
-                <div className="order-content">
+                <div className="order-content-отменен">
                     {comps[id]}
                 </div>
                 :order?.status == 'завершен'?
-                <div className="order-content">
+                <div className="order-content-завершен">
                     {comps[id]}
-                    <div className="order-review">
-                        {review[0]?.null?
-                            <div className="order-review-yours-empty">
-                                <p>Ваш отзыв на мастера</p>
-                                <p>Нет отзыва</p>
-                                <button className="blue-review-button">Оставить отзыв на мастера</button>
-                            </div>
-                        :       
-                            <div className="order-review-yours">
-                                <p>{review[0]?.stars}</p>
-                                <p>{review[0]?.date}</p>
-                                <p>{review[0]?.id_from}</p>
-                                <p>{review[0]?.text}</p>
-                            </div>}
-                        {review[1]?.null?
-                            <div className="order-review-masters-empty">
-                                <p>Отзыв мастера на Вас</p>
-                                <p>Нет отзыва</p>
-                            </div>
-                        :
-                            <div className="order-review-masters">
-                                <p>{review[1]?.stars}</p>
-                                <p>{review[0]?.date}</p>
-                                <p>{review[0]?.id_from}</p>
-                                <p>{review[0]?.text}</p>
-                            </div>}
-                    </div>
                 </div>
             :navigate(`/MyOrders/${email}`)};
         </div>

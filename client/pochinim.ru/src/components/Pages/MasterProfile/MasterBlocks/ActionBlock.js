@@ -1,8 +1,15 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import masterController from '../../../../controllers/MASTER-controller';
 
 const ActionsBlock = () => {
 
+    const navigate = useNavigate();
+    
+    const logout = async () => {
+        await masterController.logOutMaster()
+        navigate('/')
+    };
 
     return (<Fragment>
         <div className="phases-wrapper">    
@@ -11,7 +18,7 @@ const ActionsBlock = () => {
                 <Link className="link-black">Удалить</Link>
             </div>
             <div>
-                <Link className="link-black" onClick={() => {}}>Выйти</Link>
+                <Link className="link-black" onClick={() => logout()}>Выйти</Link>
             </div>
         </div>
     </Fragment>);

@@ -1,5 +1,8 @@
 const pool = require("../database");
+const chatService = require("../services/chat-service");
+const reviewService = require("../services/review-service");
 const topicService = require("../services/topic-service");
+const chatController = require("./chat-controller");
 
 class TopicController{
     async createTopic(req, res, next){
@@ -97,6 +100,44 @@ class TopicController{
             result.photo_paths = paths;
 
             return res.json(result);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async closeTopic(req, res, next){
+        try {
+            
+            const id_topic = req.params.id_topic;
+
+            const result = await topicService.upDateTopicStatus(id_topic, 'отменен');
+
+            if(result){
+                const result_2 = await chatService.deteChatsWithIdTopic(id_topic);
+            }
+
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async finalizeTopic(req, res, next){
+        try {
+
+            const id_topic = req.params.id_topic;
+
+            const { stars, head, comment, finalPrice, idMaster, idClient } = req.body;
+
+            const result = await topicService.upDateTopicStatus(id_topic, 'завершен');
+
+            if(result){
+                const result_2 = await chatService.deleteChatsExeptOneByIdMasterAndChangeStatus(id_topic, idMaster, 'завершен');
+
+                if(result_2){
+                    await reviewService.leaveReview(id_topic, stars, head, comment, finalPrice, idMaster, idClient);
+                }
+            }
+
         } catch (error) {
             next(error);
         }

@@ -2,73 +2,6 @@ const pool = require('../database');
 const masterService = require('./master-service');
 const userService = require('./user-service');
 class ChatService{
-    /*async sendMessage(email_sender, id_companion, message_text, id_topic, sender_role){
-        try {
-            var chat_exists;
-            var id_sender;
-            var id_chat;
-            
-            if(sender_role == 'user'){
-                id_sender = await userService.getUserIdByMail(email_sender);
-
-                chat_exists = (await pool.query(`SELECT COUNT(*) FROM chats
-                                WHERE id_user = '${id_sender}' AND id_master = '${id_companion}' AND id_topic = '${id_topic}'`)).rows[0].count;
-
-                if(chat_exists == 0){
-                    id_chat = await this.createChat(id_sender, id_companion, message_text, id_topic);
-                }else{
-                    id_chat = (await pool.query(`SELECT id_chat FROM chats
-                                    WHERE id_user = '${id_sender}' AND id_master = '${id_companion}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
-
-                    await pool.query(`UPDATE chats SET text_of_last_message = '${message_text}' WHERE id_chat = '${id_chat}'`)
-                }   
-            }else{
-                id_sender = await masterService.getMasterIdByMail(email_sender);
-
-                chat_exists = (await pool.query(`SELECT COUNT(*) FROM chats
-                                WHERE id_user = '${id_companion}' AND id_master = '${id_sender}' AND id_topic = '${id_topic}'`)).rows[0].count;
-
-                if(chat_exists == 0){
-                    id_chat = await this.createChat(id_companion, id_sender, message_text, id_topic);
-                }else{
-                    id_chat = (await pool.query(`SELECT id_chat FROM chats
-                                    WHERE id_user = '${id_companion}' AND id_master = '${id_sender}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
-
-                    await pool.query(`UPDATE chats SET text_of_last_message = '${message_text}' WHERE id_chat = '${id_chat}'`)
-                }
-            }
-
-            await pool.query(`INSERT INTO messages
-                                (id_chat, sender_email, message)
-                                    VALUES
-                                ('${id_chat}', '${email_sender}', '${message_text}')`);
-
-            return;
-        } catch (error) {
-            throw error;
-        }
-    }*/
-    /*async getAllMessagesFromChat(sender_email, id_companion, id_topic, sender_role){
-        try {
-            var id_chat;
-            var id_sender;
-
-            if(sender_role == 'user'){
-                id_sender = await userService.getUserIdByMail(sender_email);
-                id_chat = (await pool.query(`SELECT id_chat FROM chats
-                            WHERE id_user = '${id_sender}' AND id_master = '${id_companion}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
-            }else{
-                id_sender = await masterService.getMasterIdByMail(sender_email);
-                id_chat = (await pool.query(`SELECT id_chat FROM chats
-                            WHERE id_user = '${id_companion}' AND id_master = '${id_sender}' AND id_topic = '${id_topic}'`)).rows[0].id_chat;
-            }
-
-            return (await pool.query(`SELECT * FROM messages WHERE id_chat = '${id_chat}'`)).rows;
-
-        } catch (error) {
-            throw error;
-        }
-    }*/
     async getChatID(id_user, id_master, id_topic, message_text){
         try {
             const chat_exists = (await pool.query(`SELECT COUNT(*) FROM chats
@@ -141,6 +74,50 @@ class ChatService{
     async getChatByIdMaster(id_master){
         try {
             return (await pool.query(`SELECT * FROM chats WHERE id_master = ${id_master}`)).rows;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async deteChatsWithIdTopic(id_topic){
+        try {
+
+            const id_chats = (await pool.query(`SELECT id_chat FROM chats
+                                                WHERE id_topic = ${id_topic}`)).rows;
+
+            for(const id_chat of id_chats){
+                await pool.query(`DELETE FROM messages
+                                    WHERE id_chat = ${id_chat.id_chat}`)
+
+                await pool.query(`DELETE FROM chats
+                                    WHERE id_chat = ${id_chat.id_chat}`)
+            }
+
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async deleteChatsExeptOneByIdMasterAndChangeStatus(id_topic, id_master, status){
+        try {
+
+            const id_chats = (await pool.query(`SELECT id_chat FROM chats
+                                                            WHERE id_topic = ${id_topic} AND id_master != ${id_master}`)).rows;
+
+            console.log(id_chats);
+            
+            for(const id_chat of id_chats){
+                await pool.query(`DELETE FROM messages
+                                         WHERE id_chat = ${id_chat.id_chat}`);
+                                                
+                await pool.query(`DELETE FROM chats
+                                    WHERE id_chat = ${id_chat.id_chat}`);
+                }
+            
+            await pool.query(`UPDATE chats
+                                SET status = '${status}'
+                                    WHERE id_topic = ${id_topic} AND id_master = ${id_master}`);
+            
+            return true;
         } catch (error) {
             throw error;
         }

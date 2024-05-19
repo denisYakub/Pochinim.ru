@@ -2,6 +2,8 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import {Link, useNavigate} from "react-router-dom";
 import masterController from '../../../controllers/MASTER-controller';
 import { contextChats } from "../../../contexts/contextChats";
+import StarImg from '../../../img/star-img.png';
+import StarFullImg from '../../../img/star-full-img.png';
 
 const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
 
@@ -77,12 +79,12 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                     <div className="master-main-info-text">
                         <div className="master-fio-stats">
                             <div className="master-fio">
-                                <div className="master-h">{value?.fio}</div>
+                                <div className="master-h">{value?.fio?.replace(',', ' ')?.replace(',', ' ')}</div>
                             </div>
                             <div className="master-stats">
                                 <div className="master-stat">
                                     <div className="star-icon"></div>
-                                    <p>{value?.stars}</p>
+                                    <p>{value?.stars?value?.stars:'нет оценок'}</p>
                                 </div>
                                 <div className="master-stat">
                                     <div className="review-icon"></div>
@@ -109,12 +111,18 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                     <div className="experience-education-master">
                         {value.experience?.map((val, ind) => {
                             if(ind == 0){
-                                return(<p key={ind}>{val}</p>)                  
+                                return(<div className="services-prices" style={{marginTop: '10px'}}>
+                                        <p>{val[0]}</p>
+                                        <p>{val[1]}</p>
+                                    </div>)                  
                             }
                         })}
                         {value.education?.map((val, ind) => {
                             if(ind == 0){
-                                return(<p key={ind}>{val}</p>)  
+                                return(<div className="services-prices" style={{marginTop: '10px'}}>
+                                            <p>{val[0]}</p>
+                                            <p>{val[1]}</p>
+                                        </div>)  
                             }
                         })}
                         <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
@@ -149,28 +157,39 @@ const MasterProfileCard = ({value, setActivePop, setTextPop, idTopic}) => {
                     <div className="master-h">Отзывы</div>
                     <div className="reviews">
                         {value?.reviews?.map((val, indx) => {
+                            if(indx <= 2){
                             return(<div key={indx} className="review">
                                 <div className="review-stars-date">
                                     <div className="review-stars">
-                                        <div className={setStars(val?.reviews.stars)}></div>
-                                        {val?.reviews.stars}
+                                        {val?.stars>=1?<img src={StarFullImg} alt=''></img>
+                                        :<img src={StarImg} alt=''></img>}
+                                        {val?.stars>=2?<img src={StarFullImg} alt=''></img>
+                                        :<img src={StarImg} alt=''></img>}
+                                        {val?.stars>=3?<img src={StarFullImg} alt=''></img>
+                                        :<img src={StarImg} alt=''></img>}
+                                        {val?.stars>=4?<img src={StarFullImg} alt=''></img>
+                                        :<img src={StarImg} alt=''></img>}
+                                        {val?.stars>=5?<img src={StarFullImg} alt=''></img>
+                                        :<img src={StarImg} alt=''></img>}
                                     </div>
                                     <div className="review-date">
-                                        {val?.reviews.date}
+                                        {val?.date?.split('T')[0]}
                                     </div>
                                 </div>
                                 <div className="review-from-topic">
-                                    <div className="review-from">{val?.reviews.from}</div>
-                                    <div className="review-topic">{val?.reviews.topic}</div>
+                                    <div className="review-from">{val?.id_client}</div>
+                                    <div className="review-topic">{val?.head}</div>
                                 </div>
                                 <div className="review-text">
-                                    {val?.reviews.text}
+                                    {val?.text}
                                 </div>
                                 <div className="review-price">
                                     <p>Стоимость работ:</p>
-                                    <div>{val?.reviews.price}</div>
+                                    <div>{val?.price?.split(',')[0]}</div>
+                                    {}
                                 </div>
                             </div>)
+                            }
                         })}
                     </div>
                     <Link className="link-black" to={`/CreateTopic/MasterProfile/${value?.id}`}>
